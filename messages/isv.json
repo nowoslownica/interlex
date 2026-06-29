@@ -1,0 +1,14 @@
+{
+  "Navigation": {
+    "search": "Iskati",
+    "admin": "Administracija",
+    "deduplication": "Deduplikacija"
+  },
+  "Deduplication": {
+    "title": "Deduplikacija bazy danyh",
+    "searchPlaceholder": "Iskati po leme ili kirilice..."
+  },
+  "common": {
+    "title": "Medzuslovensky lexykon"
+  }
+}

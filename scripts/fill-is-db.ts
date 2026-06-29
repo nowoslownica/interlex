@@ -30,9 +30,7 @@ function checkAndCleanString(inputStr: string) {
     };
 }
 
-const insertLang = async (lang: string, wordId: bigint, meaning: bigint, value: string) => {
-    const db = await init();
-
+const insertLang = (db, lang: string, wordId: bigint, meaning: bigint, value: string) => {
     const {
         isValid,
         cleanedStr,
@@ -47,7 +45,7 @@ const insertLang = async (lang: string, wordId: bigint, meaning: bigint, value: 
         .run(cleanedStr, isValid ? 1 : 0, wordId, meaning);
 };
 
-const insertRow = async ({
+const insertRow = (db, {
     externalId,
      addition,
      cyr,
@@ -83,9 +81,7 @@ const insertRow = async ({
     frequency: string;
     intelligibility: string;
     sameInLanguages: string;
-}): Promise<[bigint, bigint]> => {
-    const db = await init();
-
+}): [bigint, bigint] => {
     const insert = db.prepare(`INSERT INTO words (
         external_id,
         value,
@@ -156,10 +152,10 @@ const fillDb = async () => {
     const fileContent = fs.readFileSync(file, 'utf8');
     const data = Papa.parse<Array<string>>(fileContent);
 
-    let index = 0;
-    for await (const row of data.data) {
-        index++;
-        if (index === 1) continue; // The first one
+    const db = await init();
+
+    data.data.forEach((row, index) => {
+        if (!index) return;
 
         const [
             id,
@@ -190,7 +186,7 @@ const fillDb = async () => {
             using_example
         ] = row;
 
-        const [wId, mId] = await insertRow({
+        const [wId, mId] = insertRow(db, {
             externalId: parseInt(id, 10),
             addition,
             cyr: "",
@@ -210,58 +206,55 @@ const fillDb = async () => {
             sameInLanguages,
         });
 
-        await insertLang("ru", wId, mId, ru);
-        await insertLang("en", wId, mId, en);
+        insertLang(db, "ru", wId, mId, ru);
+        insertLang(db, "en", wId, mId, en);
         if (mk) {
-            await insertLang("en", wId, mId, en);
+            insertLang(db, "en", wId, mId, en);
         }
         if (sr) {
-            await insertLang("sr", wId, mId, sr);
+            insertLang(db, "sr", wId, mId, sr);
         }
         if (uk) {
-            await insertLang("uk", wId, mId, uk);
+            insertLang(db, "uk", wId, mId, uk);
         }
         if (bg) {
-            await insertLang("bg", wId, mId, bg);
+            insertLang(db, "bg", wId, mId, bg);
         }
         if (pl) {
-            await insertLang("pl", wId, mId, pl);
+            insertLang(db, "pl", wId, mId, pl);
         }
         if (be) {
-            await insertLang("be", wId, mId, be);
+            insertLang(db, "be", wId, mId, be);
         }
         if (cs) {
-            await insertLang("cs", wId, mId, cs);
+            insertLang(db, "cs", wId, mId, cs);
         }
         if (sk) {
-            await insertLang("sk", wId, mId, sk);
+            insertLang(db, "sk", wId, mId, sk);
         }
         if (sl) {
-            await insertLang("sl", wId, mId, sl);
+            insertLang(db, "sl", wId, mId, sl);
         }
         if (hr) {
-            await insertLang("hr", wId, mId, hr);
+            insertLang(db, "hr", wId, mId, hr);
         }
         if (cu) {
-            await insertLang("cu", wId, mId, cu);
+            insertLang(db, "cu", wId, mId, cu);
         }
         if (de) {
-            await insertLang("de", wId, mId, de);
+            insertLang(db, "de", wId, mId, de);
         }
         if (nl) {
-            await insertLang("nl", wId, mId, nl);
+            insertLang(db, "nl", wId, mId, nl);
         }
         if (eo) {
-            await insertLang("eo", wId, mId, eo);
+            insertLang(db, "eo", wId, mId, eo);
         }
 
-        if (index > 100 && index < 130) {
-            console.log(isv, ru, genesis);
-        }
-    }
-    // data.data.forEach((row, index) => {
-    //
-    // })
+        // if (index > 100 && index < 130) {
+        //     console.log(isv, ru, genesis);
+        // }
+    })
 };
 
 (async () => {

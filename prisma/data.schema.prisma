@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-  output   = "./generated/data" // Свой кастомный путь для второй БД
+  output   = "./generated/data"
 }
 
 datasource db {

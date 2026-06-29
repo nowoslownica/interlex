@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { signIn, signOut } from "next-auth/react"
+import {LanguageSwitcher} from "@/components/LanguageSwitcher";
 
 interface HeaderNavProps {
     session: any // Передаем сессию с сервера
@@ -21,6 +22,7 @@ export default function HeaderNav({ session }: HeaderNavProps) {
             <li><Link href="/textbook/ru" className="nav-link">Учебник</Link></li>
             <li><Link href="/about" className="nav-link">О программе</Link></li>
 
+            <LanguageSwitcher />
             {/* Динамическая часть: инфо о юзере и кнопки */}
             {user ? (
                 <>

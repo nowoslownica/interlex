@@ -17,7 +17,7 @@ export const prismaAuth = globalForPrisma.prismaAuth || new AuthClient({ adapter
 
 // 2. Инициализируем основную базу данных приложения (app.db)
 const dataAdapter = new PrismaBetterSqlite3({
-    url: process.env.DATA_DATABASE_URL ?? "file:./prisma/app.db",
+    url: process.env.DATA_DATABASE_URL ?? "file:./prisma/interlex.db",
 });
 export const prismaData = globalForPrisma.prismaData || new DataClient({ adapter: dataAdapter });
 

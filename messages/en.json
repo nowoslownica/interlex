@@ -1,0 +1,14 @@
+{
+  "Navigation": {
+    "search": "Поиск",
+    "admin": "Админка",
+    "deduplication": "Дедупликация"
+  },
+  "Deduplication": {
+    "title": "Дедупликация базы данных",
+    "searchPlaceholder": "Поиск по лемме или кириллице..."
+  },
+  "common": {
+    "title": "Междуславянский лексикон"
+  }
+}
