@@ -387,7 +387,8 @@ export const ModelName = {
   User: 'User',
   Account: 'Account',
   Session: 'Session',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  FeaturePermission: 'FeaturePermission'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -403,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "featurePermission"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -703,6 +704,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FeaturePermission: {
+      payload: Prisma.$FeaturePermissionPayload<ExtArgs>
+      fields: Prisma.FeaturePermissionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FeaturePermissionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturePermissionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FeaturePermissionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturePermissionPayload>
+        }
+        findFirst: {
+          args: Prisma.FeaturePermissionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturePermissionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FeaturePermissionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturePermissionPayload>
+        }
+        findMany: {
+          args: Prisma.FeaturePermissionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturePermissionPayload>[]
+        }
+        create: {
+          args: Prisma.FeaturePermissionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturePermissionPayload>
+        }
+        createMany: {
+          args: Prisma.FeaturePermissionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FeaturePermissionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturePermissionPayload>[]
+        }
+        delete: {
+          args: Prisma.FeaturePermissionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturePermissionPayload>
+        }
+        update: {
+          args: Prisma.FeaturePermissionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturePermissionPayload>
+        }
+        deleteMany: {
+          args: Prisma.FeaturePermissionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FeaturePermissionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FeaturePermissionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturePermissionPayload>[]
+        }
+        upsert: {
+          args: Prisma.FeaturePermissionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturePermissionPayload>
+        }
+        aggregate: {
+          args: Prisma.FeaturePermissionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFeaturePermission>
+        }
+        groupBy: {
+          args: Prisma.FeaturePermissionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FeaturePermissionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FeaturePermissionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FeaturePermissionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -744,7 +819,8 @@ export const UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   emailVerified: 'emailVerified',
-  image: 'image'
+  image: 'image',
+  role: 'role'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -787,6 +863,16 @@ export const VerificationTokenScalarFieldEnum = {
 export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
+export const FeaturePermissionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  featureKey: 'featureKey',
+  createdAt: 'createdAt'
+} as const
+
+export type FeaturePermissionScalarFieldEnum = (typeof FeaturePermissionScalarFieldEnum)[keyof typeof FeaturePermissionScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -820,6 +906,13 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'Role'
+ */
+export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
     
 
 
@@ -950,6 +1043,7 @@ export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
   session?: Prisma.SessionOmit
   verificationToken?: Prisma.VerificationTokenOmit
+  featurePermission?: Prisma.FeaturePermissionOmit
 }
 
 /* Types for Logging */

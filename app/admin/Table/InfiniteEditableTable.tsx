@@ -10,6 +10,7 @@ import {
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { EditableCell } from './EditableCell';
 import {EditableLanguageCell} from "@/app/admin/Table/EditableLanguageCell";
+import Link from "next/link";
 
 // Интерфейс структуры данных
 interface RowData {
@@ -249,19 +250,40 @@ export default function InfiniteEditableTable() {
 
     return (
         <div className="flex flex-col gap-2 p-4 w-full">
-            <div className="relative max-w-md">
-                <input
-                    type="text"
-                    placeholder="Поиск по всем языкам..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 pr-10"
-                />
-                {isFetching && !isFetchingNextPage && (
-                    <div className="absolute right-3 top-2.5 text-xs text-gray-400 animate-pulse">
-                        🔍
-                    </div>
-                )}
+            <div className="flex flex-row gap-2 w-full">
+                {/* Заменили 'max-w-md' на 'flex-1', чтобы блок занимал всю ширину до кнопки */}
+                <div className="relative flex-1">
+                    <input
+                        type="text"
+                        placeholder="Поиск по всем языкам..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 pr-10"
+                    />
+                    {isFetching && !isFetchingNextPage && (
+                        <div className="absolute right-3 top-2.5 text-xs text-gray-400 animate-pulse">
+                            🔍
+                        </div>
+                    )}
+                </div>
+
+                {/* Кнопка сохраняет свои размеры и прижимается к правому краю */}
+                <Link
+                    href="/admin/words/create"
+                    className="inline-flex items-center justify-center shrink-0 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                >
+                    <svg
+                        className="mr-2 h-4 w-4"
+                        xmlns="http://w3.org"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="2"
+                        stroke="currentColor"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    Создать словарную статью
+                </Link>
             </div>
 
 

@@ -22,6 +22,8 @@ model User {
   role          Role      @default(USER) // Роль по умолчанию
   accounts      Account[]
   sessions      Session[]
+
+  permissions   FeaturePermission[]
 }
 
 model Account {
@@ -57,4 +59,17 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model FeaturePermission {
+  id         String   @id @default(cuid())
+  userId     String
+  featureKey String   // Идентификатор фичи, например: "dictionary_create", "users_delete"
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Уникальный индекс, чтобы один юзер не мог получить одну фичу дважды
+  @@unique([userId, featureKey])
+  @@map("feature_permissions")
 }

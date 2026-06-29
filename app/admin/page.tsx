@@ -1,6 +1,7 @@
 import Table from "@/app/admin/Table";
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
+import AdminNav from "@/components/AdminNav";
 
 const AdminPage = async () => {
     const session = await auth()
@@ -17,6 +18,7 @@ const AdminPage = async () => {
     return (
         <div>
             <div>
+                <AdminNav userRole={session.user.role || ""} />
                 <Table />
             </div>
         </div>
