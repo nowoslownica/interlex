@@ -3,6 +3,8 @@
 .idea/
 slovnik*
 *.db
+NOTES.md
+drafts/
 
 # dependencies
 /node_modules

@@ -25,6 +25,11 @@ model Word {
   addition        String?
   sameInLanguages String?
 
+  proto           String?          // Праславянская исходная форма: *synъ, *ryba, *světъ
+  paradigm        String?          // Акцентная парадигма Зализняка: A, B, C
+  protoStemClass  String?          // Класс праславянской основы: ā, jā, o, jo, i, u, consonant
+  stemExtension   String?          // Наращение основы: en, es, et, er
+
   // Обратные связи Prisma
   meanings        Meaning[]
   roots_words     RootWord[]

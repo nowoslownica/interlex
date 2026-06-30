@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import {convertToInterslavic} from "@/lib/proto";
+import {convertToInterslavic, EnhancedLemmaRow, sanitizeProtoSlavic} from "@/lib/proto";
 
 interface FinalLemmaRow {
     interslavic: string;
@@ -20,39 +20,91 @@ async function parseDerksenDictionary() {
         const parser = new PDFParse({ url: pdfUrl });
 
         console.log('2. Извлечение текста из удаленного архива...');
-        const rawText = (await parser.getText()).text;
+        const extractedText = (await parser.getText()).text;
+
+        const rawText = extractedText.normalize('NFKC');
 
         console.log('2. Анализ и сбор славянских лемм...');
 
-        // const regex = /^\*([a-zA-Zěęǫъьščžytúíóāēōǭь́ъ́ь̈ъ̈]+)[^()]+?\(([abc])\)/gm;
-        const regex = /\*([a-zA-Zěęǫъьščžytúíóāēōǭь́ъ́ь̈ъ̈]+)(?=[\s\S]{1,150}\(([abc])\))/g;
+        const regex = /\*([^\s.,;()]+)/g;
 
-        const uniqueLemmas = new Map<string, 'A' | 'B' | 'C'>();
+        const uniqueLemmas = new Map<string, EnhancedLemmaRow>();
+        let totalMatches = 0;
         let match;
-        let totalCount = 0;
 
         while ((match = regex.exec(rawText)) !== null) {
-            totalCount++;
-            const word = match[1].toLowerCase();
-            const paradigm = match[2].toUpperCase() as 'A' | 'B' | 'C';
+            // Вытаскиваем сырое слово со всеми кракозябрами (например: "kг№diti" или "syቸnሢ")
+            const rawProtoWord = match[1].toLowerCase();
 
-            uniqueLemmas.set(word, paradigm);
+            const contextIndex = match.index;
+            const articleContext = rawText.substring(contextIndex, contextIndex + 300).toLowerCase();
+
+            // Ищем парадигму (a, b, c)
+            const paradigmMatch = articleContext.match(/\(([abc])\)/);
+            if (!paradigmMatch) continue;
+
+            const paradigm = paradigmMatch[1].toUpperCase() as 'A' | 'B' | 'C';
+            const headerContext = articleContext.substring(0, 70);
+
+            // Определяем род / часть речи
+            let gender: 'masculine' | 'feminine' | 'neuter' | 'verb' = 'masculine';
+            if (/\b(f|fem)\b\./.test(headerContext) || headerContext.includes('f. ') || headerContext.includes('fem. ')) {
+                gender = 'feminine';
+            } else if (/\b(n|neut)\b\./.test(headerContext) || headerContext.includes('n. ') || headerContext.includes('neut. ')) {
+                gender = 'neuter';
+            } else if (/\b(v|verb)\b\./.test(headerContext) || headerContext.includes('v. ') || headerContext.includes('verb. ') || rawProtoWord.endsWith('ti') || rawProtoWord.includes('ti')) {
+                gender = 'verb';
+            }
+
+            let protoStemClass = 'o';
+            let stemExtension: string | undefined = undefined;
+
+            // Парсим класс основы
+            if (headerContext.includes('jā') || headerContext.includes('ja-st')) protoStemClass = 'jā';
+            else if (headerContext.includes('ā-st') || headerContext.includes('a-st')) protoStemClass = 'ā';
+            else if (headerContext.includes('jo-st')) protoStemClass = 'jo';
+            else if (headerContext.includes('o-st')) protoStemClass = 'o';
+            else if (headerContext.includes('i-st') || headerContext.includes(' i ')) protoStemClass = 'i';
+            else if (headerContext.includes('u-st') || headerContext.includes(' u ')) protoStemClass = 'u';
+            else if (headerContext.includes('en-st') || headerContext.includes('n-st')) { protoStemClass = 'consonant'; stemExtension = 'en'; }
+            else if (headerContext.includes('es-st') || headerContext.includes('s-st')) { protoStemClass = 'consonant'; stemExtension = 'es'; }
+
+            totalMatches++;
+
+            // Очищаем праславянское слово от мусора ДО конвертации
+            // Убираем битые символы Mojibake (Г, в, №, б, а̀, †, ‰ и т.д.), сохраняя буквы n, r, t!
+            const cleanProtoWord = rawProtoWord
+                .replace(/[гвв‚б№†‰œўћўќіїєџћ门户趨]/g, '') // Полный спектр кракозябр кодировки Windows-1252/Brill
+                .replace(/[ሢቲቲ]́?/g, 'ъ')
+                .replace(/ᆑ́?/g, 'ь')
+                .replace(/ቸ/g, 'ъ')
+                .replace(/ቐ/g, 'ě')
+                .replace(/ቤ/g, 'e')
+                .replace(/ቡ/g, 'o')
+                .replace(/ቖ/g, 'o')
+                .replace(/ብ/g, 'y')
+                .replace(/ታ/g, 'a');
+
+            // Теперь на вход транслятору идет слово С СОХРАНЕННЫМИ согласными (kuditi, synъ)
+            const interslavicWord = convertToInterslavic(cleanProtoWord);
+            const uniqueKey = `${interslavicWord}_${gender}`;
+
+            uniqueLemmas.set(uniqueKey, {
+                interslavic: interslavicWord,
+                protoSlavic: cleanProtoWord, // Чистая славянская латиница
+                paradigm: paradigm,
+                gender: gender,
+                protoStemClass: protoStemClass,
+                stemExtension: stemExtension
+            });
         }
 
-
-        const finalDatabase: FinalLemmaRow[] = Array.from(uniqueLemmas.entries()).map(([protoWord, paradigm]) => {
-            return {
-                interslavic: convertToInterslavic(protoWord),
-                protoSlavic: protoWord,
-                paradigm: paradigm
-            };
-        });
-
+        const finalDatabase = Array.from(uniqueLemmas.values());
         finalDatabase.sort((a, b) => a.interslavic.localeCompare(b.interslavic));
 
-        fs.writeFileSync('./dersen_accents.json', JSON.stringify(finalDatabase, null, 2), 'utf-8');
+        fs.writeFileSync('./dersen_accents_2.json', JSON.stringify(finalDatabase, null, 2), 'utf-8');
 
-        console.log(`\nУспех! Распознано статей в книге: ${totalCount}`);
+        console.log(`\nУспех! Распознано статей в книге: ${totalMatches}`);
         console.log(`Уникальных праславянских корней собрано: ${uniqueLemmas.size}`);
 
         // Здесь данные можно сохранить в итоговый JSON-файл

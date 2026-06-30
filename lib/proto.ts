@@ -1,9 +1,19 @@
+// Интерфейс расширенной записи в нашей базе данных
+export interface EnhancedLemmaRow {
+    interslavic: string;       // Междуславянская лемма
+    protoSlavic: string;        // Праславянский прообраз
+    paradigm: 'A' | 'B' | 'C';   // Акцентный тип Зализняка
+    gender: 'masculine' | 'feminine' | 'neuter' | 'verb'; // Грамматический род/категория
+    protoStemClass: string;     // Исторический класс основы (ā, jā, o, jo, i, u, consonant)
+    stemExtension?: string;     // Наращение основы в падежах (en, es, et, er)
+}
+
 /**
  * Конвертирует праславянскую лемму в стандартную междуславянскую орфографию
  * @param protoWord Сырое праславянское слово из словаря Оландера
  * @returns Очищенное междуславянское слово
  */
-export function convertToInterslavic(protoWord: string): string {
+export function convertToInterslavic_old(protoWord: string): string {
     // Приводим к нижнему регистру и очищаем от пробелов
     let word = protoWord.toLowerCase().trim();
 
@@ -57,3 +67,81 @@ export function convertToInterslavic(protoWord: string): string {
 
     return word;
 }
+
+/**
+ * Исправленный транслятор фонем: бережно очищает диакритику, сохраняя согласные
+ */
+export function convertToInterslavic(protoWord: string): string {
+    let word = protoWord.toLowerCase().trim();
+
+    // 1. Убираем абсолютно все надстрочные знаки (тоны, макроны долготы ¯) со ВСЕХ букв
+    // \u0304 - макрон долготы, который часто ломал согласные n̄, r̄, t̄
+    word = word.replace(/[\u0301\u0300\u0302\u0311\u0304\u0306\u030b\u0307]/g, '');
+
+    // Нормализуем базовые гласные
+    word = word
+        .replace(/[āáǎ]/g, 'a')
+        .replace(/[eéēěě́]/g, 'e')
+        .replace(/[oóō]/g, 'o')
+        .replace(/[uúū]/g, 'u')
+        .replace(/[iíī]/g, 'i');
+
+    // 2. Метатеза плавных в начале слова (ort-/olt- -> rat-/lat-)
+    if (/^[or]t/i.test(word)) {
+        word = word.replace(/^or(?=[bcdfghjklmnprstvxzščž])/, 'ra').replace(/^ol(?=[bcdfghjklmnprstvxzščž])/, 'la');
+    }
+
+    // 3. Метатеза плавных внутри корня (TORT -> RAT, TERT -> RĚT)
+    word = word.replace(/([bcdfghjklmnprstvxzščž])or([bcdfghjklmnprstvxzščž])/g, '$1ra$2')
+        .replace(/([bcdfghjklmnprstvxzščž])ol([bcdfghjklmnprstvxzščž])/g, '$1la$2')
+        .replace(/([bcdfghjklmnprstvxzščž])er([bcdfghjklmnprstvxzščž])/g, '$1rě$2')
+        .replace(/([bcdfghjklmnprstvxzščž])el([bcdfghjklmnprstvxzščž])/g, '$1lě$2');
+
+    // 4. Носовые гласные (Юсы)
+    word = word.replace(/[ǫǭ]/g, 'ų').replace(/ę/g, 'ę');
+
+    // 5. Падение и вокализация редуцированных
+    word = word.replace(/[ъь]$/, ''); // На конце строго удаляем
+    word = word.replace(/ь/g, 'e');   // Внутри вокализуем
+    word = word.replace(/ъ/g, 'o');
+
+    // 6. Специфические согласные
+    word = word.replace(/ʒ/g, 'z').replace(/[ľĺ]/g, 'lj').replace(/[ńń̄]/g, 'nj').replace(/ŕ/g, 'r');
+
+    return word;
+}
+import * as fs from 'fs';
+import * as path from 'path';
+
+// Загружаем автоматически заполненную карту глифов
+const glyphMapPath = path.resolve('./brill_glyph_map.json');
+const brillGlyphMap: Record<string, string> = JSON.parse(fs.readFileSync(glyphMapPath, 'utf-8'));
+
+/**
+ * Динамический дешифратор на основе сгенерированной карты глифов
+ */
+export function sanitizeProtoSlavic(rawPdfWord: string): string {
+    let word = rawPdfWord.toLowerCase().trim();
+
+    // Ищем все токены /gXXXX в слове
+    const matches = word.match(/\/g\d+/g);
+
+    if (matches) {
+        for (const token of matches) {
+            // Берем дешифрованную букву из нашей карты (ъ, ь, ě и т.д.)
+            const replacementChar = brillGlyphMap[token];
+
+            // Заменяем токен на реальную славянскую букву.
+            // Если глиф пустой (это был знак ударения) — он заменится на пустую строку "" и сотрется
+            word = word.replace(token, replacementChar || '');
+        }
+    }
+
+    // Очищаем мелкие остатки вёрстки и нормализуем согласные
+    word = word
+        .replace(/w/g, 'v')
+        .replace(/[гвв‚б№†‰œўћўќіїєџћгâв‹ã¬]/g, '');
+
+    return word;
+}
+
