@@ -2,6 +2,11 @@
 import {isvToCyr, isvToTranscription, standardToSimple, standardToSimpleCyr} from "@/lib/isv";
 import React, {useEffect, useMemo, useState} from "react";
 import Link from "next/link";
+import {extractProtoStems} from "@/lib/grammar/morphonology";
+import {conjugateFullVerb} from "@/lib/grammar/verb/conjugator";
+import {VerbConjugationTables} from "@/app/words/[id]/VerbConjugationTables";
+import {NounDeclensionTables} from "@/app/words/[id]/NounDeclensionTables";
+import {declineWordAutomatically} from "@/lib/grammar/declineNoun";
 
 const Word = ({ item, currentScript }: any) => {
     const [cognateWords, setCognateWords] = useState<any[]>([]);
@@ -17,6 +22,79 @@ const Word = ({ item, currentScript }: any) => {
     const meta = {
         partOfSpeech: item.pos,
     };
+
+    const [showParadigm, setShowParadigm] = useState<boolean>(false);
+
+    const isVerb = meta.partOfSpeech === 'v';
+    const isNominal = ['n', 'adj'].includes(meta.partOfSpeech);
+
+    // На лету вычисляем глагольную парадигму, если это глагол
+    let verbData = null;
+    if (isVerb) {
+        try {
+            const stems = extractProtoStems(item.value);
+            verbData = conjugateFullVerb({
+                infinitive: item.value,
+                infStem: stems.infStem,
+                presentStem: stems.presentStem,
+                aoristStem: stems.aoristStem,
+                verbClass: stems.verbClass,
+                aspect: meta.aspect || 'imperfective'
+            });
+        } catch (e) {
+            console.error("Ошибка генерации парадигмы глагола:", e);
+        }
+    }
+
+    let nounData;
+    if (isNominal) {
+        try {
+            // Константы падежей и чисел, соответствующие типам в declineNoun.ts
+            const CASES_LIST = [
+                { key: 'nominative', label: 'Именительный', short: 'Им.' },
+                { key: 'genitive', label: 'Родительный', short: 'Род.' },
+                { key: 'dative', label: 'Дательный', short: 'Дат.' },
+                { key: 'accusative', label: 'Винительный', short: 'Вин.' },
+                { key: 'instrumental', label: 'Творительный', short: 'Твор.' },
+                { key: 'locative', label: 'Местный', short: 'Мест.' },
+                { key: 'vocative', label: 'Звательный', short: 'Зват.' },
+            ] as const;
+
+            // Строгое соответствие вашему типу targetNumber
+            const NUMBERS_LIST = [
+                { key: 'singular', title: 'Единственное (Sg)' },
+                { key: 'dual', title: 'Двойственное (Du)' },
+                { key: 'plural', title: 'Множественное (Pl)' },
+            ] as const;
+
+            const paradigmData: Record<string, Record<string, string>> = {
+                singular: {},
+                dual: {},
+                plural: {},
+            };
+
+            for (const num of NUMBERS_LIST) {
+                for (const c of CASES_LIST) {
+                    try {
+                        // Вызываем ваш тоновый движок для каждой ячейки таблицы
+                        paradigmData[num.key][c.key] = declineWordAutomatically({
+                            dbItem: item.value,
+                            targetCase: c.key,
+                            targetNumber: num.key,
+                        });
+                    } catch (error) {
+                        console.error(`Ошибка генерации формы: ${num.key} ${c.key}`, error);
+                        paradigmData[num.key][c.key] = '—';
+                    }
+                }
+            }
+            console.log(paradigmData);
+
+            nounData = paradigmData;
+        } catch {
+            console.log('Не удалось загрузить модуль деклинования');
+        }
+    }
 
     const definition = item.meanings?.meaning || "Здесь будет толкование";
     const examples = [
@@ -80,7 +158,7 @@ const Word = ({ item, currentScript }: any) => {
     return (
         <article className="max-w-3xl mx-auto mb-8 bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-100 h-auto">
 
-            {/* 1. Заголовок (Слово и Транскрипция) */}
+            {/* 1. Заголовок (Слово и Траскрипция) */}
             <header className="border-b border-slate-200 pb-4 mb-5 flex items-baseline gap-4 flex-wrap">
                 <h1 className="text-4xl font-bold text-slate-800 tracking-tight">{title}</h1>
                 <span className="font-mono text-slate-400 text-lg">{transcription}</span>
@@ -129,12 +207,44 @@ const Word = ({ item, currentScript }: any) => {
                 </div>
             </div>
 
+
+            {(isVerb || isNominal) && (
+                <div className="mb-6 border-b border-slate-100 pb-6">
+                    <button
+                        onClick={() => setShowParadigm(!showParadigm)}
+                        className="w-full flex items-center justify-between p-3.5 bg-blue-50/50 hover:bg-blue-50 border border-blue-100/70 rounded-xl text-blue-700 font-semibold text-sm transition-all duration-150 shadow-sm"
+                    >
+                        <span className="flex items-center gap-2">
+                            📊 {isVerb ? 'Показать спряжение глагола (3 числа, 6 времён)' : 'Показать таблицы склонения существительного'}
+                        </span>
+                            <span className={`transform transition-transform duration-200 ${showParadigm ? 'rotate-180' : ''}`}>
+                            ▼
+                        </span>
+                    </button>
+
+                    {showParadigm && (
+                        <div className="mt-4 p-1 bg-slate-50/50 rounded-xl border border-slate-100 animate-fadeIn">
+                            {isVerb && verbData ? (
+                                <VerbConjugationTables data={verbData} />
+                            ) : isNominal && nounData ? (
+                                <NounDeclensionTables data={nounData} />
+                            ) : (
+                                <div className="p-4 text-sm text-slate-500 italic text-center">
+                                    Ошибка загрузки данных форм слова.
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            )}
+
             {/* 4. Значение слова */}
             <section className="mb-6">
                 <h2 className="text-lg font-bold text-slate-800 border-l-4 border-blue-600 pl-3 mb-2">Значение</h2>
                 <p className="text-base md:text-lg text-slate-700 leading-relaxed">{definition}</p>
             </section>
 
+            {/* Однокоренные слова */}
             {cognateWords?.length > 0 && (
                 <section className="mb-6">
                     <h2 className="text-base font-bold text-slate-400 uppercase tracking-wider mb-2.5">Однокоренные слова</h2>
@@ -147,8 +257,8 @@ const Word = ({ item, currentScript }: any) => {
                             >
                                 <span>{currentScript === "CYRILLIC" ? isvToCyr(item.value) : item.value}</span>
                                 <span className="text-[10px] text-slate-400 font-normal uppercase bg-slate-200/50 px-1 rounded">
-                                  {item.pos}
-                                </span>
+                  {item.pos}
+                </span>
                             </Link>
                         ))}
                     </div>

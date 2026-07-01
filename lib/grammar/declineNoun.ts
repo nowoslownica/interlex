@@ -248,7 +248,7 @@ export function declineNounWithFourTones(request: IntegratedNounRequest): string
 
 export interface FinalUserRequest {
     dbItem: EnhancedDbItem; // Передаем объект прямо из сгенерированного JSON
-    targetCase: 'nominative' | 'accusative' | 'genitive' | 'dative' | 'instrumental' | 'locative';
+    targetCase: 'nominative' | 'accusative' | 'genitive' | 'dative' | 'instrumental' | 'locative' | 'vocative';
     targetNumber: 'singular' | 'plural' | 'dual';
     preposition?: string;
 }
