@@ -6,7 +6,12 @@ import {extractProtoStems} from "@/lib/grammar/morphonology";
 import {conjugateFullVerb} from "@/lib/grammar/verb/conjugator2";
 import {VerbConjugationTables} from "@/app/words/[id]/VerbConjugationTables";
 import {NounDeclensionTables} from "@/app/words/[id]/NounDeclensionTables";
+import {AdjectiveDeclensionTables} from "@/app/words/[id]/AdjectiveDeclensionTables";
+import {NumeralDeclensionTables} from "@/app/words/[id]/NumeralDeclensionTables";
+import {PronounDeclensionTables} from "@/app/words/[id]/PronounDeclensionTables";
+import {AdverbComparisonTables} from "@/app/words/[id]/AdverbComparisonTables";
 import {declineWordAutomatically} from "@/lib/grammar/declineNoun";
+import {PosType} from "@/lib/grammar/common";
 
 const Word = ({ item, currentScript }: any) => {
     const [cognateWords, setCognateWords] = useState<any[]>([]);
@@ -21,12 +26,26 @@ const Word = ({ item, currentScript }: any) => {
     ];
     const meta = {
         partOfSpeech: item.pos,
+        gender: item.gender,
+        declension: item.declension,
+        conjugation: item.conjugation,
+        protoStemClass: item.protoStemClass,
+        paradigm: item.paradigm,
+        base: item.base,
+        aspect: item.aspect,
+        transitivity: item.transitivity,
+        animacy: item.animacy,
     };
 
     const [showParadigm, setShowParadigm] = useState<boolean>(false);
 
-    const isVerb = meta.partOfSpeech === 'v';
-    const isNominal = ['n', 'adj'].includes(meta.partOfSpeech);
+    const isVerb = meta.partOfSpeech === PosType.VERB;
+    const isNoun = meta.partOfSpeech === PosType.NOUN;
+    const isAdj = meta.partOfSpeech === PosType.ADJ;
+    const isNum = meta.partOfSpeech === PosType.NUM;
+    const isPron = meta.partOfSpeech === PosType.PRON;
+    const isAdv = meta.partOfSpeech === PosType.ADV;
+    const hasParadigm = isVerb || isNoun || isAdj || isNum || isPron || isAdv;
 
     // На лету вычисляем глагольную парадигму, если это глагол
     let verbData = null;
@@ -47,9 +66,8 @@ const Word = ({ item, currentScript }: any) => {
     }
 
     let nounData;
-    if (isNominal) {
+    if (isNoun) {
         try {
-            // Константы падежей и чисел, соответствующие типам в declineNoun.ts
             const CASES_LIST = [
                 { key: 'nominative', label: 'Именительный', short: 'Им.' },
                 { key: 'genitive', label: 'Родительный', short: 'Род.' },
@@ -60,7 +78,6 @@ const Word = ({ item, currentScript }: any) => {
                 { key: 'vocative', label: 'Звательный', short: 'Зват.' },
             ] as const;
 
-            // Строгое соответствие вашему типу targetNumber
             const NUMBERS_LIST = [
                 { key: 'singular', title: 'Единственное (Sg)' },
                 { key: 'dual', title: 'Двойственное (Du)' },
@@ -76,14 +93,13 @@ const Word = ({ item, currentScript }: any) => {
             for (const num of NUMBERS_LIST) {
                 for (const c of CASES_LIST) {
                     try {
-                        // Вызываем ваш тоновый движок для каждой ячейки таблицы
                         paradigmData[num.key][c.key] = declineWordAutomatically({
                             dbItem: {
                                 interslavic: item.value,
                                 protoSlavic: item.value,
-                                gender: "masculine",
-                                protoStemClass: "u",
-                                paradigm: "A",
+                                gender: item.gender || "masculine",
+                                protoStemClass: item.protoStemClass || "u",
+                                paradigm: item.paradigm || "A",
                             },
                             targetCase: c.key,
                             targetNumber: num.key,
@@ -94,7 +110,6 @@ const Word = ({ item, currentScript }: any) => {
                     }
                 }
             }
-            console.log(paradigmData);
 
             nounData = paradigmData;
         } catch {
@@ -147,7 +162,7 @@ const Word = ({ item, currentScript }: any) => {
             fetch(`/api/lexicon/${rootId}/root`)
                 .then((res) => res.json())
                 .then((data) => {
-                    setCognateWords(data);
+                    setCognateWords(data.filter((w: any) => w.id !== item.id));
                 });
         }
     }, [item.roots]);
@@ -201,27 +216,77 @@ const Word = ({ item, currentScript }: any) => {
                         <span className="text-slate-800">{meta.gender}</span>
                     </div>
                 )}
-                {meta.stemType && (
+                {meta.declension != null && (
                     <div>
-                        <span className="block font-semibold text-slate-500">Тип основы</span>
-                        <span className="text-slate-800">{meta.stemType}</span>
+                        <span className="block font-semibold text-slate-500">Склонение</span>
+                        <span className="text-slate-800">{meta.declension}</span>
+                    </div>
+                )}
+                {meta.conjugation != null && (
+                    <div>
+                        <span className="block font-semibold text-slate-500">Спряжение</span>
+                        <span className="text-slate-800">{meta.conjugation}</span>
+                    </div>
+                )}
+                {meta.base && (
+                    <div>
+                        <span className="block font-semibold text-slate-500">Основа</span>
+                        <span className="text-slate-800">{meta.base}</span>
+                    </div>
+                )}
+                {meta.protoStemClass && (
+                    <div>
+                        <span className="block font-semibold text-slate-500">Класс основы</span>
+                        <span className="text-slate-800">{meta.protoStemClass}</span>
+                    </div>
+                )}
+                {meta.paradigm && (
+                    <div>
+                        <span className="block font-semibold text-slate-500">Парадигма</span>
+                        <span className="text-slate-800">{meta.paradigm}</span>
+                    </div>
+                )}
+                {meta.aspect && (
+                    <div>
+                        <span className="block font-semibold text-slate-500">Вид</span>
+                        <span className="text-slate-800">{meta.aspect}</span>
+                    </div>
+                )}
+                {meta.transitivity && (
+                    <div>
+                        <span className="block font-semibold text-slate-500">Переходность</span>
+                        <span className="text-slate-800">{meta.transitivity}</span>
+                    </div>
+                )}
+                {meta.animacy && (
+                    <div>
+                        <span className="block font-semibold text-slate-500">Одушевлённость</span>
+                        <span className="text-slate-800">{meta.animacy}</span>
                     </div>
                 )}
                 <div>
                     <span className="block font-semibold text-slate-500">ID статьи</span>
-                    <span className="text-slate-400 font-mono">#{meta.id}</span>
+                    <span className="text-slate-400 font-mono">#{item.id}</span>
                 </div>
             </div>
 
 
-            {(isVerb || isNominal) && (
+            {(hasParadigm) && (
                 <div className="mb-6 border-b border-slate-100 pb-6">
                     <button
                         onClick={() => setShowParadigm(!showParadigm)}
                         className="w-full flex items-center justify-between p-3.5 bg-blue-50/50 hover:bg-blue-50 border border-blue-100/70 rounded-xl text-blue-700 font-semibold text-sm transition-all duration-150 shadow-sm"
                     >
                         <span className="flex items-center gap-2">
-                            📊 {isVerb ? 'Показать спряжение глагола (3 числа, 6 времён)' : 'Показать таблицы склонения существительного'}
+                            📊 {
+                                isVerb ? 'Показать спряжение глагола (3 числа, 6 времён)'
+                                : isNoun ? 'Показать таблицы склонения существительного'
+                                : isAdj ? 'Показать склонение прилагательного'
+                                : isNum ? 'Показать склонение числительного'
+                                : isPron ? 'Показать склонение местоимения'
+                                : isAdv ? 'Показать степени сравнения наречия'
+                                : 'Показать парадигму'
+                            }
                         </span>
                             <span className={`transform transition-transform duration-200 ${showParadigm ? 'rotate-180' : ''}`}>
                             ▼
@@ -232,8 +297,27 @@ const Word = ({ item, currentScript }: any) => {
                         <div className="mt-4 p-1 bg-slate-50/50 rounded-xl border border-slate-100 animate-fadeIn">
                             {isVerb && verbData ? (
                                 <VerbConjugationTables data={verbData} />
-                            ) : isNominal && nounData ? (
+                            ) : isNoun && nounData ? (
                                 <NounDeclensionTables data={nounData} />
+                            ) : isAdj ? (
+                                <AdjectiveDeclensionTables
+                                    isv={item.value}
+                                    paradigm={item.paradigm || 'A'}
+                                    protoStemClass={item.protoStemClass || 'o'}
+                                    isQualitative={!item.value.endsWith('ovy') && !item.value.endsWith('evy') && !item.value.endsWith('sky')}
+                                />
+                            ) : isNum ? (
+                                <NumeralDeclensionTables
+                                    isv={item.value}
+                                    paradigm={item.paradigm || 'A'}
+                                />
+                            ) : isPron ? (
+                                <PronounDeclensionTables
+                                    isv={item.value}
+                                    paradigm={item.paradigm || 'A'}
+                                />
+                            ) : isAdv ? (
+                                <AdverbComparisonTables isv={item.value} />
                             ) : (
                                 <div className="p-4 text-sm text-slate-500 italic text-center">
                                     Ошибка загрузки данных форм слова.

@@ -25,8 +25,6 @@ export type RootWithWords = Prisma.RootGetPayload<{
 export default async function CreateArticlePage() {
     const pageSize = 30
 
-    // 3. Выполняем запрос к базе данных SQLite
-    // Принудительно приводим результат к типу RootWithWords[], чтобы гарантировать совместимость с формой
     const initialRoots = (await db.root.findMany({
         include: rootInclude,
         orderBy: { value: "asc" },
@@ -35,31 +33,71 @@ export default async function CreateArticlePage() {
 
     async function createArticle(formData: any) {
         "use server"
-        // Шаг А: Создаем базовое слово в таблице words
+        const baseValue = formData.base?.trim() || null
+
+        // Шаг А: Создаем базовое слово с основой и маркером аномалий
         const newWord = await db.word.create({
             data: {
                 value: formData.word,
+                base: baseValue,
+                hasAnomalies: formData.hasAnomalies === true,
             },
         })
 
-        // Шаг Б: Создаем для слова контейнер смысловых значений в meanings
+        // Шаг Б: Если указана основа — обновляем/создаём запись в base_homonyms
+        if (baseValue) {
+            const existing = await db.baseHomonym.findUnique({
+                where: { base: baseValue },
+            })
+            if (existing) {
+                const ids: number[] = JSON.parse(existing.wordIds)
+                if (!ids.includes(newWord.id)) {
+                    ids.push(newWord.id)
+                    await db.baseHomonym.update({
+                        where: { base: baseValue },
+                        data: { wordIds: JSON.stringify(ids) },
+                    })
+                }
+            } else {
+                await db.baseHomonym.create({
+                    data: {
+                        base: baseValue,
+                        wordIds: JSON.stringify([newWord.id]),
+                    },
+                })
+            }
+        }
+
+        // Шаг В: Если есть аномалии флексий — создаём записи
+        const anomalies = formData.inflectionAnomalies || []
+        if (anomalies.length > 0) {
+            await db.inflectionAnomaly.createMany({
+                data: anomalies.map((a: { inflection: string; grammeme: string }) => ({
+                    wordId: newWord.id,
+                    inflection: a.inflection,
+                    grammeme: a.grammeme,
+                })),
+            })
+        }
+
+        // Шаг Г: Создаем для слова контейнер смысловых значений в meanings
         const newMeaning = await db.meaning.create({
             data: {
                 wordId: newWord.id,
-                meaning: "Основное значение", // Системный маркер или дефолтный текст
+                meaning: "Основное значение",
             },
         })
 
-        // Шаг В: Записываем английский перевод со своим личным маркером верификации
+        // Шаг Д: Записываем английский перевод
         await db.en.create({
             data: {
                 meaningId: newMeaning.id,
                 value: formData.translationEn,
-                veryfied: formData.isEnVerified ? 1 : 0, // Приведение boolean к Int (1/0) под SQLite
+                veryfied: formData.isEnVerified ? 1 : 0,
             },
         })
 
-        // Шаг Г: Записываем русский перевод со своим личным маркером верификации
+        // Шаг Е: Записываем русский перевод
         await db.ru.create({
             data: {
                 meaningId: newMeaning.id,
@@ -68,24 +106,22 @@ export default async function CreateArticlePage() {
             },
         })
 
-        // Шаг Д: Обработка новых виртуальных корней из строки поиска (если были добавлены)
+        // Шаг Ж: Обработка новых виртуальных корней
         const createdRootIds: number[] = []
         if (formData.newRootValues && formData.newRootValues.length > 0) {
             for (const val of formData.newRootValues) {
                 const newRoot = await db.root.create({
                     data: {
                         value: val,
-                        type: 0, // 0 - Корень (дефолтное значение)
+                        type: 0,
                     },
                 })
                 createdRootIds.push(newRoot.id)
             }
         }
 
-        // Объединяем ID выбранных существующих корней и только что созданных
         const finalRootIds = [...(formData.rootIds || []), ...createdRootIds]
 
-        // Шаг Е: Записываем множественные связи в промежуточную таблицу roots_words
         if (finalRootIds.length > 0) {
             await db.rootWord.createMany({
                 data: finalRootIds.map((rId) => ({

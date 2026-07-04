@@ -124,43 +124,68 @@ async function enrichAndSeedDatabase() {
             const etymologyValue = `Proto-Slavic: *${jsonItem.protoSlavic}. Discovered via Rick Derksen's Inherited Slavic Lexicon.`;
             const posValue = mapGenderToPos(jsonItem.gender);
 
-            // 2. Подготавливаем SQL-запрос для вставки записи
-            const insertWord = db.prepare(`
-              INSERT INTO words (
-                "value", 
-                "isv", 
-                "proto", 
-                "paradigm", 
-                "protoStemClass", 
-                "stemExtension", 
-                "pos", 
-                "type", 
-                "etymology"
-              ) VALUES (
-                :value, 
-                :isv, 
-                :proto, 
-                :paradigm, 
-                :protoStemClass, 
-                :stemExtension, 
-                :pos, 
-                :type, 
-                :etymology
-              )
-            `);
+            const check = db.prepare(`SELECT * FROM words WHERE slug = ? `).get(`${jsonItem.interslavic}-${posValue}`);
 
-            // 3. Выполняем запрос, передавая объект с данными
-            insertWord.run({
-                value: jsonItem.interslavic,
-                isv: jsonItem.interslavic,
-                proto: jsonItem.protoSlavic,
-                paradigm: jsonItem.paradigm,
-                protoStemClass: jsonItem.protoStemClass,
-                stemExtension: jsonItem.stemExtension || null, // SQLite запишет как NULL
-                pos: posValue,
-                type: jsonItem.gender,
-                etymology: etymologyValue
-            });
+            if (!check) {
+
+                // 2. Подготавливаем SQL-запрос для вставки записи
+                const insertWord = db.prepare(`
+                    INSERT INTO words ("value",
+                                       "isv",
+                                       "proto",
+                                       "paradigm",
+                                       "protoStemClass",
+                                       "stemExtension",
+                                       "pos",
+                                       "type",
+                                       "etymology",
+                                       "slug")
+                    VALUES (:value,
+                            :isv,
+                            :proto,
+                            :paradigm,
+                            :protoStemClass,
+                            :stemExtension,
+                            :pos,
+                            :type,
+                            :etymology,
+                            :slug)
+                `);
+
+                // 3. Выполняем запрос, передавая объект с данными
+                insertWord.run({
+                    value: jsonItem.interslavic,
+                    isv: jsonItem.interslavic,
+                    proto: jsonItem.protoSlavic,
+                    paradigm: jsonItem.paradigm,
+                    protoStemClass: jsonItem.protoStemClass,
+                    stemExtension: jsonItem.stemExtension || null, // SQLite запишет как NULL
+                    pos: posValue,
+                    type: jsonItem.gender,
+                    etymology: etymologyValue,
+                    slug: `${jsonItem.interslavic}-${posValue}`
+                });
+            } else {
+                const updateWord = db.prepare(`
+                  UPDATE words
+                  SET 
+                    "proto" = :proto,
+                    "paradigm" = :paradigm,
+                    "protoStemClass" = :protoStemClass,
+                    "stemExtension" = :stemExtension,
+                    "etymology" = :etymology
+                  WHERE "id" = :id
+                `);
+
+                const result = updateWord.run({
+                    id: check.id,
+                    proto: check.proto || jsonItem.protoSlavic,
+                    paradigm: check.paradigm || jsonItem.paradigm,
+                    protoStemClass: check.protoStemClass || jsonItem.protoStemClass,
+                    stemExtension: check.stemExtension || jsonItem.stemExtension || null, // SQLite корректно запишет null
+                    etymology: check.etymology || `Proto-Slavic: *${jsonItem.protoSlavic}`
+                });
+            }
 
 
             createdCount++;

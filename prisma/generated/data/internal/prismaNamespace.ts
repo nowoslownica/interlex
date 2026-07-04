@@ -405,7 +405,9 @@ export const ModelName = {
   Cu: 'Cu',
   De: 'De',
   Nl: 'Nl',
-  Eo: 'Eo'
+  Eo: 'Eo',
+  BaseHomonym: 'BaseHomonym',
+  InflectionAnomaly: 'InflectionAnomaly'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -421,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "word" | "meaning" | "root" | "rootWord" | "synonym" | "antonym" | "en" | "ru" | "mk" | "sr" | "uk" | "bg" | "pl" | "be" | "cs" | "sk" | "sl" | "hr" | "cu" | "de" | "nl" | "eo"
+    modelProps: "word" | "meaning" | "root" | "rootWord" | "synonym" | "antonym" | "en" | "ru" | "mk" | "sr" | "uk" | "bg" | "pl" | "be" | "cs" | "sk" | "sl" | "hr" | "cu" | "de" | "nl" | "eo" | "baseHomonym" | "inflectionAnomaly"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2053,6 +2055,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    BaseHomonym: {
+      payload: Prisma.$BaseHomonymPayload<ExtArgs>
+      fields: Prisma.BaseHomonymFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BaseHomonymFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BaseHomonymPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BaseHomonymFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BaseHomonymPayload>
+        }
+        findFirst: {
+          args: Prisma.BaseHomonymFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BaseHomonymPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BaseHomonymFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BaseHomonymPayload>
+        }
+        findMany: {
+          args: Prisma.BaseHomonymFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BaseHomonymPayload>[]
+        }
+        create: {
+          args: Prisma.BaseHomonymCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BaseHomonymPayload>
+        }
+        createMany: {
+          args: Prisma.BaseHomonymCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BaseHomonymCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BaseHomonymPayload>[]
+        }
+        delete: {
+          args: Prisma.BaseHomonymDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BaseHomonymPayload>
+        }
+        update: {
+          args: Prisma.BaseHomonymUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BaseHomonymPayload>
+        }
+        deleteMany: {
+          args: Prisma.BaseHomonymDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BaseHomonymUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BaseHomonymUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BaseHomonymPayload>[]
+        }
+        upsert: {
+          args: Prisma.BaseHomonymUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BaseHomonymPayload>
+        }
+        aggregate: {
+          args: Prisma.BaseHomonymAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBaseHomonym>
+        }
+        groupBy: {
+          args: Prisma.BaseHomonymGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BaseHomonymGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BaseHomonymCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BaseHomonymCountAggregateOutputType> | number
+        }
+      }
+    }
+    InflectionAnomaly: {
+      payload: Prisma.$InflectionAnomalyPayload<ExtArgs>
+      fields: Prisma.InflectionAnomalyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InflectionAnomalyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InflectionAnomalyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InflectionAnomalyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InflectionAnomalyPayload>
+        }
+        findFirst: {
+          args: Prisma.InflectionAnomalyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InflectionAnomalyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InflectionAnomalyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InflectionAnomalyPayload>
+        }
+        findMany: {
+          args: Prisma.InflectionAnomalyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InflectionAnomalyPayload>[]
+        }
+        create: {
+          args: Prisma.InflectionAnomalyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InflectionAnomalyPayload>
+        }
+        createMany: {
+          args: Prisma.InflectionAnomalyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InflectionAnomalyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InflectionAnomalyPayload>[]
+        }
+        delete: {
+          args: Prisma.InflectionAnomalyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InflectionAnomalyPayload>
+        }
+        update: {
+          args: Prisma.InflectionAnomalyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InflectionAnomalyPayload>
+        }
+        deleteMany: {
+          args: Prisma.InflectionAnomalyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InflectionAnomalyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InflectionAnomalyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InflectionAnomalyPayload>[]
+        }
+        upsert: {
+          args: Prisma.InflectionAnomalyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InflectionAnomalyPayload>
+        }
+        aggregate: {
+          args: Prisma.InflectionAnomalyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInflectionAnomaly>
+        }
+        groupBy: {
+          args: Prisma.InflectionAnomalyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InflectionAnomalyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InflectionAnomalyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InflectionAnomalyCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2100,6 +2250,12 @@ export const WordScalarFieldEnum = {
   field: 'field',
   type: 'type',
   pos: 'pos',
+  aspect: 'aspect',
+  transitivity: 'transitivity',
+  animacy: 'animacy',
+  degree: 'degree',
+  pronType: 'pronType',
+  numType: 'numType',
   frequency: 'frequency',
   intelligibility: 'intelligibility',
   addition: 'addition',
@@ -2108,14 +2264,14 @@ export const WordScalarFieldEnum = {
   paradigm: 'paradigm',
   protoStemClass: 'protoStemClass',
   stemExtension: 'stemExtension',
-  stem: 'stem',
   base: 'base',
   gender: 'gender',
   declension: 'declension',
   conjugation: 'conjugation',
   accentSyllable: 'accentSyllable',
   alternationType: 'alternationType',
-  fleetingVowelAt: 'fleetingVowelAt'
+  fleetingVowelAt: 'fleetingVowelAt',
+  hasAnomalies: 'hasAnomalies'
 } as const
 
 export type WordScalarFieldEnum = (typeof WordScalarFieldEnum)[keyof typeof WordScalarFieldEnum]
@@ -2345,6 +2501,25 @@ export const EoScalarFieldEnum = {
 export type EoScalarFieldEnum = (typeof EoScalarFieldEnum)[keyof typeof EoScalarFieldEnum]
 
 
+export const BaseHomonymScalarFieldEnum = {
+  id: 'id',
+  base: 'base',
+  wordIds: 'wordIds'
+} as const
+
+export type BaseHomonymScalarFieldEnum = (typeof BaseHomonymScalarFieldEnum)[keyof typeof BaseHomonymScalarFieldEnum]
+
+
+export const InflectionAnomalyScalarFieldEnum = {
+  id: 'id',
+  wordId: 'wordId',
+  inflection: 'inflection',
+  grammeme: 'grammeme'
+} as const
+
+export type InflectionAnomalyScalarFieldEnum = (typeof InflectionAnomalyScalarFieldEnum)[keyof typeof InflectionAnomalyScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2378,6 +2553,13 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'String'
  */
 export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -2519,6 +2701,8 @@ export type GlobalOmitConfig = {
   de?: Prisma.DeOmit
   nl?: Prisma.NlOmit
   eo?: Prisma.EoOmit
+  baseHomonym?: Prisma.BaseHomonymOmit
+  inflectionAnomaly?: Prisma.InflectionAnomalyOmit
 }
 
 /* Types for Logging */

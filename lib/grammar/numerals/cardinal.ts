@@ -1,8 +1,8 @@
 import {
     AccentParadigm,
     GrammaticalGender
-} from '@/types/morphology'; // Системные Enum из таблицы Word
-import { Case, NumberType, FourSlavicTones, stripAccents } from './nounEngine';
+} from '@/lib/grammar/common'; // Системные Enum из таблицы Word
+import { Case, NumberType, FourSlavicTones, stripAccents } from '../noun';
 
 // =========================================================================
 // 1. СТРОГИЕ ИНТЕРФЕЙСЫ И ТИПЫ ДАННЫХ
@@ -106,7 +106,7 @@ export function generateNumeralForm(request: NumFormRequest): string {
         // Подтягиваем реестр из adjectiveEngine динамически, отрезая основу "edin-"
         const cleanBase = lemma === 'edin' ? 'edin' : lemma;
         // Импортируем типы флексий из смежного жесткого реестра hard_adjectives
-        const { ADJECTIVE_ENDINGS_REGISTRY } = require('./adjectiveEngine');
+        const { ADJECTIVE_ENDINGS_REGISTRY } = require('../adjective');
         const ending = ADJECTIVE_ENDINGS_REGISTRY['adj_hard'][targetNumber][targetGender][targetCase];
 
         // В им.п. мужского рода окончание нулевое (уже сидит в лемме)
@@ -140,7 +140,7 @@ export function generateNumeralForm(request: NumFormRequest): string {
         // СТРАТЕГИЯ 3: "ПЯТЬ - ДЕСЯТЬ" -> Склоняются строго как i-основы существительных (kostь)
     // -----------------------------------------------------------------------
     else if (dbItem.numClass === 'five_to_ten') {
-        const { SLAVIC_ENDINGS_REGISTRY } = require('./nounEngine');
+        const { SLAVIC_ENDINGS_REGISTRY } = require('../noun');
         // Все числительные 5-10 женского рода, склоняются строго в Singular
         const ending = SLAVIC_ENDINGS_REGISTRY['i_basis'][NumberType.SINGULAR][targetCase];
 

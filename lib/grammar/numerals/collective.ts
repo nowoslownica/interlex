@@ -1,5 +1,5 @@
-import { AccentParadigm, GrammaticalGender } from '@/types/morphology';
-import { Case, NumberType, FourSlavicTones } from './nounEngine';
+import { AccentParadigm, GrammaticalGender } from '@/lib/grammar/common';
+import { Case, NumberType, FourSlavicTones } from '../noun';
 
 export type CollectiveClass = 'oje_type' | 'ero_type'; // dvoje vs četvero
 

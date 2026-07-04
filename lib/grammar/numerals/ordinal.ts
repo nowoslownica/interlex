@@ -1,6 +1,6 @@
-import { generateAdjectiveForm, EnhancedAdjDbItem, AdjFormRequest } from './adjectiveEngine';
-import { Case, NumberType } from './nounEngine';
-import { GrammaticalGender, AccentParadigm, ProtoStemClass } from '@/types/morphology';
+import { generateAdjectiveForm, EnhancedAdjDbItem, AdjFormRequest } from '../adjective';
+import { Case, NumberType } from '../noun';
+import { GrammaticalGender, AccentParadigm, ProtoStemClass } from '@/lib/grammar/common';
 
 export interface OrdinalDbItem {
     interslavic: string;       // "pěrvy" (твердый тип) или "tretji" (мягкий тип)

@@ -39,14 +39,12 @@ export default async function EditArticlePage({ params }: EditPageProps) {
         db.word.findUnique({
             where: { id: wordId },
             include: {
-                // Подгружаем переводы через таблицу Meaning и языковые таблицы
                 meanings: {
                     include: {
                         en_word: true,
                         ru_word: true,
                     },
                 },
-                // Подгружаем текущую связь с корнем, чтобы знать, какой корень выбран
                 roots_words: {
                     take: 1,
                     select: {
@@ -58,6 +56,7 @@ export default async function EditArticlePage({ params }: EditPageProps) {
                         },
                     },
                 },
+                anomalies: true,
             },
         }),
         db.root.findMany({
@@ -77,17 +76,89 @@ export default async function EditArticlePage({ params }: EditPageProps) {
     const currentTranslationRu = firstMeaning?.ru_word?.[0]?.value || ""
     const isRuVerified = firstMeaning?.ru_word?.[0]?.veryfied === 1
 
+    const currentAnomalies = (wordData.anomalies || []).map(a => ({
+        inflection: a.inflection,
+        grammeme: a.grammeme,
+    }))
+
     // 3. Функция обновления статьи (Server Action)
     async function updateArticle(formData: any) {
         "use server"
+
+        const baseValue = formData.base?.trim() || null
+
+        // Получаем текущее слово, чтобы сравнить старую и новую основу
+        const currentWord = await db.word.findUnique({ where: { id: wordId } })
 
         // Обновляем базовое слово
         await db.word.update({
             where: { id: wordId },
             data: {
                 value: formData.word,
+                base: baseValue,
+                hasAnomalies: formData.hasAnomalies === true,
             },
         })
+
+        // Синхронизируем base_homonyms
+        const oldBase = currentWord?.base?.trim() || null
+
+        // Если старая основа была и отличается от новой — удаляем wordId из старой
+        if (oldBase && oldBase !== baseValue) {
+            const oldEntry = await db.baseHomonym.findUnique({
+                where: { base: oldBase },
+            })
+            if (oldEntry) {
+                const ids: number[] = JSON.parse(oldEntry.wordIds).filter((id: number) => id !== wordId)
+                if (ids.length > 0) {
+                    await db.baseHomonym.update({
+                        where: { base: oldBase },
+                        data: { wordIds: JSON.stringify(ids) },
+                    })
+                } else {
+                    await db.baseHomonym.delete({ where: { base: oldBase } })
+                }
+            }
+        }
+
+        // Если новая основа указана — добавляем/обновляем в base_homonyms
+        if (baseValue) {
+            const existing = await db.baseHomonym.findUnique({
+                where: { base: baseValue },
+            })
+            if (existing) {
+                const ids: number[] = JSON.parse(existing.wordIds)
+                if (!ids.includes(wordId)) {
+                    ids.push(wordId)
+                    await db.baseHomonym.update({
+                        where: { base: baseValue },
+                        data: { wordIds: JSON.stringify(ids) },
+                    })
+                }
+            } else {
+                await db.baseHomonym.create({
+                    data: {
+                        base: baseValue,
+                        wordIds: JSON.stringify([wordId]),
+                    },
+                })
+            }
+        }
+
+        // Синхронизируем аномалии флексий: удаляем старые, создаём новые
+        await db.inflectionAnomaly.deleteMany({
+            where: { wordId: wordId },
+        })
+        const anomalies = formData.inflectionAnomalies || []
+        if (anomalies.length > 0) {
+            await db.inflectionAnomaly.createMany({
+                data: anomalies.map((a: { inflection: string; grammeme: string }) => ({
+                    wordId: wordId,
+                    inflection: a.inflection,
+                    grammeme: a.grammeme,
+                })),
+            })
+        }
 
         // Логика обновления/создания корня
         // let targetRootId = formData.rootId
@@ -170,6 +241,9 @@ export default async function EditArticlePage({ params }: EditPageProps) {
                 onSubmit={updateArticle}
                 initialData={{
                     word: wordData.value || "",
+                    base: wordData.base || "",
+                    hasAnomalies: wordData.hasAnomalies,
+                    inflectionAnomalies: currentAnomalies,
                     translationEn: currentTranslationEn,
                     translationRu: currentTranslationRu,
                     attachedRoots: attachedRoots,

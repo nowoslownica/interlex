@@ -7,51 +7,64 @@ interface SelectedRootItem {
     value: string
 }
 
+interface RootOption {
+    id: number
+    value: string | null
+    roots_words?: { word?: { id: number; value: string } | null }[]
+}
+
+interface InflectionAnomalyItem {
+    inflection: string
+    grammeme: string
+}
+
 interface ArticleFormProps {
     title: string
     submitButtonText: string
     initialData?: {
         word: string
+        base: string
+        hasAnomalies: boolean
+        inflectionAnomalies: InflectionAnomalyItem[]
         translationEn: string
         translationRu: string
         isRuVerified: boolean
         isEnVerified: boolean
-        // Теперь передаем массив уже связанных корней
         attachedRoots: SelectedRootItem[]
     }
-    initialRoots: any[]
+    initialRoots: RootOption[]
     onSubmit: (data: any) => Promise<void>
 }
 
 export default function ArticleForm({
-                                title,
-                                submitButtonText,
-                                initialData,
-                                initialRoots,
-                                onSubmit,
-                            }: ArticleFormProps) {
+    title,
+    submitButtonText,
+    initialData,
+    initialRoots,
+    onSubmit,
+}: ArticleFormProps) {
     const [isPending, startTransition] = useTransition()
 
-    // Левая колонка
     const [word, setWord] = useState(initialData?.word || "")
+    const [base, setBase] = useState(initialData?.base || "")
+    const [hasAnomalies, setHasAnomalies] = useState(initialData?.hasAnomalies || false)
+    const [inflectionAnomalies, setInflectionAnomalies] = useState<InflectionAnomalyItem[]>(
+        initialData?.inflectionAnomalies || []
+    )
     const [translationEn, setTranslationEn] = useState(initialData?.translationEn || "")
     const [isEnVerified, setIsEnVerified] = useState(initialData?.isEnVerified || false)
     const [translationRu, setTranslationRu] = useState(initialData?.translationRu || "")
     const [isRuVerified, setIsRuVerified] = useState(initialData?.isRuVerified || false)
 
-    // Правая колонка
     const [searchQuery, setSearchQuery] = useState("")
     const [roots, setRoots] = useState<any[]>(initialRoots)
     const [isLoadingRoots, setIsLoadingRoots] = useState(false)
 
-    // Массив выбранных СУЩЕСТВУЮЩИХ корней
     const [selectedRoots, setSelectedRoots] = useState<SelectedRootItem[]>(
         initialData?.attachedRoots || []
     )
-    // Массив выбранных новых виртуальных корней (из строки поиска)
     const [newRoots, setNewRoots] = useState<string[]>([])
 
-    // Эффект асинхронного поиска (остается прежним)
     useEffect(() => {
         const delayDebounceFn = setTimeout(async () => {
             if (!searchQuery.trim()) {
@@ -75,8 +88,7 @@ export default function ArticleForm({
         return () => clearTimeout(delayDebounceFn)
     }, [searchQuery, initialRoots])
 
-    // Клик по корню в списке (добавление или удаление из выбранных)
-    const handleToggleRoot = (root: RootWithWords) => {
+    const handleToggleRoot = (root: RootOption) => {
         const isSelected = selectedRoots.some((r) => r.id === root.id)
         if (isSelected) {
             setSelectedRoots(selectedRoots.filter((r) => r.id !== root.id))
@@ -85,15 +97,27 @@ export default function ArticleForm({
         }
     }
 
-    // Добавление НОВОГО корня из строки поиска
     const handleAddNewRoot = () => {
         const value = searchQuery.trim()
         if (!value) return
-        // Избегаем дубликатов в виртуальном массиве
         if (!newRoots.includes(value)) {
             setNewRoots([...newRoots, value])
         }
-        setSearchQuery("") // Очищаем поиск для ввода следующего корня/приставки
+        setSearchQuery("")
+    }
+
+    const addAnomaly = () => {
+        setInflectionAnomalies([...inflectionAnomalies, { inflection: "", grammeme: "" }])
+    }
+
+    const removeAnomaly = (index: number) => {
+        setInflectionAnomalies(inflectionAnomalies.filter((_, i) => i !== index))
+    }
+
+    const updateAnomaly = (index: number, field: keyof InflectionAnomalyItem, value: string) => {
+        setInflectionAnomalies(inflectionAnomalies.map((item, i) =>
+            i === index ? { ...item, [field]: value } : item
+        ))
     }
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -101,11 +125,15 @@ export default function ArticleForm({
         startTransition(async () => {
             await onSubmit({
                 word,
+                base,
+                hasAnomalies,
+                inflectionAnomalies: inflectionAnomalies.filter(a => a.inflection.trim() || a.grammeme.trim()),
                 translationEn,
                 translationRu,
-                isVerified,
-                rootIds: selectedRoots.map((r) => r.id), // Массив ID существующих корней
-                newRootValues: newRoots,                 // Массив строк для создания новых корней
+                isEnVerified,
+                isRuVerified,
+                rootIds: selectedRoots.map((r) => r.id),
+                newRootValues: newRoots,
             })
         })
     }
@@ -115,7 +143,6 @@ export default function ArticleForm({
             <h1 className="text-2xl font-bold mb-6">{title}</h1>
 
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
                 <div className="space-y-5">
                     <div>
                         <label className="block text-sm font-medium mb-1">Слово</label>
@@ -127,6 +154,75 @@ export default function ArticleForm({
                             className="w-full px-3 py-2 border rounded-md bg-transparent text-sm"
                             placeholder="Введите слово..."
                         />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Основа</label>
+                        <input
+                            type="text"
+                            value={base}
+                            onChange={(e) => setBase(e.target.value)}
+                            className="w-full px-3 py-2 border rounded-md bg-transparent text-sm"
+                            placeholder="Основа для поиска словоформ (н-р: vod)"
+                        />
+                        <p className="text-xs text-muted-foreground mt-1">
+                            Основа слова для автоматической генерации парадигм и поиска омонимов
+                        </p>
+                    </div>
+
+                    <div className="p-3 border rounded-md bg-muted/10 space-y-2">
+                        <div className="flex items-center space-x-2">
+                            <input
+                                type="checkbox"
+                                id="hasAnomalies"
+                                checked={hasAnomalies}
+                                onChange={(e) => setHasAnomalies(e.target.checked)}
+                                className="h-4 w-4 rounded border-gray-300 text-primary"
+                            />
+                            <label htmlFor="hasAnomalies" className="text-xs font-medium cursor-pointer select-none text-muted-foreground hover:text-foreground transition-colors">
+                                Флексии содержат аномалии
+                            </label>
+                        </div>
+
+                        {hasAnomalies && (
+                            <div className="pt-2 space-y-2">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-xs font-semibold text-muted-foreground">Аномалии флексий</span>
+                                    <button
+                                        type="button"
+                                        onClick={addAnomaly}
+                                        className="text-xs px-2 py-1 border border-dashed rounded text-primary hover:bg-primary/5"
+                                    >
+                                        + Добавить
+                                    </button>
+                                </div>
+                                {inflectionAnomalies.map((item, index) => (
+                                    <div key={index} className="flex gap-2 items-center">
+                                        <input
+                                            type="text"
+                                            value={item.inflection}
+                                            onChange={(e) => updateAnomaly(index, "inflection", e.target.value)}
+                                            className="flex-1 px-2 py-1 border rounded bg-background text-xs"
+                                            placeholder="Флексия (н-р: -ami)"
+                                        />
+                                        <input
+                                            type="text"
+                                            value={item.grammeme}
+                                            onChange={(e) => updateAnomaly(index, "grammeme", e.target.value)}
+                                            className="flex-1 px-2 py-1 border rounded bg-background text-xs"
+                                            placeholder="Граммема (н-р: PL_INST)"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => removeAnomaly(index)}
+                                            className="text-xs text-destructive hover:text-destructive/80 px-1"
+                                        >
+                                            ✕
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <div className="p-3 border rounded-md bg-muted/10 space-y-2">
@@ -202,27 +298,23 @@ export default function ArticleForm({
                         />
                     </div>
 
-                    {/* Панель уже ВЫБРАННЫХ элементов (Корзины) */}
                     {(selectedRoots.length > 0 || newRoots.length > 0) && (
                         <div className="mb-3 p-2 border border-dashed rounded-md bg-muted/10 flex flex-wrap gap-1.5 max-h-[100px] overflow-y-auto">
-                            {/* Существующие корни */}
                             {selectedRoots.map((root) => (
                                 <span key={`sel-${root.id}`} className="inline-flex items-center px-2 py-1 rounded-md text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
-                  {root.value}
+                                    {root.value}
                                     <button type="button" onClick={() => setSelectedRoots(selectedRoots.filter((r) => r.id !== root.id))} className="ml-1.5 text-primary hover:text-destructive font-bold">×</button>
-                </span>
+                                </span>
                             ))}
-                            {/* Новые виртуальные корни */}
                             {newRoots.map((val, idx) => (
                                 <span key={`new-${idx}`} className="inline-flex items-center px-2 py-1 rounded-md text-xs font-semibold bg-green-500/10 text-green-600 border border-green-500/20">
-                  [Новый]: {val}
+                                    [Новый]: {val}
                                     <button type="button" onClick={() => setNewRoots(newRoots.filter((v) => v !== val))} className="ml-1.5 text-green-600 hover:text-destructive font-bold">×</button>
-                </span>
+                                </span>
                             ))}
                         </div>
                     )}
 
-                    {/* Список результатов поиска */}
                     <div className="flex-1 border rounded-md overflow-y-auto max-h-[260px] p-2 space-y-2 bg-muted/20">
                         {roots.length > 0 ? (
                             roots.map((root) => {
@@ -268,7 +360,7 @@ export default function ArticleForm({
                             onClick={handleAddNewRoot}
                             className="w-full text-center py-2 border border-dashed rounded-md text-sm text-primary hover:bg-primary/5 disabled:opacity-40 transition-colors font-medium"
                         >
-                            + Добавить &#34;{searchQuery || "..."}&#34; как новый компонент
+                            + Добавить &quot;{searchQuery || "..."}&quot; как новый компонент
                         </button>
                     </div>
                 </div>
@@ -282,4 +374,3 @@ export default function ArticleForm({
         </div>
     )
 }
-

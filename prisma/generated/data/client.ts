@@ -151,3 +151,13 @@ export type Nl = Prisma.NlModel
  * 
  */
 export type Eo = Prisma.EoModel
+/**
+ * Model BaseHomonym
+ * 
+ */
+export type BaseHomonym = Prisma.BaseHomonymModel
+/**
+ * Model InflectionAnomaly
+ * 
+ */
+export type InflectionAnomaly = Prisma.InflectionAnomalyModel

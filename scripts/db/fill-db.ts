@@ -8,6 +8,8 @@ import {csvGrammarMapper} from "@/lib/grammar/common";
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env.development') });
 
+// npx prisma db push
+
 const file = path.resolve(process.cwd(), 'slovnik.csv');
 
 const insertLang = (db, lang: string, wordId: bigint, meaningId: bigint, value: string) => {
@@ -73,30 +75,39 @@ const insertRow = (db, roots, {
        pronType,
        numType,
        gender,
-       conjunction
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+       conjugation,
+       slug
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
 
-    const grammar = csvGrammarMapper(pos);
+    const check = db.prepare(`SELECT * FROM words WHERE slug = ? `).get(`${lat.toLowerCase()}-${pos}`);
 
-    const r = insert.run(
-        value,
-        lat,
-        cyr,
-        trans,
-        field,
-        decl,
-        etymology,
-        grammar.pos,
-        grammar.aspect,
-        grammar.transitivity,
-        grammar.animacy,
-        grammar.degree,
-        grammar.pronType,
-        grammar.numType,
-        grammar.gender,
-        decl
-    );
-    const wId = r.lastInsertRowid;
+    let wId;
+    if (!check) {
+        const grammar = csvGrammarMapper(pos);
+
+        const r = insert.run(
+            value,
+            lat,
+            cyr,
+            trans,
+            field,
+            decl,
+            etymology,
+            grammar.pos,
+            grammar.aspect,
+            grammar.transitivity,
+            grammar.animacy,
+            grammar.degree,
+            grammar.pronType,
+            grammar.numType,
+            grammar.gender,
+            decl,
+            `${lat.toLowerCase()}-${pos}`,
+        );
+        wId = r.lastInsertRowid;
+    } else {
+        wId = check.id;
+    }
 
     const insertMeaning = db.prepare(`INSERT INTO meanings (
         wordId,

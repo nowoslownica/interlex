@@ -1,65 +1,92 @@
 import {prismaData as prisma} from "@/lib/prisma";
 
-// 1. Поля, которые разрешено обновлять во всех языковых таблицах
 const ALLOWED_LANG_FIELDS = ["value", "veryfied", "wordId", "meaningId"] as const;
 
-// 2. Строгий тип для доступных языковых кодов
 export type LanguageCode =
 
     | "en" | "ru" | "mk" | "sr" | "uk" | "bg" | "pl" | "be"
     | "cs" | "sk" | "sl" | "hr" | "cu" | "de" | "nl" | "eo";
 
-// 3. Карта моделей Prisma
 export const modelsMap: Record<LanguageCode | string, any> = {
-    // English
     en: prisma.en, En: prisma.en,
-    // Russian
     ru: prisma.ru, Ru: prisma.ru,
-    // Macedonian
     mk: prisma.mk, Mk: prisma.mk,
-    // Serbian
     sr: prisma.sr, Sr: prisma.sr,
-    // Ukrainian
     uk: prisma.uk, Uk: prisma.uk,
-    // Bulgarian
     bg: prisma.bg, Bg: prisma.bg,
-    // Polish
     pl: prisma.pl, Pl: prisma.pl,
-    // Belarusian
     be: prisma.be, Be: prisma.be,
-    // Czech
     cs: prisma.cs, Cs: prisma.cs,
-    // Slovak
     sk: prisma.sk, Sk: prisma.sk,
-    // Slovenian
     sl: prisma.sl, Sl: prisma.sl,
-    // Croatian
     hr: prisma.hr, Hr: prisma.hr,
-    // Church Slavic (Старославянский)
     cu: prisma.cu, Cu: prisma.cu,
-    // German
     de: prisma.de, De: prisma.de,
-    // Dutch
     nl: prisma.nl, Nl: prisma.nl,
-    // Esperanto
     eo: prisma.eo, Eo: prisma.eo,
 };
 
+async function syncBaseHomonym(wordId: number, newBase: string | null, oldBase: string | null) {
+    // Remove wordId from old base
+    if (oldBase) {
+        const oldEntry = await prisma.baseHomonym.findUnique({ where: { base: oldBase } })
+        if (oldEntry) {
+            const ids: number[] = JSON.parse(oldEntry.wordIds).filter((id: number) => id !== wordId)
+            if (ids.length > 0) {
+                await prisma.baseHomonym.update({
+                    where: { base: oldBase },
+                    data: { wordIds: JSON.stringify(ids) },
+                })
+            } else {
+                await prisma.baseHomonym.delete({ where: { base: oldBase } })
+            }
+        }
+    }
+    // Add wordId to new base
+    if (newBase) {
+        const existing = await prisma.baseHomonym.findUnique({ where: { base: newBase } })
+        if (existing) {
+            const ids: number[] = JSON.parse(existing.wordIds)
+            if (!ids.includes(wordId)) {
+                ids.push(wordId)
+                await prisma.baseHomonym.update({
+                    where: { base: newBase },
+                    data: { wordIds: JSON.stringify(ids) },
+                })
+            }
+        } else {
+            await prisma.baseHomonym.create({
+                data: { base: newBase, wordIds: JSON.stringify([wordId]) },
+            })
+        }
+    }
+}
 
 export const updateField = async (wordId: string, field: string, newValue: string) => {
     console.log(wordId, field, newValue);
 
-    if (["nsl", "isv", "value"].includes(field)) {
+    if (["base", "nsl", "isv", "value"].includes(field)) {
+        const parsedId = parseInt(wordId)
 
-        const updatedUser = await prisma.word.update({
-            where: {
-                id: parseInt(wordId),
-            },
-            data: {
-                [field]: newValue,
-            },
-        });
-        return updatedUser;
+        if (field === "base") {
+            const current = await prisma.word.findUnique({ where: { id: parsedId } })
+            const oldBase = current?.base?.trim() || null
+            const newBase = newValue.trim() || null
+
+            await prisma.word.update({
+                where: { id: parsedId },
+                data: { base: newBase },
+            })
+
+            await syncBaseHomonym(parsedId, newBase, oldBase)
+        } else {
+            await prisma.word.update({
+                where: { id: parsedId },
+                data: { [field]: newValue },
+            })
+        }
+
+        return;
     }
     if (["en", "ru"].includes(field)) {
         const entityOne = await modelsMap[field].findFirst({

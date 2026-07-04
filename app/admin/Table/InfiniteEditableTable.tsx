@@ -119,7 +119,11 @@ export default function InfiniteEditableTable() {
     // 2. Определение колонок
     const columns = useMemo<ColumnDef<RowData>[]>(
         () => [
-            { accessorKey: 'id', header: 'ID', size: 50 },
+            { accessorKey: 'id', header: 'ID', size: 50, cell: ({ getValue, row }) => (
+                    <Link href={`/admin/words/${row.original.id}/edit`} className="text-blue-600 hover:underline font-mono">
+                        {getValue<string>()}
+                    </Link>
+                ) },
             {
                 id: "nsl",
                 accessorKey: 'nsl',

@@ -105,7 +105,7 @@ const insertRow = (db, {
         transcription,
         field,
         declension,
-        conjunction,
+        conjugation,
         etymology,
         genesis,
         frequency,
@@ -119,34 +119,44 @@ const insertRow = (db, {
         degree,       
         pronType,       
         numType,        
-                   gender
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+        gender,
+        slug
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
 
-    const r = insert.run(
-        externalId,
-        value,
-        lat,
-        cyr,
-        trans,
-        field,
-        decl,
-        decl,
-        etymology,
-        genesis,
-        frequency,
-        intelligibility,
-        addition,
-        sameInLanguages,
-        pos,
-        aspect || null,
-        transitivity || null,
-        animacy || null,
-        degree || null,
-        pronType || null,
-        numType || null,
-        gender || null,
-    );
-    const wId = r.lastInsertRowid;
+    const check = db.prepare(`SELECT * FROM words WHERE slug = ? `).get(`${value}-${pos}`);
+
+    let wId;
+    if (!check) {
+
+        const r = insert.run(
+            externalId,
+            value,
+            lat,
+            cyr,
+            trans,
+            field,
+            decl,
+            decl,
+            etymology,
+            genesis,
+            frequency,
+            intelligibility,
+            addition,
+            sameInLanguages,
+            pos,
+            aspect || null,
+            transitivity || null,
+            animacy || null,
+            degree || null,
+            pronType || null,
+            numType || null,
+            gender || null,
+            `${value}-${pos}`,
+        );
+        wId = r.lastInsertRowid;
+    } else {
+        wId = check.id;
+    }
 
     const insertMeaning = db.prepare(`INSERT INTO meanings (
         wordId,

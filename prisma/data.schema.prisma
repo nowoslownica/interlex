@@ -13,36 +13,40 @@ model Word {
   external_id     Int?
   value           String?
   nsl             String?
-  isv             String?          // Межславянская лексема
+  isv             String?
   transcription   String?
   field           String?
   type            String?
-  pos             String?          // NOUN, VERB, ADJ, ADV, PRON, NUM...
-  aspect          String?          // Глагольный вид: IPF (несов.), PF (сов.), BI (двувидовой)
-  transitivity    String?          // Переходность: TR (транзитив), INTR (интранзитив), REFL (возвратный)
-  animacy         String?          // Одушевлённость: ANIM (одуш.), INAN (неодуш.)
-  degree          String?          // Степень сравнения: POS (положит.), CMP (сравнит.), SUP (превосх.)
-  pronType        String?          // Тип местоимения: pers, poss, dem, indef, int, rel, refl, rec
-  numType         String?          // Тип числительного: card, ord, subst, fract, coll, diff, mult
+  pos             String?
+  aspect          String?
+  transitivity    String?
+  animacy         String?
+  degree          String?
+  pronType        String?
+  numType         String?
   frequency       String?
   intelligibility String?
   addition        String?
   sameInLanguages String?
+  etymology       String?
 
-  // ПРАСЛАВЯНСКИЙ И АКЦЕНТОЛОГИЧЕСКИЙ СЛОЙ
-  proto           String?          // Праславянская исходная форма: *synъ, *ryba, *světъ
-  paradigm        String?          // Акцентная парадигма Зализняка: A, B, C
-  protoStemClass  String?          // Класс праславянской основы: ā, jā, o, jo, i, u, consonant
-  stemExtension   String?          // Наращение основы: en, es, et, er
+  proto           String?
+  paradigm        String?
+  protoStemClass  String?
+  stemExtension   String?
+  genesis         String?
 
   // ПОЛЯ ДЛЯ АВТОМАТИЧЕСКОЙ ГЕНЕРАЦИИ ПАРАДИГМ
-  base            String?          // Основа для поиска словоформ (н-р: "vod" для "voda", "hval" для "hvaliti")
-  gender          String?          // Род (masc, fem, neut) — критично для праславянских o/ā основ
-  declension      Int?             // Тип склонения в межславянском
-  conjugation     Int?             // Тип спряжения (для глаголов)
-  accentSyllable  Int?             // Индекс ударного слога в основе (для расчета парадигм A/B/C)
-  alternationType String?          // Маркер чередований согласных при формообразовании (k-c-č)
-  fleetingVowelAt Int?             // Позиция беглой гласной (-1 если нет, иначе индекс в строке `isv`)
+  base            String?
+  gender          String?
+  declension      Int?
+  conjugation     Int?
+  accentSyllable  Int?
+  alternationType String?
+  fleetingVowelAt Int?
+
+  // Маркер аномалий флексий
+  hasAnomalies    Boolean          @default(false)
 
   // Обратные связи Prisma
   meanings        Meaning[]
@@ -51,6 +55,7 @@ model Word {
   synonymsWord    Synonym[]        @relation("SynonymWord")
   antonymsRoot    Antonym[]        @relation("AntonymRoot")
   antonymsWord    Antonym[]        @relation("AntonymWord")
+  anomalies       InflectionAnomaly[]
 
   @@map("words")
   @@index([slug])
@@ -371,4 +376,32 @@ model Eo {
   meaning   Meaning? @relation("EoMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   @@map("eo")
+}
+
+// Карта основ → массив wordId омонимов (хеш-таблица для префиксного поиска омонимов)
+// base — текстовая основа (уникальный ключ), wordIds — JSON-строка с массивом ID лексем-омонимов
+model BaseHomonym {
+  id      Int    @id @default(autoincrement())
+  base    String @unique // Основа (н-р: "vod" для "voda")
+  wordIds String          // JSON-массив: "[1, 5, 12]"
+
+  @@map("base_homonyms")
+  @@index([base])
+}
+
+// Таблица аномалий флексий
+// Хранит нестандартные флексии для конкретных слов
+// Значение флексии (н-р: "-ami", "-ov")
+// Ключ-склейка граммемы (н-р: "PL_INST", "PL_GEN")
+model InflectionAnomaly {
+  id         Int    @id @default(autoincrement())
+  wordId     Int
+  inflection String
+  grammeme   String
+
+  word       Word   @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@map("inflection_anomalies")
+  @@index([wordId])
+  @@index([grammeme])
 }

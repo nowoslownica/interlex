@@ -1,63 +1,25 @@
-import { EngineWordInput, GeneratedForm } from '@/lib/grammar/morphology';
-import { EngineWordInput, GeneratedForm } from '@/lib/grammar/morphology';
-import {
-    GrammaticalGender,
-    AccentParadigm,
-    ProtoStemClass,
-    PosType
-} from '@/lib/grammar/common';
-// Импортируем изолированные движки трех классов числительных
-import { generateNumeralForm, EnhancedNumDbItem } from './numeralCardinal';
-import { declineOrdinalNumeral, OrdinalDbItem } from './numeralOrdinal';
-import { declineCollectiveNumeral, CollectiveDbItem, CollectiveClass } from './numeralCollective';
-import { EngineWordInput, GeneratedForm } from '@/lib/grammar/morphology';
-import {
-    GrammaticalGender,
-    AccentParadigm,
-    ProtoStemClass,
-    StemExtension,
-    PosType
-} from '@/lib/grammar/common';
-import { Case, NumberType, declineWordAutomatically, EnhancedDbItem } from './nounEngine';
 import { EngineWordInput, GeneratedForm, MorphoGrammarFeats } from '@/lib/grammar/morphology';
 import {
+    GrammaticalGender,
     AccentParadigm,
+    ProtoStemClass,
     VerbalAspect,
-    PosType
+    PosType,
+    AdjectiveTypeClass, StemExtension,
 } from '@/lib/grammar/common';
+// Импортируем изолированные движки трех классов числительных
+import { generateNumeralForm, EnhancedNumDbItem } from '../numerals/cardinal';
+import { declineOrdinalNumeral, OrdinalDbItem } from '../numerals/ordinal';
+import { declineCollectiveNumeral, CollectiveDbItem, CollectiveClass } from '../numerals/collective';
+import { Case, NumberType, declineWordAutomatically, EnhancedDbItem } from '../noun';
 import {
     conjugateFullVerb,
     extractProtoStems,
     VerbModel,
     FullParadigm
-} from './verbEngine';
-import { EngineWordInput, GeneratedForm } from '@/lib/grammar/morphology';
-import {
-    GrammaticalGender,
-    AccentParadigm,
-    ProtoStemClass
-} from '@/lib/grammar/common';
-import { Case, NumberType } from './nounEngine';
-import { generateAdjectiveForm, EnhancedAdjDbItem } from './adjectiveEngine';
-
-import { EngineWordInput, GeneratedForm } from '@/lib/grammar/morphology';
-import {
-    GrammaticalGender,
-    AccentParadigm,
-    PosType
-} from '@/lib/grammar/common';
-import { Case, NumberType } from './nounEngine';
-import { generatePronounForm, EnhancedPronounDbItem, PronounClass } from './pronounEngine';
-import { EngineWordInput, GeneratedForm } from '@/lib/grammar/morphology';
-import {
-    GrammaticalGender,
-    AccentParadigm,
-    ProtoStemClass
-} from '@/lib/grammar/common';
-import { Case, NumberType } from './nounEngine';
-import { generateAdjectiveForm, EnhancedAdjDbItem } from './adjectiveEngine';
-import {AdjectiveTypeClass} from "@/lib/grammar/common";
-
+} from '../verb';
+import { generateAdjectiveForm, EnhancedAdjDbItem } from '../adjective';
+import { generatePronounForm, EnhancedPronounDbItem, PronounClass } from '../pronoun';
 
 /**
  * Процессор Существительных (NOUN)

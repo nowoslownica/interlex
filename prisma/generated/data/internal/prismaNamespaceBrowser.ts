@@ -72,7 +72,9 @@ export const ModelName = {
   Cu: 'Cu',
   De: 'De',
   Nl: 'Nl',
-  Eo: 'Eo'
+  Eo: 'Eo',
+  BaseHomonym: 'BaseHomonym',
+  InflectionAnomaly: 'InflectionAnomaly'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -99,6 +101,12 @@ export const WordScalarFieldEnum = {
   field: 'field',
   type: 'type',
   pos: 'pos',
+  aspect: 'aspect',
+  transitivity: 'transitivity',
+  animacy: 'animacy',
+  degree: 'degree',
+  pronType: 'pronType',
+  numType: 'numType',
   frequency: 'frequency',
   intelligibility: 'intelligibility',
   addition: 'addition',
@@ -107,14 +115,14 @@ export const WordScalarFieldEnum = {
   paradigm: 'paradigm',
   protoStemClass: 'protoStemClass',
   stemExtension: 'stemExtension',
-  stem: 'stem',
   base: 'base',
   gender: 'gender',
   declension: 'declension',
   conjugation: 'conjugation',
   accentSyllable: 'accentSyllable',
   alternationType: 'alternationType',
-  fleetingVowelAt: 'fleetingVowelAt'
+  fleetingVowelAt: 'fleetingVowelAt',
+  hasAnomalies: 'hasAnomalies'
 } as const
 
 export type WordScalarFieldEnum = (typeof WordScalarFieldEnum)[keyof typeof WordScalarFieldEnum]
@@ -342,6 +350,25 @@ export const EoScalarFieldEnum = {
 } as const
 
 export type EoScalarFieldEnum = (typeof EoScalarFieldEnum)[keyof typeof EoScalarFieldEnum]
+
+
+export const BaseHomonymScalarFieldEnum = {
+  id: 'id',
+  base: 'base',
+  wordIds: 'wordIds'
+} as const
+
+export type BaseHomonymScalarFieldEnum = (typeof BaseHomonymScalarFieldEnum)[keyof typeof BaseHomonymScalarFieldEnum]
+
+
+export const InflectionAnomalyScalarFieldEnum = {
+  id: 'id',
+  wordId: 'wordId',
+  inflection: 'inflection',
+  grammeme: 'grammeme'
+} as const
+
+export type InflectionAnomalyScalarFieldEnum = (typeof InflectionAnomalyScalarFieldEnum)[keyof typeof InflectionAnomalyScalarFieldEnum]
 
 
 export const SortOrder = {

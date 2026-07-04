@@ -1,5 +1,5 @@
-import { AccentParadigm, ProtoStemClass, GrammaticalGender } from '@/types/morphology';
-import { Case, NumberType, FourSlavicTones, stripAccents } from './nounEngine';
+import { AccentParadigm, ProtoStemClass, GrammaticalGender } from '@/lib/grammar/common';
+import { Case, NumberType, FourSlavicTones, stripAccents } from '../noun';
 
 export type AdjStemType = 'adj_hard' | 'adj_soft';
 export type AdjectiveTypeClass = 'relative' | 'qualitative';

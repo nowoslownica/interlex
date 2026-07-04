@@ -90,11 +90,46 @@ export async function mergeWordsAction(
                 },
             });
 
-            // 2. Перепривязываем все Meaning (смыслы) от удаляемого слова к главному
-            await tx.meaning.updateMany({
-                where: { wordId: sourceId },
-                data: { wordId: targetId },
+            // 2. Переносим переводы из Meaning(source) в Meaning(target)
+            //    Находим первый смысл целевого слова (или создаём, если нет)
+            const targetMeanings = await tx.meaning.findMany({
+                where: { wordId: targetId },
+                take: 1,
             });
+            let targetMeaningId: number;
+
+            if (targetMeanings.length > 0) {
+                targetMeaningId = targetMeanings[0].id;
+            } else {
+                // У целевого слова нет ни одного смысла — создаём пустой
+                const newMeaning = await tx.meaning.create({
+                    data: { wordId: targetId },
+                });
+                targetMeaningId = newMeaning.id;
+            }
+
+            // Получаем все ID смыслов удаляемого слова
+            const sourceMeanings = await tx.meaning.findMany({
+                where: { wordId: sourceId },
+                select: { id: true },
+            });
+            const sourceMeaningIds = sourceMeanings.map(m => m.id);
+
+            if (sourceMeaningIds.length > 0) {
+                // Перепривязываем все языковые записи от source к target
+                const languageModels = ['en', 'ru', 'mk', 'sr', 'uk', 'bg', 'pl', 'be', 'cs', 'sk', 'sl', 'hr', 'cu', 'de', 'nl', 'eo'] as const;
+                for (const lang of languageModels) {
+                    await (tx as any)[lang].updateMany({
+                        where: { meaningId: { in: sourceMeaningIds } },
+                        data: { meaningId: targetMeaningId },
+                    });
+                }
+
+                // Удаляем исходные смыслы (после переноса переводов они пусты)
+                await tx.meaning.deleteMany({
+                    where: { id: { in: sourceMeaningIds } },
+                });
+            }
 
             // 3. Перепривязываем связи с корнями (RootWord)
             await tx.rootWord.updateMany({
@@ -102,7 +137,13 @@ export async function mergeWordsAction(
                 data: { wordId: targetId },
             });
 
-            // 4. Перепривязываем синонимы (обе стороны отношений в вашей схеме)
+            // 4. Перепривязываем аномалии флексий от удаляемого слова к главному
+            await tx.inflectionAnomaly.updateMany({
+                where: { wordId: sourceId },
+                data: { wordId: targetId },
+            });
+
+            // 5. Перепривязываем синонимы (обе стороны отношений в вашей схеме)
             await tx.synonym.updateMany({
                 where: { rootId: sourceId },
                 data: { rootId: targetId },
@@ -112,7 +153,7 @@ export async function mergeWordsAction(
                 data: { wordId: targetId },
             });
 
-            // 5. Перепривязываем антонимы (обе стороны отношений)
+            // 6. Перепривязываем антонимы (обе стороны отношений)
             await tx.antonym.updateMany({
                 where: { rootId: sourceId },
                 data: { rootId: targetId },
@@ -122,7 +163,7 @@ export async function mergeWordsAction(
                 data: { wordId: targetId },
             });
 
-            // 6. Теперь, когда у sourceId не осталось дочерних зависимостей, удаляем его
+            // 7. Теперь, когда у sourceId не осталось дочерних зависимостей, удаляем его
             await tx.word.delete({
                 where: { id: sourceId },
             });

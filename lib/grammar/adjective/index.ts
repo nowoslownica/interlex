@@ -2,8 +2,8 @@ import {
     AccentParadigm,
     ProtoStemClass,
     GrammaticalGender
-} from '@/types/morphology'; // Системные Enum из таблицы Word
-import { Case, NumberType, FourSlavicTones, stripAccents } from './nounEngine';
+} from '@/lib/grammar/common'; // Системные Enum из таблицы Word
+import { Case, NumberType, FourSlavicTones, stripAccents } from '../noun';
 
 // =========================================================================
 // 1. СТРОГИЕ ИНТЕРФЕЙСЫ И ТИПЫ ДАННЫХ
