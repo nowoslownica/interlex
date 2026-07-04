@@ -30,7 +30,7 @@ export default function HeaderNav({ session }: HeaderNavProps) {
             {/* Меню навигации */}
             <ul className={`header-nav ${isOpen ? 'open' : ''}`}>
 
-                {user && (
+                {["ADMIN", "MODERATOR"].includes(user.role || "") && (
                     <li><Link href="/admin" className="nav-link">Админка</Link></li>
                 )}
                 <li><Link href="/lexicon" className="nav-link">Лексикон</Link></li>
@@ -72,7 +72,7 @@ export default function HeaderNav({ session }: HeaderNavProps) {
                 ) : (
                     <li>
                         <button
-                            onClick={() => signIn("yandex", { callbackUrl: "/admin" })}
+                            onClick={() => signIn("yandex", { callbackUrl: "/" })}
                             className="nav-link border-none bg-transparent cursor-pointer"
                             style={{ font: 'inherit', color: 'inherit' }}
                         >

@@ -11,7 +11,7 @@ const AdminPage = async () => {
 
     const hasAccess = ["ADMIN", "MODERATOR"].includes(session.user.role || "")
 
-    if (!hasAccess && false) {
+    if (!hasAccess) {
         return <h1>Доступ запрещен. У вас нет прав на редактирование.</h1>
     }
 
