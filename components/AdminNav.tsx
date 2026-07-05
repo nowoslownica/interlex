@@ -19,10 +19,9 @@ export default function AdminNav({ userRole }: AdminNavProps) {
 
     return (
         // Добавляем relative, чтобы линия контейнера ложилась под активный трек
-        <div className="relative border-b bg-muted/40">
+<div className="relative border-b bg-muted/40 overflow-x-auto">
             <div className="container mx-auto flex h-12 items-center px-4">
-                {/* h-full заставляет навигацию растягиваться на все 48px высоты */}
-                <nav className="flex h-full space-x-6 text-sm font-medium">
+                <nav className="flex h-full space-x-6 text-sm font-medium whitespace-nowrap">
                     {navItems.map((item) => {
                         // Раскомментируйте, когда будете готовы включить проверку ролей:
                         // if (!item.roles.includes(userRole)) return null

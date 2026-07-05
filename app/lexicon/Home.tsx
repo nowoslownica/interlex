@@ -1,6 +1,6 @@
 'use client';
-import React, {useCallback, useMemo} from "react";
-import {useRouter} from "next/navigation";
+import React, {useCallback, useEffect, useMemo} from "react";
+import {useRouter, useSearchParams} from "next/navigation";
 import {isvToCyr, standardToSimple} from "@/lib/isv";
 import {mapNslToEtymologized} from "@/lib/nsl";
 
@@ -33,25 +33,41 @@ export default function Home({ currentScript, isGuest }: { currentScript: string
     const [items, setItems] = React.useState<Array<any>>([]);
     const [hasFetched, setHasFetched] = React.useState(false);
 
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const performSearch = useCallback((query: string) => {
+        fetch(`/api/lexicon?search=${query}&limit=${50}&offset=${0}`)
+            .then(res => res.json())
+            .then((data) => {
+                setItems(data);
+                setHasFetched(true);
+            });
+    }, []);
+
+    useEffect(() => {
+        const q = searchParams.get('q');
+        if (q) {
+            setSearchValue(q);
+            performSearch(q);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const onKeyDown = useCallback((e) => {
         if (e.key === "Enter") {
             const sValue = currentScript === "CYRILLIC"
                     ? standardToSimple(mapNslToEtymologized(searchValue))
                     : searchValue;
 
-            fetch(`/api/lexicon?search=${sValue}&limit=${50}&offset=${0}`)
-                .then(res => res.json())
-                .then((data) => {
-                setItems(data);
-            });
+            performSearch(sValue);
+            router.replace(`/lexicon?q=${encodeURIComponent(sValue)}`);
         }
-    }, [searchValue, currentScript]);
-
-    const navigate = useRouter();
+    }, [searchValue, currentScript, performSearch, router]);
 
     const onClickCard = useCallback((item) => () => {
-        navigate.push(`/words/${item.id}`);
-    }, []);
+        router.push(`/words/${item.id}`);
+    }, [router]);
 
     const onChangeSearch = useCallback((e) => {
         const newSearch = e.target.value;

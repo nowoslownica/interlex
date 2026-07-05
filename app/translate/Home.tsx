@@ -1,6 +1,6 @@
 'use client';
-import React, {useCallback, useMemo} from "react";
-import {useRouter} from "next/navigation";
+import React, {useCallback, useEffect, useMemo} from "react";
+import {useRouter, useSearchParams} from "next/navigation";
 import {isvToCyr, standardToSimple} from "@/lib/isv";
 import {mapNslToEtymologized} from "@/lib/nsl";
 
@@ -53,6 +53,37 @@ export default function Home({ currentScript, isGuest }: { currentScript: string
     const [items, setItems] = React.useState<Array<any>>([]);
     const [hasFetched, setHasFetched] = React.useState(false);
 
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const performSearch = useCallback((query: string, from: string, to: string) => {
+        const sValue = from === "is"
+            ? currentScript === "CYRILLIC"
+                ? standardToSimple(mapNslToEtymologized(query))
+                : query
+            : query;
+
+        fetch(`/api/dict?search=${sValue}&from=${from}&to=${to}`)
+            .then(res => res.json())
+            .then((data) => {
+                setItems(data);
+                setHasFetched(true);
+            });
+    }, [currentScript]);
+
+    useEffect(() => {
+        const q = searchParams.get('q');
+        const from = searchParams.get('from');
+        const to = searchParams.get('to');
+        if (q) {
+            setSearchValue(q);
+            if (from) setFromValue(from);
+            if (to) setToValue(to);
+            performSearch(q, from || "ru", to || "is");
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const onSwitchClick = useCallback(() => {
         setFromValue(toValue);
         setToValue(fromValue);
@@ -60,25 +91,14 @@ export default function Home({ currentScript, isGuest }: { currentScript: string
 
     const onKeyDown = useCallback((e) => {
         if (e.key === "Enter") {
-            const sValue = fromValue === "is"
-                ? currentScript === "CYRILLIC"
-                    ? standardToSimple(mapNslToEtymologized(searchValue))
-                    : searchValue
-                : searchValue;
-
-            fetch(`/api/dict?search=${sValue}&from=${fromValue}&to=${toValue}`)
-                .then(res => res.json())
-                .then((data) => {
-                setItems(data);
-            });
+            performSearch(searchValue, fromValue, toValue);
+            router.replace(`/translate?q=${encodeURIComponent(searchValue)}&from=${fromValue}&to=${toValue}`);
         }
-    }, [searchValue, currentScript]);
-
-    const navigate = useRouter();
+    }, [searchValue, fromValue, toValue, performSearch, router]);
 
     const onClickCard = useCallback((item) => () => {
-        navigate.push(`/words/${item.id}`);
-    }, []);
+        router.push(`/words/${item.id}`);
+    }, [router]);
 
     const onChangeSearch = useCallback((e) => {
         const newSearch = e.target.value;

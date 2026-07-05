@@ -13,7 +13,7 @@ interface StatsProps {
 export default function MainClient({ stats }: StatsProps) {
     return (
         // max-w-7xl ограничивает контент на 1280px, что идеально центрирует его на 1920px без чрезмерного растягивания строк текста
-        <main className="h-full overflow-y-auto max-w-7xl mx-auto px-4 md:px-8 2xl:px-12 pb-16 space-y-16 md:space-y-24 animate-fade-in text-sm no-scrollbar py-8">
+        <main className="h-full overflow-y-auto max-w-7xl mx-auto px-4 md:px-8 2xl:px-12 pb-24 md:pb-32 space-y-16 md:space-y-24 animate-fade-in text-sm no-scrollbar py-8">
 
             {/* СЕКЦИЯ 1: ГЛАВНЫЙ БАННЕР */}
             <section className="text-center space-y-6 max-w-4xl mx-auto pt-4 md:pt-12">
@@ -25,7 +25,7 @@ export default function MainClient({ stats }: StatsProps) {
                 </h1>
                 <p className="text-base md:text-lg 2xl:text-xl text-muted-foreground leading-relaxed">
                     Профессиональный инструмент для лингвистических исследований, перевода и изучения
-                    панславянского языка. Платформа объединяет классические славянские корни и современные языковые формы.
+                    междуславянского языка. Платформа объединяет классические славянские корни и современные языковые формы.
                 </p>
             </section>
 

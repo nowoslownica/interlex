@@ -31,14 +31,14 @@ export default function HeaderNav({ session }: HeaderNavProps) {
             <ul className={`header-nav ${isOpen ? 'open' : ''}`}>
 
                 {["ADMIN", "MODERATOR"].includes(user?.role || "") && (
-                    <li><Link href="/admin" className="nav-link">Админка</Link></li>
+                    <li><Link href="/admin" className="nav-link" onClick={() => setIsOpen(false)}>Админка</Link></li>
                 )}
-                <li><Link href="/lexicon" className="nav-link">Лексикон</Link></li>
-                <li><Link href="/proto" className="nav-link">Праслав.</Link></li>
-                <li><Link href="/translate" className="nav-link">Перевод</Link></li>
-                <li><Link href="/library" className="nav-link">Библиотека</Link></li>
-                <li><Link href="/textbook/ru" className="nav-link">Учебник</Link></li>
-                <li><Link href="/about" className="nav-link">О программе</Link></li>
+                <li><Link href="/lexicon" className="nav-link" onClick={() => setIsOpen(false)}>Лексикон</Link></li>
+                <li><Link href="/proto" className="nav-link" onClick={() => setIsOpen(false)}>Праслав.</Link></li>
+                <li><Link href="/translate" className="nav-link" onClick={() => setIsOpen(false)}>Перевод</Link></li>
+                <li><Link href="/library" className="nav-link" onClick={() => setIsOpen(false)}>Библиотека</Link></li>
+                <li><Link href="/textbook/ru" className="nav-link" onClick={() => setIsOpen(false)}>Учебник</Link></li>
+                <li><Link href="/about" className="nav-link" onClick={() => setIsOpen(false)}>О программе</Link></li>
 
                 <LanguageSwitcher />
                 {/* Динамическая часть: инфо о юзере и кнопки */}
@@ -49,6 +49,7 @@ export default function HeaderNav({ session }: HeaderNavProps) {
                             <Link
                                 href="/settings"
                                 className="nav-link flex items-center gap-2 hover:opacity-80 transition-opacity"
+                                onClick={() => setIsOpen(false)}
                             >
                                 {user.image && (
                                     <img

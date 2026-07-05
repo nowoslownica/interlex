@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Home from "@/app/proto/Home";
 import {auth} from "@/auth";
 import {getUserScript} from "@/lib/get-user-script";
@@ -15,7 +15,9 @@ export default async function ProtoPage() {
 
     return (
         <main className="main-content">
-            <Home currentScript={currentScript} isGuest={!session} />
+            <Suspense fallback={<div className="search-container"><input type="text" className="search-box" placeholder="Поиск по лемме…" disabled /></div>}>
+                <Home currentScript={currentScript} isGuest={!session} />
+            </Suspense>
         </main>
     );
 }

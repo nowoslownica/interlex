@@ -1,6 +1,6 @@
 'use client';
-import React, {useCallback, useMemo, useState} from "react";
-import {useRouter} from "next/navigation";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
+import {useRouter, useSearchParams} from "next/navigation";
 import "./main-page.css";
 
 interface ProtoWord {
@@ -31,21 +31,37 @@ export default function Home({currentScript}: { currentScript: string; isGuest?:
     const [items, setItems] = useState<ProtoWord[]>([]);
     const [hasFetched, setHasFetched] = useState(false);
 
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const performSearch = useCallback((query: string) => {
+        fetch(`/api/proto?search=${encodeURIComponent(query)}&limit=50&offset=0`)
+            .then(res => res.json())
+            .then((data) => {
+                setItems(data.items);
+                setHasFetched(true);
+            });
+    }, []);
+
+    useEffect(() => {
+        const q = searchParams.get('q');
+        if (q) {
+            setSearchValue(q);
+            performSearch(q);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const onKeyDown = useCallback((e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
-            fetch(`/api/proto?search=${encodeURIComponent(searchValue)}&limit=50&offset=0`)
-                .then(res => res.json())
-                .then((data) => {
-                    setItems(data.items);
-                    setHasFetched(true);
-                });
+            performSearch(searchValue);
+            router.replace(`/proto?q=${encodeURIComponent(searchValue)}`);
         }
-    }, [searchValue]);
+    }, [searchValue, performSearch, router]);
 
-    const navigate = useRouter();
     const onClickCard = useCallback((item: ProtoWord) => () => {
-        navigate.push(`/proto/${item.id}`);
-    }, []);
+        router.push(`/proto/${item.id}`);
+    }, [router]);
 
     const onChangeSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
