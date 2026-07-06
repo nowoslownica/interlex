@@ -113,6 +113,9 @@ body {
 
 .nav-item-submenu {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .submenu-toggle {
