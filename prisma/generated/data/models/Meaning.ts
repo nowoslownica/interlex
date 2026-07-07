@@ -28,66 +28,78 @@ export type AggregateMeaning = {
 
 export type MeaningAvgAggregateOutputType = {
   id: number | null
-  wordId: number | null
+  lexemeId: number | null
 }
 
 export type MeaningSumAggregateOutputType = {
   id: number | null
-  wordId: number | null
+  lexemeId: number | null
 }
 
 export type MeaningMinAggregateOutputType = {
   id: number | null
-  wordId: number | null
+  lexemeId: number | null
   meaning: string | null
   examples: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type MeaningMaxAggregateOutputType = {
   id: number | null
-  wordId: number | null
+  lexemeId: number | null
   meaning: string | null
   examples: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type MeaningCountAggregateOutputType = {
   id: number
-  wordId: number
+  lexemeId: number
   meaning: number
   examples: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type MeaningAvgAggregateInputType = {
   id?: true
-  wordId?: true
+  lexemeId?: true
 }
 
 export type MeaningSumAggregateInputType = {
   id?: true
-  wordId?: true
+  lexemeId?: true
 }
 
 export type MeaningMinAggregateInputType = {
   id?: true
-  wordId?: true
+  lexemeId?: true
   meaning?: true
   examples?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type MeaningMaxAggregateInputType = {
   id?: true
-  wordId?: true
+  lexemeId?: true
   meaning?: true
   examples?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type MeaningCountAggregateInputType = {
   id?: true
-  wordId?: true
+  lexemeId?: true
   meaning?: true
   examples?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -179,9 +191,11 @@ export type MeaningGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type MeaningGroupByOutputType = {
   id: number
-  wordId: number
+  lexemeId: number
   meaning: string | null
   examples: string | null
+  createdAt: Date
+  updatedAt: Date
   _count: MeaningCountAggregateOutputType | null
   _avg: MeaningAvgAggregateOutputType | null
   _sum: MeaningSumAggregateOutputType | null
@@ -209,10 +223,12 @@ export type MeaningWhereInput = {
   OR?: Prisma.MeaningWhereInput[]
   NOT?: Prisma.MeaningWhereInput | Prisma.MeaningWhereInput[]
   id?: Prisma.IntFilter<"Meaning"> | number
-  wordId?: Prisma.IntFilter<"Meaning"> | number
+  lexemeId?: Prisma.IntFilter<"Meaning"> | number
   meaning?: Prisma.StringNullableFilter<"Meaning"> | string | null
   examples?: Prisma.StringNullableFilter<"Meaning"> | string | null
-  word?: Prisma.XOR<Prisma.WordScalarRelationFilter, Prisma.WordWhereInput>
+  createdAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
+  lexeme?: Prisma.XOR<Prisma.LexemeScalarRelationFilter, Prisma.LexemeWhereInput>
   en_word?: Prisma.EnListRelationFilter
   en_mean?: Prisma.EnListRelationFilter
   ru_word?: Prisma.RuListRelationFilter
@@ -253,10 +269,12 @@ export type MeaningWhereInput = {
 
 export type MeaningOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
   meaning?: Prisma.SortOrderInput | Prisma.SortOrder
   examples?: Prisma.SortOrderInput | Prisma.SortOrder
-  word?: Prisma.WordOrderByWithRelationInput
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  lexeme?: Prisma.LexemeOrderByWithRelationInput
   en_word?: Prisma.EnOrderByRelationAggregateInput
   en_mean?: Prisma.EnOrderByRelationAggregateInput
   ru_word?: Prisma.RuOrderByRelationAggregateInput
@@ -300,10 +318,12 @@ export type MeaningWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.MeaningWhereInput | Prisma.MeaningWhereInput[]
   OR?: Prisma.MeaningWhereInput[]
   NOT?: Prisma.MeaningWhereInput | Prisma.MeaningWhereInput[]
-  wordId?: Prisma.IntFilter<"Meaning"> | number
+  lexemeId?: Prisma.IntFilter<"Meaning"> | number
   meaning?: Prisma.StringNullableFilter<"Meaning"> | string | null
   examples?: Prisma.StringNullableFilter<"Meaning"> | string | null
-  word?: Prisma.XOR<Prisma.WordScalarRelationFilter, Prisma.WordWhereInput>
+  createdAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
+  lexeme?: Prisma.XOR<Prisma.LexemeScalarRelationFilter, Prisma.LexemeWhereInput>
   en_word?: Prisma.EnListRelationFilter
   en_mean?: Prisma.EnListRelationFilter
   ru_word?: Prisma.RuListRelationFilter
@@ -344,9 +364,11 @@ export type MeaningWhereUniqueInput = Prisma.AtLeast<{
 
 export type MeaningOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
   meaning?: Prisma.SortOrderInput | Prisma.SortOrder
   examples?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.MeaningCountOrderByAggregateInput
   _avg?: Prisma.MeaningAvgOrderByAggregateInput
   _max?: Prisma.MeaningMaxOrderByAggregateInput
@@ -359,15 +381,19 @@ export type MeaningScalarWhereWithAggregatesInput = {
   OR?: Prisma.MeaningScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MeaningScalarWhereWithAggregatesInput | Prisma.MeaningScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Meaning"> | number
-  wordId?: Prisma.IntWithAggregatesFilter<"Meaning"> | number
+  lexemeId?: Prisma.IntWithAggregatesFilter<"Meaning"> | number
   meaning?: Prisma.StringNullableWithAggregatesFilter<"Meaning"> | string | null
   examples?: Prisma.StringNullableWithAggregatesFilter<"Meaning"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Meaning"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Meaning"> | Date | string
 }
 
 export type MeaningCreateInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -408,9 +434,11 @@ export type MeaningCreateInput = {
 
 export type MeaningUncheckedCreateInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -452,7 +480,9 @@ export type MeaningUncheckedCreateInput = {
 export type MeaningUpdateInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -493,9 +523,11 @@ export type MeaningUpdateInput = {
 
 export type MeaningUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -536,21 +568,27 @@ export type MeaningUncheckedUpdateInput = {
 
 export type MeaningCreateManyInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type MeaningUpdateManyMutationInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MeaningUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MeaningListRelationFilter = {
@@ -565,33 +603,39 @@ export type MeaningOrderByRelationAggregateInput = {
 
 export type MeaningCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
   meaning?: Prisma.SortOrder
   examples?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type MeaningAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
 }
 
 export type MeaningMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
   meaning?: Prisma.SortOrder
   examples?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type MeaningMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
   meaning?: Prisma.SortOrder
   examples?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type MeaningSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
 }
 
 export type MeaningNullableScalarRelationFilter = {
@@ -599,45 +643,45 @@ export type MeaningNullableScalarRelationFilter = {
   isNot?: Prisma.MeaningWhereInput | null
 }
 
-export type MeaningCreateNestedManyWithoutWordInput = {
-  create?: Prisma.XOR<Prisma.MeaningCreateWithoutWordInput, Prisma.MeaningUncheckedCreateWithoutWordInput> | Prisma.MeaningCreateWithoutWordInput[] | Prisma.MeaningUncheckedCreateWithoutWordInput[]
-  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutWordInput | Prisma.MeaningCreateOrConnectWithoutWordInput[]
-  createMany?: Prisma.MeaningCreateManyWordInputEnvelope
+export type MeaningCreateNestedManyWithoutLexemeInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutLexemeInput, Prisma.MeaningUncheckedCreateWithoutLexemeInput> | Prisma.MeaningCreateWithoutLexemeInput[] | Prisma.MeaningUncheckedCreateWithoutLexemeInput[]
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutLexemeInput | Prisma.MeaningCreateOrConnectWithoutLexemeInput[]
+  createMany?: Prisma.MeaningCreateManyLexemeInputEnvelope
   connect?: Prisma.MeaningWhereUniqueInput | Prisma.MeaningWhereUniqueInput[]
 }
 
-export type MeaningUncheckedCreateNestedManyWithoutWordInput = {
-  create?: Prisma.XOR<Prisma.MeaningCreateWithoutWordInput, Prisma.MeaningUncheckedCreateWithoutWordInput> | Prisma.MeaningCreateWithoutWordInput[] | Prisma.MeaningUncheckedCreateWithoutWordInput[]
-  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutWordInput | Prisma.MeaningCreateOrConnectWithoutWordInput[]
-  createMany?: Prisma.MeaningCreateManyWordInputEnvelope
+export type MeaningUncheckedCreateNestedManyWithoutLexemeInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutLexemeInput, Prisma.MeaningUncheckedCreateWithoutLexemeInput> | Prisma.MeaningCreateWithoutLexemeInput[] | Prisma.MeaningUncheckedCreateWithoutLexemeInput[]
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutLexemeInput | Prisma.MeaningCreateOrConnectWithoutLexemeInput[]
+  createMany?: Prisma.MeaningCreateManyLexemeInputEnvelope
   connect?: Prisma.MeaningWhereUniqueInput | Prisma.MeaningWhereUniqueInput[]
 }
 
-export type MeaningUpdateManyWithoutWordNestedInput = {
-  create?: Prisma.XOR<Prisma.MeaningCreateWithoutWordInput, Prisma.MeaningUncheckedCreateWithoutWordInput> | Prisma.MeaningCreateWithoutWordInput[] | Prisma.MeaningUncheckedCreateWithoutWordInput[]
-  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutWordInput | Prisma.MeaningCreateOrConnectWithoutWordInput[]
-  upsert?: Prisma.MeaningUpsertWithWhereUniqueWithoutWordInput | Prisma.MeaningUpsertWithWhereUniqueWithoutWordInput[]
-  createMany?: Prisma.MeaningCreateManyWordInputEnvelope
+export type MeaningUpdateManyWithoutLexemeNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutLexemeInput, Prisma.MeaningUncheckedCreateWithoutLexemeInput> | Prisma.MeaningCreateWithoutLexemeInput[] | Prisma.MeaningUncheckedCreateWithoutLexemeInput[]
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutLexemeInput | Prisma.MeaningCreateOrConnectWithoutLexemeInput[]
+  upsert?: Prisma.MeaningUpsertWithWhereUniqueWithoutLexemeInput | Prisma.MeaningUpsertWithWhereUniqueWithoutLexemeInput[]
+  createMany?: Prisma.MeaningCreateManyLexemeInputEnvelope
   set?: Prisma.MeaningWhereUniqueInput | Prisma.MeaningWhereUniqueInput[]
   disconnect?: Prisma.MeaningWhereUniqueInput | Prisma.MeaningWhereUniqueInput[]
   delete?: Prisma.MeaningWhereUniqueInput | Prisma.MeaningWhereUniqueInput[]
   connect?: Prisma.MeaningWhereUniqueInput | Prisma.MeaningWhereUniqueInput[]
-  update?: Prisma.MeaningUpdateWithWhereUniqueWithoutWordInput | Prisma.MeaningUpdateWithWhereUniqueWithoutWordInput[]
-  updateMany?: Prisma.MeaningUpdateManyWithWhereWithoutWordInput | Prisma.MeaningUpdateManyWithWhereWithoutWordInput[]
+  update?: Prisma.MeaningUpdateWithWhereUniqueWithoutLexemeInput | Prisma.MeaningUpdateWithWhereUniqueWithoutLexemeInput[]
+  updateMany?: Prisma.MeaningUpdateManyWithWhereWithoutLexemeInput | Prisma.MeaningUpdateManyWithWhereWithoutLexemeInput[]
   deleteMany?: Prisma.MeaningScalarWhereInput | Prisma.MeaningScalarWhereInput[]
 }
 
-export type MeaningUncheckedUpdateManyWithoutWordNestedInput = {
-  create?: Prisma.XOR<Prisma.MeaningCreateWithoutWordInput, Prisma.MeaningUncheckedCreateWithoutWordInput> | Prisma.MeaningCreateWithoutWordInput[] | Prisma.MeaningUncheckedCreateWithoutWordInput[]
-  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutWordInput | Prisma.MeaningCreateOrConnectWithoutWordInput[]
-  upsert?: Prisma.MeaningUpsertWithWhereUniqueWithoutWordInput | Prisma.MeaningUpsertWithWhereUniqueWithoutWordInput[]
-  createMany?: Prisma.MeaningCreateManyWordInputEnvelope
+export type MeaningUncheckedUpdateManyWithoutLexemeNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutLexemeInput, Prisma.MeaningUncheckedCreateWithoutLexemeInput> | Prisma.MeaningCreateWithoutLexemeInput[] | Prisma.MeaningUncheckedCreateWithoutLexemeInput[]
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutLexemeInput | Prisma.MeaningCreateOrConnectWithoutLexemeInput[]
+  upsert?: Prisma.MeaningUpsertWithWhereUniqueWithoutLexemeInput | Prisma.MeaningUpsertWithWhereUniqueWithoutLexemeInput[]
+  createMany?: Prisma.MeaningCreateManyLexemeInputEnvelope
   set?: Prisma.MeaningWhereUniqueInput | Prisma.MeaningWhereUniqueInput[]
   disconnect?: Prisma.MeaningWhereUniqueInput | Prisma.MeaningWhereUniqueInput[]
   delete?: Prisma.MeaningWhereUniqueInput | Prisma.MeaningWhereUniqueInput[]
   connect?: Prisma.MeaningWhereUniqueInput | Prisma.MeaningWhereUniqueInput[]
-  update?: Prisma.MeaningUpdateWithWhereUniqueWithoutWordInput | Prisma.MeaningUpdateWithWhereUniqueWithoutWordInput[]
-  updateMany?: Prisma.MeaningUpdateManyWithWhereWithoutWordInput | Prisma.MeaningUpdateManyWithWhereWithoutWordInput[]
+  update?: Prisma.MeaningUpdateWithWhereUniqueWithoutLexemeInput | Prisma.MeaningUpdateWithWhereUniqueWithoutLexemeInput[]
+  updateMany?: Prisma.MeaningUpdateManyWithWhereWithoutLexemeInput | Prisma.MeaningUpdateManyWithWhereWithoutLexemeInput[]
   deleteMany?: Prisma.MeaningScalarWhereInput | Prisma.MeaningScalarWhereInput[]
 }
 
@@ -1217,9 +1261,11 @@ export type MeaningUpdateOneWithoutEo_meanNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutEo_meanInput, Prisma.MeaningUpdateWithoutEo_meanInput>, Prisma.MeaningUncheckedUpdateWithoutEo_meanInput>
 }
 
-export type MeaningCreateWithoutWordInput = {
+export type MeaningCreateWithoutLexemeInput = {
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -1258,10 +1304,12 @@ export type MeaningCreateWithoutWordInput = {
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
 }
 
-export type MeaningUncheckedCreateWithoutWordInput = {
+export type MeaningUncheckedCreateWithoutLexemeInput = {
   id?: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -1300,29 +1348,29 @@ export type MeaningUncheckedCreateWithoutWordInput = {
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
 }
 
-export type MeaningCreateOrConnectWithoutWordInput = {
+export type MeaningCreateOrConnectWithoutLexemeInput = {
   where: Prisma.MeaningWhereUniqueInput
-  create: Prisma.XOR<Prisma.MeaningCreateWithoutWordInput, Prisma.MeaningUncheckedCreateWithoutWordInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutLexemeInput, Prisma.MeaningUncheckedCreateWithoutLexemeInput>
 }
 
-export type MeaningCreateManyWordInputEnvelope = {
-  data: Prisma.MeaningCreateManyWordInput | Prisma.MeaningCreateManyWordInput[]
+export type MeaningCreateManyLexemeInputEnvelope = {
+  data: Prisma.MeaningCreateManyLexemeInput | Prisma.MeaningCreateManyLexemeInput[]
 }
 
-export type MeaningUpsertWithWhereUniqueWithoutWordInput = {
+export type MeaningUpsertWithWhereUniqueWithoutLexemeInput = {
   where: Prisma.MeaningWhereUniqueInput
-  update: Prisma.XOR<Prisma.MeaningUpdateWithoutWordInput, Prisma.MeaningUncheckedUpdateWithoutWordInput>
-  create: Prisma.XOR<Prisma.MeaningCreateWithoutWordInput, Prisma.MeaningUncheckedCreateWithoutWordInput>
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutLexemeInput, Prisma.MeaningUncheckedUpdateWithoutLexemeInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutLexemeInput, Prisma.MeaningUncheckedCreateWithoutLexemeInput>
 }
 
-export type MeaningUpdateWithWhereUniqueWithoutWordInput = {
+export type MeaningUpdateWithWhereUniqueWithoutLexemeInput = {
   where: Prisma.MeaningWhereUniqueInput
-  data: Prisma.XOR<Prisma.MeaningUpdateWithoutWordInput, Prisma.MeaningUncheckedUpdateWithoutWordInput>
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutLexemeInput, Prisma.MeaningUncheckedUpdateWithoutLexemeInput>
 }
 
-export type MeaningUpdateManyWithWhereWithoutWordInput = {
+export type MeaningUpdateManyWithWhereWithoutLexemeInput = {
   where: Prisma.MeaningScalarWhereInput
-  data: Prisma.XOR<Prisma.MeaningUpdateManyMutationInput, Prisma.MeaningUncheckedUpdateManyWithoutWordInput>
+  data: Prisma.XOR<Prisma.MeaningUpdateManyMutationInput, Prisma.MeaningUncheckedUpdateManyWithoutLexemeInput>
 }
 
 export type MeaningScalarWhereInput = {
@@ -1330,15 +1378,19 @@ export type MeaningScalarWhereInput = {
   OR?: Prisma.MeaningScalarWhereInput[]
   NOT?: Prisma.MeaningScalarWhereInput | Prisma.MeaningScalarWhereInput[]
   id?: Prisma.IntFilter<"Meaning"> | number
-  wordId?: Prisma.IntFilter<"Meaning"> | number
+  lexemeId?: Prisma.IntFilter<"Meaning"> | number
   meaning?: Prisma.StringNullableFilter<"Meaning"> | string | null
   examples?: Prisma.StringNullableFilter<"Meaning"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
 }
 
 export type MeaningCreateWithoutSynonymsSourceInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -1378,9 +1430,11 @@ export type MeaningCreateWithoutSynonymsSourceInput = {
 
 export type MeaningUncheckedCreateWithoutSynonymsSourceInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -1426,7 +1480,9 @@ export type MeaningCreateOrConnectWithoutSynonymsSourceInput = {
 export type MeaningCreateWithoutSynonymsTargetInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -1466,9 +1522,11 @@ export type MeaningCreateWithoutSynonymsTargetInput = {
 
 export type MeaningUncheckedCreateWithoutSynonymsTargetInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -1525,7 +1583,9 @@ export type MeaningUpdateToOneWithWhereWithoutSynonymsSourceInput = {
 export type MeaningUpdateWithoutSynonymsSourceInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -1565,9 +1625,11 @@ export type MeaningUpdateWithoutSynonymsSourceInput = {
 
 export type MeaningUncheckedUpdateWithoutSynonymsSourceInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -1619,7 +1681,9 @@ export type MeaningUpdateToOneWithWhereWithoutSynonymsTargetInput = {
 export type MeaningUpdateWithoutSynonymsTargetInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -1659,9 +1723,11 @@ export type MeaningUpdateWithoutSynonymsTargetInput = {
 
 export type MeaningUncheckedUpdateWithoutSynonymsTargetInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -1702,7 +1768,9 @@ export type MeaningUncheckedUpdateWithoutSynonymsTargetInput = {
 export type MeaningCreateWithoutAntonymsSourceInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -1742,9 +1810,11 @@ export type MeaningCreateWithoutAntonymsSourceInput = {
 
 export type MeaningUncheckedCreateWithoutAntonymsSourceInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -1790,7 +1860,9 @@ export type MeaningCreateOrConnectWithoutAntonymsSourceInput = {
 export type MeaningCreateWithoutAntonymsTargetInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -1830,9 +1902,11 @@ export type MeaningCreateWithoutAntonymsTargetInput = {
 
 export type MeaningUncheckedCreateWithoutAntonymsTargetInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -1889,7 +1963,9 @@ export type MeaningUpdateToOneWithWhereWithoutAntonymsSourceInput = {
 export type MeaningUpdateWithoutAntonymsSourceInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -1929,9 +2005,11 @@ export type MeaningUpdateWithoutAntonymsSourceInput = {
 
 export type MeaningUncheckedUpdateWithoutAntonymsSourceInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -1983,7 +2061,9 @@ export type MeaningUpdateToOneWithWhereWithoutAntonymsTargetInput = {
 export type MeaningUpdateWithoutAntonymsTargetInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -2023,9 +2103,11 @@ export type MeaningUpdateWithoutAntonymsTargetInput = {
 
 export type MeaningUncheckedUpdateWithoutAntonymsTargetInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -2066,7 +2148,9 @@ export type MeaningUncheckedUpdateWithoutAntonymsTargetInput = {
 export type MeaningCreateWithoutEn_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
   ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
@@ -2106,9 +2190,11 @@ export type MeaningCreateWithoutEn_wordInput = {
 
 export type MeaningUncheckedCreateWithoutEn_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
   ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
@@ -2154,7 +2240,9 @@ export type MeaningCreateOrConnectWithoutEn_wordInput = {
 export type MeaningCreateWithoutEn_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
   ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
@@ -2194,9 +2282,11 @@ export type MeaningCreateWithoutEn_meanInput = {
 
 export type MeaningUncheckedCreateWithoutEn_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
   ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
@@ -2253,7 +2343,9 @@ export type MeaningUpdateToOneWithWhereWithoutEn_wordInput = {
 export type MeaningUpdateWithoutEn_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
   ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
@@ -2293,9 +2385,11 @@ export type MeaningUpdateWithoutEn_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutEn_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
   ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
@@ -2347,7 +2441,9 @@ export type MeaningUpdateToOneWithWhereWithoutEn_meanInput = {
 export type MeaningUpdateWithoutEn_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
   ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
@@ -2387,9 +2483,11 @@ export type MeaningUpdateWithoutEn_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutEn_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
   ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
@@ -2430,7 +2528,9 @@ export type MeaningUncheckedUpdateWithoutEn_meanInput = {
 export type MeaningCreateWithoutRu_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
@@ -2470,9 +2570,11 @@ export type MeaningCreateWithoutRu_wordInput = {
 
 export type MeaningUncheckedCreateWithoutRu_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
@@ -2518,7 +2620,9 @@ export type MeaningCreateOrConnectWithoutRu_wordInput = {
 export type MeaningCreateWithoutRu_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -2558,9 +2662,11 @@ export type MeaningCreateWithoutRu_meanInput = {
 
 export type MeaningUncheckedCreateWithoutRu_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -2617,7 +2723,9 @@ export type MeaningUpdateToOneWithWhereWithoutRu_wordInput = {
 export type MeaningUpdateWithoutRu_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
@@ -2657,9 +2765,11 @@ export type MeaningUpdateWithoutRu_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutRu_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
@@ -2711,7 +2821,9 @@ export type MeaningUpdateToOneWithWhereWithoutRu_meanInput = {
 export type MeaningUpdateWithoutRu_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -2751,9 +2863,11 @@ export type MeaningUpdateWithoutRu_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutRu_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -2794,7 +2908,9 @@ export type MeaningUncheckedUpdateWithoutRu_meanInput = {
 export type MeaningCreateWithoutMk_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -2834,9 +2950,11 @@ export type MeaningCreateWithoutMk_wordInput = {
 
 export type MeaningUncheckedCreateWithoutMk_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -2882,7 +3000,9 @@ export type MeaningCreateOrConnectWithoutMk_wordInput = {
 export type MeaningCreateWithoutMk_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -2922,9 +3042,11 @@ export type MeaningCreateWithoutMk_meanInput = {
 
 export type MeaningUncheckedCreateWithoutMk_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -2981,7 +3103,9 @@ export type MeaningUpdateToOneWithWhereWithoutMk_wordInput = {
 export type MeaningUpdateWithoutMk_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -3021,9 +3145,11 @@ export type MeaningUpdateWithoutMk_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutMk_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -3075,7 +3201,9 @@ export type MeaningUpdateToOneWithWhereWithoutMk_meanInput = {
 export type MeaningUpdateWithoutMk_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -3115,9 +3243,11 @@ export type MeaningUpdateWithoutMk_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutMk_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -3158,7 +3288,9 @@ export type MeaningUncheckedUpdateWithoutMk_meanInput = {
 export type MeaningCreateWithoutSr_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -3198,9 +3330,11 @@ export type MeaningCreateWithoutSr_wordInput = {
 
 export type MeaningUncheckedCreateWithoutSr_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -3246,7 +3380,9 @@ export type MeaningCreateOrConnectWithoutSr_wordInput = {
 export type MeaningCreateWithoutSr_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -3286,9 +3422,11 @@ export type MeaningCreateWithoutSr_meanInput = {
 
 export type MeaningUncheckedCreateWithoutSr_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -3345,7 +3483,9 @@ export type MeaningUpdateToOneWithWhereWithoutSr_wordInput = {
 export type MeaningUpdateWithoutSr_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -3385,9 +3525,11 @@ export type MeaningUpdateWithoutSr_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutSr_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -3439,7 +3581,9 @@ export type MeaningUpdateToOneWithWhereWithoutSr_meanInput = {
 export type MeaningUpdateWithoutSr_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -3479,9 +3623,11 @@ export type MeaningUpdateWithoutSr_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutSr_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -3522,7 +3668,9 @@ export type MeaningUncheckedUpdateWithoutSr_meanInput = {
 export type MeaningCreateWithoutUk_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -3562,9 +3710,11 @@ export type MeaningCreateWithoutUk_wordInput = {
 
 export type MeaningUncheckedCreateWithoutUk_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -3610,7 +3760,9 @@ export type MeaningCreateOrConnectWithoutUk_wordInput = {
 export type MeaningCreateWithoutUk_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -3650,9 +3802,11 @@ export type MeaningCreateWithoutUk_meanInput = {
 
 export type MeaningUncheckedCreateWithoutUk_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -3709,7 +3863,9 @@ export type MeaningUpdateToOneWithWhereWithoutUk_wordInput = {
 export type MeaningUpdateWithoutUk_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -3749,9 +3905,11 @@ export type MeaningUpdateWithoutUk_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutUk_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -3803,7 +3961,9 @@ export type MeaningUpdateToOneWithWhereWithoutUk_meanInput = {
 export type MeaningUpdateWithoutUk_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -3843,9 +4003,11 @@ export type MeaningUpdateWithoutUk_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutUk_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -3886,7 +4048,9 @@ export type MeaningUncheckedUpdateWithoutUk_meanInput = {
 export type MeaningCreateWithoutBg_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -3926,9 +4090,11 @@ export type MeaningCreateWithoutBg_wordInput = {
 
 export type MeaningUncheckedCreateWithoutBg_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -3974,7 +4140,9 @@ export type MeaningCreateOrConnectWithoutBg_wordInput = {
 export type MeaningCreateWithoutBg_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -4014,9 +4182,11 @@ export type MeaningCreateWithoutBg_meanInput = {
 
 export type MeaningUncheckedCreateWithoutBg_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -4073,7 +4243,9 @@ export type MeaningUpdateToOneWithWhereWithoutBg_wordInput = {
 export type MeaningUpdateWithoutBg_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -4113,9 +4285,11 @@ export type MeaningUpdateWithoutBg_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutBg_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -4167,7 +4341,9 @@ export type MeaningUpdateToOneWithWhereWithoutBg_meanInput = {
 export type MeaningUpdateWithoutBg_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -4207,9 +4383,11 @@ export type MeaningUpdateWithoutBg_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutBg_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -4250,7 +4428,9 @@ export type MeaningUncheckedUpdateWithoutBg_meanInput = {
 export type MeaningCreateWithoutPl_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -4290,9 +4470,11 @@ export type MeaningCreateWithoutPl_wordInput = {
 
 export type MeaningUncheckedCreateWithoutPl_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -4338,7 +4520,9 @@ export type MeaningCreateOrConnectWithoutPl_wordInput = {
 export type MeaningCreateWithoutPl_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -4378,9 +4562,11 @@ export type MeaningCreateWithoutPl_meanInput = {
 
 export type MeaningUncheckedCreateWithoutPl_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -4437,7 +4623,9 @@ export type MeaningUpdateToOneWithWhereWithoutPl_wordInput = {
 export type MeaningUpdateWithoutPl_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -4477,9 +4665,11 @@ export type MeaningUpdateWithoutPl_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutPl_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -4531,7 +4721,9 @@ export type MeaningUpdateToOneWithWhereWithoutPl_meanInput = {
 export type MeaningUpdateWithoutPl_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -4571,9 +4763,11 @@ export type MeaningUpdateWithoutPl_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutPl_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -4614,7 +4808,9 @@ export type MeaningUncheckedUpdateWithoutPl_meanInput = {
 export type MeaningCreateWithoutBe_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -4654,9 +4850,11 @@ export type MeaningCreateWithoutBe_wordInput = {
 
 export type MeaningUncheckedCreateWithoutBe_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -4702,7 +4900,9 @@ export type MeaningCreateOrConnectWithoutBe_wordInput = {
 export type MeaningCreateWithoutBe_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -4742,9 +4942,11 @@ export type MeaningCreateWithoutBe_meanInput = {
 
 export type MeaningUncheckedCreateWithoutBe_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -4801,7 +5003,9 @@ export type MeaningUpdateToOneWithWhereWithoutBe_wordInput = {
 export type MeaningUpdateWithoutBe_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -4841,9 +5045,11 @@ export type MeaningUpdateWithoutBe_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutBe_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -4895,7 +5101,9 @@ export type MeaningUpdateToOneWithWhereWithoutBe_meanInput = {
 export type MeaningUpdateWithoutBe_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -4935,9 +5143,11 @@ export type MeaningUpdateWithoutBe_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutBe_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -4978,7 +5188,9 @@ export type MeaningUncheckedUpdateWithoutBe_meanInput = {
 export type MeaningCreateWithoutCs_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -5018,9 +5230,11 @@ export type MeaningCreateWithoutCs_wordInput = {
 
 export type MeaningUncheckedCreateWithoutCs_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -5066,7 +5280,9 @@ export type MeaningCreateOrConnectWithoutCs_wordInput = {
 export type MeaningCreateWithoutCs_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -5106,9 +5322,11 @@ export type MeaningCreateWithoutCs_meanInput = {
 
 export type MeaningUncheckedCreateWithoutCs_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -5165,7 +5383,9 @@ export type MeaningUpdateToOneWithWhereWithoutCs_wordInput = {
 export type MeaningUpdateWithoutCs_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -5205,9 +5425,11 @@ export type MeaningUpdateWithoutCs_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutCs_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -5259,7 +5481,9 @@ export type MeaningUpdateToOneWithWhereWithoutCs_meanInput = {
 export type MeaningUpdateWithoutCs_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -5299,9 +5523,11 @@ export type MeaningUpdateWithoutCs_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutCs_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -5342,7 +5568,9 @@ export type MeaningUncheckedUpdateWithoutCs_meanInput = {
 export type MeaningCreateWithoutSk_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -5382,9 +5610,11 @@ export type MeaningCreateWithoutSk_wordInput = {
 
 export type MeaningUncheckedCreateWithoutSk_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -5430,7 +5660,9 @@ export type MeaningCreateOrConnectWithoutSk_wordInput = {
 export type MeaningCreateWithoutSk_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -5470,9 +5702,11 @@ export type MeaningCreateWithoutSk_meanInput = {
 
 export type MeaningUncheckedCreateWithoutSk_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -5529,7 +5763,9 @@ export type MeaningUpdateToOneWithWhereWithoutSk_wordInput = {
 export type MeaningUpdateWithoutSk_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -5569,9 +5805,11 @@ export type MeaningUpdateWithoutSk_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutSk_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -5623,7 +5861,9 @@ export type MeaningUpdateToOneWithWhereWithoutSk_meanInput = {
 export type MeaningUpdateWithoutSk_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -5663,9 +5903,11 @@ export type MeaningUpdateWithoutSk_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutSk_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -5706,7 +5948,9 @@ export type MeaningUncheckedUpdateWithoutSk_meanInput = {
 export type MeaningCreateWithoutSl_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -5746,9 +5990,11 @@ export type MeaningCreateWithoutSl_wordInput = {
 
 export type MeaningUncheckedCreateWithoutSl_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -5794,7 +6040,9 @@ export type MeaningCreateOrConnectWithoutSl_wordInput = {
 export type MeaningCreateWithoutSl_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -5834,9 +6082,11 @@ export type MeaningCreateWithoutSl_meanInput = {
 
 export type MeaningUncheckedCreateWithoutSl_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -5893,7 +6143,9 @@ export type MeaningUpdateToOneWithWhereWithoutSl_wordInput = {
 export type MeaningUpdateWithoutSl_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -5933,9 +6185,11 @@ export type MeaningUpdateWithoutSl_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutSl_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -5987,7 +6241,9 @@ export type MeaningUpdateToOneWithWhereWithoutSl_meanInput = {
 export type MeaningUpdateWithoutSl_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -6027,9 +6283,11 @@ export type MeaningUpdateWithoutSl_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutSl_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -6070,7 +6328,9 @@ export type MeaningUncheckedUpdateWithoutSl_meanInput = {
 export type MeaningCreateWithoutHr_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -6110,9 +6370,11 @@ export type MeaningCreateWithoutHr_wordInput = {
 
 export type MeaningUncheckedCreateWithoutHr_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -6158,7 +6420,9 @@ export type MeaningCreateOrConnectWithoutHr_wordInput = {
 export type MeaningCreateWithoutHr_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -6198,9 +6462,11 @@ export type MeaningCreateWithoutHr_meanInput = {
 
 export type MeaningUncheckedCreateWithoutHr_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -6257,7 +6523,9 @@ export type MeaningUpdateToOneWithWhereWithoutHr_wordInput = {
 export type MeaningUpdateWithoutHr_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -6297,9 +6565,11 @@ export type MeaningUpdateWithoutHr_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutHr_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -6351,7 +6621,9 @@ export type MeaningUpdateToOneWithWhereWithoutHr_meanInput = {
 export type MeaningUpdateWithoutHr_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -6391,9 +6663,11 @@ export type MeaningUpdateWithoutHr_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutHr_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -6434,7 +6708,9 @@ export type MeaningUncheckedUpdateWithoutHr_meanInput = {
 export type MeaningCreateWithoutCu_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -6474,9 +6750,11 @@ export type MeaningCreateWithoutCu_wordInput = {
 
 export type MeaningUncheckedCreateWithoutCu_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -6522,7 +6800,9 @@ export type MeaningCreateOrConnectWithoutCu_wordInput = {
 export type MeaningCreateWithoutCu_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -6562,9 +6842,11 @@ export type MeaningCreateWithoutCu_meanInput = {
 
 export type MeaningUncheckedCreateWithoutCu_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -6621,7 +6903,9 @@ export type MeaningUpdateToOneWithWhereWithoutCu_wordInput = {
 export type MeaningUpdateWithoutCu_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -6661,9 +6945,11 @@ export type MeaningUpdateWithoutCu_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutCu_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -6715,7 +7001,9 @@ export type MeaningUpdateToOneWithWhereWithoutCu_meanInput = {
 export type MeaningUpdateWithoutCu_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -6755,9 +7043,11 @@ export type MeaningUpdateWithoutCu_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutCu_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -6798,7 +7088,9 @@ export type MeaningUncheckedUpdateWithoutCu_meanInput = {
 export type MeaningCreateWithoutDe_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -6838,9 +7130,11 @@ export type MeaningCreateWithoutDe_wordInput = {
 
 export type MeaningUncheckedCreateWithoutDe_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -6886,7 +7180,9 @@ export type MeaningCreateOrConnectWithoutDe_wordInput = {
 export type MeaningCreateWithoutDe_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -6926,9 +7222,11 @@ export type MeaningCreateWithoutDe_meanInput = {
 
 export type MeaningUncheckedCreateWithoutDe_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -6985,7 +7283,9 @@ export type MeaningUpdateToOneWithWhereWithoutDe_wordInput = {
 export type MeaningUpdateWithoutDe_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -7025,9 +7325,11 @@ export type MeaningUpdateWithoutDe_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutDe_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -7079,7 +7381,9 @@ export type MeaningUpdateToOneWithWhereWithoutDe_meanInput = {
 export type MeaningUpdateWithoutDe_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -7119,9 +7423,11 @@ export type MeaningUpdateWithoutDe_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutDe_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -7162,7 +7468,9 @@ export type MeaningUncheckedUpdateWithoutDe_meanInput = {
 export type MeaningCreateWithoutNl_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -7202,9 +7510,11 @@ export type MeaningCreateWithoutNl_wordInput = {
 
 export type MeaningUncheckedCreateWithoutNl_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -7250,7 +7560,9 @@ export type MeaningCreateOrConnectWithoutNl_wordInput = {
 export type MeaningCreateWithoutNl_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -7290,9 +7602,11 @@ export type MeaningCreateWithoutNl_meanInput = {
 
 export type MeaningUncheckedCreateWithoutNl_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -7349,7 +7663,9 @@ export type MeaningUpdateToOneWithWhereWithoutNl_wordInput = {
 export type MeaningUpdateWithoutNl_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -7389,9 +7705,11 @@ export type MeaningUpdateWithoutNl_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutNl_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -7443,7 +7761,9 @@ export type MeaningUpdateToOneWithWhereWithoutNl_meanInput = {
 export type MeaningUpdateWithoutNl_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -7483,9 +7803,11 @@ export type MeaningUpdateWithoutNl_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutNl_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -7526,7 +7848,9 @@ export type MeaningUncheckedUpdateWithoutNl_meanInput = {
 export type MeaningCreateWithoutEo_wordInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -7566,9 +7890,11 @@ export type MeaningCreateWithoutEo_wordInput = {
 
 export type MeaningUncheckedCreateWithoutEo_wordInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -7614,7 +7940,9 @@ export type MeaningCreateOrConnectWithoutEo_wordInput = {
 export type MeaningCreateWithoutEo_meanInput = {
   meaning?: string | null
   examples?: string | null
-  word: Prisma.WordCreateNestedOneWithoutMeaningsInput
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
@@ -7654,9 +7982,11 @@ export type MeaningCreateWithoutEo_meanInput = {
 
 export type MeaningUncheckedCreateWithoutEo_meanInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
   ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
@@ -7713,7 +8043,9 @@ export type MeaningUpdateToOneWithWhereWithoutEo_wordInput = {
 export type MeaningUpdateWithoutEo_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -7753,9 +8085,11 @@ export type MeaningUpdateWithoutEo_wordInput = {
 
 export type MeaningUncheckedUpdateWithoutEo_wordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -7807,7 +8141,9 @@ export type MeaningUpdateToOneWithWhereWithoutEo_meanInput = {
 export type MeaningUpdateWithoutEo_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  word?: Prisma.WordUpdateOneRequiredWithoutMeaningsNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -7847,9 +8183,11 @@ export type MeaningUpdateWithoutEo_meanInput = {
 
 export type MeaningUncheckedUpdateWithoutEo_meanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -7887,15 +8225,19 @@ export type MeaningUncheckedUpdateWithoutEo_meanInput = {
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
 }
 
-export type MeaningCreateManyWordInput = {
+export type MeaningCreateManyLexemeInput = {
   id?: number
   meaning?: string | null
   examples?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type MeaningUpdateWithoutWordInput = {
+export type MeaningUpdateWithoutLexemeInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
@@ -7934,10 +8276,12 @@ export type MeaningUpdateWithoutWordInput = {
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
 }
 
-export type MeaningUncheckedUpdateWithoutWordInput = {
+export type MeaningUncheckedUpdateWithoutLexemeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
   ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
@@ -7976,10 +8320,12 @@ export type MeaningUncheckedUpdateWithoutWordInput = {
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
 }
 
-export type MeaningUncheckedUpdateManyWithoutWordInput = {
+export type MeaningUncheckedUpdateManyWithoutLexemeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -8330,10 +8676,12 @@ export type MeaningCountOutputTypeCountAntonymsTargetArgs<ExtArgs extends runtim
 
 export type MeaningSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  wordId?: boolean
+  lexemeId?: boolean
   meaning?: boolean
   examples?: boolean
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  createdAt?: boolean
+  updatedAt?: boolean
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
   en_word?: boolean | Prisma.Meaning$en_wordArgs<ExtArgs>
   en_mean?: boolean | Prisma.Meaning$en_meanArgs<ExtArgs>
   ru_word?: boolean | Prisma.Meaning$ru_wordArgs<ExtArgs>
@@ -8375,30 +8723,36 @@ export type MeaningSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 
 export type MeaningSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  wordId?: boolean
+  lexemeId?: boolean
   meaning?: boolean
   examples?: boolean
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  createdAt?: boolean
+  updatedAt?: boolean
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["meaning"]>
 
 export type MeaningSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  wordId?: boolean
+  lexemeId?: boolean
   meaning?: boolean
   examples?: boolean
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  createdAt?: boolean
+  updatedAt?: boolean
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["meaning"]>
 
 export type MeaningSelectScalar = {
   id?: boolean
-  wordId?: boolean
+  lexemeId?: boolean
   meaning?: boolean
   examples?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type MeaningOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "wordId" | "meaning" | "examples", ExtArgs["result"]["meaning"]>
+export type MeaningOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "lexemeId" | "meaning" | "examples" | "createdAt" | "updatedAt", ExtArgs["result"]["meaning"]>
 export type MeaningInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
   en_word?: boolean | Prisma.Meaning$en_wordArgs<ExtArgs>
   en_mean?: boolean | Prisma.Meaning$en_meanArgs<ExtArgs>
   ru_word?: boolean | Prisma.Meaning$ru_wordArgs<ExtArgs>
@@ -8438,16 +8792,16 @@ export type MeaningInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   _count?: boolean | Prisma.MeaningCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MeaningIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
 }
 export type MeaningIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
 }
 
 export type $MeaningPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Meaning"
   objects: {
-    word: Prisma.$WordPayload<ExtArgs>
+    lexeme: Prisma.$LexemePayload<ExtArgs>
     en_word: Prisma.$EnPayload<ExtArgs>[]
     en_mean: Prisma.$EnPayload<ExtArgs>[]
     ru_word: Prisma.$RuPayload<ExtArgs>[]
@@ -8487,9 +8841,11 @@ export type $MeaningPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    wordId: number
+    lexemeId: number
     meaning: string | null
     examples: string | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["meaning"]>
   composites: {}
 }
@@ -8884,7 +9240,7 @@ readonly fields: MeaningFieldRefs;
  */
 export interface Prisma__MeaningClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  word<T extends Prisma.WordDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WordDefaultArgs<ExtArgs>>): Prisma.Prisma__WordClient<runtime.Types.Result.GetResult<Prisma.$WordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  lexeme<T extends Prisma.LexemeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LexemeDefaultArgs<ExtArgs>>): Prisma.Prisma__LexemeClient<runtime.Types.Result.GetResult<Prisma.$LexemePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   en_word<T extends Prisma.Meaning$en_wordArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$en_wordArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   en_mean<T extends Prisma.Meaning$en_meanArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$en_meanArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ru_word<T extends Prisma.Meaning$ru_wordArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$ru_wordArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RuPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -8951,9 +9307,11 @@ export interface Prisma__MeaningClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface MeaningFieldRefs {
   readonly id: Prisma.FieldRef<"Meaning", 'Int'>
-  readonly wordId: Prisma.FieldRef<"Meaning", 'Int'>
+  readonly lexemeId: Prisma.FieldRef<"Meaning", 'Int'>
   readonly meaning: Prisma.FieldRef<"Meaning", 'String'>
   readonly examples: Prisma.FieldRef<"Meaning", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Meaning", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Meaning", 'DateTime'>
 }
     
 

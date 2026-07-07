@@ -8,8 +8,8 @@ const prisma = new PrismaClient();
 
 const analyzer = new DbAnalyzer(
     (bases) =>
-        prisma.word.findMany({
-            where: { base: { in: bases, not: null } },
+        prisma.lexeme.findMany({
+            where: { stem: { in: bases, not: null } },
             select: {
                 id: true,
                 slug: true,
@@ -18,7 +18,7 @@ const analyzer = new DbAnalyzer(
                 protoStemClass: true,
                 stemExtension: true,
                 paradigm: true,
-                base: true,
+                stem: true,
                 gender: true,
                 alternationType: true,
                 fleetingVowelAt: true,

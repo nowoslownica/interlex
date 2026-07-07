@@ -51,11 +51,11 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Word: 'Word',
+  Lexeme: 'Lexeme',
   Candidate: 'Candidate',
   Meaning: 'Meaning',
-  Root: 'Root',
-  RootWord: 'RootWord',
+  Morpheme: 'Morpheme',
+  LexemeMorpheme: 'LexemeMorpheme',
   Synonym: 'Synonym',
   Antonym: 'Antonym',
   En: 'En',
@@ -91,7 +91,7 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const WordScalarFieldEnum = {
+export const LexemeScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -120,7 +120,10 @@ export const WordScalarFieldEnum = {
   protoStemClass: 'protoStemClass',
   stemExtension: 'stemExtension',
   genesis: 'genesis',
-  base: 'base',
+  stem: 'stem',
+  secondaryStem: 'secondaryStem',
+  tertiaryStem: 'tertiaryStem',
+  governsCase: 'governsCase',
   gender: 'gender',
   declension: 'declension',
   conjugation: 'conjugation',
@@ -131,7 +134,7 @@ export const WordScalarFieldEnum = {
   actionHistory: 'actionHistory'
 } as const
 
-export type WordScalarFieldEnum = (typeof WordScalarFieldEnum)[keyof typeof WordScalarFieldEnum]
+export type LexemeScalarFieldEnum = (typeof LexemeScalarFieldEnum)[keyof typeof LexemeScalarFieldEnum]
 
 
 export const CandidateScalarFieldEnum = {
@@ -161,7 +164,10 @@ export const CandidateScalarFieldEnum = {
   protoStemClass: 'protoStemClass',
   stemExtension: 'stemExtension',
   genesis: 'genesis',
-  base: 'base',
+  stem: 'stem',
+  secondaryStem: 'secondaryStem',
+  tertiaryStem: 'tertiaryStem',
+  governsCase: 'governsCase',
   gender: 'gender',
   declension: 'declension',
   conjugation: 'conjugation',
@@ -171,7 +177,7 @@ export const CandidateScalarFieldEnum = {
   hasAnomalies: 'hasAnomalies',
   actionHistory: 'actionHistory',
   promotedAt: 'promotedAt',
-  promotedToWordId: 'promotedToWordId'
+  promotedToLexemeId: 'promotedToLexemeId'
 } as const
 
 export type CandidateScalarFieldEnum = (typeof CandidateScalarFieldEnum)[keyof typeof CandidateScalarFieldEnum]
@@ -179,15 +185,17 @@ export type CandidateScalarFieldEnum = (typeof CandidateScalarFieldEnum)[keyof t
 
 export const MeaningScalarFieldEnum = {
   id: 'id',
-  wordId: 'wordId',
+  lexemeId: 'lexemeId',
   meaning: 'meaning',
-  examples: 'examples'
+  examples: 'examples',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type MeaningScalarFieldEnum = (typeof MeaningScalarFieldEnum)[keyof typeof MeaningScalarFieldEnum]
 
 
-export const RootScalarFieldEnum = {
+export const MorphemeScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -196,16 +204,16 @@ export const RootScalarFieldEnum = {
   actionHistory: 'actionHistory'
 } as const
 
-export type RootScalarFieldEnum = (typeof RootScalarFieldEnum)[keyof typeof RootScalarFieldEnum]
+export type MorphemeScalarFieldEnum = (typeof MorphemeScalarFieldEnum)[keyof typeof MorphemeScalarFieldEnum]
 
 
-export const RootWordScalarFieldEnum = {
+export const LexemeMorphemeScalarFieldEnum = {
   id: 'id',
-  wordId: 'wordId',
-  rootId: 'rootId'
+  lexemeId: 'lexemeId',
+  morphemeId: 'morphemeId'
 } as const
 
-export type RootWordScalarFieldEnum = (typeof RootWordScalarFieldEnum)[keyof typeof RootWordScalarFieldEnum]
+export type LexemeMorphemeScalarFieldEnum = (typeof LexemeMorphemeScalarFieldEnum)[keyof typeof LexemeMorphemeScalarFieldEnum]
 
 
 export const SynonymScalarFieldEnum = {
@@ -463,7 +471,7 @@ export type BaseHomonymScalarFieldEnum = (typeof BaseHomonymScalarFieldEnum)[key
 
 export const InflectionAnomalyScalarFieldEnum = {
   id: 'id',
-  wordId: 'wordId',
+  lexemeId: 'lexemeId',
   inflection: 'inflection',
   grammeme: 'grammeme'
 } as const

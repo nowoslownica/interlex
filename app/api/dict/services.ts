@@ -40,7 +40,7 @@ export const getDictItems = async (search: string, from: string, to: string) => 
         const foreignKeysArray = data.map(item => item.wordId);
         const placeholders = foreignKeysArray.map(() => '?').join(', ');
         res = db.prepare(`
-            SELECT * FROM words WHERE id IN (${placeholders})
+            SELECT * FROM lexemes WHERE id IN (${placeholders})
         `).all(...foreignKeysArray);
 
         res = res.map(item => ({

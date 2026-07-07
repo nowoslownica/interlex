@@ -8,7 +8,7 @@ export async function GET(request: Request) {
 
         if (!query.trim()) return NextResponse.json([])
 
-        const words = await db.word.findMany({
+        const words = await db.lexeme.findMany({
             where: {
                 value: { contains: query },
             },

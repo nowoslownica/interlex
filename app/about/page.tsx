@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 export default async function AboutPage() {
     // Вычисляем размер базы данных или каунтеры ключевых индексов
     const [totalWords, totalMeanings, totalRoots] = await Promise.all([
-        db.word.count(),
+        db.lexeme.count(),
         db.meaning.count(),
-        db.root.count(),
+        db.morpheme.count(),
     ])
 
     const technicalData = {

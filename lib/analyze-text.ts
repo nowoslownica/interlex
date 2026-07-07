@@ -66,7 +66,7 @@ async function lookupWord(form: string): Promise<{
   // });
   const stmt = db.prepare(`
     SELECT id, value, pos 
-    FROM words 
+    FROM lexemes 
     WHERE value = ? OR nsl = ? OR isv = ?
     LIMIT 1
   `);
@@ -88,7 +88,7 @@ async function lookupWord(form: string): Promise<{
     // });
     const stmt = db.prepare(`
       SELECT id, value, pos 
-      FROM words 
+      FROM lexemes 
       WHERE value = ? OR isv = ? OR nsl = ?
       LIMIT 1
     `);

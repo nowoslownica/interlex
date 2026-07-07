@@ -28,31 +28,31 @@ export type AggregateInflectionAnomaly = {
 
 export type InflectionAnomalyAvgAggregateOutputType = {
   id: number | null
-  wordId: number | null
+  lexemeId: number | null
 }
 
 export type InflectionAnomalySumAggregateOutputType = {
   id: number | null
-  wordId: number | null
+  lexemeId: number | null
 }
 
 export type InflectionAnomalyMinAggregateOutputType = {
   id: number | null
-  wordId: number | null
+  lexemeId: number | null
   inflection: string | null
   grammeme: string | null
 }
 
 export type InflectionAnomalyMaxAggregateOutputType = {
   id: number | null
-  wordId: number | null
+  lexemeId: number | null
   inflection: string | null
   grammeme: string | null
 }
 
 export type InflectionAnomalyCountAggregateOutputType = {
   id: number
-  wordId: number
+  lexemeId: number
   inflection: number
   grammeme: number
   _all: number
@@ -61,31 +61,31 @@ export type InflectionAnomalyCountAggregateOutputType = {
 
 export type InflectionAnomalyAvgAggregateInputType = {
   id?: true
-  wordId?: true
+  lexemeId?: true
 }
 
 export type InflectionAnomalySumAggregateInputType = {
   id?: true
-  wordId?: true
+  lexemeId?: true
 }
 
 export type InflectionAnomalyMinAggregateInputType = {
   id?: true
-  wordId?: true
+  lexemeId?: true
   inflection?: true
   grammeme?: true
 }
 
 export type InflectionAnomalyMaxAggregateInputType = {
   id?: true
-  wordId?: true
+  lexemeId?: true
   inflection?: true
   grammeme?: true
 }
 
 export type InflectionAnomalyCountAggregateInputType = {
   id?: true
-  wordId?: true
+  lexemeId?: true
   inflection?: true
   grammeme?: true
   _all?: true
@@ -179,7 +179,7 @@ export type InflectionAnomalyGroupByArgs<ExtArgs extends runtime.Types.Extension
 
 export type InflectionAnomalyGroupByOutputType = {
   id: number
-  wordId: number
+  lexemeId: number
   inflection: string
   grammeme: string
   _count: InflectionAnomalyCountAggregateOutputType | null
@@ -209,18 +209,18 @@ export type InflectionAnomalyWhereInput = {
   OR?: Prisma.InflectionAnomalyWhereInput[]
   NOT?: Prisma.InflectionAnomalyWhereInput | Prisma.InflectionAnomalyWhereInput[]
   id?: Prisma.IntFilter<"InflectionAnomaly"> | number
-  wordId?: Prisma.IntFilter<"InflectionAnomaly"> | number
+  lexemeId?: Prisma.IntFilter<"InflectionAnomaly"> | number
   inflection?: Prisma.StringFilter<"InflectionAnomaly"> | string
   grammeme?: Prisma.StringFilter<"InflectionAnomaly"> | string
-  word?: Prisma.XOR<Prisma.WordScalarRelationFilter, Prisma.WordWhereInput>
+  lexeme?: Prisma.XOR<Prisma.LexemeScalarRelationFilter, Prisma.LexemeWhereInput>
 }
 
 export type InflectionAnomalyOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
   inflection?: Prisma.SortOrder
   grammeme?: Prisma.SortOrder
-  word?: Prisma.WordOrderByWithRelationInput
+  lexeme?: Prisma.LexemeOrderByWithRelationInput
 }
 
 export type InflectionAnomalyWhereUniqueInput = Prisma.AtLeast<{
@@ -228,15 +228,15 @@ export type InflectionAnomalyWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.InflectionAnomalyWhereInput | Prisma.InflectionAnomalyWhereInput[]
   OR?: Prisma.InflectionAnomalyWhereInput[]
   NOT?: Prisma.InflectionAnomalyWhereInput | Prisma.InflectionAnomalyWhereInput[]
-  wordId?: Prisma.IntFilter<"InflectionAnomaly"> | number
+  lexemeId?: Prisma.IntFilter<"InflectionAnomaly"> | number
   inflection?: Prisma.StringFilter<"InflectionAnomaly"> | string
   grammeme?: Prisma.StringFilter<"InflectionAnomaly"> | string
-  word?: Prisma.XOR<Prisma.WordScalarRelationFilter, Prisma.WordWhereInput>
+  lexeme?: Prisma.XOR<Prisma.LexemeScalarRelationFilter, Prisma.LexemeWhereInput>
 }, "id">
 
 export type InflectionAnomalyOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
   inflection?: Prisma.SortOrder
   grammeme?: Prisma.SortOrder
   _count?: Prisma.InflectionAnomalyCountOrderByAggregateInput
@@ -251,7 +251,7 @@ export type InflectionAnomalyScalarWhereWithAggregatesInput = {
   OR?: Prisma.InflectionAnomalyScalarWhereWithAggregatesInput[]
   NOT?: Prisma.InflectionAnomalyScalarWhereWithAggregatesInput | Prisma.InflectionAnomalyScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"InflectionAnomaly"> | number
-  wordId?: Prisma.IntWithAggregatesFilter<"InflectionAnomaly"> | number
+  lexemeId?: Prisma.IntWithAggregatesFilter<"InflectionAnomaly"> | number
   inflection?: Prisma.StringWithAggregatesFilter<"InflectionAnomaly"> | string
   grammeme?: Prisma.StringWithAggregatesFilter<"InflectionAnomaly"> | string
 }
@@ -259,12 +259,12 @@ export type InflectionAnomalyScalarWhereWithAggregatesInput = {
 export type InflectionAnomalyCreateInput = {
   inflection: string
   grammeme: string
-  word: Prisma.WordCreateNestedOneWithoutAnomaliesInput
+  lexeme: Prisma.LexemeCreateNestedOneWithoutAnomaliesInput
 }
 
 export type InflectionAnomalyUncheckedCreateInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   inflection: string
   grammeme: string
 }
@@ -272,19 +272,19 @@ export type InflectionAnomalyUncheckedCreateInput = {
 export type InflectionAnomalyUpdateInput = {
   inflection?: Prisma.StringFieldUpdateOperationsInput | string
   grammeme?: Prisma.StringFieldUpdateOperationsInput | string
-  word?: Prisma.WordUpdateOneRequiredWithoutAnomaliesNestedInput
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutAnomaliesNestedInput
 }
 
 export type InflectionAnomalyUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   inflection?: Prisma.StringFieldUpdateOperationsInput | string
   grammeme?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type InflectionAnomalyCreateManyInput = {
   id?: number
-  wordId: number
+  lexemeId: number
   inflection: string
   grammeme: string
 }
@@ -296,7 +296,7 @@ export type InflectionAnomalyUpdateManyMutationInput = {
 
 export type InflectionAnomalyUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  wordId?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   inflection?: Prisma.StringFieldUpdateOperationsInput | string
   grammeme?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -313,111 +313,111 @@ export type InflectionAnomalyOrderByRelationAggregateInput = {
 
 export type InflectionAnomalyCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
   inflection?: Prisma.SortOrder
   grammeme?: Prisma.SortOrder
 }
 
 export type InflectionAnomalyAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
 }
 
 export type InflectionAnomalyMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
   inflection?: Prisma.SortOrder
   grammeme?: Prisma.SortOrder
 }
 
 export type InflectionAnomalyMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
   inflection?: Prisma.SortOrder
   grammeme?: Prisma.SortOrder
 }
 
 export type InflectionAnomalySumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  wordId?: Prisma.SortOrder
+  lexemeId?: Prisma.SortOrder
 }
 
-export type InflectionAnomalyCreateNestedManyWithoutWordInput = {
-  create?: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutWordInput, Prisma.InflectionAnomalyUncheckedCreateWithoutWordInput> | Prisma.InflectionAnomalyCreateWithoutWordInput[] | Prisma.InflectionAnomalyUncheckedCreateWithoutWordInput[]
-  connectOrCreate?: Prisma.InflectionAnomalyCreateOrConnectWithoutWordInput | Prisma.InflectionAnomalyCreateOrConnectWithoutWordInput[]
-  createMany?: Prisma.InflectionAnomalyCreateManyWordInputEnvelope
+export type InflectionAnomalyCreateNestedManyWithoutLexemeInput = {
+  create?: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutLexemeInput, Prisma.InflectionAnomalyUncheckedCreateWithoutLexemeInput> | Prisma.InflectionAnomalyCreateWithoutLexemeInput[] | Prisma.InflectionAnomalyUncheckedCreateWithoutLexemeInput[]
+  connectOrCreate?: Prisma.InflectionAnomalyCreateOrConnectWithoutLexemeInput | Prisma.InflectionAnomalyCreateOrConnectWithoutLexemeInput[]
+  createMany?: Prisma.InflectionAnomalyCreateManyLexemeInputEnvelope
   connect?: Prisma.InflectionAnomalyWhereUniqueInput | Prisma.InflectionAnomalyWhereUniqueInput[]
 }
 
-export type InflectionAnomalyUncheckedCreateNestedManyWithoutWordInput = {
-  create?: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutWordInput, Prisma.InflectionAnomalyUncheckedCreateWithoutWordInput> | Prisma.InflectionAnomalyCreateWithoutWordInput[] | Prisma.InflectionAnomalyUncheckedCreateWithoutWordInput[]
-  connectOrCreate?: Prisma.InflectionAnomalyCreateOrConnectWithoutWordInput | Prisma.InflectionAnomalyCreateOrConnectWithoutWordInput[]
-  createMany?: Prisma.InflectionAnomalyCreateManyWordInputEnvelope
+export type InflectionAnomalyUncheckedCreateNestedManyWithoutLexemeInput = {
+  create?: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutLexemeInput, Prisma.InflectionAnomalyUncheckedCreateWithoutLexemeInput> | Prisma.InflectionAnomalyCreateWithoutLexemeInput[] | Prisma.InflectionAnomalyUncheckedCreateWithoutLexemeInput[]
+  connectOrCreate?: Prisma.InflectionAnomalyCreateOrConnectWithoutLexemeInput | Prisma.InflectionAnomalyCreateOrConnectWithoutLexemeInput[]
+  createMany?: Prisma.InflectionAnomalyCreateManyLexemeInputEnvelope
   connect?: Prisma.InflectionAnomalyWhereUniqueInput | Prisma.InflectionAnomalyWhereUniqueInput[]
 }
 
-export type InflectionAnomalyUpdateManyWithoutWordNestedInput = {
-  create?: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutWordInput, Prisma.InflectionAnomalyUncheckedCreateWithoutWordInput> | Prisma.InflectionAnomalyCreateWithoutWordInput[] | Prisma.InflectionAnomalyUncheckedCreateWithoutWordInput[]
-  connectOrCreate?: Prisma.InflectionAnomalyCreateOrConnectWithoutWordInput | Prisma.InflectionAnomalyCreateOrConnectWithoutWordInput[]
-  upsert?: Prisma.InflectionAnomalyUpsertWithWhereUniqueWithoutWordInput | Prisma.InflectionAnomalyUpsertWithWhereUniqueWithoutWordInput[]
-  createMany?: Prisma.InflectionAnomalyCreateManyWordInputEnvelope
+export type InflectionAnomalyUpdateManyWithoutLexemeNestedInput = {
+  create?: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutLexemeInput, Prisma.InflectionAnomalyUncheckedCreateWithoutLexemeInput> | Prisma.InflectionAnomalyCreateWithoutLexemeInput[] | Prisma.InflectionAnomalyUncheckedCreateWithoutLexemeInput[]
+  connectOrCreate?: Prisma.InflectionAnomalyCreateOrConnectWithoutLexemeInput | Prisma.InflectionAnomalyCreateOrConnectWithoutLexemeInput[]
+  upsert?: Prisma.InflectionAnomalyUpsertWithWhereUniqueWithoutLexemeInput | Prisma.InflectionAnomalyUpsertWithWhereUniqueWithoutLexemeInput[]
+  createMany?: Prisma.InflectionAnomalyCreateManyLexemeInputEnvelope
   set?: Prisma.InflectionAnomalyWhereUniqueInput | Prisma.InflectionAnomalyWhereUniqueInput[]
   disconnect?: Prisma.InflectionAnomalyWhereUniqueInput | Prisma.InflectionAnomalyWhereUniqueInput[]
   delete?: Prisma.InflectionAnomalyWhereUniqueInput | Prisma.InflectionAnomalyWhereUniqueInput[]
   connect?: Prisma.InflectionAnomalyWhereUniqueInput | Prisma.InflectionAnomalyWhereUniqueInput[]
-  update?: Prisma.InflectionAnomalyUpdateWithWhereUniqueWithoutWordInput | Prisma.InflectionAnomalyUpdateWithWhereUniqueWithoutWordInput[]
-  updateMany?: Prisma.InflectionAnomalyUpdateManyWithWhereWithoutWordInput | Prisma.InflectionAnomalyUpdateManyWithWhereWithoutWordInput[]
+  update?: Prisma.InflectionAnomalyUpdateWithWhereUniqueWithoutLexemeInput | Prisma.InflectionAnomalyUpdateWithWhereUniqueWithoutLexemeInput[]
+  updateMany?: Prisma.InflectionAnomalyUpdateManyWithWhereWithoutLexemeInput | Prisma.InflectionAnomalyUpdateManyWithWhereWithoutLexemeInput[]
   deleteMany?: Prisma.InflectionAnomalyScalarWhereInput | Prisma.InflectionAnomalyScalarWhereInput[]
 }
 
-export type InflectionAnomalyUncheckedUpdateManyWithoutWordNestedInput = {
-  create?: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutWordInput, Prisma.InflectionAnomalyUncheckedCreateWithoutWordInput> | Prisma.InflectionAnomalyCreateWithoutWordInput[] | Prisma.InflectionAnomalyUncheckedCreateWithoutWordInput[]
-  connectOrCreate?: Prisma.InflectionAnomalyCreateOrConnectWithoutWordInput | Prisma.InflectionAnomalyCreateOrConnectWithoutWordInput[]
-  upsert?: Prisma.InflectionAnomalyUpsertWithWhereUniqueWithoutWordInput | Prisma.InflectionAnomalyUpsertWithWhereUniqueWithoutWordInput[]
-  createMany?: Prisma.InflectionAnomalyCreateManyWordInputEnvelope
+export type InflectionAnomalyUncheckedUpdateManyWithoutLexemeNestedInput = {
+  create?: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutLexemeInput, Prisma.InflectionAnomalyUncheckedCreateWithoutLexemeInput> | Prisma.InflectionAnomalyCreateWithoutLexemeInput[] | Prisma.InflectionAnomalyUncheckedCreateWithoutLexemeInput[]
+  connectOrCreate?: Prisma.InflectionAnomalyCreateOrConnectWithoutLexemeInput | Prisma.InflectionAnomalyCreateOrConnectWithoutLexemeInput[]
+  upsert?: Prisma.InflectionAnomalyUpsertWithWhereUniqueWithoutLexemeInput | Prisma.InflectionAnomalyUpsertWithWhereUniqueWithoutLexemeInput[]
+  createMany?: Prisma.InflectionAnomalyCreateManyLexemeInputEnvelope
   set?: Prisma.InflectionAnomalyWhereUniqueInput | Prisma.InflectionAnomalyWhereUniqueInput[]
   disconnect?: Prisma.InflectionAnomalyWhereUniqueInput | Prisma.InflectionAnomalyWhereUniqueInput[]
   delete?: Prisma.InflectionAnomalyWhereUniqueInput | Prisma.InflectionAnomalyWhereUniqueInput[]
   connect?: Prisma.InflectionAnomalyWhereUniqueInput | Prisma.InflectionAnomalyWhereUniqueInput[]
-  update?: Prisma.InflectionAnomalyUpdateWithWhereUniqueWithoutWordInput | Prisma.InflectionAnomalyUpdateWithWhereUniqueWithoutWordInput[]
-  updateMany?: Prisma.InflectionAnomalyUpdateManyWithWhereWithoutWordInput | Prisma.InflectionAnomalyUpdateManyWithWhereWithoutWordInput[]
+  update?: Prisma.InflectionAnomalyUpdateWithWhereUniqueWithoutLexemeInput | Prisma.InflectionAnomalyUpdateWithWhereUniqueWithoutLexemeInput[]
+  updateMany?: Prisma.InflectionAnomalyUpdateManyWithWhereWithoutLexemeInput | Prisma.InflectionAnomalyUpdateManyWithWhereWithoutLexemeInput[]
   deleteMany?: Prisma.InflectionAnomalyScalarWhereInput | Prisma.InflectionAnomalyScalarWhereInput[]
 }
 
-export type InflectionAnomalyCreateWithoutWordInput = {
+export type InflectionAnomalyCreateWithoutLexemeInput = {
   inflection: string
   grammeme: string
 }
 
-export type InflectionAnomalyUncheckedCreateWithoutWordInput = {
+export type InflectionAnomalyUncheckedCreateWithoutLexemeInput = {
   id?: number
   inflection: string
   grammeme: string
 }
 
-export type InflectionAnomalyCreateOrConnectWithoutWordInput = {
+export type InflectionAnomalyCreateOrConnectWithoutLexemeInput = {
   where: Prisma.InflectionAnomalyWhereUniqueInput
-  create: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutWordInput, Prisma.InflectionAnomalyUncheckedCreateWithoutWordInput>
+  create: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutLexemeInput, Prisma.InflectionAnomalyUncheckedCreateWithoutLexemeInput>
 }
 
-export type InflectionAnomalyCreateManyWordInputEnvelope = {
-  data: Prisma.InflectionAnomalyCreateManyWordInput | Prisma.InflectionAnomalyCreateManyWordInput[]
+export type InflectionAnomalyCreateManyLexemeInputEnvelope = {
+  data: Prisma.InflectionAnomalyCreateManyLexemeInput | Prisma.InflectionAnomalyCreateManyLexemeInput[]
 }
 
-export type InflectionAnomalyUpsertWithWhereUniqueWithoutWordInput = {
+export type InflectionAnomalyUpsertWithWhereUniqueWithoutLexemeInput = {
   where: Prisma.InflectionAnomalyWhereUniqueInput
-  update: Prisma.XOR<Prisma.InflectionAnomalyUpdateWithoutWordInput, Prisma.InflectionAnomalyUncheckedUpdateWithoutWordInput>
-  create: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutWordInput, Prisma.InflectionAnomalyUncheckedCreateWithoutWordInput>
+  update: Prisma.XOR<Prisma.InflectionAnomalyUpdateWithoutLexemeInput, Prisma.InflectionAnomalyUncheckedUpdateWithoutLexemeInput>
+  create: Prisma.XOR<Prisma.InflectionAnomalyCreateWithoutLexemeInput, Prisma.InflectionAnomalyUncheckedCreateWithoutLexemeInput>
 }
 
-export type InflectionAnomalyUpdateWithWhereUniqueWithoutWordInput = {
+export type InflectionAnomalyUpdateWithWhereUniqueWithoutLexemeInput = {
   where: Prisma.InflectionAnomalyWhereUniqueInput
-  data: Prisma.XOR<Prisma.InflectionAnomalyUpdateWithoutWordInput, Prisma.InflectionAnomalyUncheckedUpdateWithoutWordInput>
+  data: Prisma.XOR<Prisma.InflectionAnomalyUpdateWithoutLexemeInput, Prisma.InflectionAnomalyUncheckedUpdateWithoutLexemeInput>
 }
 
-export type InflectionAnomalyUpdateManyWithWhereWithoutWordInput = {
+export type InflectionAnomalyUpdateManyWithWhereWithoutLexemeInput = {
   where: Prisma.InflectionAnomalyScalarWhereInput
-  data: Prisma.XOR<Prisma.InflectionAnomalyUpdateManyMutationInput, Prisma.InflectionAnomalyUncheckedUpdateManyWithoutWordInput>
+  data: Prisma.XOR<Prisma.InflectionAnomalyUpdateManyMutationInput, Prisma.InflectionAnomalyUncheckedUpdateManyWithoutLexemeInput>
 }
 
 export type InflectionAnomalyScalarWhereInput = {
@@ -425,29 +425,29 @@ export type InflectionAnomalyScalarWhereInput = {
   OR?: Prisma.InflectionAnomalyScalarWhereInput[]
   NOT?: Prisma.InflectionAnomalyScalarWhereInput | Prisma.InflectionAnomalyScalarWhereInput[]
   id?: Prisma.IntFilter<"InflectionAnomaly"> | number
-  wordId?: Prisma.IntFilter<"InflectionAnomaly"> | number
+  lexemeId?: Prisma.IntFilter<"InflectionAnomaly"> | number
   inflection?: Prisma.StringFilter<"InflectionAnomaly"> | string
   grammeme?: Prisma.StringFilter<"InflectionAnomaly"> | string
 }
 
-export type InflectionAnomalyCreateManyWordInput = {
+export type InflectionAnomalyCreateManyLexemeInput = {
   id?: number
   inflection: string
   grammeme: string
 }
 
-export type InflectionAnomalyUpdateWithoutWordInput = {
+export type InflectionAnomalyUpdateWithoutLexemeInput = {
   inflection?: Prisma.StringFieldUpdateOperationsInput | string
   grammeme?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
-export type InflectionAnomalyUncheckedUpdateWithoutWordInput = {
+export type InflectionAnomalyUncheckedUpdateWithoutLexemeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   inflection?: Prisma.StringFieldUpdateOperationsInput | string
   grammeme?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
-export type InflectionAnomalyUncheckedUpdateManyWithoutWordInput = {
+export type InflectionAnomalyUncheckedUpdateManyWithoutLexemeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   inflection?: Prisma.StringFieldUpdateOperationsInput | string
   grammeme?: Prisma.StringFieldUpdateOperationsInput | string
@@ -457,54 +457,54 @@ export type InflectionAnomalyUncheckedUpdateManyWithoutWordInput = {
 
 export type InflectionAnomalySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  wordId?: boolean
+  lexemeId?: boolean
   inflection?: boolean
   grammeme?: boolean
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inflectionAnomaly"]>
 
 export type InflectionAnomalySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  wordId?: boolean
+  lexemeId?: boolean
   inflection?: boolean
   grammeme?: boolean
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inflectionAnomaly"]>
 
 export type InflectionAnomalySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  wordId?: boolean
+  lexemeId?: boolean
   inflection?: boolean
   grammeme?: boolean
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inflectionAnomaly"]>
 
 export type InflectionAnomalySelectScalar = {
   id?: boolean
-  wordId?: boolean
+  lexemeId?: boolean
   inflection?: boolean
   grammeme?: boolean
 }
 
-export type InflectionAnomalyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "wordId" | "inflection" | "grammeme", ExtArgs["result"]["inflectionAnomaly"]>
+export type InflectionAnomalyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "lexemeId" | "inflection" | "grammeme", ExtArgs["result"]["inflectionAnomaly"]>
 export type InflectionAnomalyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
 }
 export type InflectionAnomalyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
 }
 export type InflectionAnomalyIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  word?: boolean | Prisma.WordDefaultArgs<ExtArgs>
+  lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
 }
 
 export type $InflectionAnomalyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "InflectionAnomaly"
   objects: {
-    word: Prisma.$WordPayload<ExtArgs>
+    lexeme: Prisma.$LexemePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    wordId: number
+    lexemeId: number
     inflection: string
     grammeme: string
   }, ExtArgs["result"]["inflectionAnomaly"]>
@@ -901,7 +901,7 @@ readonly fields: InflectionAnomalyFieldRefs;
  */
 export interface Prisma__InflectionAnomalyClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  word<T extends Prisma.WordDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WordDefaultArgs<ExtArgs>>): Prisma.Prisma__WordClient<runtime.Types.Result.GetResult<Prisma.$WordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  lexeme<T extends Prisma.LexemeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LexemeDefaultArgs<ExtArgs>>): Prisma.Prisma__LexemeClient<runtime.Types.Result.GetResult<Prisma.$LexemePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -932,7 +932,7 @@ export interface Prisma__InflectionAnomalyClient<T, Null = never, ExtArgs extend
  */
 export interface InflectionAnomalyFieldRefs {
   readonly id: Prisma.FieldRef<"InflectionAnomaly", 'Int'>
-  readonly wordId: Prisma.FieldRef<"InflectionAnomaly", 'Int'>
+  readonly lexemeId: Prisma.FieldRef<"InflectionAnomaly", 'Int'>
   readonly inflection: Prisma.FieldRef<"InflectionAnomaly", 'String'>
   readonly grammeme: Prisma.FieldRef<"InflectionAnomaly", 'String'>
 }

@@ -118,12 +118,16 @@ export function processVerb(word: EngineWordInput): GeneratedForm[] {
     // 2. Автоматически восстанавливаем праславянские основы по Лескину (инфинитив, презенс, аорист)
     const stems = extractProtoStems(word.isv);
 
-    // 3. Формируем строгую модель VerbModel для передачи в акцентологический калькулятор
+    // 3. Если есть secondaryStem (из колонки addition в CSV), используем его как presentStem
+    const presentStem = word.secondaryStem || stems.presentStem;
+
+    // 4. Формируем строгую модель VerbModel для передачи в акцентологический калькулятор
     const verbModel: VerbModel = {
         infinitive: word.isv,
         infStem: stems.infStem,
-        presentStem: stems.presentStem,
+        presentStem: presentStem,
         aoristStem: stems.aoristStem,
+        tertiaryStem: word.tertiaryStem || undefined,
         verbClass: stems.verbClass,
         aspect: (word.aspect as VerbalAspect) || VerbalAspect.IPF,
         paradigm: (word.paradigm as AccentParadigm) || AccentParadigm.A,
@@ -388,7 +392,7 @@ export function processNumeral(word: EngineWordInput): GeneratedForm[] {
     // В продакшене это поле "numeralType" должно извлекаться напрямую из метаданных Word в Main DB.
     let numeralType: 'cardinal' | 'ordinal' | 'collective' = 'cardinal';
 
-    if (word.isv.endsWith('y') || word.isv.endsWith('i') && word.base?.endsWith('j')) {
+    if (word.isv.endsWith('y') || word.isv.endsWith('i') && word.stem?.endsWith('j')) {
         // Порядковые на -y/-i (pěrvy, tretji)
         numeralType = 'ordinal';
     } else if (word.isv.endsWith('oje') || word.isv.endsWith('ero')) {

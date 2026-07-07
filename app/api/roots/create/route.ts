@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "value is required" }, { status: 400 })
     }
 
-    const root = await db.root.create({
+    const root = await db.morpheme.create({
       data: {
         value,
         type: type !== undefined ? type : 0,

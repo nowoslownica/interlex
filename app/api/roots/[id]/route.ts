@@ -18,12 +18,12 @@ export async function GET(
       return NextResponse.json({ error: "Invalid id" }, { status: 400 })
     }
 
-    const root = await db.root.findUnique({
+    const root = await db.morpheme.findUnique({
       where: { id: rootId },
       include: {
-        roots_words: {
+        lexemes_morphemes: {
           include: {
-            word: {
+            lexeme: {
               select: { id: true, value: true, isv: true },
             },
           },
@@ -61,7 +61,7 @@ export async function PATCH(
     const body = await request.json()
     const { value, type, actionHistory } = body
 
-    const root = await db.root.update({
+    const root = await db.morpheme.update({
       where: { id: rootId },
       data: {
         ...(value !== undefined && { value }),
@@ -93,7 +93,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Invalid id" }, { status: 400 })
     }
 
-    await db.root.delete({ where: { id: rootId } })
+    await db.morpheme.delete({ where: { id: rootId } })
 
     return NextResponse.json({ success: true })
   } catch (error) {

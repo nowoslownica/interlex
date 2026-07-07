@@ -16,7 +16,7 @@ export async function searchDuplicateWords(query: string) {
 
     try {
         // Подтягиваем слова и их смыслы со всеми языковыми переводами
-        const results = await prisma.word.findMany({
+        const results = await prisma.lexeme.findMany({
             where: {
                 OR: [
                     { value: { contains: query } },
@@ -84,7 +84,7 @@ export async function mergeWordsAction(
 
         await prisma.$transaction(async (tx) => {
             // 1. Получаем текущее состояние целевого слова для аудита
-            const targetWord = await tx.word.findUnique({ where: { id: targetId } }) as { actionHistory?: string | null } | null
+            const targetWord = await tx.lexeme.findUnique({ where: { id: targetId } }) as { actionHistory?: string | null } | null
 
             // 2. Обновляем метаданные главного слова
             const changes: Record<string, { old: unknown; new: unknown }> = {}
@@ -101,7 +101,7 @@ export async function mergeWordsAction(
             }
             changes.mergedFrom = { old: null, new: sourceId }
 
-            await tx.word.update({
+            await tx.lexeme.update({
                 where: { id: targetId },
                 data: {
                     value: updatedFields.value,
@@ -116,7 +116,7 @@ export async function mergeWordsAction(
             // 2. Переносим переводы из Meaning(source) в Meaning(target)
             //    Находим первый смысл целевого слова (или создаём, если нет)
             const targetMeanings = await tx.meaning.findMany({
-                where: { wordId: targetId },
+                where: { lexemeId: targetId },
                 take: 1,
             });
             let targetMeaningId: number;
@@ -126,14 +126,14 @@ export async function mergeWordsAction(
             } else {
                 // У целевого слова нет ни одного смысла — создаём пустой
                 const newMeaning = await tx.meaning.create({
-                    data: { wordId: targetId },
+                    data: { lexemeId: targetId },
                 });
                 targetMeaningId = newMeaning.id;
             }
 
             // Получаем все ID смыслов удаляемого слова
             const sourceMeanings = await tx.meaning.findMany({
-                where: { wordId: sourceId },
+                where: { lexemeId: sourceId },
                 select: { id: true },
             });
             const sourceMeaningIds = sourceMeanings.map(m => m.id);
@@ -154,16 +154,16 @@ export async function mergeWordsAction(
                 });
             }
 
-            // 3. Перепривязываем связи с корнями (RootWord)
-            await tx.rootWord.updateMany({
-                where: { wordId: sourceId },
-                data: { wordId: targetId },
+            // 3. Перепривязываем связи с корнями (LexemeMorpheme)
+            await tx.lexemeMorpheme.updateMany({
+                where: { lexemeId: sourceId },
+                data: { lexemeId: targetId },
             });
 
             // 4. Перепривязываем аномалии флексий от удаляемого слова к главному
             await tx.inflectionAnomaly.updateMany({
-                where: { wordId: sourceId },
-                data: { wordId: targetId },
+                where: { lexemeId: sourceId },
+                data: { lexemeId: targetId },
             });
 
             // 5. Перепривязываем синонимы (обе стороны отношений в вашей схеме)
@@ -187,7 +187,7 @@ export async function mergeWordsAction(
             });
 
             // 7. Теперь, когда у sourceId не осталось дочерних зависимостей, удаляем его
-            await tx.word.delete({
+            await tx.lexeme.delete({
                 where: { id: sourceId },
             });
         });

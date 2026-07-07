@@ -73,9 +73,10 @@ export interface VerbModel {
     infStem: string;
     presentStem: string;
     aoristStem: string;
+    tertiaryStem?: string;
     verbClass: ProtoSlavicClass;
     aspect: VerbalAspect;
-    paradigm: AccentParadigm; // Извлечено напрямую из метаданных таблицы Word
+    paradigm: AccentParadigm;
 }
 
 export interface ExtractedStems {
@@ -218,7 +219,7 @@ export function extractProtoStems(infinitive: string): ExtractedStems {
 // =========================================================================
 
 export function conjugateFullVerb(verb: VerbModel): ConjugationResult {
-    const { infinitive, infStem, presentStem, aoristStem, verbClass, aspect, paradigm } = verb;
+    const { infinitive, infStem, presentStem, aoristStem, tertiaryStem, verbClass, aspect, paradigm } = verb;
 
     // --- А. ПРЕЗЕНС (НАСТОЯЩЕЕ / БУДУЩЕЕ ПРЯМОЕ) ---
     const hasThematicE = presentStem.endsWith('e');
@@ -303,14 +304,15 @@ export function conjugateFullVerb(verb: VerbModel): ConjugationResult {
         return accentSyllable(form, 'first', paradigm === AccentParadigm.A ? 'acute' : 'short');
     };
 
+    const lStem = tertiaryStem || infStem;
     const lParticiple: LParticiple = {
-        masculine: accentLPart(`${infStem}l`, 'm'),
-        feminine: accentLPart(`${infStem}la`, 'f'),
-        neuter: accentLPart(`${infStem}lo`, 'n'),
-        dual_masculine: accentLPart(`${infStem}la`, 'pl'),
-        dual_feminine_neuter: accentLPart(`${infStem}lě`, 'pl'),
-        plural_masculine: accentLPart(`${infStem}li`, 'pl'),
-        plural_feminine_neuter: accentLPart(`${infStem}le`, 'pl'),
+        masculine: accentLPart(`${lStem}l`, 'm'),
+        feminine: accentLPart(`${lStem}la`, 'f'),
+        neuter: accentLPart(`${lStem}lo`, 'n'),
+        dual_masculine: accentLPart(`${lStem}la`, 'pl'),
+        dual_feminine_neuter: accentLPart(`${lStem}lě`, 'pl'),
+        plural_masculine: accentLPart(`${lStem}li`, 'pl'),
+        plural_feminine_neuter: accentLPart(`${lStem}le`, 'pl'),
     };
 
     // --- Д. СБОРКА АНАЛИТИЧЕСКИХ СВЯЗОК ---

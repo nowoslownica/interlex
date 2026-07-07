@@ -32,7 +32,7 @@ interface Candidate {
   protoStemClass: string | null
   stemExtension: string | null
   genesis: string | null
-  base: string | null
+  stem: string | null
   gender: string | null
   declension: number | null
   conjugation: number | null
@@ -42,7 +42,7 @@ interface Candidate {
   hasAnomalies: boolean
   actionHistory: string | null
   promotedAt: string | null
-  promotedToWordId: number | null
+  promotedToLexemeId: number | null
 }
 
 interface RootOption {
@@ -54,7 +54,7 @@ interface PromoteFormData {
   candidateId: number
   value: string
   pos: string
-  base: string
+  stem: string
   gender: string
   declension: number | null
   conjugation: number | null
@@ -181,7 +181,7 @@ function CandidatesClientInner() {
         candidateId: c.id,
         value: c.value || "",
         pos: c.pos || "",
-        base: c.base || "",
+        stem: c.stem || "",
         gender: c.gender || "",
         declension: c.declension,
         conjugation: c.conjugation,
@@ -396,12 +396,12 @@ function CandidatesClientInner() {
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold mb-1">Base</label>
+                      <label className="block text-xs font-semibold mb-1">Stem</label>
                       <input
                         type="text"
                         className="w-full px-3 py-1.5 border rounded-md bg-background"
-                        value={form.base}
-                        onChange={(e) => updateForm(idx, "base", e.target.value)}
+                        value={form.stem}
+                        onChange={(e) => updateForm(idx, "stem", e.target.value)}
                       />
                     </div>
                     <div>

@@ -69,13 +69,13 @@ function findRootCandidates(words: string[]): { candidates: RootCandidate[]; pri
 async function main() {
   const { prismaData: db } = await import('@/lib/prisma')
 
-  const roots = await db.root.findMany({
+  const roots = await db.morpheme.findMany({
     select: {
       id: true,
       value: true,
-      roots_words: {
+      lexemes_morphemes: {
         select: {
-          word: {
+          lexeme: {
             select: { value: true, isv: true },
           },
         },
@@ -86,9 +86,9 @@ async function main() {
   const results: RootResult[] = []
 
   for (const root of roots) {
-    const words = root.roots_words
+    const words = root.lexemes_morphemes
       .flatMap(rw => {
-        const v = rw.word?.value || rw.word?.isv
+        const v = rw.lexeme?.value || rw.lexeme?.isv
         return v ? v.split(/\s+/).filter(Boolean) : []
       })
       .filter((v): v is string => !!v)

@@ -13,7 +13,7 @@ export const getLangData = (db, lang, wordIds: string[], wordId) => {
 export const getDictItems = async (search: string, offset: number, limit: number) => {
     const db = await init();
 
-    const from_table = "words";
+    const from_table = "lexemes";
 
     let data = [];
     if (search) {

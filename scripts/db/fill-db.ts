@@ -4,11 +4,9 @@ import fs from "fs";
 import dotenv from "dotenv";
 import {init} from "@/lib/sqlite";
 import {mapNslToEtymologized, mapNslToStandard} from "@/lib/nsl";
-import {csvGrammarMapper} from "@/lib/grammar/common";
+import {csvGrammarMapper, generateStemCandidates, heuristicStem} from "@/lib/grammar/common";
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env.development') });
-
-// npx prisma db push
 
 const file = path.resolve(process.cwd(), 'slovnik.csv');
 
@@ -17,9 +15,10 @@ const insertLang = (db, lang: string, wordId: bigint, meaningId: bigint, value: 
                      value,
                      veryfied,
                      wordId,
-                     meaningId
-                 ) values (?, ?, ?, ?)`)
-        .run(value, 0, wordId, meaningId);
+                     meaningId,
+                     updatedAt
+                 ) values (?, ?, ?, ?, ?)`)
+        .run(value, 0, wordId, meaningId, new Date().toISOString());
 };
 
 const insertRow = (db, roots, {
@@ -59,15 +58,15 @@ const insertRow = (db, roots, {
     pronType?: string;
     numType?: string;
 }): Promise<[bigint, bigint]> => {
-    const insert = db.prepare(`INSERT INTO words (
+    const insert = db.prepare(`INSERT INTO lexemes (
         value,
         isv,
         nsl,
         transcription,
         field,
-        declension,
-        etymology,
-        pos,
+       declension,
+       etymology,
+       pos,
        aspect,
        transitivity,
        animacy,
@@ -76,10 +75,13 @@ const insertRow = (db, roots, {
        numType,
        gender,
        conjugation,
-       slug
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+       slug,
+       stem,
+       updatedAt
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
 
-    const check = db.prepare(`SELECT * FROM words WHERE slug = ? `).get(`${lat.toLowerCase()}-${pos}`);
+    const check = db.prepare(`SELECT * FROM lexemes WHERE slug = ? `).get(`${lat.toLowerCase()}-${pos}`);
+    const stem = heuristicStem(lat, pos);
 
     let wId;
     if (!check) {
@@ -103,6 +105,8 @@ const insertRow = (db, roots, {
             grammar.gender,
             decl,
             `${lat.toLowerCase()}-${pos}`,
+            stem,
+            new Date().toISOString(),
         );
         wId = r.lastInsertRowid;
     } else {
@@ -110,36 +114,52 @@ const insertRow = (db, roots, {
     }
 
     const insertMeaning = db.prepare(`INSERT INTO meanings (
-        wordId,
+        lexemeId,
         meaning,
-        examples
-    ) VALUES (?, ?, ?)`);
+        examples,
+        updatedAt
+    ) VALUES (?, ?, ?, ?)`);
     const rM = insertMeaning.run(
         wId,
         meaning || "",
-        ""
+        "",
+        new Date().toISOString(),
     );
     const mId = rM.lastInsertRowid;
 
-    // if (rootId && !roots.has(rootId)) {
-    //     const r = db.prepare("insert into roots (value) values (?)")
-    //         .run(rootId);
-    //     const newId = r.lastInsertRowid as bigint;
-    //
-    //     roots.set(rootId, newId);
-    // }
+    if (stem) {
+        const candidates = generateStemCandidates({
+            stem,
+            secondaryStem: "",
+            tertiaryStem: "",
+            isv: lat,
+            pos,
+        });
+        const upsertHomonym = (base: string) => {
+            const existing = db.prepare(`SELECT * FROM base_homonyms WHERE base = ?`).get(base) as { id: bigint; wordIds: string } | undefined;
+            const wordIdNum = Number(wId);
+            if (existing) {
+                const ids: number[] = JSON.parse(existing.wordIds);
+                if (!ids.includes(wordIdNum)) {
+                    ids.push(wordIdNum);
+                    db.prepare(`UPDATE base_homonyms SET wordIds = ? WHERE id = ?`).run(JSON.stringify(ids), existing.id);
+                }
+            } else {
+                db.prepare(`INSERT INTO base_homonyms (base, wordIds) VALUES (?, ?)`).run(base, JSON.stringify([wordIdNum]));
+            }
+        };
+        for (const base of candidates) {
+            upsertHomonym(base);
+        }
+    }
 
     if (rootId) {
-        // const dbRootId = roots.get(rootId);
-
-        // console.log(cyr, dbRootId);
-
-        const rId = db.prepare("select id from roots where value = ?")
+        const rId = db.prepare("select id from morphemes where value = ?")
                 .get(rootId);
 
-        db.prepare(`INSERT INTO roots_words (
-        wordId,
-        rootId
+        db.prepare(`INSERT INTO lexemes_morphemes (
+        lexemeId,
+        morphemeId
     ) VALUES (?, ?)`).run(
             wId,
             rId.id,
@@ -159,8 +179,8 @@ const fillDb = async () => {
     const rootIds = [...new Set( data.data.map(el => el[5]).filter(el => !!el && !isNaN(Number(el)))) ];
 
     rootIds.forEach((id) => {
-        db.prepare("insert into roots (value) values (?)")
-            .run(id);
+        db.prepare("insert into morphemes (value, updatedAt) values (?, ?)")
+            .run(id, new Date().toISOString());
     });
 
     // for (const row of data.data) {

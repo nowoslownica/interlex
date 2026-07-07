@@ -11,13 +11,13 @@ const getLang = async (lang: string, wordId: string) => {
 export const getItem = async (id: string) => {
   const db = await init();
 
-  const data = db.prepare('select * from words where id = ?').get(id) as any;
+  const data = db.prepare('select * from lexemes where id = ?').get(id) as any;
 
   const roots = db.prepare(`
-    select * from roots where id IN (select rootId from roots_words where wordId = ?)
+    select * from morphemes where id IN (select morphemeId from lexemes_morphemes where lexemeId = ?)
   `).all(id);
 
-  const meanings = db.prepare('select * from meanings where wordId = ?').all(id) as any[];
+  const meanings = db.prepare('select * from meanings where lexemeId = ?').all(id) as any[];
 
   const meaningIds = meanings.map(m => m.id);
 
@@ -30,9 +30,9 @@ export const getItem = async (id: string) => {
     const synonymRows = db.prepare(`
       SELECT s.sourceId as sourceMeaningId, s.targetId as targetMeaningId,
              m.meaning as targetMeaning, w.value as targetWord, w.id as targetWordId
-      FROM synonims s
+      FROM synonyms s
       JOIN meanings m ON m.id = s.targetId
-      JOIN words w ON w.id = m.wordId
+      JOIN lexemes w ON w.id = m.lexemeId
       WHERE s.sourceId IN (${placeholders})
     `).all(...meaningIds) as any[];
 
@@ -44,9 +44,9 @@ export const getItem = async (id: string) => {
     const antonymRows = db.prepare(`
       SELECT a.sourceId as sourceMeaningId, a.targetId as targetMeaningId,
              m.meaning as targetMeaning, w.value as targetWord, w.id as targetWordId
-      FROM antonims a
+      FROM antonyms a
       JOIN meanings m ON m.id = a.targetId
-      JOIN words w ON w.id = m.wordId
+      JOIN lexemes w ON w.id = m.lexemeId
       WHERE a.sourceId IN (${placeholders})
     `).all(...meaningIds) as any[];
 

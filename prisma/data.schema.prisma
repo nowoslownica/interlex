@@ -7,7 +7,7 @@ datasource db {
   provider = "sqlite"
 }
 
-model Word {
+model Lexeme {
   id              Int              @id @default(autoincrement())
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
@@ -39,7 +39,10 @@ model Word {
   genesis         String?
 
   // ПОЛЯ ДЛЯ АВТОМАТИЧЕСКОЙ ГЕНЕРАЦИИ ПАРАДИГМ
-  base            String?
+  stem            String?
+  secondaryStem   String?
+  tertiaryStem    String?
+  governsCase     Int?               // 2=GEN, 3=DAT, 4=ACC, 5=INS, 6=LOC
   gender          String?
   declension      Int?
   conjugation     Int?
@@ -52,11 +55,11 @@ model Word {
 
   // Обратные связи Prisma
   meanings        Meaning[]
-  roots_words     RootWord[]
+  lexemes_morphemes LexemeMorpheme[]
   anomalies       InflectionAnomaly[]
   actionHistory   String?
 
-  @@map("words")
+  @@map("lexemes")
   @@index([slug])
 }
 
@@ -87,7 +90,10 @@ model Candidate {
   protoStemClass  String?
   stemExtension   String?
   genesis         String?
-  base            String?
+  stem            String?
+  secondaryStem   String?
+  tertiaryStem    String?
+  governsCase     Int?               // 2=GEN, 3=DAT, 4=ACC, 5=INS, 6=LOC
   gender          String?
   declension      Int?
   conjugation     Int?
@@ -97,7 +103,7 @@ model Candidate {
   hasAnomalies    Boolean          @default(false)
   actionHistory   String?
   promotedAt      DateTime?
-  promotedToWordId Int?
+  promotedToLexemeId Int?
 
   @@map("candidates")
   @@index([value])
@@ -105,22 +111,24 @@ model Candidate {
   @@index([pos])
 }
 
-model Word_text {
+model Lexeme_text {
   id      Int    @id
   value   String
-  rootId  String
+  lexemeId  String
 
   @@ignore
 }
 
 model Meaning {
   id       Int       @id @default(autoincrement())
-  wordId   Int
+  lexemeId   Int
   meaning  String?
   examples String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  // Связь с таблицей слов
-  word     Word      @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  // Связь с таблицей лексем
+  lexeme     Lexeme      @relation(fields: [lexemeId], references: [id], onDelete: Cascade)
 
   // Обратные связи для языковых таблиц
   en_word  En[]      @relation("EnWord")
@@ -165,60 +173,60 @@ model Meaning {
   @@map("meanings")
 }
 
-model Root {
+model Morpheme {
   id    Int     @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   value String?
   type  Int?    @default(0)
 
-  roots_words RootWord[]
+  lexemes_morphemes LexemeMorpheme[]
   actionHistory String?
 
-  @@map("roots")
+  @@map("morphemes")
 }
 
-model Root_text {
+model Morpheme_text {
   id      Int    @id
   value   String
-  rootId  String
+  morphemeId  String
 
   @@ignore
 }
 
-model RootWord {
+model LexemeMorpheme {
   id     Int  @id @default(autoincrement())
-  wordId Int?
-  rootId Int?
+  lexemeId Int?
+  morphemeId Int?
 
-  word   Word? @relation(fields: [wordId], references: [id], onDelete: Cascade)
-  root   Root? @relation(fields: [rootId], references: [id], onDelete: Cascade)
+  lexeme   Lexeme? @relation(fields: [lexemeId], references: [id], onDelete: Cascade)
+  morpheme   Morpheme? @relation(fields: [morphemeId], references: [id], onDelete: Cascade)
 
-  @@map("roots_words")
+  @@map("lexemes_morphemes")
 }
 
 model Synonym {
   id        Int      @id @default(autoincrement())
-  sourceId  Int?     @map("rootId")
-  targetId  Int?     @map("wordId")
+  sourceId  Int?
+  targetId  Int?
   proximity Float?
 
   source    Meaning? @relation("SynonymSource", fields: [sourceId], references: [id], onDelete: Cascade)
   target    Meaning? @relation("SynonymTarget", fields: [targetId], references: [id], onDelete: Cascade)
 
-  @@map("synonims")
+  @@map("synonyms")
 }
 
 model Antonym {
   id        Int      @id @default(autoincrement())
-  sourceId  Int?     @map("rootId")
-  targetId  Int?     @map("wordId")
+  sourceId  Int?
+  targetId  Int?
   proximity Float?
 
   source    Meaning? @relation("AntonymSource", fields: [sourceId], references: [id], onDelete: Cascade)
   target    Meaning? @relation("AntonymTarget", fields: [targetId], references: [id], onDelete: Cascade)
 
-  @@map("antonims")
+  @@map("antonyms")
 }
 
 // Динамические таблицы языков, преобразованные в схемы Prisma
@@ -480,7 +488,7 @@ model Eo {
   @@map("eo")
 }
 
-// Карта основ → массив wordId омонимов (хеш-таблица для префиксного поиска омонимов)
+// Карта основ → массив lexemeId омонимов (хеш-таблица для префиксного поиска омонимов)
 // base — текстовая основа (уникальный ключ), wordIds — JSON-строка с массивом ID лексем-омонимов
 model BaseHomonym {
   id      Int    @id @default(autoincrement())
@@ -497,13 +505,13 @@ model BaseHomonym {
 // Ключ-склейка граммемы (н-р: "PL_INST", "PL_GEN")
 model InflectionAnomaly {
   id         Int    @id @default(autoincrement())
-  wordId     Int
+  lexemeId     Int
   inflection String
   grammeme   String
 
-  word       Word   @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  lexeme       Lexeme   @relation(fields: [lexemeId], references: [id], onDelete: Cascade)
 
   @@map("inflection_anomalies")
-  @@index([wordId])
+  @@index([lexemeId])
   @@index([grammeme])
 }

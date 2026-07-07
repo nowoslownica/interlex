@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 };
 
 const rootInclude = {
-    roots_words: {
+    lexemes_morphemes: {
         take: 10,
         select: {
             id: true,
-            word: {
+            lexeme: {
                 select: {
                     id: true,
                     value: true,
@@ -26,55 +26,55 @@ const rootInclude = {
     },
 }
 
-export type RootWithWords = Prisma.RootGetPayload<{
+export type MorphemeWithLexemes = Prisma.MorphemeGetPayload<{
     include: typeof rootInclude
 }>
 
 export default async function CreateArticlePage() {
     const pageSize = 30
 
-    const initialRoots = (await db.root.findMany({
+    const initialRoots = (await db.morpheme.findMany({
         include: rootInclude,
         orderBy: { value: "asc" },
         take: pageSize,
-    })) as RootWithWords[]
+    })) as MorphemeWithLexemes[]
 
     async function createArticle(formData: any) {
         "use server"
         const session = await auth()
         const author = session?.user?.email || "unknown"
-        const baseValue = formData.base?.trim() || null
+        const stemValue = formData.stem?.trim() || null
 
-        const newWord = await db.word.create({
+        const newWord = await db.lexeme.create({
             data: {
                 value: formData.word,
-                base: baseValue,
+                stem: stemValue,
                 hasAnomalies: formData.hasAnomalies === true,
                 actionHistory: append(null, buildEntry(author, {
                     value: { old: null, new: formData.word },
-                    base: { old: null, new: baseValue },
+                    stem: { old: null, new: stemValue },
                     hasAnomalies: { old: null, new: formData.hasAnomalies === true },
                 })),
             },
         })
 
-        if (baseValue) {
+        if (stemValue) {
             const existing = await db.baseHomonym.findUnique({
-                where: { base: baseValue },
+                where: { base: stemValue },
             })
             if (existing) {
                 const ids: number[] = JSON.parse(existing.wordIds)
                 if (!ids.includes(newWord.id)) {
                     ids.push(newWord.id)
                     await db.baseHomonym.update({
-                        where: { base: baseValue },
+where: { base: stemValue },
                         data: { wordIds: JSON.stringify(ids) },
                     })
                 }
             } else {
                 await db.baseHomonym.create({
                     data: {
-                        base: baseValue,
+                        base: stemValue,
                         wordIds: JSON.stringify([newWord.id]),
                     },
                 })
@@ -85,7 +85,7 @@ export default async function CreateArticlePage() {
         if (anomalies.length > 0) {
             await db.inflectionAnomaly.createMany({
                 data: anomalies.map((a: { inflection: string; grammeme: string }) => ({
-                    wordId: newWord.id,
+                    lexemeId: newWord.id,
                     inflection: a.inflection,
                     grammeme: a.grammeme,
                 })),
@@ -94,7 +94,7 @@ export default async function CreateArticlePage() {
 
         const newMeaning = await db.meaning.create({
             data: {
-                wordId: newWord.id,
+                lexemeId: newWord.id,
                 meaning: "Основное значение",
             },
         })
@@ -126,7 +126,7 @@ export default async function CreateArticlePage() {
         const createdRootIds: number[] = []
         if (formData.newRootValues && formData.newRootValues.length > 0) {
             for (const val of formData.newRootValues) {
-                const newRoot = await db.root.create({
+                const newRoot = await db.morpheme.create({
                     data: {
                         value: val,
                         type: 0,
@@ -143,10 +143,10 @@ export default async function CreateArticlePage() {
         const finalRootIds = [...(formData.rootIds || []), ...createdRootIds]
 
         if (finalRootIds.length > 0) {
-            await db.rootWord.createMany({
+            await db.lexemeMorpheme.createMany({
                 data: finalRootIds.map((rId) => ({
-                    wordId: newWord.id,
-                    rootId: rId,
+                    lexemeId: newWord.id,
+                    morphemeId: rId,
                 })),
             })
         }

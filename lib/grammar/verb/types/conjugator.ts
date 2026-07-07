@@ -66,6 +66,7 @@ export interface VerbModel {
     infStem: string;          // Основа инфинитива ("nes-")
     presentStem: string;      // Основа презенса ("nese-")
     aoristStem: string;       // Основа аориста ("nes-")
+    tertiaryStem?: string;    // Основа l-причастия ("š-", "by-")
     verbClass: ProtoSlavicClass;
     aspect: InterslavicAspect;
 }

@@ -31,7 +31,7 @@ async function main() {
       continue
     }
 
-    await db.root.update({
+    await db.morpheme.update({
       where: { id: entry.id },
       data: { value: entry.primaryRoot },
     })

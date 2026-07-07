@@ -8,7 +8,7 @@ import { buildEntry, append } from "@/lib/action-history"
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  const word = await db.word.findUnique({ where: { id: parseInt(id, 10) }, select: { value: true } });
+  const word = await db.lexeme.findUnique({ where: { id: parseInt(id, 10) }, select: { value: true } });
   return {
     title: `Редактирование: ${word?.value ?? id}`,
     description: `Редактирование словарной статьи «${word?.value ?? id}» в базе межславянского лексикона.`,
@@ -18,11 +18,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 const rootSelectStructure = {
     id: true,
     value: true,
-    roots_words: {
+    lexemes_morphemes: {
         take: 10,
         select: {
             id: true,
-            word: {
+            lexeme: {
                 select: {
                     id: true,
                     value: true,
@@ -32,7 +32,7 @@ const rootSelectStructure = {
     },
 }
 
-export type RootWithWords = Prisma.RootGetPayload<{
+export type MorphemeWithLexemes = Prisma.MorphemeGetPayload<{
     select: typeof rootSelectStructure
 }>
 
@@ -48,7 +48,7 @@ export default async function EditArticlePage({ params }: EditPageProps) {
 
     // 2. Параллельно загружаем редактируемое слово и первые 30 корней для формы
     const [wordData, initialRoots] = await Promise.all([
-        db.word.findUnique({
+        db.lexeme.findUnique({
             where: { id: wordId },
             include: {
                 meanings: {
@@ -57,11 +57,11 @@ export default async function EditArticlePage({ params }: EditPageProps) {
                         ru_word: true,
                     },
                 },
-                roots_words: {
+                lexemes_morphemes: {
                     take: 1,
                     select: {
-                        rootId: true,
-                        root: {
+                        morphemeId: true,
+                        morpheme: {
                             select: {
                                 value: true,
                             },
@@ -71,11 +71,11 @@ export default async function EditArticlePage({ params }: EditPageProps) {
                 anomalies: true,
             },
         }),
-        db.root.findMany({
+        db.morpheme.findMany({
             select: rootSelectStructure,
             orderBy: { value: "asc" },
             take: 30,
-        }) as Promise<RootWithWords[]>,
+        }) as Promise<MorphemeWithLexemes[]>,
     ])
 
     if (!wordData) notFound()
@@ -99,10 +99,10 @@ export default async function EditArticlePage({ params }: EditPageProps) {
         const session = await auth()
         const author = session?.user?.email || "unknown"
 
-        const baseValue = formData.base?.trim() || null
+        const stemValue = formData.stem?.trim() || null
 
         // Получаем текущее слово, чтобы сравнить старую и новую основу
-        const currentWord = await db.word.findUnique({ where: { id: wordId } })
+        const currentWord = await db.lexeme.findUnique({ where: { id: wordId } })
         const currentWordWithHistory = currentWord as { actionHistory?: string | null } & typeof currentWord
 
         // Собираем изменения для аудита
@@ -110,19 +110,19 @@ export default async function EditArticlePage({ params }: EditPageProps) {
         if (currentWord?.value !== formData.word) {
             wordChanges.value = { old: currentWord?.value ?? null, new: formData.word }
         }
-        if ((currentWord?.base ?? null) !== baseValue) {
-            wordChanges.base = { old: currentWord?.base ?? null, new: baseValue }
+        if ((currentWord?.stem ?? null) !== stemValue) {
+            wordChanges.stem = { old: currentWord?.stem ?? null, new: stemValue }
         }
         if (currentWord?.hasAnomalies !== (formData.hasAnomalies === true)) {
             wordChanges.hasAnomalies = { old: currentWord?.hasAnomalies, new: formData.hasAnomalies === true }
         }
 
         // Обновляем базовое слово
-        await db.word.update({
+        await db.lexeme.update({
             where: { id: wordId },
             data: {
                 value: formData.word,
-                base: baseValue,
+                stem: stemValue,
                 hasAnomalies: formData.hasAnomalies === true,
                 ...(Object.keys(wordChanges).length > 0 ? {
                     actionHistory: append(currentWordWithHistory?.actionHistory, buildEntry(author, wordChanges)),
@@ -131,44 +131,44 @@ export default async function EditArticlePage({ params }: EditPageProps) {
         })
 
         // Синхронизируем base_homonyms
-        const oldBase = currentWord?.base?.trim() || null
+        const oldStem = currentWord?.stem?.trim() || null
 
         // Если старая основа была и отличается от новой — удаляем wordId из старой
-        if (oldBase && oldBase !== baseValue) {
+        if (oldStem && oldStem !== stemValue) {
             const oldEntry = await db.baseHomonym.findUnique({
-                where: { base: oldBase },
+                where: { base: oldStem },
             })
             if (oldEntry) {
                 const ids: number[] = JSON.parse(oldEntry.wordIds).filter((id: number) => id !== wordId)
                 if (ids.length > 0) {
                     await db.baseHomonym.update({
-                        where: { base: oldBase },
+                        where: { base: oldStem },
                         data: { wordIds: JSON.stringify(ids) },
                     })
                 } else {
-                    await db.baseHomonym.delete({ where: { base: oldBase } })
+                    await db.baseHomonym.delete({ where: { base: oldStem } })
                 }
             }
         }
 
         // Если новая основа указана — добавляем/обновляем в base_homonyms
-        if (baseValue) {
+        if (stemValue) {
             const existing = await db.baseHomonym.findUnique({
-                where: { base: baseValue },
+                where: { base: stemValue },
             })
             if (existing) {
                 const ids: number[] = JSON.parse(existing.wordIds)
                 if (!ids.includes(wordId)) {
                     ids.push(wordId)
                     await db.baseHomonym.update({
-                        where: { base: baseValue },
+                        where: { base: stemValue },
                         data: { wordIds: JSON.stringify(ids) },
                     })
                 }
             } else {
                 await db.baseHomonym.create({
                     data: {
-                        base: baseValue,
+                        base: stemValue,
                         wordIds: JSON.stringify([wordId]),
                     },
                 })
@@ -177,13 +177,13 @@ export default async function EditArticlePage({ params }: EditPageProps) {
 
         // Синхронизируем аномалии флексий: удаляем старые, создаём новые
         await db.inflectionAnomaly.deleteMany({
-            where: { wordId: wordId },
+            where: { lexemeId: wordId },
         })
         const anomalies = formData.inflectionAnomalies || []
         if (anomalies.length > 0) {
             await db.inflectionAnomaly.createMany({
                 data: anomalies.map((a: { inflection: string; grammeme: string }) => ({
-                    wordId: wordId,
+                    lexemeId: wordId,
                     inflection: a.inflection,
                     grammeme: a.grammeme,
                 })),
@@ -195,24 +195,24 @@ export default async function EditArticlePage({ params }: EditPageProps) {
         //
         // if (formData.newRootValue) {
         //     // Если администратор ввел новый корень в поиск и нажал "Создать"
-        //     const newRoot = await db.root.create({
+        //     const newRoot = await db.morpheme.create({
         //         data: { value: formData.newRootValue },
         //     })
         //     targetRootId = newRoot.id
         // }
         //
-        // // Обновляем связь слова с корнем в таблице roots_words
+        // // Обновляем связь слова с корнем в таблице lexemes_morphemes
         // if (targetRootId !== currentRootId) {
         //     // Удаляем старую связь
-        //     await db.rootWord.deleteMany({
-        //         where: { wordId: wordId },
+        //     await db.lexemeMorpheme.deleteMany({
+        //         where: { lexemeId: wordId },
         //     })
         //
         //     // Если выбран какой-то корень (старый или только что созданный) — создаем новую запись
         //     if (targetRootId) {
-        //         await db.rootWord.create({
+        //         await db.lexemeMorpheme.create({
         //             data: {
-        //                 wordId: wordId,
+        //                 lexemeId: wordId,
         //                 rootId: targetRootId,
         //             },
         //         })
@@ -222,7 +222,7 @@ export default async function EditArticlePage({ params }: EditPageProps) {
         const createdRootIds: number[] = []
         if (formData.newRootValues && formData.newRootValues.length > 0) {
             for (const val of formData.newRootValues) {
-                const newRoot = await db.root.create({
+                const newRoot = await db.morpheme.create({
                     data: {
                         value: val,
                         type: 0,
@@ -239,18 +239,18 @@ export default async function EditArticlePage({ params }: EditPageProps) {
         // 3. Объединяем старые выбранные ID и только что созданные ID корней
         const finalRootIds = [...formData.rootIds, ...createdRootIds]
 
-        // 4. Синхронизируем таблицу связей roots_words для этого слова
+        // 4. Синхронизируем таблицу связей lexemes_morphemes для этого слова
         // Удаляем все прошлые связи слова с корнями
-        await db.rootWord.deleteMany({
-            where: { wordId: wordId },
+        await db.lexemeMorpheme.deleteMany({
+            where: { lexemeId: wordId },
         })
 
         // Записываем новые связи
         if (finalRootIds.length > 0) {
-            await db.rootWord.createMany({
+            await db.lexemeMorpheme.createMany({
                 data: finalRootIds.map((rId) => ({
-                    wordId: wordId,
-                    rootId: rId,
+                    lexemeId: wordId,
+                    morphemeId: rId,
                 })),
             })
         }
@@ -262,8 +262,8 @@ export default async function EditArticlePage({ params }: EditPageProps) {
     if (!wordData) notFound()
 
     // Трансформируем связи из базы в плоский массив объектов для initialData
-    const attachedRoots = (wordData.roots_words || [])
-        .map((rw) => rw.root)
+    const attachedRoots = (wordData.lexemes_morphemes || [])
+        .map((rw) => rw.morpheme)
         .filter((r): r is { id: number; value: string } => !!r && !!r.value)
 
     return (
@@ -275,7 +275,7 @@ export default async function EditArticlePage({ params }: EditPageProps) {
                 onSubmit={updateArticle}
                 initialData={{
                     word: wordData.value || "",
-                    base: wordData.base || "",
+                    stem: wordData.stem || "",
                     hasAnomalies: wordData.hasAnomalies,
                     inflectionAnomalies: currentAnomalies,
                     translationEn: currentTranslationEn,

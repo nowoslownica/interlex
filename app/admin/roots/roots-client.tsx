@@ -14,9 +14,9 @@ interface RootItem {
 }
 
 interface RootFull extends RootItem {
-  roots_words: {
+  lexemes_morphemes: {
     id: number
-    word: { id: number; value: string | null; isv: string | null } | null
+    lexeme: { id: number; value: string | null; isv: string | null } | null
   }[]
 }
 
@@ -402,23 +402,23 @@ function EditRootModal({
 
           <div className="border-t pt-4">
             <h4 className="text-sm font-semibold mb-2">
-              Связанные слова ({root.roots_words.length})
+              Связанные слова ({root.lexemes_morphemes.length})
             </h4>
 
-            {root.roots_words.length > 0 ? (
+            {root.lexemes_morphemes.length > 0 ? (
               <div className="space-y-1 mb-3">
-                {root.roots_words.map((rw) => (
+                {root.lexemes_morphemes.map((rw) => (
                   <div
                     key={rw.id}
                     className="flex items-center justify-between bg-muted/20 px-3 py-1.5 rounded-md"
                   >
                     <span className="text-sm">
-                      {rw.word?.value || "—"}
-                      {rw.word?.isv ? (
-                        <span className="text-blue-600 ml-1">({rw.word.isv})</span>
+                      {rw.lexeme?.value || "—"}
+                      {rw.lexeme?.isv ? (
+                        <span className="text-blue-600 ml-1">({rw.lexeme.isv})</span>
                       ) : null}
                       <span className="text-muted-foreground ml-1">
-                        ID: {rw.word?.id}
+                        ID: {rw.lexeme?.id}
                       </span>
                     </span>
                     <button
@@ -452,7 +452,7 @@ function EditRootModal({
                   {wordResults
                     .filter(
                       (w) =>
-                        !root.roots_words.some(
+                        !root.lexemes_morphemes.some(
                           (rw) => rw.word?.id === w.id
                         )
                     )

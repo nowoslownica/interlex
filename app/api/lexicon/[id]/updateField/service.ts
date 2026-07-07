@@ -67,32 +67,32 @@ export const updateField = async (wordId: string, field: string, newValue: strin
     const session = await auth()
     const author = session?.user?.email || "unknown"
 
-    if (["base", "nsl", "isv", "value"].includes(field)) {
+    if (["stem", "nsl", "isv", "value"].includes(field)) {
         const parsedId = parseInt(wordId)
 
-        if (field === "base") {
-            const current = await prisma.word.findUnique({ where: { id: parsedId } })
-            const currentWithHistory = current as { base?: string | null; actionHistory?: string | null } | null
-            const oldBase = current?.base?.trim() || null
-            const newBase = newValue.trim() || null
+        if (field === "stem") {
+            const current = await prisma.lexeme.findUnique({ where: { id: parsedId } })
+            const currentWithHistory = current as { stem?: string | null; actionHistory?: string | null } | null
+            const oldStem = current?.stem?.trim() || null
+            const newStem = newValue.trim() || null
 
-            await prisma.word.update({
+            await prisma.lexeme.update({
                 where: { id: parsedId },
                 data: {
-                    base: newBase,
+                    stem: newStem,
                     actionHistory: append(currentWithHistory?.actionHistory, buildEntry(author, {
-                        base: { old: oldBase, new: newBase },
+                        stem: { old: oldStem, new: newStem },
                     })),
                 },
             })
 
-            await syncBaseHomonym(parsedId, newBase, oldBase)
+            await syncBaseHomonym(parsedId, newStem, oldStem)
         } else {
-            const current = await prisma.word.findUnique({ where: { id: parsedId } })
+            const current = await prisma.lexeme.findUnique({ where: { id: parsedId } })
             const currentWithHistory = current as { [key: string]: unknown } | null
             const oldValue = currentWithHistory?.[field] ?? null
 
-            await prisma.word.update({
+            await prisma.lexeme.update({
                 where: { id: parsedId },
                 data: {
                     [field]: newValue,

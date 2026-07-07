@@ -25,7 +25,9 @@ export interface EngineWordInput {
     protoStemClass?: string | null;
     stemExtension?: string | null;
     paradigm?: string | null;
-    base?: string | null;
+    stem?: string | null;
+    secondaryStem?: string | null;
+    tertiaryStem?: string | null;
     gender?: string | null;
     alternationType?: string | null;
     fleetingVowelAt?: number | null;

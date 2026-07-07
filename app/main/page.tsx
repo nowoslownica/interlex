@@ -3,7 +3,7 @@ import { TRANSLATION_LANGUAGES } from "@/config/features"
 import MainClient from "./main-client"
 import DevStatusToast from "@/components/DevStatusToast";
 import type { Metadata } from "next";
-import {Word} from "@/prisma/generated/data/client";
+import {Lexeme} from "@/prisma/generated/data/client";
 import {getRandomWordWithTranslations} from "@/app/main/aggregate";
 
 export const metadata: Metadata = {
@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 
 export default async function MainPage() {
     const [totalWords, totalMeanings, totalRoots, randomWord] = await Promise.all([
-        db.word.count(),
+        db.lexeme.count(),
         db.meaning.count(),
-        db.root.count(),
+        db.morpheme.count(),
         getRandomWordWithTranslations(),
     ])
 

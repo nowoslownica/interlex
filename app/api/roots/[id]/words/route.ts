@@ -23,15 +23,15 @@ export async function POST(
       return NextResponse.json({ error: "wordId is required" }, { status: 400 })
     }
 
-    const existing = await db.rootWord.findFirst({
-      where: { rootId, wordId },
+    const existing = await db.lexemeMorpheme.findFirst({
+      where: { morphemeId: rootId, lexemeId: wordId },
     })
     if (existing) {
       return NextResponse.json({ error: "Word already linked" }, { status: 409 })
     }
 
-    const rw = await db.rootWord.create({
-      data: { rootId, wordId },
+    const rw = await db.lexemeMorpheme.create({
+      data: { morphemeId: rootId, lexemeId: wordId },
     })
 
     return NextResponse.json(rw, { status: 201 })
@@ -62,7 +62,7 @@ export async function DELETE(
       return NextResponse.json({ error: "rootWordId is required" }, { status: 400 })
     }
 
-    await db.rootWord.delete({
+    await db.lexemeMorpheme.delete({
       where: { id: rootWordId },
     })
 

@@ -32,17 +32,17 @@ async function main(): Promise<void> {
     // 2. Итерируемся по списку слов
     for await (const item of wordsList) {
         // Ищем слово в таблице Word (или вашей таблице лексем, замените 'word' на точное имя модели)
-        const dbWord = await prisma.word.findFirst({
+        const dbWord = await prisma.lexeme.findFirst({
             where: {
                 isv: item.value,
             },
             include: {
-                meanings: true, // Включаем связанные значения по wordId
+                meanings: true, // Включаем связанные значения по lexemeId
             },
         });
 
         if (!dbWord) {
-            console.warn(`⚠️ Слово "${item.value}" не найдено в таблице Word.`);
+            console.warn(`⚠️ Слово "${item.value}" не найдено в таблице Lexeme.`);
             notFoundCount++;
             continue;
         }
@@ -67,7 +67,7 @@ async function main(): Promise<void> {
             // Сценарий Б: У слова нет Meaning -> Создаем новую связанную запись по wordId
             await prisma.meaning.create({
                 data: {
-                    wordId: dbWord.id,
+                    lexemeId: dbWord.id,
                     meaning: item.meaning,
                     examples: item.examples,
                 },

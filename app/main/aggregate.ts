@@ -1,9 +1,8 @@
 import {prismaData as db } from "@/lib/prisma";
-import {Word} from "@/prisma/generated/data/client";
+import {Lexeme} from "@/prisma/generated/data/client";
 
-export async function getRandomWordWithTranslations(): Promise<Word | null> {
-    // 1. Получаем максимальный ID слова для генерации диапазона
-    const aggregations = await db.word.aggregate({
+export async function getRandomWordWithTranslations(): Promise<Lexeme | null> {
+    const aggregations = await db.lexeme.aggregate({
         _max: { id: true },
     });
 
@@ -14,7 +13,7 @@ export async function getRandomWordWithTranslations(): Promise<Word | null> {
     const randomId = Math.floor(Math.random() * maxId) + 1;
 
     // 3. Выборка слова с глубоким включением (Include) связанных таблиц
-    const randomWord = await db.word.findFirst({
+    const randomWord = await db.lexeme.findFirst({
         where: {
             id: { gte: randomId },
         },
@@ -44,7 +43,7 @@ export async function getRandomWordWithTranslations(): Promise<Word | null> {
     });
 
     if (!randomWord) {
-        return await db.word.findFirst({
+        return await db.lexeme.findFirst({
             select: {
                 id: true,
                 value: true,

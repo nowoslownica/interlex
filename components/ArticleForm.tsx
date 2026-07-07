@@ -23,7 +23,7 @@ interface ArticleFormProps {
     submitButtonText: string
     initialData?: {
         word: string
-        base: string
+        stem: string
         hasAnomalies: boolean
         inflectionAnomalies: InflectionAnomalyItem[]
         translationEn: string
@@ -46,7 +46,7 @@ export default function ArticleForm({
     const [isPending, startTransition] = useTransition()
 
     const [word, setWord] = useState(initialData?.word || "")
-    const [base, setBase] = useState(initialData?.base || "")
+    const [stem, setStem] = useState(initialData?.stem || "")
     const [hasAnomalies, setHasAnomalies] = useState(initialData?.hasAnomalies || false)
     const [inflectionAnomalies, setInflectionAnomalies] = useState<InflectionAnomalyItem[]>(
         initialData?.inflectionAnomalies || []
@@ -125,7 +125,7 @@ export default function ArticleForm({
         startTransition(async () => {
             await onSubmit({
                 word,
-                base,
+                stem,
                 hasAnomalies,
                 inflectionAnomalies: inflectionAnomalies.filter(a => a.inflection.trim() || a.grammeme.trim()),
                 translationEn,
@@ -160,8 +160,8 @@ export default function ArticleForm({
                         <label className="block text-sm font-medium mb-1">Основа</label>
                         <input
                             type="text"
-                            value={base}
-                            onChange={(e) => setBase(e.target.value)}
+value={stem}
+                              onChange={(e) => setStem(e.target.value)}
                             className="w-full px-3 py-2 border rounded-md bg-transparent text-sm"
                             placeholder="Основа для поиска словоформ (н-р: vod)"
                         />

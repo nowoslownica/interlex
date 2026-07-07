@@ -43,7 +43,7 @@ async function main() {
             const ruLange = dbSimple.prepare(`select * from ru where value = ?`).get(word);
 
             if (ruLange) {
-                dbSimple.prepare(`insert into synonims (sourceId, targetId) values (?, ?)`)
+                dbSimple.prepare(`insert into synonyms (sourceId, targetId) values (?, ?)`)
                     .run(
                         entry.meaningId,
                         ruLange.meaningId,
@@ -79,7 +79,7 @@ async function main() {
             const ruLange = dbSimple.prepare(`select * from ru where value = ?`).get(word);
 
             if (ruLange) {
-                dbSimple.prepare(`insert into antonims (sourceId, targetId) values (?, ?)`)
+                dbSimple.prepare(`insert into antonyms (sourceId, targetId) values (?, ?)`)
                     .run(
                         entry.meaningId,
                         ruLange.meaningId,

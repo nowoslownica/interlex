@@ -2,7 +2,7 @@ import { PosType } from './pos';
 
 const REFLEXIVE_SUFFIX = ' sę';
 const VERB_ENDINGS = ['či', 'ti'];
-const NOUN_ENDINGS = ['jev', 'ij', 'ja', 'je', 'ę', 'o', 'a', 'e', 'ь'];
+const NOUN_ENDINGS = ['jev', 'ij', 'ja', 'je', 'ę', 'o', 'a', 'e', 'j'];
 const ADJ_ENDINGS = ['oj', 'ej', 'y', 'i'];
 const ADV_ENDINGS = ['o', 'e'];
 

@@ -21,7 +21,7 @@ async function main() {
         if (WORD_LIMIT && remaining <= 0) break
         const takeSize = WORD_LIMIT ? Math.min(BATCH_SIZE, remaining) : BATCH_SIZE
 
-        const batch = await db.word.findMany({
+        const batch = await db.lexeme.findMany({
             where: {
                 meanings: {
                     some: {ru_mean: {some: {}}},

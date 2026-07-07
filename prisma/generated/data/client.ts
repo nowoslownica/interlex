@@ -31,8 +31,8 @@ export * from "./enums"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Words
- * const words = await prisma.word.findMany()
+ * // Fetch zero or more Lexemes
+ * const lexemes = await prisma.lexeme.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -42,10 +42,10 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
- * Model Word
+ * Model Lexeme
  * 
  */
-export type Word = Prisma.WordModel
+export type Lexeme = Prisma.LexemeModel
 /**
  * Model Candidate
  * 
@@ -57,15 +57,15 @@ export type Candidate = Prisma.CandidateModel
  */
 export type Meaning = Prisma.MeaningModel
 /**
- * Model Root
+ * Model Morpheme
  * 
  */
-export type Root = Prisma.RootModel
+export type Morpheme = Prisma.MorphemeModel
 /**
- * Model RootWord
+ * Model LexemeMorpheme
  * 
  */
-export type RootWord = Prisma.RootWordModel
+export type LexemeMorpheme = Prisma.LexemeMorphemeModel
 /**
  * Model Synonym
  * 

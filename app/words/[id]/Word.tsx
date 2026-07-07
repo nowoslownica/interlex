@@ -36,7 +36,7 @@ const Word = ({ item, currentScript }: any) => {
         conjugation: item.conjugation,
         protoStemClass: item.protoStemClass,
         paradigm: item.paradigm,
-        base: item.base,
+        stem: item.stem,
         aspect: item.aspect,
         transitivity: item.transitivity,
         animacy: item.animacy,
@@ -122,7 +122,7 @@ const Word = ({ item, currentScript }: any) => {
         }
     }
 
-    console.log(item.meanings);
+    console.log(item);
 
     const meaningsArray = Array.isArray(item.meanings) ? item.meanings : (item.meanings ? [item.meanings] : []);
 
@@ -158,10 +158,21 @@ const Word = ({ item, currentScript }: any) => {
     };
 
     const etymologyLinks = [
-        {
-            label: "Этимология",
-            url: item.etymology,
-        }
+        ...(item.proto ? [
+            {
+                label: "Реконструкция",
+                url: `https://en.wiktionary.org/wiki/Reconstruction:Proto-Slavic/${item.proto}`,
+            },
+            {
+                label: "Этимология",
+                url: `/proto/${item.proto}`
+            }
+        ] : [
+            {
+                label: "Этимология",
+                url: item.etymology,
+            },
+        ])
     ];
 
     const title = useMemo(() => {
@@ -223,7 +234,7 @@ const Word = ({ item, currentScript }: any) => {
             <MorphemeAnalysis
                 word={item.value}
                 roots={item.roots}
-                base={item.base}
+                base={item.stem}
                 currentScript={currentScript}
             />
 
@@ -251,10 +262,10 @@ const Word = ({ item, currentScript }: any) => {
                         <span className="text-slate-800">{meta.conjugation}</span>
                     </div>
                 )}
-                {meta.base && (
+                {meta.stem && (
                     <div>
                         <span className="block font-semibold text-slate-500">Основа</span>
-                        <span className="text-slate-800">{meta.base}</span>
+                        <span className="text-slate-800">{meta.stem}</span>
                     </div>
                 )}
                 {meta.protoStemClass && (

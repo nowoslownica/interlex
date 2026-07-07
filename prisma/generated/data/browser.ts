@@ -18,10 +18,10 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model Word
+ * Model Lexeme
  * 
  */
-export type Word = Prisma.WordModel
+export type Lexeme = Prisma.LexemeModel
 /**
  * Model Candidate
  * 
@@ -33,15 +33,15 @@ export type Candidate = Prisma.CandidateModel
  */
 export type Meaning = Prisma.MeaningModel
 /**
- * Model Root
+ * Model Morpheme
  * 
  */
-export type Root = Prisma.RootModel
+export type Morpheme = Prisma.MorphemeModel
 /**
- * Model RootWord
+ * Model LexemeMorpheme
  * 
  */
-export type RootWord = Prisma.RootWordModel
+export type LexemeMorpheme = Prisma.LexemeMorphemeModel
 /**
  * Model Synonym
  * 

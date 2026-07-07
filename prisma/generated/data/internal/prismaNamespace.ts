@@ -384,11 +384,11 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  Word: 'Word',
+  Lexeme: 'Lexeme',
   Candidate: 'Candidate',
   Meaning: 'Meaning',
-  Root: 'Root',
-  RootWord: 'RootWord',
+  Morpheme: 'Morpheme',
+  LexemeMorpheme: 'LexemeMorpheme',
   Synonym: 'Synonym',
   Antonym: 'Antonym',
   En: 'En',
@@ -424,81 +424,81 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "word" | "candidate" | "meaning" | "root" | "rootWord" | "synonym" | "antonym" | "en" | "ru" | "mk" | "sr" | "uk" | "bg" | "pl" | "be" | "cs" | "sk" | "sl" | "hr" | "cu" | "de" | "nl" | "eo" | "baseHomonym" | "inflectionAnomaly"
+    modelProps: "lexeme" | "candidate" | "meaning" | "morpheme" | "lexemeMorpheme" | "synonym" | "antonym" | "en" | "ru" | "mk" | "sr" | "uk" | "bg" | "pl" | "be" | "cs" | "sk" | "sl" | "hr" | "cu" | "de" | "nl" | "eo" | "baseHomonym" | "inflectionAnomaly"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
-    Word: {
-      payload: Prisma.$WordPayload<ExtArgs>
-      fields: Prisma.WordFieldRefs
+    Lexeme: {
+      payload: Prisma.$LexemePayload<ExtArgs>
+      fields: Prisma.LexemeFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.WordFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload> | null
+          args: Prisma.LexemeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemePayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.WordFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+          args: Prisma.LexemeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemePayload>
         }
         findFirst: {
-          args: Prisma.WordFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload> | null
+          args: Prisma.LexemeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemePayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.WordFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+          args: Prisma.LexemeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemePayload>
         }
         findMany: {
-          args: Prisma.WordFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>[]
+          args: Prisma.LexemeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemePayload>[]
         }
         create: {
-          args: Prisma.WordCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+          args: Prisma.LexemeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemePayload>
         }
         createMany: {
-          args: Prisma.WordCreateManyArgs<ExtArgs>
+          args: Prisma.LexemeCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.WordCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>[]
+          args: Prisma.LexemeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemePayload>[]
         }
         delete: {
-          args: Prisma.WordDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+          args: Prisma.LexemeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemePayload>
         }
         update: {
-          args: Prisma.WordUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+          args: Prisma.LexemeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemePayload>
         }
         deleteMany: {
-          args: Prisma.WordDeleteManyArgs<ExtArgs>
+          args: Prisma.LexemeDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.WordUpdateManyArgs<ExtArgs>
+          args: Prisma.LexemeUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.WordUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>[]
+          args: Prisma.LexemeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemePayload>[]
         }
         upsert: {
-          args: Prisma.WordUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+          args: Prisma.LexemeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemePayload>
         }
         aggregate: {
-          args: Prisma.WordAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateWord>
+          args: Prisma.LexemeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLexeme>
         }
         groupBy: {
-          args: Prisma.WordGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.WordGroupByOutputType>[]
+          args: Prisma.LexemeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LexemeGroupByOutputType>[]
         }
         count: {
-          args: Prisma.WordCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.WordCountAggregateOutputType> | number
+          args: Prisma.LexemeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LexemeCountAggregateOutputType> | number
         }
       }
     }
@@ -650,151 +650,151 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Root: {
-      payload: Prisma.$RootPayload<ExtArgs>
-      fields: Prisma.RootFieldRefs
+    Morpheme: {
+      payload: Prisma.$MorphemePayload<ExtArgs>
+      fields: Prisma.MorphemeFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.RootFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootPayload> | null
+          args: Prisma.MorphemeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorphemePayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.RootFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootPayload>
+          args: Prisma.MorphemeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorphemePayload>
         }
         findFirst: {
-          args: Prisma.RootFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootPayload> | null
+          args: Prisma.MorphemeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorphemePayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.RootFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootPayload>
+          args: Prisma.MorphemeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorphemePayload>
         }
         findMany: {
-          args: Prisma.RootFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootPayload>[]
+          args: Prisma.MorphemeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorphemePayload>[]
         }
         create: {
-          args: Prisma.RootCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootPayload>
+          args: Prisma.MorphemeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorphemePayload>
         }
         createMany: {
-          args: Prisma.RootCreateManyArgs<ExtArgs>
+          args: Prisma.MorphemeCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.RootCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootPayload>[]
+          args: Prisma.MorphemeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorphemePayload>[]
         }
         delete: {
-          args: Prisma.RootDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootPayload>
+          args: Prisma.MorphemeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorphemePayload>
         }
         update: {
-          args: Prisma.RootUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootPayload>
+          args: Prisma.MorphemeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorphemePayload>
         }
         deleteMany: {
-          args: Prisma.RootDeleteManyArgs<ExtArgs>
+          args: Prisma.MorphemeDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.RootUpdateManyArgs<ExtArgs>
+          args: Prisma.MorphemeUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.RootUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootPayload>[]
+          args: Prisma.MorphemeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorphemePayload>[]
         }
         upsert: {
-          args: Prisma.RootUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootPayload>
+          args: Prisma.MorphemeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorphemePayload>
         }
         aggregate: {
-          args: Prisma.RootAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateRoot>
+          args: Prisma.MorphemeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMorpheme>
         }
         groupBy: {
-          args: Prisma.RootGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RootGroupByOutputType>[]
+          args: Prisma.MorphemeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MorphemeGroupByOutputType>[]
         }
         count: {
-          args: Prisma.RootCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RootCountAggregateOutputType> | number
+          args: Prisma.MorphemeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MorphemeCountAggregateOutputType> | number
         }
       }
     }
-    RootWord: {
-      payload: Prisma.$RootWordPayload<ExtArgs>
-      fields: Prisma.RootWordFieldRefs
+    LexemeMorpheme: {
+      payload: Prisma.$LexemeMorphemePayload<ExtArgs>
+      fields: Prisma.LexemeMorphemeFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.RootWordFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootWordPayload> | null
+          args: Prisma.LexemeMorphemeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemeMorphemePayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.RootWordFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootWordPayload>
+          args: Prisma.LexemeMorphemeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemeMorphemePayload>
         }
         findFirst: {
-          args: Prisma.RootWordFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootWordPayload> | null
+          args: Prisma.LexemeMorphemeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemeMorphemePayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.RootWordFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootWordPayload>
+          args: Prisma.LexemeMorphemeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemeMorphemePayload>
         }
         findMany: {
-          args: Prisma.RootWordFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootWordPayload>[]
+          args: Prisma.LexemeMorphemeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemeMorphemePayload>[]
         }
         create: {
-          args: Prisma.RootWordCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootWordPayload>
+          args: Prisma.LexemeMorphemeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemeMorphemePayload>
         }
         createMany: {
-          args: Prisma.RootWordCreateManyArgs<ExtArgs>
+          args: Prisma.LexemeMorphemeCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.RootWordCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootWordPayload>[]
+          args: Prisma.LexemeMorphemeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemeMorphemePayload>[]
         }
         delete: {
-          args: Prisma.RootWordDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootWordPayload>
+          args: Prisma.LexemeMorphemeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemeMorphemePayload>
         }
         update: {
-          args: Prisma.RootWordUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootWordPayload>
+          args: Prisma.LexemeMorphemeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemeMorphemePayload>
         }
         deleteMany: {
-          args: Prisma.RootWordDeleteManyArgs<ExtArgs>
+          args: Prisma.LexemeMorphemeDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.RootWordUpdateManyArgs<ExtArgs>
+          args: Prisma.LexemeMorphemeUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.RootWordUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootWordPayload>[]
+          args: Prisma.LexemeMorphemeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemeMorphemePayload>[]
         }
         upsert: {
-          args: Prisma.RootWordUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RootWordPayload>
+          args: Prisma.LexemeMorphemeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LexemeMorphemePayload>
         }
         aggregate: {
-          args: Prisma.RootWordAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateRootWord>
+          args: Prisma.LexemeMorphemeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLexemeMorpheme>
         }
         groupBy: {
-          args: Prisma.RootWordGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RootWordGroupByOutputType>[]
+          args: Prisma.LexemeMorphemeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LexemeMorphemeGroupByOutputType>[]
         }
         count: {
-          args: Prisma.RootWordCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RootWordCountAggregateOutputType> | number
+          args: Prisma.LexemeMorphemeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LexemeMorphemeCountAggregateOutputType> | number
         }
       }
     }
@@ -2314,7 +2314,7 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const WordScalarFieldEnum = {
+export const LexemeScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -2343,7 +2343,10 @@ export const WordScalarFieldEnum = {
   protoStemClass: 'protoStemClass',
   stemExtension: 'stemExtension',
   genesis: 'genesis',
-  base: 'base',
+  stem: 'stem',
+  secondaryStem: 'secondaryStem',
+  tertiaryStem: 'tertiaryStem',
+  governsCase: 'governsCase',
   gender: 'gender',
   declension: 'declension',
   conjugation: 'conjugation',
@@ -2354,7 +2357,7 @@ export const WordScalarFieldEnum = {
   actionHistory: 'actionHistory'
 } as const
 
-export type WordScalarFieldEnum = (typeof WordScalarFieldEnum)[keyof typeof WordScalarFieldEnum]
+export type LexemeScalarFieldEnum = (typeof LexemeScalarFieldEnum)[keyof typeof LexemeScalarFieldEnum]
 
 
 export const CandidateScalarFieldEnum = {
@@ -2384,7 +2387,10 @@ export const CandidateScalarFieldEnum = {
   protoStemClass: 'protoStemClass',
   stemExtension: 'stemExtension',
   genesis: 'genesis',
-  base: 'base',
+  stem: 'stem',
+  secondaryStem: 'secondaryStem',
+  tertiaryStem: 'tertiaryStem',
+  governsCase: 'governsCase',
   gender: 'gender',
   declension: 'declension',
   conjugation: 'conjugation',
@@ -2394,7 +2400,7 @@ export const CandidateScalarFieldEnum = {
   hasAnomalies: 'hasAnomalies',
   actionHistory: 'actionHistory',
   promotedAt: 'promotedAt',
-  promotedToWordId: 'promotedToWordId'
+  promotedToLexemeId: 'promotedToLexemeId'
 } as const
 
 export type CandidateScalarFieldEnum = (typeof CandidateScalarFieldEnum)[keyof typeof CandidateScalarFieldEnum]
@@ -2402,15 +2408,17 @@ export type CandidateScalarFieldEnum = (typeof CandidateScalarFieldEnum)[keyof t
 
 export const MeaningScalarFieldEnum = {
   id: 'id',
-  wordId: 'wordId',
+  lexemeId: 'lexemeId',
   meaning: 'meaning',
-  examples: 'examples'
+  examples: 'examples',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type MeaningScalarFieldEnum = (typeof MeaningScalarFieldEnum)[keyof typeof MeaningScalarFieldEnum]
 
 
-export const RootScalarFieldEnum = {
+export const MorphemeScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -2419,16 +2427,16 @@ export const RootScalarFieldEnum = {
   actionHistory: 'actionHistory'
 } as const
 
-export type RootScalarFieldEnum = (typeof RootScalarFieldEnum)[keyof typeof RootScalarFieldEnum]
+export type MorphemeScalarFieldEnum = (typeof MorphemeScalarFieldEnum)[keyof typeof MorphemeScalarFieldEnum]
 
 
-export const RootWordScalarFieldEnum = {
+export const LexemeMorphemeScalarFieldEnum = {
   id: 'id',
-  wordId: 'wordId',
-  rootId: 'rootId'
+  lexemeId: 'lexemeId',
+  morphemeId: 'morphemeId'
 } as const
 
-export type RootWordScalarFieldEnum = (typeof RootWordScalarFieldEnum)[keyof typeof RootWordScalarFieldEnum]
+export type LexemeMorphemeScalarFieldEnum = (typeof LexemeMorphemeScalarFieldEnum)[keyof typeof LexemeMorphemeScalarFieldEnum]
 
 
 export const SynonymScalarFieldEnum = {
@@ -2686,7 +2694,7 @@ export type BaseHomonymScalarFieldEnum = (typeof BaseHomonymScalarFieldEnum)[key
 
 export const InflectionAnomalyScalarFieldEnum = {
   id: 'id',
-  wordId: 'wordId',
+  lexemeId: 'lexemeId',
   inflection: 'inflection',
   grammeme: 'grammeme'
 } as const
@@ -2860,11 +2868,11 @@ export type PrismaClientOptions = ({
   queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
-  word?: Prisma.WordOmit
+  lexeme?: Prisma.LexemeOmit
   candidate?: Prisma.CandidateOmit
   meaning?: Prisma.MeaningOmit
-  root?: Prisma.RootOmit
-  rootWord?: Prisma.RootWordOmit
+  morpheme?: Prisma.MorphemeOmit
+  lexemeMorpheme?: Prisma.LexemeMorphemeOmit
   synonym?: Prisma.SynonymOmit
   antonym?: Prisma.AntonymOmit
   en?: Prisma.EnOmit

@@ -7,7 +7,7 @@ interface PromoteCandidateInput {
   candidateId: number
   value: string
   pos: string
-  base?: string
+  stem?: string
   gender?: string
   declension?: number | null
   conjugation?: number | null
@@ -23,7 +23,7 @@ export async function promoteCandidatesAction(
       return { success: false, error: "Forbidden" }
     }
 
-    const results: { wordId: number; candidateId: number }[] = []
+    const results: { lexemeId: number; candidateId: number }[] = []
 
     for (const input of candidates) {
       const candidate = await db.candidate.findUnique({
@@ -35,7 +35,7 @@ export async function promoteCandidatesAction(
 
       const slug = `${input.value}-${input.pos}`
 
-      const word = await db.word.create({
+      const word = await db.lexeme.create({
         data: {
           slug,
           value: input.value,
@@ -61,7 +61,7 @@ export async function promoteCandidatesAction(
           protoStemClass: candidate.protoStemClass,
           stemExtension: candidate.stemExtension,
           genesis: candidate.genesis,
-          base: input.base || candidate.base,
+          stem: input.stem || candidate.stem,
           gender: input.gender || candidate.gender,
           declension: input.declension ?? candidate.declension,
           conjugation: input.conjugation ?? candidate.conjugation,
@@ -74,10 +74,10 @@ export async function promoteCandidatesAction(
       })
 
       if (input.rootId) {
-        await db.rootWord.create({
+        await db.lexemeMorpheme.create({
           data: {
-            wordId: word.id,
-            rootId: input.rootId,
+            lexemeId: word.id,
+            morphemeId: input.rootId,
           },
         })
       }
@@ -86,11 +86,11 @@ export async function promoteCandidatesAction(
         where: { id: input.candidateId },
         data: {
           promotedAt: new Date(),
-          promotedToWordId: word.id,
+          promotedToLexemeId: word.id,
         },
       })
 
-      results.push({ wordId: word.id, candidateId: input.candidateId })
+      results.push({ lexemeId: word.id, candidateId: input.candidateId })
     }
 
     return { success: true, results }

@@ -9,6 +9,9 @@ export type { MorphoGrammarFeats } from './feats';
 export { csvGrammarMapper } from './import-mapper';
 export type { CsvGrammarFields } from './import-mapper';
 export { heuristicStem } from './heuristicStem';
+export { parseAddition } from './addition-parser';
+export type { AdditionParseResult, AdditionAnomaly } from './addition-parser';
+export { generateStemCandidates } from './stem-candidates';
 export { MorphemeType } from './morpheme';
 export type { MorphemePart } from './morpheme';
 

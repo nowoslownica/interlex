@@ -55,7 +55,7 @@ async function enrichAndSeedDatabase() {
         if (!cleanIsv) continue;
 
         // 1. Пытаемся найти существующую лемму в таблице 'words'
-        // const existingWord = await prisma.word.findFirst({
+        // const existingWord = await prisma.lexeme.findFirst({
         //     where: {
         //         OR: [
         //             { value: { contains: cleanIsv } },
@@ -64,7 +64,7 @@ async function enrichAndSeedDatabase() {
         //     }
         // });
         const existingWord = db.prepare(`
-          SELECT * FROM words 
+          SELECT * FROM lexemes 
           WHERE "value" LIKE ? OR "isv" LIKE ? 
           LIMIT 1
         `).get(cleanIsv, cleanIsv);
@@ -74,7 +74,7 @@ async function enrichAndSeedDatabase() {
 
         if (isMatched && existingWord) {
             // КЕЙС 1: Слово СУЩЕСТВУЕТ ➔ Обогащаем метаданными
-            // await prisma.word.update({
+            // await prisma.lexeme.update({
             //     where: { id: existingWord.id },
             //     data: {
             //         proto: jsonItem.protoSlavic,
@@ -86,29 +86,29 @@ async function enrichAndSeedDatabase() {
             // });
 
         const updateWord = db.prepare(`
-          UPDATE words
+          UPDATE lexemes
           SET 
-            "proto" = :proto,
-            "paradigm" = :paradigm,
-            "protoStemClass" = :protoStemClass,
-            "stemExtension" = :stemExtension,
-            "etymology" = :etymology
-          WHERE "id" = :id
+            proto = ?,
+            paradigm = ?,
+            protoStemClass = ?,
+            stemExtension = ?,
+            etymology = ?
+          WHERE id = ?
         `);
 
-    const result = updateWord.run({
-        id: existingWord.id,
-        proto: jsonItem.protoSlavic,
-        paradigm: jsonItem.paradigm,
-        protoStemClass: jsonItem.protoStemClass,
-        stemExtension: jsonItem.stemExtension || null, // SQLite корректно запишет null
-        etymology: existingWord.etymology || `Proto-Slavic: *${jsonItem.protoSlavic}`
-    });
+            const result = updateWord.run(
+                jsonItem.protoSlavic,
+                jsonItem.paradigm,
+                jsonItem.protoStemClass,
+                jsonItem.stemExtension || null, // SQLite корректно запишет null
+                existingWord.etymology || `Proto-Slavic: *${jsonItem.protoSlavic}`,
+                existingWord.id,
+            );
 
             updatedCount++;
         } else {
             // КЕЙС 2: Слово НЕ НАЙДЕНО ➔ Создаем новую полноценную лемму!
-            // await prisma.word.create({
+            // await prisma.lexeme.create({
             //     data: {
             //         value: jsonItem.interslavic,           // Записываем чистую междуславянскую лемму
             //         isv: jsonItem.interslavic,             // Дублируем в поле isv для совместимости ваших индексов
@@ -124,13 +124,13 @@ async function enrichAndSeedDatabase() {
             const etymologyValue = `Proto-Slavic: *${jsonItem.protoSlavic}. Discovered via Rick Derksen's Inherited Slavic Lexicon.`;
             const posValue = mapGenderToPos(jsonItem.gender);
 
-            const check = db.prepare(`SELECT * FROM words WHERE slug = ? `).get(`${jsonItem.interslavic}-${posValue}`);
+            const check = db.prepare(`SELECT * FROM lexemes WHERE slug = ? `).get(`${jsonItem.interslavic}-${posValue}`);
 
             if (!check) {
 
                 // 2. Подготавливаем SQL-запрос для вставки записи
                 const insertWord = db.prepare(`
-                    INSERT INTO words ("value",
+                    INSERT INTO lexemes ("value",
                                        "isv",
                                        "proto",
                                        "paradigm",
@@ -139,7 +139,8 @@ async function enrichAndSeedDatabase() {
                                        "pos",
                                        "type",
                                        "etymology",
-                                       "slug")
+                                       "slug",
+                                       "updatedAt")
                     VALUES (:value,
                             :isv,
                             :proto,
@@ -149,7 +150,8 @@ async function enrichAndSeedDatabase() {
                             :pos,
                             :type,
                             :etymology,
-                            :slug)
+                            :slug,
+                            :updatedAt)
                 `);
 
                 // 3. Выполняем запрос, передавая объект с данными
@@ -163,11 +165,12 @@ async function enrichAndSeedDatabase() {
                     pos: posValue,
                     type: jsonItem.gender,
                     etymology: etymologyValue,
-                    slug: `${jsonItem.interslavic}-${posValue}`
+                    slug: `${jsonItem.interslavic}-${posValue}`,
+                    updatedAt: new Date().toISOString(),
                 });
             } else {
                 const updateWord = db.prepare(`
-                  UPDATE words
+                  UPDATE lexemes
                   SET 
                     "proto" = :proto,
                     "paradigm" = :paradigm,

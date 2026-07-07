@@ -1,37 +1,37 @@
-CREATE VIRTUAL TABLE IF NOT EXISTS "words_text" USING FTS5(value, content=words);
+CREATE VIRTUAL TABLE IF NOT EXISTS "lexemes_text" USING FTS5(value, content=lexemes);
 
-CREATE TRIGGER IF NOT EXISTS words_text_insert AFTER INSERT ON words
+CREATE TRIGGER IF NOT EXISTS lexemes_text_insert AFTER INSERT ON lexemes
 BEGIN
-INSERT INTO words_text (rowid, value) VALUES (new.rowid, new.value);
+INSERT INTO lexemes_text (rowid, value) VALUES (new.rowid, new.value);
 END;
 
-CREATE TRIGGER IF NOT EXISTS words_text_delete AFTER DELETE ON words
+CREATE TRIGGER IF NOT EXISTS lexemes_text_delete AFTER DELETE ON lexemes
 BEGIN
-INSERT INTO words_text (words_text, rowid, value) VALUES ('delete', old.rowid, old.value);
+INSERT INTO lexemes_text (lexemes_text, rowid, value) VALUES ('delete', old.rowid, old.value);
 END;
 
-CREATE TRIGGER IF NOT EXISTS words_text_update AFTER UPDATE ON words
+CREATE TRIGGER IF NOT EXISTS lexemes_text_update AFTER UPDATE ON lexemes
 BEGIN
-INSERT INTO words_text (words_text, rowid, value) VALUES ('delete', old.rowid, old.value);
-INSERT INTO words_text (rowid, value) VALUES (new.rowid, new.value);
+INSERT INTO lexemes_text (lexemes_text, rowid, value) VALUES ('delete', old.rowid, old.value);
+INSERT INTO lexemes_text (rowid, value) VALUES (new.rowid, new.value);
 END;
 
-CREATE VIRTUAL TABLE IF NOT EXISTS "roots_text" USING FTS5(value, content=roots);
+CREATE VIRTUAL TABLE IF NOT EXISTS "morphemes_text" USING FTS5(value, content=morphemes);
 
-CREATE TRIGGER IF NOT EXISTS roots_text_insert AFTER INSERT ON roots
+CREATE TRIGGER IF NOT EXISTS morphemes_text_insert AFTER INSERT ON morphemes
 BEGIN
-INSERT INTO roots_text (rowid, value) VALUES (new.rowid, new.value);
+INSERT INTO morphemes_text (rowid, value) VALUES (new.rowid, new.value);
 END;
 
-CREATE TRIGGER IF NOT EXISTS roots_text_delete AFTER DELETE ON roots
+CREATE TRIGGER IF NOT EXISTS morphemes_text_delete AFTER DELETE ON morphemes
 BEGIN
-INSERT INTO roots_text (roots_text, rowid, value) VALUES ('delete', old.rowid, old.value);
+INSERT INTO morphemes_text (morphemes_text, rowid, value) VALUES ('delete', old.rowid, old.value);
 END;
 
-CREATE TRIGGER IF NOT EXISTS roots_text_update AFTER UPDATE ON roots
+CREATE TRIGGER IF NOT EXISTS morphemes_text_update AFTER UPDATE ON morphemes
 BEGIN
-INSERT INTO roots_text (roots_text, rowid, value) VALUES ('delete', old.rowid, old.value);
-INSERT INTO roots_text (rowid, value) VALUES (new.rowid, new.value);
+INSERT INTO morphemes_text (morphemes_text, rowid, value) VALUES ('delete', old.rowid, old.value);
+INSERT INTO morphemes_text (rowid, value) VALUES (new.rowid, new.value);
 END;
 
 CREATE VIRTUAL TABLE IF NOT EXISTS "en_text" USING FTS5(value, content=en);

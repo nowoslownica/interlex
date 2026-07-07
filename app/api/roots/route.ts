@@ -16,27 +16,27 @@ export async function GET(request: Request) {
 
     if (admin) {
       const [items, total] = await Promise.all([
-        db.root.findMany({
+        db.morpheme.findMany({
           where,
           orderBy: { value: "asc" },
           skip: offset,
           take: limit,
         }),
-        db.root.count({ where }),
+        db.morpheme.count({ where }),
       ])
       return NextResponse.json({ items, total })
     }
 
-    const roots = await db.root.findMany({
+    const roots = await db.morpheme.findMany({
       where: query.trim() ? where : undefined,
       select: {
         id: true,
         value: true,
-        roots_words: {
+        lexemes_morphemes: {
           take: 10,
           select: {
             id: true,
-            word: {
+            lexeme: {
               select: {
                 id: true,
                 value: true,

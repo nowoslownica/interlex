@@ -8,17 +8,14 @@
     "start": "next start",
     "lint": "eslint",
     "release": "bash release.sh",
-    "drop:db": "npx tsx scripts/db/drop-db.ts",
-    "init:db": "npx tsx scripts/db/init-db.ts",
     "fill:db": "npx tsx scripts/db/fill-db.ts",
     "fill:is:db": "npx tsx scripts/db/fill-is-db.ts",
-    "seed:proto": "npx tsx scripts/db/seed-proto.ts",
+    "recreate:db": "sh ./scripts/db/common.sh",
+    "init:db": "npx tsx scripts/db/init-db.ts",
     "db:gen-auth": "cross-env DB_TYPE=auth prisma generate",
     "db:gen-data": "cross-env DB_TYPE=data prisma generate",
-    "db:migrate-auth": "cross-env DB_TYPE=auth prisma migrate dev",
-    "db:migrate-data": "cross-env DB_TYPE=data prisma migrate dev",
-    "db:generate-all": "npm run db:gen-auth && npm run db:gen-data",
-    "create:db": "npx prisma db push && npm run init:db"
+    "db:migrate-auth": "cross-env DB_TYPE=auth prisma migrate dev --create-only",
+    "db:migrate-data": "cross-env DB_TYPE=data prisma migrate dev --create-only"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.2",

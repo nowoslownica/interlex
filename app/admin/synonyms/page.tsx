@@ -24,7 +24,7 @@ export interface WordItem {
             target: {
                 id: number
                 meaning: string | null
-                word: { id: number; value: string | null }
+                lexeme: { id: number; value: string | null }
             }
         }[]
     }[]
@@ -42,7 +42,7 @@ export default async function AdminSynonymsPage() {
         if (!hasFeature) redirect("/unauthorized")
     }
 
-    const initialWords = (await db.word.findMany({
+    const initialWords = (await db.lexeme.findMany({
         select: {
             id: true,
             value: true,
@@ -58,7 +58,7 @@ export default async function AdminSynonymsPage() {
                                 select: {
                                     id: true,
                                     meaning: true,
-                                    word: {
+                                    lexeme: {
                                         select: { id: true, value: true }
                                     }
                                 }
@@ -94,17 +94,17 @@ export default async function AdminSynonymsPage() {
         const meaning = await db.meaning.findUnique({
             where: { id: sourceMeaningId },
             select: {
-                word: {
+                lexeme: {
                     select: { id: true, actionHistory: true }
                 }
             }
         })
-        if (meaning?.word) {
-            await db.word.update({
-                where: { id: meaning.word.id },
+        if (meaning?.lexeme) {
+            await db.lexeme.update({
+                where: { id: meaning.lexeme.id },
                 data: {
                     actionHistory: append(
-                        meaning.word.actionHistory,
+                        meaning.lexeme.actionHistory,
                         buildEntry(author, {
                             synonymSourceMeaningId: { old: null, new: sourceMeaningId },
                             synonymTargetMeaningIds: { old: null, new: targetMeaningIds },
