@@ -46,9 +46,9 @@ model Lexeme {
   gender          String?
   declension      Int?
   conjugation     Int?
-  accentSyllable  Int?               // TODO: нужно ли?
-  alternationType String?            // TODO: нужно ли?
-  fleetingVowelAt Int?               // TODO: нужно ли?
+
+  // Имя собственное / нарицательное
+  properNoun      Boolean          @default(false)
 
   // Маркер аномалий флексий
   hasAnomalies    Boolean          @default(false)
@@ -97,9 +97,7 @@ model Candidate {
   gender          String?
   declension      Int?
   conjugation     Int?
-  accentSyllable  Int?
-  alternationType String?
-  fleetingVowelAt Int?
+  properNoun      Boolean          @default(false)
   hasAnomalies    Boolean          @default(false)
   actionHistory   String?
   promotedAt      DateTime?

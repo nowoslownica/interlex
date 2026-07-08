@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useTransition, useEffect, useCallback } from "react"
+import { parseComprehensionString, SLAVIC_LANGUAGES_MAP } from "@/lib/types/lexicon"
 
 const LANGUAGES: { key: string; label: string }[] = [
   { key: "en", label: "English" },
@@ -89,6 +90,33 @@ const GOVERNS_CASE_OPTIONS = [
   { value: 6, label: "LOC (Предложный)" },
 ]
 
+const SLAVIC_LANG_CODES: { code: string; flag: string; name: string }[] = [
+  { code: "ru", flag: "🇷🇺", name: "Русский" },
+  { code: "be", flag: "🇧🇾", name: "Белорусский" },
+  { code: "uk", flag: "🇺🇦", name: "Украинский" },
+  { code: "pl", flag: "🇵🇱", name: "Польский" },
+  { code: "cs", flag: "🇨🇿", name: "Чешский" },
+  { code: "sk", flag: "🇸🇰", name: "Словацкий" },
+  { code: "bg", flag: "🇧🇬", name: "Болгарский" },
+  { code: "mk", flag: "🇲🇰", name: "Македонский" },
+  { code: "sr", flag: "🇷🇸", name: "Сербский" },
+  { code: "hr", flag: "🇭🇷", name: "Хорватский" },
+  { code: "sl", flag: "🇸🇮", name: "Словенский" },
+]
+
+const GENESIS_GROUPS: { group: string; label: string; codes: { code: string; label: string }[] }[] = [
+  { group: "eastSlavic", label: "Восточнославянские", codes: [{ code: "ru", label: "ru" }, { code: "v", label: "v" }] },
+  { group: "southSlavic", label: "Южнославянские", codes: [{ code: "bg", label: "bg" }, { code: "mk", label: "mk" }, { code: "sr", label: "sr" }, { code: "hr", label: "hr" }, { code: "sl", label: "sl" }, { code: "sh", label: "sh" }, { code: "j", label: "j" }] },
+  { group: "westSlavic", label: "Западнославянские", codes: [{ code: "pl", label: "pl" }, { code: "cs", label: "cs" }, { code: "cz", label: "cz" }, { code: "sk", label: "sk" }, { code: "z", label: "z" }] },
+  { group: "romance", label: "Романские", codes: [{ code: "I", label: "I" }, { code: "F", label: "F" }, { code: "S", label: "S" }] },
+  { group: "germanic", label: "Германские", codes: [{ code: "E", label: "E" }, { code: "D", label: "D" }] },
+]
+
+const PROPER_NOUN_OPTIONS = [
+  { value: "yes", label: "Да" },
+  { value: "no", label: "Нет" },
+]
+
 interface TranslationData {
   id: number
   value: string
@@ -153,9 +181,7 @@ interface ArticleFormProps {
     genesis?: string | null
     secondaryStem?: string | null
     tertiaryStem?: string | null
-    accentSyllable?: number | null
-    alternationType?: string | null
-    fleetingVowelAt?: number | null
+    properNoun?: boolean
   }
   initialRoots: RootOption[]
   onSubmit: (data: any) => Promise<void>
@@ -183,6 +209,7 @@ export default function ArticleForm({
   const [word, setWord] = useState(initialData?.word || "")
   const [stem, setStem] = useState(initialData?.stem || "")
   const [hasAnomalies, setHasAnomalies] = useState(initialData?.hasAnomalies || false)
+  const [properNoun, setProperNoun] = useState(initialData?.properNoun || false)
   const [inflectionAnomalies, setInflectionAnomalies] = useState<InflectionAnomalyItem[]>(
     initialData?.inflectionAnomalies || []
   )
@@ -201,25 +228,71 @@ export default function ArticleForm({
     conjugation: initialData?.conjugation ?? null,
     field: initialData?.field ?? "",
     type: initialData?.type ?? "",
-    frequency: initialData?.frequency ?? "",
-    intelligibility: initialData?.intelligibility ?? "",
     addition: initialData?.addition ?? "",
     sameInLanguages: initialData?.sameInLanguages ?? "",
-    etymology: initialData?.etymology ?? "",
     proto: initialData?.proto ?? "",
     paradigm: initialData?.paradigm ?? "",
     protoStemClass: initialData?.protoStemClass ?? "",
     stemExtension: initialData?.stemExtension ?? "",
-    genesis: initialData?.genesis ?? "",
     secondaryStem: initialData?.secondaryStem ?? "",
     tertiaryStem: initialData?.tertiaryStem ?? "",
-    accentSyllable: initialData?.accentSyllable ?? null,
-    alternationType: initialData?.alternationType ?? "",
-    fleetingVowelAt: initialData?.fleetingVowelAt ?? null,
   })
+
+  const [etymology, setEtymology] = useState(initialData?.etymology || "")
+
+  const [intelligibilityState, setIntelligibilityState] = useState<Record<string, "positive" | "negative" | null>>(() => {
+    const state: Record<string, "positive" | "negative" | null> = {}
+    const parsed = parseComprehensionString(initialData?.intelligibility || "")
+    for (const item of parsed) {
+      state[item.code] = item.isUnderstood ? "positive" : "negative"
+    }
+    return state
+  })
+
+  const [genesisCodes, setGenesisCodes] = useState<string[]>(() => {
+    if (!initialData?.genesis) return []
+    return initialData.genesis.trim().split(/\s+/).filter(Boolean)
+  })
+
+  function toggleIntelligibility(code: string) {
+    setIntelligibilityState((prev) => {
+      const current = prev[code]
+      if (current === null) return { ...prev, [code]: "positive" }
+      if (current === "positive") return { ...prev, [code]: "negative" }
+      return { ...prev, [code]: null }
+    })
+  }
+
+  function toggleGenesisCode(code: string) {
+    setGenesisCodes((prev) =>
+      prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]
+    )
+  }
 
   function setGram(key: string, value: GrammarValue) {
     setGrammar((prev) => ({ ...prev, [key]: value }))
+  }
+
+  function getPosGrammarFields(pos: string): string[] {
+    const common = ["pos"]
+    switch (pos) {
+      case "noun":
+        return [...common, "gender", "declension", "animacy"]
+      case "verb":
+        return [...common, "aspect", "transitivity", "conjugation"]
+      case "adjective":
+        return [...common, "degree", "gender"]
+      case "adverb":
+        return [...common, "degree"]
+      case "pronoun":
+        return [...common, "pronType"]
+      case "numeral":
+        return [...common, "numType"]
+      case "preposition":
+        return [...common, "governsCase"]
+      default:
+        return common
+    }
   }
 
   const [meanings, setMeanings] = useState<MeaningData[]>(
@@ -352,10 +425,23 @@ export default function ArticleForm({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     startTransition(async () => {
+      const intelligibilityStr = SLAVIC_LANG_CODES
+        .map(({ code }) => {
+          const val = intelligibilityState[code]
+          if (val === null) return ""
+          return code + (val === "positive" ? "+" : "-")
+        })
+        .filter(Boolean)
+        .join(" ")
+
       await onSubmit({
         word,
         stem,
         hasAnomalies,
+        properNoun,
+        etymology,
+        intelligibility: intelligibilityStr,
+        genesis: genesisCodes.join(" "),
         inflectionAnomalies: inflectionAnomalies.filter((a) => a.inflection.trim() || a.grammeme.trim()),
         rootIds: selectedRoots.map((r) => r.id),
         newRootValues: newRoots,
@@ -479,6 +565,17 @@ export default function ArticleForm({
               />
             </div>
 
+            <div>
+              <label className="block text-sm font-medium mb-1">Этимология</label>
+              <input
+                type="text"
+                value={etymology}
+                onChange={(e) => setEtymology(e.target.value)}
+                className="w-full px-3 py-2 border rounded-md bg-transparent text-sm"
+                placeholder="Этимологическая справка..."
+              />
+            </div>
+
             <div className="p-3 border rounded-md bg-muted/10 space-y-2">
               <div className="flex items-center space-x-2">
                 <input
@@ -510,6 +607,29 @@ export default function ArticleForm({
               )}
             </div>
 
+            {/* Intelligibility widget */}
+            <div className="border rounded-md bg-muted/10 overflow-hidden">
+              <div className="px-3 py-2 bg-muted/20 border-b">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Понятность</h3>
+              </div>
+              <div className="p-3">
+                <div className="flex flex-wrap gap-1.5">
+                  {SLAVIC_LANG_CODES.map(({ code, flag, name }) => {
+                    const val = intelligibilityState[code]
+                    let btnClass = "px-2 py-1 text-xs rounded border transition-all bg-background text-muted-foreground border-border hover:bg-muted/30"
+                    if (val === "positive") btnClass = "px-2 py-1 text-xs rounded border transition-all bg-green-100 text-green-800 border-green-400 dark:bg-green-900/30 dark:text-green-300 dark:border-green-600"
+                    else if (val === "negative") btnClass = "px-2 py-1 text-xs rounded border transition-all bg-red-100 text-red-800 border-red-400 dark:bg-red-900/30 dark:text-red-300 dark:border-red-600"
+                    return (
+                      <button key={code} type="button" onClick={() => toggleIntelligibility(code)} className={btnClass} title={name}>
+                        {flag} {code} {val === "positive" ? "+" : val === "negative" ? "−" : ""}
+                      </button>
+                    )
+                  })}
+                </div>
+                <p className="text-[10px] text-muted-foreground mt-1.5">Нажмите для переключения: не задано → понятно (+) → непонятно (−)</p>
+              </div>
+            </div>
+
             {/* Grammar fields */}
             <div className="border rounded-md bg-muted/10 overflow-hidden">
               <div className="px-3 py-2 bg-muted/20 border-b">
@@ -517,21 +637,78 @@ export default function ArticleForm({
               </div>
               <div className="p-3 space-y-3">
                 <div className="grid grid-cols-2 gap-3">
-                  <SelectField label="Часть речи" value={grammar.pos} options={POS_OPTIONS} onChange={(v) => setGram("pos", v)} />
-                  <SelectField label="Род" value={grammar.gender} options={GENDER_OPTIONS} onChange={(v) => setGram("gender", v)} />
-                  <SelectField label="Вид" value={grammar.aspect} options={ASPECT_OPTIONS} onChange={(v) => setGram("aspect", v)} />
-                  <SelectField label="Переходность" value={grammar.transitivity} options={TRANSITIVITY_OPTIONS} onChange={(v) => setGram("transitivity", v)} />
-                  <SelectField label="Одушевлённость" value={grammar.animacy} options={ANIMACY_OPTIONS} onChange={(v) => setGram("animacy", v)} />
-                  <SelectField label="Степень" value={grammar.degree} options={DEGREE_OPTIONS} onChange={(v) => setGram("degree", v)} />
-                  <SelectField label="Тип местоимения" value={grammar.pronType} options={PRON_TYPE_OPTIONS} onChange={(v) => setGram("pronType", v)} />
-                  <SelectField label="Тип числительного" value={grammar.numType} options={NUM_TYPE_OPTIONS} onChange={(v) => setGram("numType", v)} />
-                  <SelectField label="Управляемый падеж" value={grammar.governsCase} options={GOVERNS_CASE_OPTIONS} onChange={(v) => setGram("governsCase", v)} />
-                  <NumberField label="Склонение" value={grammar.declension} onChange={(v) => setGram("declension", v)} placeholder="1–4" />
-                  <NumberField label="Спряжение" value={grammar.conjugation} onChange={(v) => setGram("conjugation", v)} placeholder="1–2" />
-                  <NumberField label="Ударный слог" value={grammar.accentSyllable} onChange={(v) => setGram("accentSyllable", v)} placeholder="0-based" />
-                  <NumberField label="Беглая гласная на" value={grammar.fleetingVowelAt} onChange={(v) => setGram("fleetingVowelAt", v)} placeholder="позиция" />
+                  {(function () {
+                    const pos = (grammar.pos as string) || ""
+                    const fields = getPosGrammarFields(pos)
+                    const elements: React.ReactNode[] = []
+
+                    if (fields.includes("pos")) {
+                      elements.push(<SelectField key="pos" label="Часть речи" value={grammar.pos} options={POS_OPTIONS} onChange={(v) => setGram("pos", v)} />)
+                    }
+                    if (fields.includes("gender")) {
+                      elements.push(<SelectField key="gender" label="Род" value={grammar.gender} options={GENDER_OPTIONS} onChange={(v) => setGram("gender", v)} />)
+                    }
+                    if (fields.includes("aspect")) {
+                      elements.push(<SelectField key="aspect" label="Вид" value={grammar.aspect} options={ASPECT_OPTIONS} onChange={(v) => setGram("aspect", v)} />)
+                    }
+                    if (fields.includes("transitivity")) {
+                      elements.push(<SelectField key="transitivity" label="Переходность" value={grammar.transitivity} options={TRANSITIVITY_OPTIONS} onChange={(v) => setGram("transitivity", v)} />)
+                    }
+                    if (fields.includes("animacy")) {
+                      elements.push(<SelectField key="animacy" label="Одушевлённость" value={grammar.animacy} options={ANIMACY_OPTIONS} onChange={(v) => setGram("animacy", v)} />)
+                    }
+                    if (fields.includes("degree")) {
+                      elements.push(<SelectField key="degree" label="Степень" value={grammar.degree} options={DEGREE_OPTIONS} onChange={(v) => setGram("degree", v)} />)
+                    }
+                    if (fields.includes("pronType")) {
+                      elements.push(<SelectField key="pronType" label="Тип местоимения" value={grammar.pronType} options={PRON_TYPE_OPTIONS} onChange={(v) => setGram("pronType", v)} />)
+                    }
+                    if (fields.includes("numType")) {
+                      elements.push(<SelectField key="numType" label="Тип числительного" value={grammar.numType} options={NUM_TYPE_OPTIONS} onChange={(v) => setGram("numType", v)} />)
+                    }
+                    if (fields.includes("governsCase")) {
+                      elements.push(<SelectField key="governsCase" label="Управляемый падеж" value={grammar.governsCase} options={GOVERNS_CASE_OPTIONS} onChange={(v) => setGram("governsCase", v)} />)
+                    }
+                    if (fields.includes("declension")) {
+                      elements.push(<NumberField key="declension" label="Склонение" value={grammar.declension} onChange={(v) => setGram("declension", v)} placeholder="1–4" />)
+                    }
+                    if (fields.includes("conjugation")) {
+                      elements.push(<NumberField key="conjugation" label="Спряжение" value={grammar.conjugation} onChange={(v) => setGram("conjugation", v)} placeholder="1–2" />)
+                    }
+
+                    return elements
+                  })()}
+                  <SelectField label="Имя собственное" value={properNoun ? "yes" : "no"} options={PROPER_NOUN_OPTIONS} onChange={(v) => setProperNoun(v === "yes")} />
                   <TextField label="Поле / Сфера" value={grammar.field} onChange={(v) => setGram("field", v)} placeholder="быт, техника..." />
                   <TextField label="Тип" value={grammar.type} onChange={(v) => setGram("type", v)} placeholder="полнозначное..." />
+                </div>
+
+                {/* Genesis widget */}
+                <div className="border-t pt-3">
+                  <label className="block text-xs font-medium mb-1.5 text-muted-foreground">Генезис</label>
+                  <div className="space-y-2">
+                    {GENESIS_GROUPS.map((group) => (
+                      <div key={group.group}>
+                        <p className="text-[10px] font-medium text-muted-foreground mb-0.5">{group.label}</p>
+                        <div className="flex flex-wrap gap-1">
+                          {group.codes.map(({ code, label }) => (
+                            <button
+                              key={code}
+                              type="button"
+                              onClick={() => toggleGenesisCode(code)}
+                              className={`px-2 py-0.5 text-xs rounded border transition-all ${
+                                genesisCodes.includes(code)
+                                  ? "bg-primary/10 text-primary border-primary/40"
+                                  : "bg-background text-muted-foreground border-border hover:bg-muted/30"
+                              }`}
+                            >
+                              {label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <details className="group">
@@ -541,17 +718,12 @@ export default function ArticleForm({
                   <div className="mt-3 grid grid-cols-2 gap-3">
                     <TextField label="Второстепенная основа" value={grammar.secondaryStem} onChange={(v) => setGram("secondaryStem", v)} />
                     <TextField label="Третичная основа" value={grammar.tertiaryStem} onChange={(v) => setGram("tertiaryStem", v)} />
-                    <TextField label="Тип альтернации" value={grammar.alternationType} onChange={(v) => setGram("alternationType", v)} />
                     <TextField label="Парадигма" value={grammar.paradigm} onChange={(v) => setGram("paradigm", v)} />
                     <TextField label="Класс прото-основы" value={grammar.protoStemClass} onChange={(v) => setGram("protoStemClass", v)} />
                     <TextField label="Расширение основы" value={grammar.stemExtension} onChange={(v) => setGram("stemExtension", v)} />
-                    <TextField label="Частота" value={grammar.frequency} onChange={(v) => setGram("frequency", v)} />
-                    <TextField label="Понятность" value={grammar.intelligibility} onChange={(v) => setGram("intelligibility", v)} />
                     <TextField label="Дополнение" value={grammar.addition} onChange={(v) => setGram("addition", v)} />
                     <TextField label="Те же в языках" value={grammar.sameInLanguages} onChange={(v) => setGram("sameInLanguages", v)} />
-                    <TextField label="Этимология" value={grammar.etymology} onChange={(v) => setGram("etymology", v)} />
                     <TextField label="Праславянский" value={grammar.proto} onChange={(v) => setGram("proto", v)} />
-                    <TextField label="Генезис" value={grammar.genesis} onChange={(v) => setGram("genesis", v)} />
                   </div>
                 </details>
               </div>

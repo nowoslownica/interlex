@@ -128,9 +128,7 @@ export const LexemeScalarFieldEnum = {
   gender: 'gender',
   declension: 'declension',
   conjugation: 'conjugation',
-  accentSyllable: 'accentSyllable',
-  alternationType: 'alternationType',
-  fleetingVowelAt: 'fleetingVowelAt',
+  properNoun: 'properNoun',
   hasAnomalies: 'hasAnomalies',
   actionHistory: 'actionHistory'
 } as const
@@ -172,9 +170,7 @@ export const CandidateScalarFieldEnum = {
   gender: 'gender',
   declension: 'declension',
   conjugation: 'conjugation',
-  accentSyllable: 'accentSyllable',
-  alternationType: 'alternationType',
-  fleetingVowelAt: 'fleetingVowelAt',
+  properNoun: 'properNoun',
   hasAnomalies: 'hasAnomalies',
   actionHistory: 'actionHistory',
   promotedAt: 'promotedAt',

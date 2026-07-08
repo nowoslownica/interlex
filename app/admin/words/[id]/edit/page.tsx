@@ -251,14 +251,16 @@ export default async function EditArticlePage({ params }: EditPageProps) {
     if (currentWord?.hasAnomalies !== (formData.hasAnomalies === true)) {
       wordChanges.hasAnomalies = { old: currentWord?.hasAnomalies, new: formData.hasAnomalies === true }
     }
+    if (currentWord?.properNoun !== (formData.properNoun === true)) {
+      wordChanges.properNoun = { old: currentWord?.properNoun, new: formData.properNoun === true }
+    }
 
     const grammarFields: string[] = [
       "pos", "gender", "aspect", "transitivity", "animacy", "degree",
       "pronType", "numType", "governsCase", "declension", "conjugation",
-      "field", "type", "frequency", "intelligibility", "addition",
+      "field", "type", "intelligibility", "addition",
       "sameInLanguages", "etymology", "proto", "paradigm", "protoStemClass",
       "stemExtension", "genesis", "secondaryStem", "tertiaryStem",
-      "accentSyllable", "alternationType", "fleetingVowelAt",
     ]
 
     const grammarData: Record<string, unknown> = {}
@@ -277,6 +279,7 @@ export default async function EditArticlePage({ params }: EditPageProps) {
         value: formData.word,
         stem: stemValue,
         hasAnomalies: formData.hasAnomalies === true,
+        properNoun: formData.properNoun === true,
         ...grammarData,
         ...(Object.keys(wordChanges).length > 0
           ? { actionHistory: append(currentWordWithHistory?.actionHistory, buildEntry(author, wordChanges)) }
@@ -404,6 +407,7 @@ export default async function EditArticlePage({ params }: EditPageProps) {
           word: wordData.value || "",
           stem: wordData.stem || "",
           hasAnomalies: wordData.hasAnomalies,
+          properNoun: wordData.properNoun,
           inflectionAnomalies: currentAnomalies,
           attachedRoots,
           meanings,
@@ -432,9 +436,6 @@ export default async function EditArticlePage({ params }: EditPageProps) {
           genesis: wordData.genesis,
           secondaryStem: wordData.secondaryStem,
           tertiaryStem: wordData.tertiaryStem,
-          accentSyllable: wordData.accentSyllable,
-          alternationType: wordData.alternationType,
-          fleetingVowelAt: wordData.fleetingVowelAt,
         }}
       />
     </div>

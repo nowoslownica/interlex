@@ -31,8 +31,6 @@ export type CandidateAvgAggregateOutputType = {
   governsCase: number | null
   declension: number | null
   conjugation: number | null
-  accentSyllable: number | null
-  fleetingVowelAt: number | null
   promotedToLexemeId: number | null
 }
 
@@ -41,8 +39,6 @@ export type CandidateSumAggregateOutputType = {
   governsCase: number | null
   declension: number | null
   conjugation: number | null
-  accentSyllable: number | null
-  fleetingVowelAt: number | null
   promotedToLexemeId: number | null
 }
 
@@ -80,9 +76,7 @@ export type CandidateMinAggregateOutputType = {
   gender: string | null
   declension: number | null
   conjugation: number | null
-  accentSyllable: number | null
-  alternationType: string | null
-  fleetingVowelAt: number | null
+  properNoun: boolean | null
   hasAnomalies: boolean | null
   actionHistory: string | null
   promotedAt: Date | null
@@ -123,9 +117,7 @@ export type CandidateMaxAggregateOutputType = {
   gender: string | null
   declension: number | null
   conjugation: number | null
-  accentSyllable: number | null
-  alternationType: string | null
-  fleetingVowelAt: number | null
+  properNoun: boolean | null
   hasAnomalies: boolean | null
   actionHistory: string | null
   promotedAt: Date | null
@@ -166,9 +158,7 @@ export type CandidateCountAggregateOutputType = {
   gender: number
   declension: number
   conjugation: number
-  accentSyllable: number
-  alternationType: number
-  fleetingVowelAt: number
+  properNoun: number
   hasAnomalies: number
   actionHistory: number
   promotedAt: number
@@ -182,8 +172,6 @@ export type CandidateAvgAggregateInputType = {
   governsCase?: true
   declension?: true
   conjugation?: true
-  accentSyllable?: true
-  fleetingVowelAt?: true
   promotedToLexemeId?: true
 }
 
@@ -192,8 +180,6 @@ export type CandidateSumAggregateInputType = {
   governsCase?: true
   declension?: true
   conjugation?: true
-  accentSyllable?: true
-  fleetingVowelAt?: true
   promotedToLexemeId?: true
 }
 
@@ -231,9 +217,7 @@ export type CandidateMinAggregateInputType = {
   gender?: true
   declension?: true
   conjugation?: true
-  accentSyllable?: true
-  alternationType?: true
-  fleetingVowelAt?: true
+  properNoun?: true
   hasAnomalies?: true
   actionHistory?: true
   promotedAt?: true
@@ -274,9 +258,7 @@ export type CandidateMaxAggregateInputType = {
   gender?: true
   declension?: true
   conjugation?: true
-  accentSyllable?: true
-  alternationType?: true
-  fleetingVowelAt?: true
+  properNoun?: true
   hasAnomalies?: true
   actionHistory?: true
   promotedAt?: true
@@ -317,9 +299,7 @@ export type CandidateCountAggregateInputType = {
   gender?: true
   declension?: true
   conjugation?: true
-  accentSyllable?: true
-  alternationType?: true
-  fleetingVowelAt?: true
+  properNoun?: true
   hasAnomalies?: true
   actionHistory?: true
   promotedAt?: true
@@ -447,9 +427,7 @@ export type CandidateGroupByOutputType = {
   gender: string | null
   declension: number | null
   conjugation: number | null
-  accentSyllable: number | null
-  alternationType: string | null
-  fleetingVowelAt: number | null
+  properNoun: boolean
   hasAnomalies: boolean
   actionHistory: string | null
   promotedAt: Date | null
@@ -513,9 +491,7 @@ export type CandidateWhereInput = {
   gender?: Prisma.StringNullableFilter<"Candidate"> | string | null
   declension?: Prisma.IntNullableFilter<"Candidate"> | number | null
   conjugation?: Prisma.IntNullableFilter<"Candidate"> | number | null
-  accentSyllable?: Prisma.IntNullableFilter<"Candidate"> | number | null
-  alternationType?: Prisma.StringNullableFilter<"Candidate"> | string | null
-  fleetingVowelAt?: Prisma.IntNullableFilter<"Candidate"> | number | null
+  properNoun?: Prisma.BoolFilter<"Candidate"> | boolean
   hasAnomalies?: Prisma.BoolFilter<"Candidate"> | boolean
   actionHistory?: Prisma.StringNullableFilter<"Candidate"> | string | null
   promotedAt?: Prisma.DateTimeNullableFilter<"Candidate"> | Date | string | null
@@ -556,9 +532,7 @@ export type CandidateOrderByWithRelationInput = {
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
   declension?: Prisma.SortOrderInput | Prisma.SortOrder
   conjugation?: Prisma.SortOrderInput | Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrderInput | Prisma.SortOrder
-  alternationType?: Prisma.SortOrderInput | Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  properNoun?: Prisma.SortOrder
   hasAnomalies?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
   promotedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -602,9 +576,7 @@ export type CandidateWhereUniqueInput = Prisma.AtLeast<{
   gender?: Prisma.StringNullableFilter<"Candidate"> | string | null
   declension?: Prisma.IntNullableFilter<"Candidate"> | number | null
   conjugation?: Prisma.IntNullableFilter<"Candidate"> | number | null
-  accentSyllable?: Prisma.IntNullableFilter<"Candidate"> | number | null
-  alternationType?: Prisma.StringNullableFilter<"Candidate"> | string | null
-  fleetingVowelAt?: Prisma.IntNullableFilter<"Candidate"> | number | null
+  properNoun?: Prisma.BoolFilter<"Candidate"> | boolean
   hasAnomalies?: Prisma.BoolFilter<"Candidate"> | boolean
   actionHistory?: Prisma.StringNullableFilter<"Candidate"> | string | null
   promotedAt?: Prisma.DateTimeNullableFilter<"Candidate"> | Date | string | null
@@ -645,9 +617,7 @@ export type CandidateOrderByWithAggregationInput = {
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
   declension?: Prisma.SortOrderInput | Prisma.SortOrder
   conjugation?: Prisma.SortOrderInput | Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrderInput | Prisma.SortOrder
-  alternationType?: Prisma.SortOrderInput | Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  properNoun?: Prisma.SortOrder
   hasAnomalies?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
   promotedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -696,9 +666,7 @@ export type CandidateScalarWhereWithAggregatesInput = {
   gender?: Prisma.StringNullableWithAggregatesFilter<"Candidate"> | string | null
   declension?: Prisma.IntNullableWithAggregatesFilter<"Candidate"> | number | null
   conjugation?: Prisma.IntNullableWithAggregatesFilter<"Candidate"> | number | null
-  accentSyllable?: Prisma.IntNullableWithAggregatesFilter<"Candidate"> | number | null
-  alternationType?: Prisma.StringNullableWithAggregatesFilter<"Candidate"> | string | null
-  fleetingVowelAt?: Prisma.IntNullableWithAggregatesFilter<"Candidate"> | number | null
+  properNoun?: Prisma.BoolWithAggregatesFilter<"Candidate"> | boolean
   hasAnomalies?: Prisma.BoolWithAggregatesFilter<"Candidate"> | boolean
   actionHistory?: Prisma.StringNullableWithAggregatesFilter<"Candidate"> | string | null
   promotedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Candidate"> | Date | string | null
@@ -738,9 +706,7 @@ export type CandidateCreateInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
   promotedAt?: Date | string | null
@@ -781,9 +747,7 @@ export type CandidateUncheckedCreateInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
   promotedAt?: Date | string | null
@@ -823,9 +787,7 @@ export type CandidateUpdateInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promotedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -866,9 +828,7 @@ export type CandidateUncheckedUpdateInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promotedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -909,9 +869,7 @@ export type CandidateCreateManyInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
   promotedAt?: Date | string | null
@@ -951,9 +909,7 @@ export type CandidateUpdateManyMutationInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promotedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -994,9 +950,7 @@ export type CandidateUncheckedUpdateManyInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promotedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1037,9 +991,7 @@ export type CandidateCountOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   declension?: Prisma.SortOrder
   conjugation?: Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrder
-  alternationType?: Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrder
+  properNoun?: Prisma.SortOrder
   hasAnomalies?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
   promotedAt?: Prisma.SortOrder
@@ -1051,8 +1003,6 @@ export type CandidateAvgOrderByAggregateInput = {
   governsCase?: Prisma.SortOrder
   declension?: Prisma.SortOrder
   conjugation?: Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrder
   promotedToLexemeId?: Prisma.SortOrder
 }
 
@@ -1090,9 +1040,7 @@ export type CandidateMaxOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   declension?: Prisma.SortOrder
   conjugation?: Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrder
-  alternationType?: Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrder
+  properNoun?: Prisma.SortOrder
   hasAnomalies?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
   promotedAt?: Prisma.SortOrder
@@ -1133,9 +1081,7 @@ export type CandidateMinOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   declension?: Prisma.SortOrder
   conjugation?: Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrder
-  alternationType?: Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrder
+  properNoun?: Prisma.SortOrder
   hasAnomalies?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
   promotedAt?: Prisma.SortOrder
@@ -1147,8 +1093,6 @@ export type CandidateSumOrderByAggregateInput = {
   governsCase?: Prisma.SortOrder
   declension?: Prisma.SortOrder
   conjugation?: Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrder
   promotedToLexemeId?: Prisma.SortOrder
 }
 
@@ -1192,9 +1136,7 @@ export type CandidateSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   gender?: boolean
   declension?: boolean
   conjugation?: boolean
-  accentSyllable?: boolean
-  alternationType?: boolean
-  fleetingVowelAt?: boolean
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: boolean
   promotedAt?: boolean
@@ -1235,9 +1177,7 @@ export type CandidateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   gender?: boolean
   declension?: boolean
   conjugation?: boolean
-  accentSyllable?: boolean
-  alternationType?: boolean
-  fleetingVowelAt?: boolean
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: boolean
   promotedAt?: boolean
@@ -1278,9 +1218,7 @@ export type CandidateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   gender?: boolean
   declension?: boolean
   conjugation?: boolean
-  accentSyllable?: boolean
-  alternationType?: boolean
-  fleetingVowelAt?: boolean
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: boolean
   promotedAt?: boolean
@@ -1321,16 +1259,14 @@ export type CandidateSelectScalar = {
   gender?: boolean
   declension?: boolean
   conjugation?: boolean
-  accentSyllable?: boolean
-  alternationType?: boolean
-  fleetingVowelAt?: boolean
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: boolean
   promotedAt?: boolean
   promotedToLexemeId?: boolean
 }
 
-export type CandidateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "isv" | "nsl" | "transcription" | "field" | "type" | "pos" | "aspect" | "transitivity" | "animacy" | "degree" | "pronType" | "numType" | "frequency" | "intelligibility" | "addition" | "sameInLanguages" | "etymology" | "proto" | "paradigm" | "protoStemClass" | "stemExtension" | "genesis" | "stem" | "secondaryStem" | "tertiaryStem" | "governsCase" | "gender" | "declension" | "conjugation" | "accentSyllable" | "alternationType" | "fleetingVowelAt" | "hasAnomalies" | "actionHistory" | "promotedAt" | "promotedToLexemeId", ExtArgs["result"]["candidate"]>
+export type CandidateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "isv" | "nsl" | "transcription" | "field" | "type" | "pos" | "aspect" | "transitivity" | "animacy" | "degree" | "pronType" | "numType" | "frequency" | "intelligibility" | "addition" | "sameInLanguages" | "etymology" | "proto" | "paradigm" | "protoStemClass" | "stemExtension" | "genesis" | "stem" | "secondaryStem" | "tertiaryStem" | "governsCase" | "gender" | "declension" | "conjugation" | "properNoun" | "hasAnomalies" | "actionHistory" | "promotedAt" | "promotedToLexemeId", ExtArgs["result"]["candidate"]>
 
 export type $CandidatePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Candidate"
@@ -1369,9 +1305,7 @@ export type $CandidatePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     gender: string | null
     declension: number | null
     conjugation: number | null
-    accentSyllable: number | null
-    alternationType: string | null
-    fleetingVowelAt: number | null
+    properNoun: boolean
     hasAnomalies: boolean
     actionHistory: string | null
     promotedAt: Date | null
@@ -1832,9 +1766,7 @@ export interface CandidateFieldRefs {
   readonly gender: Prisma.FieldRef<"Candidate", 'String'>
   readonly declension: Prisma.FieldRef<"Candidate", 'Int'>
   readonly conjugation: Prisma.FieldRef<"Candidate", 'Int'>
-  readonly accentSyllable: Prisma.FieldRef<"Candidate", 'Int'>
-  readonly alternationType: Prisma.FieldRef<"Candidate", 'String'>
-  readonly fleetingVowelAt: Prisma.FieldRef<"Candidate", 'Int'>
+  readonly properNoun: Prisma.FieldRef<"Candidate", 'Boolean'>
   readonly hasAnomalies: Prisma.FieldRef<"Candidate", 'Boolean'>
   readonly actionHistory: Prisma.FieldRef<"Candidate", 'String'>
   readonly promotedAt: Prisma.FieldRef<"Candidate", 'DateTime'>

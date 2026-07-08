@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import {init} from "@/lib/sqlite";
 import {mapNslToEtymologized, mapNslToStandard} from "@/lib/nsl";
 import {csvGrammarMapper, generateStemCandidates, heuristicStem} from "@/lib/grammar/common";
+import {buildIntelligibilityString} from "@/lib/levenshtein";
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env.development') });
 
@@ -39,6 +40,7 @@ const insertRow = (db, roots, {
     degree,
     pronType,
     numType,
+    intelligibility,
 }: {
     cyr: string;
     lat: string;
@@ -57,6 +59,7 @@ const insertRow = (db, roots, {
     degree?: string;
     pronType?: string;
     numType?: string;
+    intelligibility?: string;
 }): Promise<[bigint, bigint]> => {
     const insert = db.prepare(`INSERT INTO lexemes (
         value,
@@ -77,8 +80,9 @@ const insertRow = (db, roots, {
        conjugation,
        slug,
        stem,
+       intelligibility,
        updatedAt
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
 
     const check = db.prepare(`SELECT * FROM lexemes WHERE slug = ? `).get(`${lat.toLowerCase()}-${pos}`);
     const stem = heuristicStem(lat, pos).toLowerCase();
@@ -106,6 +110,7 @@ const insertRow = (db, roots, {
             decl,
             `${lat.toLowerCase()}-${pos}`,
             stem,
+            intelligibility || null,
             new Date().toISOString(),
         );
         wId = r.lastInsertRowid;
@@ -214,6 +219,18 @@ const fillDb = async () => {
         const value = mapNslToStandard(cyr);
         const lat_2 = mapNslToEtymologized(cyr);
 
+        const langMap: Record<string, string> = {};
+        if (ru) langMap.ru = ru;
+        if (uk) langMap.uk = uk;
+        if (pl) langMap.pl = pl;
+        if (cz) langMap.cs = cz;
+        if (sl) langMap.sl = sl;
+        if (sr) langMap.sr = sr;
+        if (mk) langMap.mk = mk;
+        if (bg) langMap.bg = bg;
+        if (bl) langMap.be = bl;
+        const intelligibility = buildIntelligibilityString(lat_2, langMap);
+
         const [wId, mId] = insertRow(db, roots, {
             cyr,
             lat: lat_2,
@@ -226,6 +243,7 @@ const fillDb = async () => {
             field,
             meaning,
             etymology: `https://en.wiktionary.org/wiki/${value}`,
+            intelligibility,
         });
 
         insertLang(db, "ru", wId, mId, ru);

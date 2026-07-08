@@ -47,9 +47,8 @@ export const getDictItems = async (search: string, offset: number, limit: number
                    l.pronType, l.numType, l.frequency, l.intelligibility,
                    l.addition, l.sameInLanguages, l.etymology, l.proto,
                    l.paradigm, l.protoStemClass, l.stemExtension, l.genesis,
-                   l.secondaryStem, l.tertiaryStem, l.governsCase,
-                   l.accentSyllable, l.alternationType, l.fleetingVowelAt,
-                   l.hasAnomalies, l.field, l.type
+l.secondaryStem, l.tertiaryStem, l.governsCase,
+                    l.hasAnomalies, l.field, l.type
             FROM meanings m
             JOIN lexemes l ON m.lexemeId = l.id
             WHERE m.lexemeId IN (${placeholders})
@@ -64,9 +63,8 @@ export const getDictItems = async (search: string, offset: number, limit: number
                    l.pronType, l.numType, l.frequency, l.intelligibility,
                    l.addition, l.sameInLanguages, l.etymology, l.proto,
                    l.paradigm, l.protoStemClass, l.stemExtension, l.genesis,
-                   l.secondaryStem, l.tertiaryStem, l.governsCase,
-                   l.accentSyllable, l.alternationType, l.fleetingVowelAt,
-                   l.hasAnomalies, l.field, l.type
+l.secondaryStem, l.tertiaryStem, l.governsCase,
+                    l.hasAnomalies, l.field, l.type
             FROM meanings m
             JOIN lexemes l ON m.lexemeId = l.id
             ORDER BY l.id ASC, m.id ASC

@@ -32,8 +32,6 @@ export type LexemeAvgAggregateOutputType = {
   governsCase: number | null
   declension: number | null
   conjugation: number | null
-  accentSyllable: number | null
-  fleetingVowelAt: number | null
 }
 
 export type LexemeSumAggregateOutputType = {
@@ -42,8 +40,6 @@ export type LexemeSumAggregateOutputType = {
   governsCase: number | null
   declension: number | null
   conjugation: number | null
-  accentSyllable: number | null
-  fleetingVowelAt: number | null
 }
 
 export type LexemeMinAggregateOutputType = {
@@ -82,9 +78,7 @@ export type LexemeMinAggregateOutputType = {
   gender: string | null
   declension: number | null
   conjugation: number | null
-  accentSyllable: number | null
-  alternationType: string | null
-  fleetingVowelAt: number | null
+  properNoun: boolean | null
   hasAnomalies: boolean | null
   actionHistory: string | null
 }
@@ -125,9 +119,7 @@ export type LexemeMaxAggregateOutputType = {
   gender: string | null
   declension: number | null
   conjugation: number | null
-  accentSyllable: number | null
-  alternationType: string | null
-  fleetingVowelAt: number | null
+  properNoun: boolean | null
   hasAnomalies: boolean | null
   actionHistory: string | null
 }
@@ -168,9 +160,7 @@ export type LexemeCountAggregateOutputType = {
   gender: number
   declension: number
   conjugation: number
-  accentSyllable: number
-  alternationType: number
-  fleetingVowelAt: number
+  properNoun: number
   hasAnomalies: number
   actionHistory: number
   _all: number
@@ -183,8 +173,6 @@ export type LexemeAvgAggregateInputType = {
   governsCase?: true
   declension?: true
   conjugation?: true
-  accentSyllable?: true
-  fleetingVowelAt?: true
 }
 
 export type LexemeSumAggregateInputType = {
@@ -193,8 +181,6 @@ export type LexemeSumAggregateInputType = {
   governsCase?: true
   declension?: true
   conjugation?: true
-  accentSyllable?: true
-  fleetingVowelAt?: true
 }
 
 export type LexemeMinAggregateInputType = {
@@ -233,9 +219,7 @@ export type LexemeMinAggregateInputType = {
   gender?: true
   declension?: true
   conjugation?: true
-  accentSyllable?: true
-  alternationType?: true
-  fleetingVowelAt?: true
+  properNoun?: true
   hasAnomalies?: true
   actionHistory?: true
 }
@@ -276,9 +260,7 @@ export type LexemeMaxAggregateInputType = {
   gender?: true
   declension?: true
   conjugation?: true
-  accentSyllable?: true
-  alternationType?: true
-  fleetingVowelAt?: true
+  properNoun?: true
   hasAnomalies?: true
   actionHistory?: true
 }
@@ -319,9 +301,7 @@ export type LexemeCountAggregateInputType = {
   gender?: true
   declension?: true
   conjugation?: true
-  accentSyllable?: true
-  alternationType?: true
-  fleetingVowelAt?: true
+  properNoun?: true
   hasAnomalies?: true
   actionHistory?: true
   _all?: true
@@ -449,9 +429,7 @@ export type LexemeGroupByOutputType = {
   gender: string | null
   declension: number | null
   conjugation: number | null
-  accentSyllable: number | null
-  alternationType: string | null
-  fleetingVowelAt: number | null
+  properNoun: boolean
   hasAnomalies: boolean
   actionHistory: string | null
   _count: LexemeCountAggregateOutputType | null
@@ -515,9 +493,7 @@ export type LexemeWhereInput = {
   gender?: Prisma.StringNullableFilter<"Lexeme"> | string | null
   declension?: Prisma.IntNullableFilter<"Lexeme"> | number | null
   conjugation?: Prisma.IntNullableFilter<"Lexeme"> | number | null
-  accentSyllable?: Prisma.IntNullableFilter<"Lexeme"> | number | null
-  alternationType?: Prisma.StringNullableFilter<"Lexeme"> | string | null
-  fleetingVowelAt?: Prisma.IntNullableFilter<"Lexeme"> | number | null
+  properNoun?: Prisma.BoolFilter<"Lexeme"> | boolean
   hasAnomalies?: Prisma.BoolFilter<"Lexeme"> | boolean
   actionHistory?: Prisma.StringNullableFilter<"Lexeme"> | string | null
   meanings?: Prisma.MeaningListRelationFilter
@@ -561,9 +537,7 @@ export type LexemeOrderByWithRelationInput = {
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
   declension?: Prisma.SortOrderInput | Prisma.SortOrder
   conjugation?: Prisma.SortOrderInput | Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrderInput | Prisma.SortOrder
-  alternationType?: Prisma.SortOrderInput | Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  properNoun?: Prisma.SortOrder
   hasAnomalies?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
   meanings?: Prisma.MeaningOrderByRelationAggregateInput
@@ -610,9 +584,7 @@ export type LexemeWhereUniqueInput = Prisma.AtLeast<{
   gender?: Prisma.StringNullableFilter<"Lexeme"> | string | null
   declension?: Prisma.IntNullableFilter<"Lexeme"> | number | null
   conjugation?: Prisma.IntNullableFilter<"Lexeme"> | number | null
-  accentSyllable?: Prisma.IntNullableFilter<"Lexeme"> | number | null
-  alternationType?: Prisma.StringNullableFilter<"Lexeme"> | string | null
-  fleetingVowelAt?: Prisma.IntNullableFilter<"Lexeme"> | number | null
+  properNoun?: Prisma.BoolFilter<"Lexeme"> | boolean
   hasAnomalies?: Prisma.BoolFilter<"Lexeme"> | boolean
   actionHistory?: Prisma.StringNullableFilter<"Lexeme"> | string | null
   meanings?: Prisma.MeaningListRelationFilter
@@ -656,9 +628,7 @@ export type LexemeOrderByWithAggregationInput = {
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
   declension?: Prisma.SortOrderInput | Prisma.SortOrder
   conjugation?: Prisma.SortOrderInput | Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrderInput | Prisma.SortOrder
-  alternationType?: Prisma.SortOrderInput | Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  properNoun?: Prisma.SortOrder
   hasAnomalies?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.LexemeCountOrderByAggregateInput
@@ -707,9 +677,7 @@ export type LexemeScalarWhereWithAggregatesInput = {
   gender?: Prisma.StringNullableWithAggregatesFilter<"Lexeme"> | string | null
   declension?: Prisma.IntNullableWithAggregatesFilter<"Lexeme"> | number | null
   conjugation?: Prisma.IntNullableWithAggregatesFilter<"Lexeme"> | number | null
-  accentSyllable?: Prisma.IntNullableWithAggregatesFilter<"Lexeme"> | number | null
-  alternationType?: Prisma.StringNullableWithAggregatesFilter<"Lexeme"> | string | null
-  fleetingVowelAt?: Prisma.IntNullableWithAggregatesFilter<"Lexeme"> | number | null
+  properNoun?: Prisma.BoolWithAggregatesFilter<"Lexeme"> | boolean
   hasAnomalies?: Prisma.BoolWithAggregatesFilter<"Lexeme"> | boolean
   actionHistory?: Prisma.StringNullableWithAggregatesFilter<"Lexeme"> | string | null
 }
@@ -749,9 +717,7 @@ export type LexemeCreateInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
   meanings?: Prisma.MeaningCreateNestedManyWithoutLexemeInput
@@ -795,9 +761,7 @@ export type LexemeUncheckedCreateInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
   meanings?: Prisma.MeaningUncheckedCreateNestedManyWithoutLexemeInput
@@ -840,9 +804,7 @@ export type LexemeUpdateInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meanings?: Prisma.MeaningUpdateManyWithoutLexemeNestedInput
@@ -886,9 +848,7 @@ export type LexemeUncheckedUpdateInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meanings?: Prisma.MeaningUncheckedUpdateManyWithoutLexemeNestedInput
@@ -932,9 +892,7 @@ export type LexemeCreateManyInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
 }
@@ -974,9 +932,7 @@ export type LexemeUpdateManyMutationInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -1017,9 +973,7 @@ export type LexemeUncheckedUpdateManyInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -1060,9 +1014,7 @@ export type LexemeCountOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   declension?: Prisma.SortOrder
   conjugation?: Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrder
-  alternationType?: Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrder
+  properNoun?: Prisma.SortOrder
   hasAnomalies?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
 }
@@ -1073,8 +1025,6 @@ export type LexemeAvgOrderByAggregateInput = {
   governsCase?: Prisma.SortOrder
   declension?: Prisma.SortOrder
   conjugation?: Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrder
 }
 
 export type LexemeMaxOrderByAggregateInput = {
@@ -1113,9 +1063,7 @@ export type LexemeMaxOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   declension?: Prisma.SortOrder
   conjugation?: Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrder
-  alternationType?: Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrder
+  properNoun?: Prisma.SortOrder
   hasAnomalies?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
 }
@@ -1156,9 +1104,7 @@ export type LexemeMinOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   declension?: Prisma.SortOrder
   conjugation?: Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrder
-  alternationType?: Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrder
+  properNoun?: Prisma.SortOrder
   hasAnomalies?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
 }
@@ -1169,8 +1115,6 @@ export type LexemeSumOrderByAggregateInput = {
   governsCase?: Prisma.SortOrder
   declension?: Prisma.SortOrder
   conjugation?: Prisma.SortOrder
-  accentSyllable?: Prisma.SortOrder
-  fleetingVowelAt?: Prisma.SortOrder
 }
 
 export type LexemeScalarRelationFilter = {
@@ -1294,9 +1238,7 @@ export type LexemeCreateWithoutMeaningsInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
   lexemes_morphemes?: Prisma.LexemeMorphemeCreateNestedManyWithoutLexemeInput
@@ -1339,9 +1281,7 @@ export type LexemeUncheckedCreateWithoutMeaningsInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
   lexemes_morphemes?: Prisma.LexemeMorphemeUncheckedCreateNestedManyWithoutLexemeInput
@@ -1399,9 +1339,7 @@ export type LexemeUpdateWithoutMeaningsInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lexemes_morphemes?: Prisma.LexemeMorphemeUpdateManyWithoutLexemeNestedInput
@@ -1444,9 +1382,7 @@ export type LexemeUncheckedUpdateWithoutMeaningsInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lexemes_morphemes?: Prisma.LexemeMorphemeUncheckedUpdateManyWithoutLexemeNestedInput
@@ -1488,9 +1424,7 @@ export type LexemeCreateWithoutLexemes_morphemesInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
   meanings?: Prisma.MeaningCreateNestedManyWithoutLexemeInput
@@ -1533,9 +1467,7 @@ export type LexemeUncheckedCreateWithoutLexemes_morphemesInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
   meanings?: Prisma.MeaningUncheckedCreateNestedManyWithoutLexemeInput
@@ -1593,9 +1525,7 @@ export type LexemeUpdateWithoutLexemes_morphemesInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meanings?: Prisma.MeaningUpdateManyWithoutLexemeNestedInput
@@ -1638,9 +1568,7 @@ export type LexemeUncheckedUpdateWithoutLexemes_morphemesInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meanings?: Prisma.MeaningUncheckedUpdateManyWithoutLexemeNestedInput
@@ -1682,9 +1610,7 @@ export type LexemeCreateWithoutAnomaliesInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
   meanings?: Prisma.MeaningCreateNestedManyWithoutLexemeInput
@@ -1727,9 +1653,7 @@ export type LexemeUncheckedCreateWithoutAnomaliesInput = {
   gender?: string | null
   declension?: number | null
   conjugation?: number | null
-  accentSyllable?: number | null
-  alternationType?: string | null
-  fleetingVowelAt?: number | null
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: string | null
   meanings?: Prisma.MeaningUncheckedCreateNestedManyWithoutLexemeInput
@@ -1787,9 +1711,7 @@ export type LexemeUpdateWithoutAnomaliesInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meanings?: Prisma.MeaningUpdateManyWithoutLexemeNestedInput
@@ -1832,9 +1754,7 @@ export type LexemeUncheckedUpdateWithoutAnomaliesInput = {
   gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   declension?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   conjugation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  accentSyllable?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  alternationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fleetingVowelAt?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  properNoun?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hasAnomalies?: Prisma.BoolFieldUpdateOperationsInput | boolean
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meanings?: Prisma.MeaningUncheckedUpdateManyWithoutLexemeNestedInput
@@ -1926,9 +1846,7 @@ export type LexemeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   gender?: boolean
   declension?: boolean
   conjugation?: boolean
-  accentSyllable?: boolean
-  alternationType?: boolean
-  fleetingVowelAt?: boolean
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: boolean
   meanings?: boolean | Prisma.Lexeme$meaningsArgs<ExtArgs>
@@ -1973,9 +1891,7 @@ export type LexemeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   gender?: boolean
   declension?: boolean
   conjugation?: boolean
-  accentSyllable?: boolean
-  alternationType?: boolean
-  fleetingVowelAt?: boolean
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: boolean
 }, ExtArgs["result"]["lexeme"]>
@@ -2016,9 +1932,7 @@ export type LexemeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   gender?: boolean
   declension?: boolean
   conjugation?: boolean
-  accentSyllable?: boolean
-  alternationType?: boolean
-  fleetingVowelAt?: boolean
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: boolean
 }, ExtArgs["result"]["lexeme"]>
@@ -2059,14 +1973,12 @@ export type LexemeSelectScalar = {
   gender?: boolean
   declension?: boolean
   conjugation?: boolean
-  accentSyllable?: boolean
-  alternationType?: boolean
-  fleetingVowelAt?: boolean
+  properNoun?: boolean
   hasAnomalies?: boolean
   actionHistory?: boolean
 }
 
-export type LexemeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "slug" | "external_id" | "value" | "nsl" | "isv" | "transcription" | "field" | "type" | "pos" | "aspect" | "transitivity" | "animacy" | "degree" | "pronType" | "numType" | "frequency" | "intelligibility" | "addition" | "sameInLanguages" | "etymology" | "proto" | "paradigm" | "protoStemClass" | "stemExtension" | "genesis" | "stem" | "secondaryStem" | "tertiaryStem" | "governsCase" | "gender" | "declension" | "conjugation" | "accentSyllable" | "alternationType" | "fleetingVowelAt" | "hasAnomalies" | "actionHistory", ExtArgs["result"]["lexeme"]>
+export type LexemeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "slug" | "external_id" | "value" | "nsl" | "isv" | "transcription" | "field" | "type" | "pos" | "aspect" | "transitivity" | "animacy" | "degree" | "pronType" | "numType" | "frequency" | "intelligibility" | "addition" | "sameInLanguages" | "etymology" | "proto" | "paradigm" | "protoStemClass" | "stemExtension" | "genesis" | "stem" | "secondaryStem" | "tertiaryStem" | "governsCase" | "gender" | "declension" | "conjugation" | "properNoun" | "hasAnomalies" | "actionHistory", ExtArgs["result"]["lexeme"]>
 export type LexemeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   meanings?: boolean | Prisma.Lexeme$meaningsArgs<ExtArgs>
   lexemes_morphemes?: boolean | Prisma.Lexeme$lexemes_morphemesArgs<ExtArgs>
@@ -2119,9 +2031,7 @@ export type $LexemePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     gender: string | null
     declension: number | null
     conjugation: number | null
-    accentSyllable: number | null
-    alternationType: string | null
-    fleetingVowelAt: number | null
+    properNoun: boolean
     hasAnomalies: boolean
     actionHistory: string | null
   }, ExtArgs["result"]["lexeme"]>
@@ -2585,9 +2495,7 @@ export interface LexemeFieldRefs {
   readonly gender: Prisma.FieldRef<"Lexeme", 'String'>
   readonly declension: Prisma.FieldRef<"Lexeme", 'Int'>
   readonly conjugation: Prisma.FieldRef<"Lexeme", 'Int'>
-  readonly accentSyllable: Prisma.FieldRef<"Lexeme", 'Int'>
-  readonly alternationType: Prisma.FieldRef<"Lexeme", 'String'>
-  readonly fleetingVowelAt: Prisma.FieldRef<"Lexeme", 'Int'>
+  readonly properNoun: Prisma.FieldRef<"Lexeme", 'Boolean'>
   readonly hasAnomalies: Prisma.FieldRef<"Lexeme", 'Boolean'>
   readonly actionHistory: Prisma.FieldRef<"Lexeme", 'String'>
 }
