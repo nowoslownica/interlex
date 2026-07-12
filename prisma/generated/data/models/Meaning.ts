@@ -29,11 +29,15 @@ export type AggregateMeaning = {
 export type MeaningAvgAggregateOutputType = {
   id: number | null
   lexemeId: number | null
+  meaningVeryfied: number | null
+  examplesVeryfied: number | null
 }
 
 export type MeaningSumAggregateOutputType = {
   id: number | null
   lexemeId: number | null
+  meaningVeryfied: number | null
+  examplesVeryfied: number | null
 }
 
 export type MeaningMinAggregateOutputType = {
@@ -41,6 +45,10 @@ export type MeaningMinAggregateOutputType = {
   lexemeId: number | null
   meaning: string | null
   examples: string | null
+  meaningVeryfied: number | null
+  meaningMessage: string | null
+  examplesVeryfied: number | null
+  examplesMessage: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -50,6 +58,10 @@ export type MeaningMaxAggregateOutputType = {
   lexemeId: number | null
   meaning: string | null
   examples: string | null
+  meaningVeryfied: number | null
+  meaningMessage: string | null
+  examplesVeryfied: number | null
+  examplesMessage: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -59,6 +71,10 @@ export type MeaningCountAggregateOutputType = {
   lexemeId: number
   meaning: number
   examples: number
+  meaningVeryfied: number
+  meaningMessage: number
+  examplesVeryfied: number
+  examplesMessage: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -68,11 +84,15 @@ export type MeaningCountAggregateOutputType = {
 export type MeaningAvgAggregateInputType = {
   id?: true
   lexemeId?: true
+  meaningVeryfied?: true
+  examplesVeryfied?: true
 }
 
 export type MeaningSumAggregateInputType = {
   id?: true
   lexemeId?: true
+  meaningVeryfied?: true
+  examplesVeryfied?: true
 }
 
 export type MeaningMinAggregateInputType = {
@@ -80,6 +100,10 @@ export type MeaningMinAggregateInputType = {
   lexemeId?: true
   meaning?: true
   examples?: true
+  meaningVeryfied?: true
+  meaningMessage?: true
+  examplesVeryfied?: true
+  examplesMessage?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -89,6 +113,10 @@ export type MeaningMaxAggregateInputType = {
   lexemeId?: true
   meaning?: true
   examples?: true
+  meaningVeryfied?: true
+  meaningMessage?: true
+  examplesVeryfied?: true
+  examplesMessage?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -98,6 +126,10 @@ export type MeaningCountAggregateInputType = {
   lexemeId?: true
   meaning?: true
   examples?: true
+  meaningVeryfied?: true
+  meaningMessage?: true
+  examplesVeryfied?: true
+  examplesMessage?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -194,6 +226,10 @@ export type MeaningGroupByOutputType = {
   lexemeId: number
   meaning: string | null
   examples: string | null
+  meaningVeryfied: number | null
+  meaningMessage: string | null
+  examplesVeryfied: number | null
+  examplesMessage: string | null
   createdAt: Date
   updatedAt: Date
   _count: MeaningCountAggregateOutputType | null
@@ -226,6 +262,10 @@ export type MeaningWhereInput = {
   lexemeId?: Prisma.IntFilter<"Meaning"> | number
   meaning?: Prisma.StringNullableFilter<"Meaning"> | string | null
   examples?: Prisma.StringNullableFilter<"Meaning"> | string | null
+  meaningVeryfied?: Prisma.IntNullableFilter<"Meaning"> | number | null
+  meaningMessage?: Prisma.StringNullableFilter<"Meaning"> | string | null
+  examplesVeryfied?: Prisma.IntNullableFilter<"Meaning"> | number | null
+  examplesMessage?: Prisma.StringNullableFilter<"Meaning"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
   lexeme?: Prisma.XOR<Prisma.LexemeScalarRelationFilter, Prisma.LexemeWhereInput>
@@ -269,6 +309,24 @@ export type MeaningWhereInput = {
   synonymsTarget?: Prisma.SynonymListRelationFilter
   antonymsSource?: Prisma.AntonymListRelationFilter
   antonymsTarget?: Prisma.AntonymListRelationFilter
+  hypernymsSource?: Prisma.HypernymListRelationFilter
+  hypernymsTarget?: Prisma.HypernymListRelationFilter
+  hyponymsSource?: Prisma.HyponymListRelationFilter
+  hyponymsTarget?: Prisma.HyponymListRelationFilter
+  meronymsSource?: Prisma.MeronymListRelationFilter
+  meronymsTarget?: Prisma.MeronymListRelationFilter
+  holonymsSource?: Prisma.HolonymListRelationFilter
+  holonymsTarget?: Prisma.HolonymListRelationFilter
+  relatedWordsSource?: Prisma.RelatedWordListRelationFilter
+  relatedWordsTarget?: Prisma.RelatedWordListRelationFilter
+  causesSource?: Prisma.CauseListRelationFilter
+  causesTarget?: Prisma.CauseListRelationFilter
+  effectsSource?: Prisma.EffectListRelationFilter
+  effectsTarget?: Prisma.EffectListRelationFilter
+  premisesSource?: Prisma.PremiseListRelationFilter
+  premisesTarget?: Prisma.PremiseListRelationFilter
+  conclusionsSource?: Prisma.ConclusionListRelationFilter
+  conclusionsTarget?: Prisma.ConclusionListRelationFilter
   synsets?: Prisma.MeaningSynsetListRelationFilter
 }
 
@@ -277,6 +335,10 @@ export type MeaningOrderByWithRelationInput = {
   lexemeId?: Prisma.SortOrder
   meaning?: Prisma.SortOrderInput | Prisma.SortOrder
   examples?: Prisma.SortOrderInput | Prisma.SortOrder
+  meaningVeryfied?: Prisma.SortOrderInput | Prisma.SortOrder
+  meaningMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  examplesVeryfied?: Prisma.SortOrderInput | Prisma.SortOrder
+  examplesMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   lexeme?: Prisma.LexemeOrderByWithRelationInput
@@ -320,6 +382,24 @@ export type MeaningOrderByWithRelationInput = {
   synonymsTarget?: Prisma.SynonymOrderByRelationAggregateInput
   antonymsSource?: Prisma.AntonymOrderByRelationAggregateInput
   antonymsTarget?: Prisma.AntonymOrderByRelationAggregateInput
+  hypernymsSource?: Prisma.HypernymOrderByRelationAggregateInput
+  hypernymsTarget?: Prisma.HypernymOrderByRelationAggregateInput
+  hyponymsSource?: Prisma.HyponymOrderByRelationAggregateInput
+  hyponymsTarget?: Prisma.HyponymOrderByRelationAggregateInput
+  meronymsSource?: Prisma.MeronymOrderByRelationAggregateInput
+  meronymsTarget?: Prisma.MeronymOrderByRelationAggregateInput
+  holonymsSource?: Prisma.HolonymOrderByRelationAggregateInput
+  holonymsTarget?: Prisma.HolonymOrderByRelationAggregateInput
+  relatedWordsSource?: Prisma.RelatedWordOrderByRelationAggregateInput
+  relatedWordsTarget?: Prisma.RelatedWordOrderByRelationAggregateInput
+  causesSource?: Prisma.CauseOrderByRelationAggregateInput
+  causesTarget?: Prisma.CauseOrderByRelationAggregateInput
+  effectsSource?: Prisma.EffectOrderByRelationAggregateInput
+  effectsTarget?: Prisma.EffectOrderByRelationAggregateInput
+  premisesSource?: Prisma.PremiseOrderByRelationAggregateInput
+  premisesTarget?: Prisma.PremiseOrderByRelationAggregateInput
+  conclusionsSource?: Prisma.ConclusionOrderByRelationAggregateInput
+  conclusionsTarget?: Prisma.ConclusionOrderByRelationAggregateInput
   synsets?: Prisma.MeaningSynsetOrderByRelationAggregateInput
 }
 
@@ -331,6 +411,10 @@ export type MeaningWhereUniqueInput = Prisma.AtLeast<{
   lexemeId?: Prisma.IntFilter<"Meaning"> | number
   meaning?: Prisma.StringNullableFilter<"Meaning"> | string | null
   examples?: Prisma.StringNullableFilter<"Meaning"> | string | null
+  meaningVeryfied?: Prisma.IntNullableFilter<"Meaning"> | number | null
+  meaningMessage?: Prisma.StringNullableFilter<"Meaning"> | string | null
+  examplesVeryfied?: Prisma.IntNullableFilter<"Meaning"> | number | null
+  examplesMessage?: Prisma.StringNullableFilter<"Meaning"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
   lexeme?: Prisma.XOR<Prisma.LexemeScalarRelationFilter, Prisma.LexemeWhereInput>
@@ -374,6 +458,24 @@ export type MeaningWhereUniqueInput = Prisma.AtLeast<{
   synonymsTarget?: Prisma.SynonymListRelationFilter
   antonymsSource?: Prisma.AntonymListRelationFilter
   antonymsTarget?: Prisma.AntonymListRelationFilter
+  hypernymsSource?: Prisma.HypernymListRelationFilter
+  hypernymsTarget?: Prisma.HypernymListRelationFilter
+  hyponymsSource?: Prisma.HyponymListRelationFilter
+  hyponymsTarget?: Prisma.HyponymListRelationFilter
+  meronymsSource?: Prisma.MeronymListRelationFilter
+  meronymsTarget?: Prisma.MeronymListRelationFilter
+  holonymsSource?: Prisma.HolonymListRelationFilter
+  holonymsTarget?: Prisma.HolonymListRelationFilter
+  relatedWordsSource?: Prisma.RelatedWordListRelationFilter
+  relatedWordsTarget?: Prisma.RelatedWordListRelationFilter
+  causesSource?: Prisma.CauseListRelationFilter
+  causesTarget?: Prisma.CauseListRelationFilter
+  effectsSource?: Prisma.EffectListRelationFilter
+  effectsTarget?: Prisma.EffectListRelationFilter
+  premisesSource?: Prisma.PremiseListRelationFilter
+  premisesTarget?: Prisma.PremiseListRelationFilter
+  conclusionsSource?: Prisma.ConclusionListRelationFilter
+  conclusionsTarget?: Prisma.ConclusionListRelationFilter
   synsets?: Prisma.MeaningSynsetListRelationFilter
 }, "id">
 
@@ -382,6 +484,10 @@ export type MeaningOrderByWithAggregationInput = {
   lexemeId?: Prisma.SortOrder
   meaning?: Prisma.SortOrderInput | Prisma.SortOrder
   examples?: Prisma.SortOrderInput | Prisma.SortOrder
+  meaningVeryfied?: Prisma.SortOrderInput | Prisma.SortOrder
+  meaningMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  examplesVeryfied?: Prisma.SortOrderInput | Prisma.SortOrder
+  examplesMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MeaningCountOrderByAggregateInput
@@ -399,6 +505,10 @@ export type MeaningScalarWhereWithAggregatesInput = {
   lexemeId?: Prisma.IntWithAggregatesFilter<"Meaning"> | number
   meaning?: Prisma.StringNullableWithAggregatesFilter<"Meaning"> | string | null
   examples?: Prisma.StringNullableWithAggregatesFilter<"Meaning"> | string | null
+  meaningVeryfied?: Prisma.IntNullableWithAggregatesFilter<"Meaning"> | number | null
+  meaningMessage?: Prisma.StringNullableWithAggregatesFilter<"Meaning"> | string | null
+  examplesVeryfied?: Prisma.IntNullableWithAggregatesFilter<"Meaning"> | number | null
+  examplesMessage?: Prisma.StringNullableWithAggregatesFilter<"Meaning"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Meaning"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Meaning"> | Date | string
 }
@@ -406,6 +516,10 @@ export type MeaningScalarWhereWithAggregatesInput = {
 export type MeaningCreateInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -449,6 +563,24 @@ export type MeaningCreateInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -457,6 +589,10 @@ export type MeaningUncheckedCreateInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -499,12 +635,34 @@ export type MeaningUncheckedCreateInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
 export type MeaningUpdateInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -548,6 +706,24 @@ export type MeaningUpdateInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -556,6 +732,10 @@ export type MeaningUncheckedUpdateInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -598,6 +778,24 @@ export type MeaningUncheckedUpdateInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -606,6 +804,10 @@ export type MeaningCreateManyInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -613,6 +815,10 @@ export type MeaningCreateManyInput = {
 export type MeaningUpdateManyMutationInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -622,6 +828,10 @@ export type MeaningUncheckedUpdateManyInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -641,6 +851,10 @@ export type MeaningCountOrderByAggregateInput = {
   lexemeId?: Prisma.SortOrder
   meaning?: Prisma.SortOrder
   examples?: Prisma.SortOrder
+  meaningVeryfied?: Prisma.SortOrder
+  meaningMessage?: Prisma.SortOrder
+  examplesVeryfied?: Prisma.SortOrder
+  examplesMessage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -648,6 +862,8 @@ export type MeaningCountOrderByAggregateInput = {
 export type MeaningAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   lexemeId?: Prisma.SortOrder
+  meaningVeryfied?: Prisma.SortOrder
+  examplesVeryfied?: Prisma.SortOrder
 }
 
 export type MeaningMaxOrderByAggregateInput = {
@@ -655,6 +871,10 @@ export type MeaningMaxOrderByAggregateInput = {
   lexemeId?: Prisma.SortOrder
   meaning?: Prisma.SortOrder
   examples?: Prisma.SortOrder
+  meaningVeryfied?: Prisma.SortOrder
+  meaningMessage?: Prisma.SortOrder
+  examplesVeryfied?: Prisma.SortOrder
+  examplesMessage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -664,6 +884,10 @@ export type MeaningMinOrderByAggregateInput = {
   lexemeId?: Prisma.SortOrder
   meaning?: Prisma.SortOrder
   examples?: Prisma.SortOrder
+  meaningVeryfied?: Prisma.SortOrder
+  meaningMessage?: Prisma.SortOrder
+  examplesVeryfied?: Prisma.SortOrder
+  examplesMessage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -671,6 +895,8 @@ export type MeaningMinOrderByAggregateInput = {
 export type MeaningSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   lexemeId?: Prisma.SortOrder
+  meaningVeryfied?: Prisma.SortOrder
+  examplesVeryfied?: Prisma.SortOrder
 }
 
 export type MeaningNullableScalarRelationFilter = {
@@ -787,6 +1013,294 @@ export type MeaningUpdateOneWithoutAntonymsTargetNestedInput = {
   delete?: Prisma.MeaningWhereInput | boolean
   connect?: Prisma.MeaningWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutAntonymsTargetInput, Prisma.MeaningUpdateWithoutAntonymsTargetInput>, Prisma.MeaningUncheckedUpdateWithoutAntonymsTargetInput>
+}
+
+export type MeaningCreateNestedOneWithoutHypernymsSourceInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHypernymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHypernymsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHypernymsSourceInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningCreateNestedOneWithoutHypernymsTargetInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHypernymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHypernymsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHypernymsTargetInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningUpdateOneWithoutHypernymsSourceNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHypernymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHypernymsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHypernymsSourceInput
+  upsert?: Prisma.MeaningUpsertWithoutHypernymsSourceInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutHypernymsSourceInput, Prisma.MeaningUpdateWithoutHypernymsSourceInput>, Prisma.MeaningUncheckedUpdateWithoutHypernymsSourceInput>
+}
+
+export type MeaningUpdateOneWithoutHypernymsTargetNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHypernymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHypernymsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHypernymsTargetInput
+  upsert?: Prisma.MeaningUpsertWithoutHypernymsTargetInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutHypernymsTargetInput, Prisma.MeaningUpdateWithoutHypernymsTargetInput>, Prisma.MeaningUncheckedUpdateWithoutHypernymsTargetInput>
+}
+
+export type MeaningCreateNestedOneWithoutHyponymsSourceInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHyponymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHyponymsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHyponymsSourceInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningCreateNestedOneWithoutHyponymsTargetInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHyponymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHyponymsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHyponymsTargetInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningUpdateOneWithoutHyponymsSourceNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHyponymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHyponymsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHyponymsSourceInput
+  upsert?: Prisma.MeaningUpsertWithoutHyponymsSourceInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutHyponymsSourceInput, Prisma.MeaningUpdateWithoutHyponymsSourceInput>, Prisma.MeaningUncheckedUpdateWithoutHyponymsSourceInput>
+}
+
+export type MeaningUpdateOneWithoutHyponymsTargetNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHyponymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHyponymsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHyponymsTargetInput
+  upsert?: Prisma.MeaningUpsertWithoutHyponymsTargetInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutHyponymsTargetInput, Prisma.MeaningUpdateWithoutHyponymsTargetInput>, Prisma.MeaningUncheckedUpdateWithoutHyponymsTargetInput>
+}
+
+export type MeaningCreateNestedOneWithoutMeronymsSourceInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutMeronymsSourceInput, Prisma.MeaningUncheckedCreateWithoutMeronymsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutMeronymsSourceInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningCreateNestedOneWithoutMeronymsTargetInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutMeronymsTargetInput, Prisma.MeaningUncheckedCreateWithoutMeronymsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutMeronymsTargetInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningUpdateOneWithoutMeronymsSourceNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutMeronymsSourceInput, Prisma.MeaningUncheckedCreateWithoutMeronymsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutMeronymsSourceInput
+  upsert?: Prisma.MeaningUpsertWithoutMeronymsSourceInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutMeronymsSourceInput, Prisma.MeaningUpdateWithoutMeronymsSourceInput>, Prisma.MeaningUncheckedUpdateWithoutMeronymsSourceInput>
+}
+
+export type MeaningUpdateOneWithoutMeronymsTargetNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutMeronymsTargetInput, Prisma.MeaningUncheckedCreateWithoutMeronymsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutMeronymsTargetInput
+  upsert?: Prisma.MeaningUpsertWithoutMeronymsTargetInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutMeronymsTargetInput, Prisma.MeaningUpdateWithoutMeronymsTargetInput>, Prisma.MeaningUncheckedUpdateWithoutMeronymsTargetInput>
+}
+
+export type MeaningCreateNestedOneWithoutHolonymsSourceInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHolonymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHolonymsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHolonymsSourceInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningCreateNestedOneWithoutHolonymsTargetInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHolonymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHolonymsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHolonymsTargetInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningUpdateOneWithoutHolonymsSourceNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHolonymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHolonymsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHolonymsSourceInput
+  upsert?: Prisma.MeaningUpsertWithoutHolonymsSourceInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutHolonymsSourceInput, Prisma.MeaningUpdateWithoutHolonymsSourceInput>, Prisma.MeaningUncheckedUpdateWithoutHolonymsSourceInput>
+}
+
+export type MeaningUpdateOneWithoutHolonymsTargetNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutHolonymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHolonymsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutHolonymsTargetInput
+  upsert?: Prisma.MeaningUpsertWithoutHolonymsTargetInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutHolonymsTargetInput, Prisma.MeaningUpdateWithoutHolonymsTargetInput>, Prisma.MeaningUncheckedUpdateWithoutHolonymsTargetInput>
+}
+
+export type MeaningCreateNestedOneWithoutRelatedWordsSourceInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutRelatedWordsSourceInput, Prisma.MeaningUncheckedCreateWithoutRelatedWordsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutRelatedWordsSourceInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningCreateNestedOneWithoutRelatedWordsTargetInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutRelatedWordsTargetInput, Prisma.MeaningUncheckedCreateWithoutRelatedWordsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutRelatedWordsTargetInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningUpdateOneWithoutRelatedWordsSourceNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutRelatedWordsSourceInput, Prisma.MeaningUncheckedCreateWithoutRelatedWordsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutRelatedWordsSourceInput
+  upsert?: Prisma.MeaningUpsertWithoutRelatedWordsSourceInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutRelatedWordsSourceInput, Prisma.MeaningUpdateWithoutRelatedWordsSourceInput>, Prisma.MeaningUncheckedUpdateWithoutRelatedWordsSourceInput>
+}
+
+export type MeaningUpdateOneWithoutRelatedWordsTargetNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutRelatedWordsTargetInput, Prisma.MeaningUncheckedCreateWithoutRelatedWordsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutRelatedWordsTargetInput
+  upsert?: Prisma.MeaningUpsertWithoutRelatedWordsTargetInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutRelatedWordsTargetInput, Prisma.MeaningUpdateWithoutRelatedWordsTargetInput>, Prisma.MeaningUncheckedUpdateWithoutRelatedWordsTargetInput>
+}
+
+export type MeaningCreateNestedOneWithoutCausesSourceInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutCausesSourceInput, Prisma.MeaningUncheckedCreateWithoutCausesSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutCausesSourceInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningCreateNestedOneWithoutCausesTargetInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutCausesTargetInput, Prisma.MeaningUncheckedCreateWithoutCausesTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutCausesTargetInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningUpdateOneWithoutCausesSourceNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutCausesSourceInput, Prisma.MeaningUncheckedCreateWithoutCausesSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutCausesSourceInput
+  upsert?: Prisma.MeaningUpsertWithoutCausesSourceInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutCausesSourceInput, Prisma.MeaningUpdateWithoutCausesSourceInput>, Prisma.MeaningUncheckedUpdateWithoutCausesSourceInput>
+}
+
+export type MeaningUpdateOneWithoutCausesTargetNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutCausesTargetInput, Prisma.MeaningUncheckedCreateWithoutCausesTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutCausesTargetInput
+  upsert?: Prisma.MeaningUpsertWithoutCausesTargetInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutCausesTargetInput, Prisma.MeaningUpdateWithoutCausesTargetInput>, Prisma.MeaningUncheckedUpdateWithoutCausesTargetInput>
+}
+
+export type MeaningCreateNestedOneWithoutEffectsSourceInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutEffectsSourceInput, Prisma.MeaningUncheckedCreateWithoutEffectsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutEffectsSourceInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningCreateNestedOneWithoutEffectsTargetInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutEffectsTargetInput, Prisma.MeaningUncheckedCreateWithoutEffectsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutEffectsTargetInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningUpdateOneWithoutEffectsSourceNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutEffectsSourceInput, Prisma.MeaningUncheckedCreateWithoutEffectsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutEffectsSourceInput
+  upsert?: Prisma.MeaningUpsertWithoutEffectsSourceInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutEffectsSourceInput, Prisma.MeaningUpdateWithoutEffectsSourceInput>, Prisma.MeaningUncheckedUpdateWithoutEffectsSourceInput>
+}
+
+export type MeaningUpdateOneWithoutEffectsTargetNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutEffectsTargetInput, Prisma.MeaningUncheckedCreateWithoutEffectsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutEffectsTargetInput
+  upsert?: Prisma.MeaningUpsertWithoutEffectsTargetInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutEffectsTargetInput, Prisma.MeaningUpdateWithoutEffectsTargetInput>, Prisma.MeaningUncheckedUpdateWithoutEffectsTargetInput>
+}
+
+export type MeaningCreateNestedOneWithoutPremisesSourceInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutPremisesSourceInput, Prisma.MeaningUncheckedCreateWithoutPremisesSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutPremisesSourceInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningCreateNestedOneWithoutPremisesTargetInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutPremisesTargetInput, Prisma.MeaningUncheckedCreateWithoutPremisesTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutPremisesTargetInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningUpdateOneWithoutPremisesSourceNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutPremisesSourceInput, Prisma.MeaningUncheckedCreateWithoutPremisesSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutPremisesSourceInput
+  upsert?: Prisma.MeaningUpsertWithoutPremisesSourceInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutPremisesSourceInput, Prisma.MeaningUpdateWithoutPremisesSourceInput>, Prisma.MeaningUncheckedUpdateWithoutPremisesSourceInput>
+}
+
+export type MeaningUpdateOneWithoutPremisesTargetNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutPremisesTargetInput, Prisma.MeaningUncheckedCreateWithoutPremisesTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutPremisesTargetInput
+  upsert?: Prisma.MeaningUpsertWithoutPremisesTargetInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutPremisesTargetInput, Prisma.MeaningUpdateWithoutPremisesTargetInput>, Prisma.MeaningUncheckedUpdateWithoutPremisesTargetInput>
+}
+
+export type MeaningCreateNestedOneWithoutConclusionsSourceInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutConclusionsSourceInput, Prisma.MeaningUncheckedCreateWithoutConclusionsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutConclusionsSourceInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningCreateNestedOneWithoutConclusionsTargetInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutConclusionsTargetInput, Prisma.MeaningUncheckedCreateWithoutConclusionsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutConclusionsTargetInput
+  connect?: Prisma.MeaningWhereUniqueInput
+}
+
+export type MeaningUpdateOneWithoutConclusionsSourceNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutConclusionsSourceInput, Prisma.MeaningUncheckedCreateWithoutConclusionsSourceInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutConclusionsSourceInput
+  upsert?: Prisma.MeaningUpsertWithoutConclusionsSourceInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutConclusionsSourceInput, Prisma.MeaningUpdateWithoutConclusionsSourceInput>, Prisma.MeaningUncheckedUpdateWithoutConclusionsSourceInput>
+}
+
+export type MeaningUpdateOneWithoutConclusionsTargetNestedInput = {
+  create?: Prisma.XOR<Prisma.MeaningCreateWithoutConclusionsTargetInput, Prisma.MeaningUncheckedCreateWithoutConclusionsTargetInput>
+  connectOrCreate?: Prisma.MeaningCreateOrConnectWithoutConclusionsTargetInput
+  upsert?: Prisma.MeaningUpsertWithoutConclusionsTargetInput
+  disconnect?: Prisma.MeaningWhereInput | boolean
+  delete?: Prisma.MeaningWhereInput | boolean
+  connect?: Prisma.MeaningWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MeaningUpdateToOneWithWhereWithoutConclusionsTargetInput, Prisma.MeaningUpdateWithoutConclusionsTargetInput>, Prisma.MeaningUncheckedUpdateWithoutConclusionsTargetInput>
 }
 
 export type MeaningCreateNestedOneWithoutEn_wordInput = {
@@ -1382,6 +1896,10 @@ export type MeaningUpdateOneRequiredWithoutSynsetsNestedInput = {
 export type MeaningCreateWithoutLexemeInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnCreateNestedManyWithoutWordInput
@@ -1424,6 +1942,24 @@ export type MeaningCreateWithoutLexemeInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -1431,6 +1967,10 @@ export type MeaningUncheckedCreateWithoutLexemeInput = {
   id?: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -1473,6 +2013,24 @@ export type MeaningUncheckedCreateWithoutLexemeInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -1509,6 +2067,10 @@ export type MeaningScalarWhereInput = {
   lexemeId?: Prisma.IntFilter<"Meaning"> | number
   meaning?: Prisma.StringNullableFilter<"Meaning"> | string | null
   examples?: Prisma.StringNullableFilter<"Meaning"> | string | null
+  meaningVeryfied?: Prisma.IntNullableFilter<"Meaning"> | number | null
+  meaningMessage?: Prisma.StringNullableFilter<"Meaning"> | string | null
+  examplesVeryfied?: Prisma.IntNullableFilter<"Meaning"> | number | null
+  examplesMessage?: Prisma.StringNullableFilter<"Meaning"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Meaning"> | Date | string
 }
@@ -1516,6 +2078,10 @@ export type MeaningScalarWhereInput = {
 export type MeaningCreateWithoutSynonymsSourceInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -1558,6 +2124,24 @@ export type MeaningCreateWithoutSynonymsSourceInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -1566,6 +2150,10 @@ export type MeaningUncheckedCreateWithoutSynonymsSourceInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -1607,6 +2195,24 @@ export type MeaningUncheckedCreateWithoutSynonymsSourceInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -1618,6 +2224,10 @@ export type MeaningCreateOrConnectWithoutSynonymsSourceInput = {
 export type MeaningCreateWithoutSynonymsTargetInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -1660,6 +2270,24 @@ export type MeaningCreateWithoutSynonymsTargetInput = {
   synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -1668,6 +2296,10 @@ export type MeaningUncheckedCreateWithoutSynonymsTargetInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -1709,6 +2341,24 @@ export type MeaningUncheckedCreateWithoutSynonymsTargetInput = {
   synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -1731,6 +2381,10 @@ export type MeaningUpdateToOneWithWhereWithoutSynonymsSourceInput = {
 export type MeaningUpdateWithoutSynonymsSourceInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -1773,6 +2427,24 @@ export type MeaningUpdateWithoutSynonymsSourceInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -1781,6 +2453,10 @@ export type MeaningUncheckedUpdateWithoutSynonymsSourceInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -1822,6 +2498,24 @@ export type MeaningUncheckedUpdateWithoutSynonymsSourceInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -1839,6 +2533,10 @@ export type MeaningUpdateToOneWithWhereWithoutSynonymsTargetInput = {
 export type MeaningUpdateWithoutSynonymsTargetInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -1881,6 +2579,24 @@ export type MeaningUpdateWithoutSynonymsTargetInput = {
   synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -1889,6 +2605,10 @@ export type MeaningUncheckedUpdateWithoutSynonymsTargetInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -1930,12 +2650,34 @@ export type MeaningUncheckedUpdateWithoutSynonymsTargetInput = {
   synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutAntonymsSourceInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -1978,6 +2720,24 @@ export type MeaningCreateWithoutAntonymsSourceInput = {
   synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -1986,6 +2746,10 @@ export type MeaningUncheckedCreateWithoutAntonymsSourceInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -2027,6 +2791,24 @@ export type MeaningUncheckedCreateWithoutAntonymsSourceInput = {
   synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -2038,6 +2820,10 @@ export type MeaningCreateOrConnectWithoutAntonymsSourceInput = {
 export type MeaningCreateWithoutAntonymsTargetInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -2080,6 +2866,24 @@ export type MeaningCreateWithoutAntonymsTargetInput = {
   synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -2088,6 +2892,10 @@ export type MeaningUncheckedCreateWithoutAntonymsTargetInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -2129,6 +2937,24 @@ export type MeaningUncheckedCreateWithoutAntonymsTargetInput = {
   synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -2151,6 +2977,10 @@ export type MeaningUpdateToOneWithWhereWithoutAntonymsSourceInput = {
 export type MeaningUpdateWithoutAntonymsSourceInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -2193,6 +3023,24 @@ export type MeaningUpdateWithoutAntonymsSourceInput = {
   synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -2201,6 +3049,10 @@ export type MeaningUncheckedUpdateWithoutAntonymsSourceInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -2242,6 +3094,24 @@ export type MeaningUncheckedUpdateWithoutAntonymsSourceInput = {
   synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -2259,6 +3129,10 @@ export type MeaningUpdateToOneWithWhereWithoutAntonymsTargetInput = {
 export type MeaningUpdateWithoutAntonymsTargetInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -2301,6 +3175,24 @@ export type MeaningUpdateWithoutAntonymsTargetInput = {
   synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -2309,6 +3201,10 @@ export type MeaningUncheckedUpdateWithoutAntonymsTargetInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -2350,12 +3246,5398 @@ export type MeaningUncheckedUpdateWithoutAntonymsTargetInput = {
   synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningCreateWithoutHypernymsSourceInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutHypernymsSourceInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutHypernymsSourceInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHypernymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHypernymsSourceInput>
+}
+
+export type MeaningCreateWithoutHypernymsTargetInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutHypernymsTargetInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutHypernymsTargetInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHypernymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHypernymsTargetInput>
+}
+
+export type MeaningUpsertWithoutHypernymsSourceInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutHypernymsSourceInput, Prisma.MeaningUncheckedUpdateWithoutHypernymsSourceInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHypernymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHypernymsSourceInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutHypernymsSourceInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutHypernymsSourceInput, Prisma.MeaningUncheckedUpdateWithoutHypernymsSourceInput>
+}
+
+export type MeaningUpdateWithoutHypernymsSourceInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutHypernymsSourceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUpsertWithoutHypernymsTargetInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutHypernymsTargetInput, Prisma.MeaningUncheckedUpdateWithoutHypernymsTargetInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHypernymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHypernymsTargetInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutHypernymsTargetInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutHypernymsTargetInput, Prisma.MeaningUncheckedUpdateWithoutHypernymsTargetInput>
+}
+
+export type MeaningUpdateWithoutHypernymsTargetInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutHypernymsTargetInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningCreateWithoutHyponymsSourceInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutHyponymsSourceInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutHyponymsSourceInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHyponymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHyponymsSourceInput>
+}
+
+export type MeaningCreateWithoutHyponymsTargetInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutHyponymsTargetInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutHyponymsTargetInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHyponymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHyponymsTargetInput>
+}
+
+export type MeaningUpsertWithoutHyponymsSourceInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutHyponymsSourceInput, Prisma.MeaningUncheckedUpdateWithoutHyponymsSourceInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHyponymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHyponymsSourceInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutHyponymsSourceInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutHyponymsSourceInput, Prisma.MeaningUncheckedUpdateWithoutHyponymsSourceInput>
+}
+
+export type MeaningUpdateWithoutHyponymsSourceInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutHyponymsSourceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUpsertWithoutHyponymsTargetInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutHyponymsTargetInput, Prisma.MeaningUncheckedUpdateWithoutHyponymsTargetInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHyponymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHyponymsTargetInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutHyponymsTargetInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutHyponymsTargetInput, Prisma.MeaningUncheckedUpdateWithoutHyponymsTargetInput>
+}
+
+export type MeaningUpdateWithoutHyponymsTargetInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutHyponymsTargetInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningCreateWithoutMeronymsSourceInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutMeronymsSourceInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutMeronymsSourceInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutMeronymsSourceInput, Prisma.MeaningUncheckedCreateWithoutMeronymsSourceInput>
+}
+
+export type MeaningCreateWithoutMeronymsTargetInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutMeronymsTargetInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutMeronymsTargetInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutMeronymsTargetInput, Prisma.MeaningUncheckedCreateWithoutMeronymsTargetInput>
+}
+
+export type MeaningUpsertWithoutMeronymsSourceInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutMeronymsSourceInput, Prisma.MeaningUncheckedUpdateWithoutMeronymsSourceInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutMeronymsSourceInput, Prisma.MeaningUncheckedCreateWithoutMeronymsSourceInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutMeronymsSourceInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutMeronymsSourceInput, Prisma.MeaningUncheckedUpdateWithoutMeronymsSourceInput>
+}
+
+export type MeaningUpdateWithoutMeronymsSourceInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutMeronymsSourceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUpsertWithoutMeronymsTargetInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutMeronymsTargetInput, Prisma.MeaningUncheckedUpdateWithoutMeronymsTargetInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutMeronymsTargetInput, Prisma.MeaningUncheckedCreateWithoutMeronymsTargetInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutMeronymsTargetInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutMeronymsTargetInput, Prisma.MeaningUncheckedUpdateWithoutMeronymsTargetInput>
+}
+
+export type MeaningUpdateWithoutMeronymsTargetInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutMeronymsTargetInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningCreateWithoutHolonymsSourceInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutHolonymsSourceInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutHolonymsSourceInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHolonymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHolonymsSourceInput>
+}
+
+export type MeaningCreateWithoutHolonymsTargetInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutHolonymsTargetInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutHolonymsTargetInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHolonymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHolonymsTargetInput>
+}
+
+export type MeaningUpsertWithoutHolonymsSourceInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutHolonymsSourceInput, Prisma.MeaningUncheckedUpdateWithoutHolonymsSourceInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHolonymsSourceInput, Prisma.MeaningUncheckedCreateWithoutHolonymsSourceInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutHolonymsSourceInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutHolonymsSourceInput, Prisma.MeaningUncheckedUpdateWithoutHolonymsSourceInput>
+}
+
+export type MeaningUpdateWithoutHolonymsSourceInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutHolonymsSourceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUpsertWithoutHolonymsTargetInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutHolonymsTargetInput, Prisma.MeaningUncheckedUpdateWithoutHolonymsTargetInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutHolonymsTargetInput, Prisma.MeaningUncheckedCreateWithoutHolonymsTargetInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutHolonymsTargetInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutHolonymsTargetInput, Prisma.MeaningUncheckedUpdateWithoutHolonymsTargetInput>
+}
+
+export type MeaningUpdateWithoutHolonymsTargetInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutHolonymsTargetInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningCreateWithoutRelatedWordsSourceInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutRelatedWordsSourceInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutRelatedWordsSourceInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutRelatedWordsSourceInput, Prisma.MeaningUncheckedCreateWithoutRelatedWordsSourceInput>
+}
+
+export type MeaningCreateWithoutRelatedWordsTargetInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutRelatedWordsTargetInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutRelatedWordsTargetInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutRelatedWordsTargetInput, Prisma.MeaningUncheckedCreateWithoutRelatedWordsTargetInput>
+}
+
+export type MeaningUpsertWithoutRelatedWordsSourceInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutRelatedWordsSourceInput, Prisma.MeaningUncheckedUpdateWithoutRelatedWordsSourceInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutRelatedWordsSourceInput, Prisma.MeaningUncheckedCreateWithoutRelatedWordsSourceInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutRelatedWordsSourceInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutRelatedWordsSourceInput, Prisma.MeaningUncheckedUpdateWithoutRelatedWordsSourceInput>
+}
+
+export type MeaningUpdateWithoutRelatedWordsSourceInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutRelatedWordsSourceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUpsertWithoutRelatedWordsTargetInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutRelatedWordsTargetInput, Prisma.MeaningUncheckedUpdateWithoutRelatedWordsTargetInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutRelatedWordsTargetInput, Prisma.MeaningUncheckedCreateWithoutRelatedWordsTargetInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutRelatedWordsTargetInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutRelatedWordsTargetInput, Prisma.MeaningUncheckedUpdateWithoutRelatedWordsTargetInput>
+}
+
+export type MeaningUpdateWithoutRelatedWordsTargetInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutRelatedWordsTargetInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningCreateWithoutCausesSourceInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutCausesSourceInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutCausesSourceInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutCausesSourceInput, Prisma.MeaningUncheckedCreateWithoutCausesSourceInput>
+}
+
+export type MeaningCreateWithoutCausesTargetInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutCausesTargetInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutCausesTargetInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutCausesTargetInput, Prisma.MeaningUncheckedCreateWithoutCausesTargetInput>
+}
+
+export type MeaningUpsertWithoutCausesSourceInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutCausesSourceInput, Prisma.MeaningUncheckedUpdateWithoutCausesSourceInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutCausesSourceInput, Prisma.MeaningUncheckedCreateWithoutCausesSourceInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutCausesSourceInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutCausesSourceInput, Prisma.MeaningUncheckedUpdateWithoutCausesSourceInput>
+}
+
+export type MeaningUpdateWithoutCausesSourceInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutCausesSourceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUpsertWithoutCausesTargetInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutCausesTargetInput, Prisma.MeaningUncheckedUpdateWithoutCausesTargetInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutCausesTargetInput, Prisma.MeaningUncheckedCreateWithoutCausesTargetInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutCausesTargetInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutCausesTargetInput, Prisma.MeaningUncheckedUpdateWithoutCausesTargetInput>
+}
+
+export type MeaningUpdateWithoutCausesTargetInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutCausesTargetInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningCreateWithoutEffectsSourceInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutEffectsSourceInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutEffectsSourceInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutEffectsSourceInput, Prisma.MeaningUncheckedCreateWithoutEffectsSourceInput>
+}
+
+export type MeaningCreateWithoutEffectsTargetInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutEffectsTargetInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutEffectsTargetInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutEffectsTargetInput, Prisma.MeaningUncheckedCreateWithoutEffectsTargetInput>
+}
+
+export type MeaningUpsertWithoutEffectsSourceInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutEffectsSourceInput, Prisma.MeaningUncheckedUpdateWithoutEffectsSourceInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutEffectsSourceInput, Prisma.MeaningUncheckedCreateWithoutEffectsSourceInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutEffectsSourceInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutEffectsSourceInput, Prisma.MeaningUncheckedUpdateWithoutEffectsSourceInput>
+}
+
+export type MeaningUpdateWithoutEffectsSourceInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutEffectsSourceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUpsertWithoutEffectsTargetInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutEffectsTargetInput, Prisma.MeaningUncheckedUpdateWithoutEffectsTargetInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutEffectsTargetInput, Prisma.MeaningUncheckedCreateWithoutEffectsTargetInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutEffectsTargetInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutEffectsTargetInput, Prisma.MeaningUncheckedUpdateWithoutEffectsTargetInput>
+}
+
+export type MeaningUpdateWithoutEffectsTargetInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutEffectsTargetInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningCreateWithoutPremisesSourceInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutPremisesSourceInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutPremisesSourceInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutPremisesSourceInput, Prisma.MeaningUncheckedCreateWithoutPremisesSourceInput>
+}
+
+export type MeaningCreateWithoutPremisesTargetInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutPremisesTargetInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutPremisesTargetInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutPremisesTargetInput, Prisma.MeaningUncheckedCreateWithoutPremisesTargetInput>
+}
+
+export type MeaningUpsertWithoutPremisesSourceInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutPremisesSourceInput, Prisma.MeaningUncheckedUpdateWithoutPremisesSourceInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutPremisesSourceInput, Prisma.MeaningUncheckedCreateWithoutPremisesSourceInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutPremisesSourceInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutPremisesSourceInput, Prisma.MeaningUncheckedUpdateWithoutPremisesSourceInput>
+}
+
+export type MeaningUpdateWithoutPremisesSourceInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutPremisesSourceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUpsertWithoutPremisesTargetInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutPremisesTargetInput, Prisma.MeaningUncheckedUpdateWithoutPremisesTargetInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutPremisesTargetInput, Prisma.MeaningUncheckedCreateWithoutPremisesTargetInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutPremisesTargetInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutPremisesTargetInput, Prisma.MeaningUncheckedUpdateWithoutPremisesTargetInput>
+}
+
+export type MeaningUpdateWithoutPremisesTargetInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutPremisesTargetInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningCreateWithoutConclusionsSourceInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutConclusionsSourceInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutConclusionsSourceInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutConclusionsSourceInput, Prisma.MeaningUncheckedCreateWithoutConclusionsSourceInput>
+}
+
+export type MeaningCreateWithoutConclusionsTargetInput = {
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
+  en_word?: Prisma.EnCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningUncheckedCreateWithoutConclusionsTargetInput = {
+  id?: number
+  lexemeId: number
+  meaning?: string | null
+  examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
+  en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
+  ru_word?: Prisma.RuUncheckedCreateNestedManyWithoutWordInput
+  ru_mean?: Prisma.RuUncheckedCreateNestedManyWithoutMeaningInput
+  mk_word?: Prisma.MkUncheckedCreateNestedManyWithoutWordInput
+  mk_mean?: Prisma.MkUncheckedCreateNestedManyWithoutMeaningInput
+  sr_word?: Prisma.SrUncheckedCreateNestedManyWithoutWordInput
+  sr_mean?: Prisma.SrUncheckedCreateNestedManyWithoutMeaningInput
+  uk_word?: Prisma.UkUncheckedCreateNestedManyWithoutWordInput
+  uk_mean?: Prisma.UkUncheckedCreateNestedManyWithoutMeaningInput
+  bg_word?: Prisma.BgUncheckedCreateNestedManyWithoutWordInput
+  bg_mean?: Prisma.BgUncheckedCreateNestedManyWithoutMeaningInput
+  pl_word?: Prisma.PlUncheckedCreateNestedManyWithoutWordInput
+  pl_mean?: Prisma.PlUncheckedCreateNestedManyWithoutMeaningInput
+  be_word?: Prisma.BeUncheckedCreateNestedManyWithoutWordInput
+  be_mean?: Prisma.BeUncheckedCreateNestedManyWithoutMeaningInput
+  cs_word?: Prisma.CsUncheckedCreateNestedManyWithoutWordInput
+  cs_mean?: Prisma.CsUncheckedCreateNestedManyWithoutMeaningInput
+  sk_word?: Prisma.SkUncheckedCreateNestedManyWithoutWordInput
+  sk_mean?: Prisma.SkUncheckedCreateNestedManyWithoutMeaningInput
+  sl_word?: Prisma.SlUncheckedCreateNestedManyWithoutWordInput
+  sl_mean?: Prisma.SlUncheckedCreateNestedManyWithoutMeaningInput
+  hr_word?: Prisma.HrUncheckedCreateNestedManyWithoutWordInput
+  hr_mean?: Prisma.HrUncheckedCreateNestedManyWithoutMeaningInput
+  cu_word?: Prisma.CuUncheckedCreateNestedManyWithoutWordInput
+  cu_mean?: Prisma.CuUncheckedCreateNestedManyWithoutMeaningInput
+  de_word?: Prisma.DeUncheckedCreateNestedManyWithoutWordInput
+  de_mean?: Prisma.DeUncheckedCreateNestedManyWithoutMeaningInput
+  nl_word?: Prisma.NlUncheckedCreateNestedManyWithoutWordInput
+  nl_mean?: Prisma.NlUncheckedCreateNestedManyWithoutMeaningInput
+  eo_word?: Prisma.EoUncheckedCreateNestedManyWithoutWordInput
+  eo_mean?: Prisma.EoUncheckedCreateNestedManyWithoutMeaningInput
+  hsb_word?: Prisma.HsbUncheckedCreateNestedManyWithoutWordInput
+  hsb_mean?: Prisma.HsbUncheckedCreateNestedManyWithoutMeaningInput
+  dsb_word?: Prisma.DsbUncheckedCreateNestedManyWithoutWordInput
+  dsb_mean?: Prisma.DsbUncheckedCreateNestedManyWithoutMeaningInput
+  synonymsSource?: Prisma.SynonymUncheckedCreateNestedManyWithoutSourceInput
+  synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
+  antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
+  antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
+}
+
+export type MeaningCreateOrConnectWithoutConclusionsTargetInput = {
+  where: Prisma.MeaningWhereUniqueInput
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutConclusionsTargetInput, Prisma.MeaningUncheckedCreateWithoutConclusionsTargetInput>
+}
+
+export type MeaningUpsertWithoutConclusionsSourceInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutConclusionsSourceInput, Prisma.MeaningUncheckedUpdateWithoutConclusionsSourceInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutConclusionsSourceInput, Prisma.MeaningUncheckedCreateWithoutConclusionsSourceInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutConclusionsSourceInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutConclusionsSourceInput, Prisma.MeaningUncheckedUpdateWithoutConclusionsSourceInput>
+}
+
+export type MeaningUpdateWithoutConclusionsSourceInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutConclusionsSourceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
+  synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUpsertWithoutConclusionsTargetInput = {
+  update: Prisma.XOR<Prisma.MeaningUpdateWithoutConclusionsTargetInput, Prisma.MeaningUncheckedUpdateWithoutConclusionsTargetInput>
+  create: Prisma.XOR<Prisma.MeaningCreateWithoutConclusionsTargetInput, Prisma.MeaningUncheckedCreateWithoutConclusionsTargetInput>
+  where?: Prisma.MeaningWhereInput
+}
+
+export type MeaningUpdateToOneWithWhereWithoutConclusionsTargetInput = {
+  where?: Prisma.MeaningWhereInput
+  data: Prisma.XOR<Prisma.MeaningUpdateWithoutConclusionsTargetInput, Prisma.MeaningUncheckedUpdateWithoutConclusionsTargetInput>
+}
+
+export type MeaningUpdateWithoutConclusionsTargetInput = {
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
+  en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
+}
+
+export type MeaningUncheckedUpdateWithoutConclusionsTargetInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
+  meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
+  en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
+  ru_word?: Prisma.RuUncheckedUpdateManyWithoutWordNestedInput
+  ru_mean?: Prisma.RuUncheckedUpdateManyWithoutMeaningNestedInput
+  mk_word?: Prisma.MkUncheckedUpdateManyWithoutWordNestedInput
+  mk_mean?: Prisma.MkUncheckedUpdateManyWithoutMeaningNestedInput
+  sr_word?: Prisma.SrUncheckedUpdateManyWithoutWordNestedInput
+  sr_mean?: Prisma.SrUncheckedUpdateManyWithoutMeaningNestedInput
+  uk_word?: Prisma.UkUncheckedUpdateManyWithoutWordNestedInput
+  uk_mean?: Prisma.UkUncheckedUpdateManyWithoutMeaningNestedInput
+  bg_word?: Prisma.BgUncheckedUpdateManyWithoutWordNestedInput
+  bg_mean?: Prisma.BgUncheckedUpdateManyWithoutMeaningNestedInput
+  pl_word?: Prisma.PlUncheckedUpdateManyWithoutWordNestedInput
+  pl_mean?: Prisma.PlUncheckedUpdateManyWithoutMeaningNestedInput
+  be_word?: Prisma.BeUncheckedUpdateManyWithoutWordNestedInput
+  be_mean?: Prisma.BeUncheckedUpdateManyWithoutMeaningNestedInput
+  cs_word?: Prisma.CsUncheckedUpdateManyWithoutWordNestedInput
+  cs_mean?: Prisma.CsUncheckedUpdateManyWithoutMeaningNestedInput
+  sk_word?: Prisma.SkUncheckedUpdateManyWithoutWordNestedInput
+  sk_mean?: Prisma.SkUncheckedUpdateManyWithoutMeaningNestedInput
+  sl_word?: Prisma.SlUncheckedUpdateManyWithoutWordNestedInput
+  sl_mean?: Prisma.SlUncheckedUpdateManyWithoutMeaningNestedInput
+  hr_word?: Prisma.HrUncheckedUpdateManyWithoutWordNestedInput
+  hr_mean?: Prisma.HrUncheckedUpdateManyWithoutMeaningNestedInput
+  cu_word?: Prisma.CuUncheckedUpdateManyWithoutWordNestedInput
+  cu_mean?: Prisma.CuUncheckedUpdateManyWithoutMeaningNestedInput
+  de_word?: Prisma.DeUncheckedUpdateManyWithoutWordNestedInput
+  de_mean?: Prisma.DeUncheckedUpdateManyWithoutMeaningNestedInput
+  nl_word?: Prisma.NlUncheckedUpdateManyWithoutWordNestedInput
+  nl_mean?: Prisma.NlUncheckedUpdateManyWithoutMeaningNestedInput
+  eo_word?: Prisma.EoUncheckedUpdateManyWithoutWordNestedInput
+  eo_mean?: Prisma.EoUncheckedUpdateManyWithoutMeaningNestedInput
+  hsb_word?: Prisma.HsbUncheckedUpdateManyWithoutWordNestedInput
+  hsb_mean?: Prisma.HsbUncheckedUpdateManyWithoutMeaningNestedInput
+  dsb_word?: Prisma.DsbUncheckedUpdateManyWithoutWordNestedInput
+  dsb_mean?: Prisma.DsbUncheckedUpdateManyWithoutMeaningNestedInput
+  synonymsSource?: Prisma.SynonymUncheckedUpdateManyWithoutSourceNestedInput
+  synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
+  antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
+  antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutEn_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -2398,6 +8680,24 @@ export type MeaningCreateWithoutEn_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -2406,6 +8706,10 @@ export type MeaningUncheckedCreateWithoutEn_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_mean?: Prisma.EnUncheckedCreateNestedManyWithoutMeaningInput
@@ -2447,6 +8751,24 @@ export type MeaningUncheckedCreateWithoutEn_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -2458,6 +8780,10 @@ export type MeaningCreateOrConnectWithoutEn_wordInput = {
 export type MeaningCreateWithoutEn_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -2500,6 +8826,24 @@ export type MeaningCreateWithoutEn_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -2508,6 +8852,10 @@ export type MeaningUncheckedCreateWithoutEn_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -2549,6 +8897,24 @@ export type MeaningUncheckedCreateWithoutEn_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -2571,6 +8937,10 @@ export type MeaningUpdateToOneWithWhereWithoutEn_wordInput = {
 export type MeaningUpdateWithoutEn_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -2613,6 +8983,24 @@ export type MeaningUpdateWithoutEn_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -2621,6 +9009,10 @@ export type MeaningUncheckedUpdateWithoutEn_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_mean?: Prisma.EnUncheckedUpdateManyWithoutMeaningNestedInput
@@ -2662,6 +9054,24 @@ export type MeaningUncheckedUpdateWithoutEn_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -2679,6 +9089,10 @@ export type MeaningUpdateToOneWithWhereWithoutEn_meanInput = {
 export type MeaningUpdateWithoutEn_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -2721,6 +9135,24 @@ export type MeaningUpdateWithoutEn_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -2729,6 +9161,10 @@ export type MeaningUncheckedUpdateWithoutEn_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -2770,12 +9206,34 @@ export type MeaningUncheckedUpdateWithoutEn_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutRu_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -2818,6 +9276,24 @@ export type MeaningCreateWithoutRu_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -2826,6 +9302,10 @@ export type MeaningUncheckedCreateWithoutRu_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -2867,6 +9347,24 @@ export type MeaningUncheckedCreateWithoutRu_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -2878,6 +9376,10 @@ export type MeaningCreateOrConnectWithoutRu_wordInput = {
 export type MeaningCreateWithoutRu_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -2920,6 +9422,24 @@ export type MeaningCreateWithoutRu_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -2928,6 +9448,10 @@ export type MeaningUncheckedCreateWithoutRu_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -2969,6 +9493,24 @@ export type MeaningUncheckedCreateWithoutRu_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -2991,6 +9533,10 @@ export type MeaningUpdateToOneWithWhereWithoutRu_wordInput = {
 export type MeaningUpdateWithoutRu_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -3033,6 +9579,24 @@ export type MeaningUpdateWithoutRu_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -3041,6 +9605,10 @@ export type MeaningUncheckedUpdateWithoutRu_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -3082,6 +9650,24 @@ export type MeaningUncheckedUpdateWithoutRu_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -3099,6 +9685,10 @@ export type MeaningUpdateToOneWithWhereWithoutRu_meanInput = {
 export type MeaningUpdateWithoutRu_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -3141,6 +9731,24 @@ export type MeaningUpdateWithoutRu_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -3149,6 +9757,10 @@ export type MeaningUncheckedUpdateWithoutRu_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -3190,12 +9802,34 @@ export type MeaningUncheckedUpdateWithoutRu_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutMk_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -3238,6 +9872,24 @@ export type MeaningCreateWithoutMk_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -3246,6 +9898,10 @@ export type MeaningUncheckedCreateWithoutMk_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -3287,6 +9943,24 @@ export type MeaningUncheckedCreateWithoutMk_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -3298,6 +9972,10 @@ export type MeaningCreateOrConnectWithoutMk_wordInput = {
 export type MeaningCreateWithoutMk_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -3340,6 +10018,24 @@ export type MeaningCreateWithoutMk_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -3348,6 +10044,10 @@ export type MeaningUncheckedCreateWithoutMk_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -3389,6 +10089,24 @@ export type MeaningUncheckedCreateWithoutMk_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -3411,6 +10129,10 @@ export type MeaningUpdateToOneWithWhereWithoutMk_wordInput = {
 export type MeaningUpdateWithoutMk_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -3453,6 +10175,24 @@ export type MeaningUpdateWithoutMk_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -3461,6 +10201,10 @@ export type MeaningUncheckedUpdateWithoutMk_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -3502,6 +10246,24 @@ export type MeaningUncheckedUpdateWithoutMk_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -3519,6 +10281,10 @@ export type MeaningUpdateToOneWithWhereWithoutMk_meanInput = {
 export type MeaningUpdateWithoutMk_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -3561,6 +10327,24 @@ export type MeaningUpdateWithoutMk_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -3569,6 +10353,10 @@ export type MeaningUncheckedUpdateWithoutMk_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -3610,12 +10398,34 @@ export type MeaningUncheckedUpdateWithoutMk_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutSr_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -3658,6 +10468,24 @@ export type MeaningCreateWithoutSr_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -3666,6 +10494,10 @@ export type MeaningUncheckedCreateWithoutSr_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -3707,6 +10539,24 @@ export type MeaningUncheckedCreateWithoutSr_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -3718,6 +10568,10 @@ export type MeaningCreateOrConnectWithoutSr_wordInput = {
 export type MeaningCreateWithoutSr_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -3760,6 +10614,24 @@ export type MeaningCreateWithoutSr_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -3768,6 +10640,10 @@ export type MeaningUncheckedCreateWithoutSr_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -3809,6 +10685,24 @@ export type MeaningUncheckedCreateWithoutSr_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -3831,6 +10725,10 @@ export type MeaningUpdateToOneWithWhereWithoutSr_wordInput = {
 export type MeaningUpdateWithoutSr_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -3873,6 +10771,24 @@ export type MeaningUpdateWithoutSr_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -3881,6 +10797,10 @@ export type MeaningUncheckedUpdateWithoutSr_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -3922,6 +10842,24 @@ export type MeaningUncheckedUpdateWithoutSr_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -3939,6 +10877,10 @@ export type MeaningUpdateToOneWithWhereWithoutSr_meanInput = {
 export type MeaningUpdateWithoutSr_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -3981,6 +10923,24 @@ export type MeaningUpdateWithoutSr_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -3989,6 +10949,10 @@ export type MeaningUncheckedUpdateWithoutSr_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -4030,12 +10994,34 @@ export type MeaningUncheckedUpdateWithoutSr_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutUk_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -4078,6 +11064,24 @@ export type MeaningCreateWithoutUk_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -4086,6 +11090,10 @@ export type MeaningUncheckedCreateWithoutUk_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -4127,6 +11135,24 @@ export type MeaningUncheckedCreateWithoutUk_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -4138,6 +11164,10 @@ export type MeaningCreateOrConnectWithoutUk_wordInput = {
 export type MeaningCreateWithoutUk_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -4180,6 +11210,24 @@ export type MeaningCreateWithoutUk_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -4188,6 +11236,10 @@ export type MeaningUncheckedCreateWithoutUk_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -4229,6 +11281,24 @@ export type MeaningUncheckedCreateWithoutUk_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -4251,6 +11321,10 @@ export type MeaningUpdateToOneWithWhereWithoutUk_wordInput = {
 export type MeaningUpdateWithoutUk_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -4293,6 +11367,24 @@ export type MeaningUpdateWithoutUk_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -4301,6 +11393,10 @@ export type MeaningUncheckedUpdateWithoutUk_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -4342,6 +11438,24 @@ export type MeaningUncheckedUpdateWithoutUk_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -4359,6 +11473,10 @@ export type MeaningUpdateToOneWithWhereWithoutUk_meanInput = {
 export type MeaningUpdateWithoutUk_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -4401,6 +11519,24 @@ export type MeaningUpdateWithoutUk_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -4409,6 +11545,10 @@ export type MeaningUncheckedUpdateWithoutUk_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -4450,12 +11590,34 @@ export type MeaningUncheckedUpdateWithoutUk_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutBg_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -4498,6 +11660,24 @@ export type MeaningCreateWithoutBg_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -4506,6 +11686,10 @@ export type MeaningUncheckedCreateWithoutBg_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -4547,6 +11731,24 @@ export type MeaningUncheckedCreateWithoutBg_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -4558,6 +11760,10 @@ export type MeaningCreateOrConnectWithoutBg_wordInput = {
 export type MeaningCreateWithoutBg_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -4600,6 +11806,24 @@ export type MeaningCreateWithoutBg_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -4608,6 +11832,10 @@ export type MeaningUncheckedCreateWithoutBg_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -4649,6 +11877,24 @@ export type MeaningUncheckedCreateWithoutBg_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -4671,6 +11917,10 @@ export type MeaningUpdateToOneWithWhereWithoutBg_wordInput = {
 export type MeaningUpdateWithoutBg_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -4713,6 +11963,24 @@ export type MeaningUpdateWithoutBg_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -4721,6 +11989,10 @@ export type MeaningUncheckedUpdateWithoutBg_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -4762,6 +12034,24 @@ export type MeaningUncheckedUpdateWithoutBg_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -4779,6 +12069,10 @@ export type MeaningUpdateToOneWithWhereWithoutBg_meanInput = {
 export type MeaningUpdateWithoutBg_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -4821,6 +12115,24 @@ export type MeaningUpdateWithoutBg_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -4829,6 +12141,10 @@ export type MeaningUncheckedUpdateWithoutBg_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -4870,12 +12186,34 @@ export type MeaningUncheckedUpdateWithoutBg_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutPl_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -4918,6 +12256,24 @@ export type MeaningCreateWithoutPl_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -4926,6 +12282,10 @@ export type MeaningUncheckedCreateWithoutPl_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -4967,6 +12327,24 @@ export type MeaningUncheckedCreateWithoutPl_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -4978,6 +12356,10 @@ export type MeaningCreateOrConnectWithoutPl_wordInput = {
 export type MeaningCreateWithoutPl_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -5020,6 +12402,24 @@ export type MeaningCreateWithoutPl_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -5028,6 +12428,10 @@ export type MeaningUncheckedCreateWithoutPl_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -5069,6 +12473,24 @@ export type MeaningUncheckedCreateWithoutPl_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -5091,6 +12513,10 @@ export type MeaningUpdateToOneWithWhereWithoutPl_wordInput = {
 export type MeaningUpdateWithoutPl_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -5133,6 +12559,24 @@ export type MeaningUpdateWithoutPl_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -5141,6 +12585,10 @@ export type MeaningUncheckedUpdateWithoutPl_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -5182,6 +12630,24 @@ export type MeaningUncheckedUpdateWithoutPl_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -5199,6 +12665,10 @@ export type MeaningUpdateToOneWithWhereWithoutPl_meanInput = {
 export type MeaningUpdateWithoutPl_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -5241,6 +12711,24 @@ export type MeaningUpdateWithoutPl_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -5249,6 +12737,10 @@ export type MeaningUncheckedUpdateWithoutPl_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -5290,12 +12782,34 @@ export type MeaningUncheckedUpdateWithoutPl_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutBe_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -5338,6 +12852,24 @@ export type MeaningCreateWithoutBe_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -5346,6 +12878,10 @@ export type MeaningUncheckedCreateWithoutBe_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -5387,6 +12923,24 @@ export type MeaningUncheckedCreateWithoutBe_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -5398,6 +12952,10 @@ export type MeaningCreateOrConnectWithoutBe_wordInput = {
 export type MeaningCreateWithoutBe_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -5440,6 +12998,24 @@ export type MeaningCreateWithoutBe_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -5448,6 +13024,10 @@ export type MeaningUncheckedCreateWithoutBe_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -5489,6 +13069,24 @@ export type MeaningUncheckedCreateWithoutBe_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -5511,6 +13109,10 @@ export type MeaningUpdateToOneWithWhereWithoutBe_wordInput = {
 export type MeaningUpdateWithoutBe_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -5553,6 +13155,24 @@ export type MeaningUpdateWithoutBe_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -5561,6 +13181,10 @@ export type MeaningUncheckedUpdateWithoutBe_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -5602,6 +13226,24 @@ export type MeaningUncheckedUpdateWithoutBe_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -5619,6 +13261,10 @@ export type MeaningUpdateToOneWithWhereWithoutBe_meanInput = {
 export type MeaningUpdateWithoutBe_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -5661,6 +13307,24 @@ export type MeaningUpdateWithoutBe_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -5669,6 +13333,10 @@ export type MeaningUncheckedUpdateWithoutBe_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -5710,12 +13378,34 @@ export type MeaningUncheckedUpdateWithoutBe_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutCs_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -5758,6 +13448,24 @@ export type MeaningCreateWithoutCs_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -5766,6 +13474,10 @@ export type MeaningUncheckedCreateWithoutCs_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -5807,6 +13519,24 @@ export type MeaningUncheckedCreateWithoutCs_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -5818,6 +13548,10 @@ export type MeaningCreateOrConnectWithoutCs_wordInput = {
 export type MeaningCreateWithoutCs_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -5860,6 +13594,24 @@ export type MeaningCreateWithoutCs_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -5868,6 +13620,10 @@ export type MeaningUncheckedCreateWithoutCs_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -5909,6 +13665,24 @@ export type MeaningUncheckedCreateWithoutCs_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -5931,6 +13705,10 @@ export type MeaningUpdateToOneWithWhereWithoutCs_wordInput = {
 export type MeaningUpdateWithoutCs_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -5973,6 +13751,24 @@ export type MeaningUpdateWithoutCs_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -5981,6 +13777,10 @@ export type MeaningUncheckedUpdateWithoutCs_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -6022,6 +13822,24 @@ export type MeaningUncheckedUpdateWithoutCs_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -6039,6 +13857,10 @@ export type MeaningUpdateToOneWithWhereWithoutCs_meanInput = {
 export type MeaningUpdateWithoutCs_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -6081,6 +13903,24 @@ export type MeaningUpdateWithoutCs_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -6089,6 +13929,10 @@ export type MeaningUncheckedUpdateWithoutCs_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -6130,12 +13974,34 @@ export type MeaningUncheckedUpdateWithoutCs_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutSk_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -6178,6 +14044,24 @@ export type MeaningCreateWithoutSk_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -6186,6 +14070,10 @@ export type MeaningUncheckedCreateWithoutSk_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -6227,6 +14115,24 @@ export type MeaningUncheckedCreateWithoutSk_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -6238,6 +14144,10 @@ export type MeaningCreateOrConnectWithoutSk_wordInput = {
 export type MeaningCreateWithoutSk_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -6280,6 +14190,24 @@ export type MeaningCreateWithoutSk_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -6288,6 +14216,10 @@ export type MeaningUncheckedCreateWithoutSk_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -6329,6 +14261,24 @@ export type MeaningUncheckedCreateWithoutSk_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -6351,6 +14301,10 @@ export type MeaningUpdateToOneWithWhereWithoutSk_wordInput = {
 export type MeaningUpdateWithoutSk_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -6393,6 +14347,24 @@ export type MeaningUpdateWithoutSk_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -6401,6 +14373,10 @@ export type MeaningUncheckedUpdateWithoutSk_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -6442,6 +14418,24 @@ export type MeaningUncheckedUpdateWithoutSk_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -6459,6 +14453,10 @@ export type MeaningUpdateToOneWithWhereWithoutSk_meanInput = {
 export type MeaningUpdateWithoutSk_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -6501,6 +14499,24 @@ export type MeaningUpdateWithoutSk_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -6509,6 +14525,10 @@ export type MeaningUncheckedUpdateWithoutSk_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -6550,12 +14570,34 @@ export type MeaningUncheckedUpdateWithoutSk_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutSl_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -6598,6 +14640,24 @@ export type MeaningCreateWithoutSl_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -6606,6 +14666,10 @@ export type MeaningUncheckedCreateWithoutSl_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -6647,6 +14711,24 @@ export type MeaningUncheckedCreateWithoutSl_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -6658,6 +14740,10 @@ export type MeaningCreateOrConnectWithoutSl_wordInput = {
 export type MeaningCreateWithoutSl_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -6700,6 +14786,24 @@ export type MeaningCreateWithoutSl_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -6708,6 +14812,10 @@ export type MeaningUncheckedCreateWithoutSl_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -6749,6 +14857,24 @@ export type MeaningUncheckedCreateWithoutSl_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -6771,6 +14897,10 @@ export type MeaningUpdateToOneWithWhereWithoutSl_wordInput = {
 export type MeaningUpdateWithoutSl_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -6813,6 +14943,24 @@ export type MeaningUpdateWithoutSl_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -6821,6 +14969,10 @@ export type MeaningUncheckedUpdateWithoutSl_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -6862,6 +15014,24 @@ export type MeaningUncheckedUpdateWithoutSl_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -6879,6 +15049,10 @@ export type MeaningUpdateToOneWithWhereWithoutSl_meanInput = {
 export type MeaningUpdateWithoutSl_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -6921,6 +15095,24 @@ export type MeaningUpdateWithoutSl_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -6929,6 +15121,10 @@ export type MeaningUncheckedUpdateWithoutSl_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -6970,12 +15166,34 @@ export type MeaningUncheckedUpdateWithoutSl_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutHr_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -7018,6 +15236,24 @@ export type MeaningCreateWithoutHr_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -7026,6 +15262,10 @@ export type MeaningUncheckedCreateWithoutHr_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -7067,6 +15307,24 @@ export type MeaningUncheckedCreateWithoutHr_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -7078,6 +15336,10 @@ export type MeaningCreateOrConnectWithoutHr_wordInput = {
 export type MeaningCreateWithoutHr_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -7120,6 +15382,24 @@ export type MeaningCreateWithoutHr_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -7128,6 +15408,10 @@ export type MeaningUncheckedCreateWithoutHr_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -7169,6 +15453,24 @@ export type MeaningUncheckedCreateWithoutHr_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -7191,6 +15493,10 @@ export type MeaningUpdateToOneWithWhereWithoutHr_wordInput = {
 export type MeaningUpdateWithoutHr_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -7233,6 +15539,24 @@ export type MeaningUpdateWithoutHr_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -7241,6 +15565,10 @@ export type MeaningUncheckedUpdateWithoutHr_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -7282,6 +15610,24 @@ export type MeaningUncheckedUpdateWithoutHr_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -7299,6 +15645,10 @@ export type MeaningUpdateToOneWithWhereWithoutHr_meanInput = {
 export type MeaningUpdateWithoutHr_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -7341,6 +15691,24 @@ export type MeaningUpdateWithoutHr_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -7349,6 +15717,10 @@ export type MeaningUncheckedUpdateWithoutHr_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -7390,12 +15762,34 @@ export type MeaningUncheckedUpdateWithoutHr_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutCu_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -7438,6 +15832,24 @@ export type MeaningCreateWithoutCu_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -7446,6 +15858,10 @@ export type MeaningUncheckedCreateWithoutCu_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -7487,6 +15903,24 @@ export type MeaningUncheckedCreateWithoutCu_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -7498,6 +15932,10 @@ export type MeaningCreateOrConnectWithoutCu_wordInput = {
 export type MeaningCreateWithoutCu_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -7540,6 +15978,24 @@ export type MeaningCreateWithoutCu_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -7548,6 +16004,10 @@ export type MeaningUncheckedCreateWithoutCu_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -7589,6 +16049,24 @@ export type MeaningUncheckedCreateWithoutCu_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -7611,6 +16089,10 @@ export type MeaningUpdateToOneWithWhereWithoutCu_wordInput = {
 export type MeaningUpdateWithoutCu_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -7653,6 +16135,24 @@ export type MeaningUpdateWithoutCu_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -7661,6 +16161,10 @@ export type MeaningUncheckedUpdateWithoutCu_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -7702,6 +16206,24 @@ export type MeaningUncheckedUpdateWithoutCu_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -7719,6 +16241,10 @@ export type MeaningUpdateToOneWithWhereWithoutCu_meanInput = {
 export type MeaningUpdateWithoutCu_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -7761,6 +16287,24 @@ export type MeaningUpdateWithoutCu_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -7769,6 +16313,10 @@ export type MeaningUncheckedUpdateWithoutCu_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -7810,12 +16358,34 @@ export type MeaningUncheckedUpdateWithoutCu_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutDe_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -7858,6 +16428,24 @@ export type MeaningCreateWithoutDe_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -7866,6 +16454,10 @@ export type MeaningUncheckedCreateWithoutDe_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -7907,6 +16499,24 @@ export type MeaningUncheckedCreateWithoutDe_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -7918,6 +16528,10 @@ export type MeaningCreateOrConnectWithoutDe_wordInput = {
 export type MeaningCreateWithoutDe_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -7960,6 +16574,24 @@ export type MeaningCreateWithoutDe_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -7968,6 +16600,10 @@ export type MeaningUncheckedCreateWithoutDe_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -8009,6 +16645,24 @@ export type MeaningUncheckedCreateWithoutDe_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -8031,6 +16685,10 @@ export type MeaningUpdateToOneWithWhereWithoutDe_wordInput = {
 export type MeaningUpdateWithoutDe_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -8073,6 +16731,24 @@ export type MeaningUpdateWithoutDe_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -8081,6 +16757,10 @@ export type MeaningUncheckedUpdateWithoutDe_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -8122,6 +16802,24 @@ export type MeaningUncheckedUpdateWithoutDe_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -8139,6 +16837,10 @@ export type MeaningUpdateToOneWithWhereWithoutDe_meanInput = {
 export type MeaningUpdateWithoutDe_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -8181,6 +16883,24 @@ export type MeaningUpdateWithoutDe_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -8189,6 +16909,10 @@ export type MeaningUncheckedUpdateWithoutDe_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -8230,12 +16954,34 @@ export type MeaningUncheckedUpdateWithoutDe_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutNl_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -8278,6 +17024,24 @@ export type MeaningCreateWithoutNl_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -8286,6 +17050,10 @@ export type MeaningUncheckedCreateWithoutNl_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -8327,6 +17095,24 @@ export type MeaningUncheckedCreateWithoutNl_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -8338,6 +17124,10 @@ export type MeaningCreateOrConnectWithoutNl_wordInput = {
 export type MeaningCreateWithoutNl_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -8380,6 +17170,24 @@ export type MeaningCreateWithoutNl_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -8388,6 +17196,10 @@ export type MeaningUncheckedCreateWithoutNl_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -8429,6 +17241,24 @@ export type MeaningUncheckedCreateWithoutNl_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -8451,6 +17281,10 @@ export type MeaningUpdateToOneWithWhereWithoutNl_wordInput = {
 export type MeaningUpdateWithoutNl_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -8493,6 +17327,24 @@ export type MeaningUpdateWithoutNl_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -8501,6 +17353,10 @@ export type MeaningUncheckedUpdateWithoutNl_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -8542,6 +17398,24 @@ export type MeaningUncheckedUpdateWithoutNl_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -8559,6 +17433,10 @@ export type MeaningUpdateToOneWithWhereWithoutNl_meanInput = {
 export type MeaningUpdateWithoutNl_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -8601,6 +17479,24 @@ export type MeaningUpdateWithoutNl_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -8609,6 +17505,10 @@ export type MeaningUncheckedUpdateWithoutNl_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -8650,12 +17550,34 @@ export type MeaningUncheckedUpdateWithoutNl_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutEo_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -8698,6 +17620,24 @@ export type MeaningCreateWithoutEo_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -8706,6 +17646,10 @@ export type MeaningUncheckedCreateWithoutEo_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -8747,6 +17691,24 @@ export type MeaningUncheckedCreateWithoutEo_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -8758,6 +17720,10 @@ export type MeaningCreateOrConnectWithoutEo_wordInput = {
 export type MeaningCreateWithoutEo_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -8800,6 +17766,24 @@ export type MeaningCreateWithoutEo_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -8808,6 +17792,10 @@ export type MeaningUncheckedCreateWithoutEo_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -8849,6 +17837,24 @@ export type MeaningUncheckedCreateWithoutEo_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -8871,6 +17877,10 @@ export type MeaningUpdateToOneWithWhereWithoutEo_wordInput = {
 export type MeaningUpdateWithoutEo_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -8913,6 +17923,24 @@ export type MeaningUpdateWithoutEo_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -8921,6 +17949,10 @@ export type MeaningUncheckedUpdateWithoutEo_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -8962,6 +17994,24 @@ export type MeaningUncheckedUpdateWithoutEo_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -8979,6 +18029,10 @@ export type MeaningUpdateToOneWithWhereWithoutEo_meanInput = {
 export type MeaningUpdateWithoutEo_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -9021,6 +18075,24 @@ export type MeaningUpdateWithoutEo_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -9029,6 +18101,10 @@ export type MeaningUncheckedUpdateWithoutEo_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -9070,12 +18146,34 @@ export type MeaningUncheckedUpdateWithoutEo_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutHsb_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -9118,6 +18216,24 @@ export type MeaningCreateWithoutHsb_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -9126,6 +18242,10 @@ export type MeaningUncheckedCreateWithoutHsb_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -9167,6 +18287,24 @@ export type MeaningUncheckedCreateWithoutHsb_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -9178,6 +18316,10 @@ export type MeaningCreateOrConnectWithoutHsb_wordInput = {
 export type MeaningCreateWithoutHsb_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -9220,6 +18362,24 @@ export type MeaningCreateWithoutHsb_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -9228,6 +18388,10 @@ export type MeaningUncheckedCreateWithoutHsb_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -9269,6 +18433,24 @@ export type MeaningUncheckedCreateWithoutHsb_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -9291,6 +18473,10 @@ export type MeaningUpdateToOneWithWhereWithoutHsb_wordInput = {
 export type MeaningUpdateWithoutHsb_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -9333,6 +18519,24 @@ export type MeaningUpdateWithoutHsb_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -9341,6 +18545,10 @@ export type MeaningUncheckedUpdateWithoutHsb_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -9382,6 +18590,24 @@ export type MeaningUncheckedUpdateWithoutHsb_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -9399,6 +18625,10 @@ export type MeaningUpdateToOneWithWhereWithoutHsb_meanInput = {
 export type MeaningUpdateWithoutHsb_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -9441,6 +18671,24 @@ export type MeaningUpdateWithoutHsb_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -9449,6 +18697,10 @@ export type MeaningUncheckedUpdateWithoutHsb_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -9490,12 +18742,34 @@ export type MeaningUncheckedUpdateWithoutHsb_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutDsb_wordInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -9538,6 +18812,24 @@ export type MeaningCreateWithoutDsb_wordInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -9546,6 +18838,10 @@ export type MeaningUncheckedCreateWithoutDsb_wordInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -9587,6 +18883,24 @@ export type MeaningUncheckedCreateWithoutDsb_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -9598,6 +18912,10 @@ export type MeaningCreateOrConnectWithoutDsb_wordInput = {
 export type MeaningCreateWithoutDsb_meanInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -9640,6 +18958,24 @@ export type MeaningCreateWithoutDsb_meanInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetCreateNestedManyWithoutMeaningInput
 }
 
@@ -9648,6 +18984,10 @@ export type MeaningUncheckedCreateWithoutDsb_meanInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -9689,6 +19029,24 @@ export type MeaningUncheckedCreateWithoutDsb_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
   synsets?: Prisma.MeaningSynsetUncheckedCreateNestedManyWithoutMeaningInput
 }
 
@@ -9711,6 +19069,10 @@ export type MeaningUpdateToOneWithWhereWithoutDsb_wordInput = {
 export type MeaningUpdateWithoutDsb_wordInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -9753,6 +19115,24 @@ export type MeaningUpdateWithoutDsb_wordInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -9761,6 +19141,10 @@ export type MeaningUncheckedUpdateWithoutDsb_wordInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -9802,6 +19186,24 @@ export type MeaningUncheckedUpdateWithoutDsb_wordInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -9819,6 +19221,10 @@ export type MeaningUpdateToOneWithWhereWithoutDsb_meanInput = {
 export type MeaningUpdateWithoutDsb_meanInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -9861,6 +19267,24 @@ export type MeaningUpdateWithoutDsb_meanInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -9869,6 +19293,10 @@ export type MeaningUncheckedUpdateWithoutDsb_meanInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -9910,12 +19338,34 @@ export type MeaningUncheckedUpdateWithoutDsb_meanInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
 export type MeaningCreateWithoutSynsetsInput = {
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   lexeme: Prisma.LexemeCreateNestedOneWithoutMeaningsInput
@@ -9959,6 +19409,24 @@ export type MeaningCreateWithoutSynsetsInput = {
   synonymsTarget?: Prisma.SynonymCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionCreateNestedManyWithoutTargetInput
 }
 
 export type MeaningUncheckedCreateWithoutSynsetsInput = {
@@ -9966,6 +19434,10 @@ export type MeaningUncheckedCreateWithoutSynsetsInput = {
   lexemeId: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   en_word?: Prisma.EnUncheckedCreateNestedManyWithoutWordInput
@@ -10008,6 +19480,24 @@ export type MeaningUncheckedCreateWithoutSynsetsInput = {
   synonymsTarget?: Prisma.SynonymUncheckedCreateNestedManyWithoutTargetInput
   antonymsSource?: Prisma.AntonymUncheckedCreateNestedManyWithoutSourceInput
   antonymsTarget?: Prisma.AntonymUncheckedCreateNestedManyWithoutTargetInput
+  hypernymsSource?: Prisma.HypernymUncheckedCreateNestedManyWithoutSourceInput
+  hypernymsTarget?: Prisma.HypernymUncheckedCreateNestedManyWithoutTargetInput
+  hyponymsSource?: Prisma.HyponymUncheckedCreateNestedManyWithoutSourceInput
+  hyponymsTarget?: Prisma.HyponymUncheckedCreateNestedManyWithoutTargetInput
+  meronymsSource?: Prisma.MeronymUncheckedCreateNestedManyWithoutSourceInput
+  meronymsTarget?: Prisma.MeronymUncheckedCreateNestedManyWithoutTargetInput
+  holonymsSource?: Prisma.HolonymUncheckedCreateNestedManyWithoutSourceInput
+  holonymsTarget?: Prisma.HolonymUncheckedCreateNestedManyWithoutTargetInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutSourceInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedCreateNestedManyWithoutTargetInput
+  causesSource?: Prisma.CauseUncheckedCreateNestedManyWithoutSourceInput
+  causesTarget?: Prisma.CauseUncheckedCreateNestedManyWithoutTargetInput
+  effectsSource?: Prisma.EffectUncheckedCreateNestedManyWithoutSourceInput
+  effectsTarget?: Prisma.EffectUncheckedCreateNestedManyWithoutTargetInput
+  premisesSource?: Prisma.PremiseUncheckedCreateNestedManyWithoutSourceInput
+  premisesTarget?: Prisma.PremiseUncheckedCreateNestedManyWithoutTargetInput
+  conclusionsSource?: Prisma.ConclusionUncheckedCreateNestedManyWithoutSourceInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedCreateNestedManyWithoutTargetInput
 }
 
 export type MeaningCreateOrConnectWithoutSynsetsInput = {
@@ -10029,6 +19519,10 @@ export type MeaningUpdateToOneWithWhereWithoutSynsetsInput = {
 export type MeaningUpdateWithoutSynsetsInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lexeme?: Prisma.LexemeUpdateOneRequiredWithoutMeaningsNestedInput
@@ -10072,6 +19566,24 @@ export type MeaningUpdateWithoutSynsetsInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
 }
 
 export type MeaningUncheckedUpdateWithoutSynsetsInput = {
@@ -10079,6 +19591,10 @@ export type MeaningUncheckedUpdateWithoutSynsetsInput = {
   lexemeId?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -10121,12 +19637,34 @@ export type MeaningUncheckedUpdateWithoutSynsetsInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
 }
 
 export type MeaningCreateManyLexemeInput = {
   id?: number
   meaning?: string | null
   examples?: string | null
+  meaningVeryfied?: number | null
+  meaningMessage?: string | null
+  examplesVeryfied?: number | null
+  examplesMessage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -10134,6 +19672,10 @@ export type MeaningCreateManyLexemeInput = {
 export type MeaningUpdateWithoutLexemeInput = {
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUpdateManyWithoutWordNestedInput
@@ -10176,6 +19718,24 @@ export type MeaningUpdateWithoutLexemeInput = {
   synonymsTarget?: Prisma.SynonymUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUpdateManyWithoutMeaningNestedInput
 }
 
@@ -10183,6 +19743,10 @@ export type MeaningUncheckedUpdateWithoutLexemeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   en_word?: Prisma.EnUncheckedUpdateManyWithoutWordNestedInput
@@ -10225,6 +19789,24 @@ export type MeaningUncheckedUpdateWithoutLexemeInput = {
   synonymsTarget?: Prisma.SynonymUncheckedUpdateManyWithoutTargetNestedInput
   antonymsSource?: Prisma.AntonymUncheckedUpdateManyWithoutSourceNestedInput
   antonymsTarget?: Prisma.AntonymUncheckedUpdateManyWithoutTargetNestedInput
+  hypernymsSource?: Prisma.HypernymUncheckedUpdateManyWithoutSourceNestedInput
+  hypernymsTarget?: Prisma.HypernymUncheckedUpdateManyWithoutTargetNestedInput
+  hyponymsSource?: Prisma.HyponymUncheckedUpdateManyWithoutSourceNestedInput
+  hyponymsTarget?: Prisma.HyponymUncheckedUpdateManyWithoutTargetNestedInput
+  meronymsSource?: Prisma.MeronymUncheckedUpdateManyWithoutSourceNestedInput
+  meronymsTarget?: Prisma.MeronymUncheckedUpdateManyWithoutTargetNestedInput
+  holonymsSource?: Prisma.HolonymUncheckedUpdateManyWithoutSourceNestedInput
+  holonymsTarget?: Prisma.HolonymUncheckedUpdateManyWithoutTargetNestedInput
+  relatedWordsSource?: Prisma.RelatedWordUncheckedUpdateManyWithoutSourceNestedInput
+  relatedWordsTarget?: Prisma.RelatedWordUncheckedUpdateManyWithoutTargetNestedInput
+  causesSource?: Prisma.CauseUncheckedUpdateManyWithoutSourceNestedInput
+  causesTarget?: Prisma.CauseUncheckedUpdateManyWithoutTargetNestedInput
+  effectsSource?: Prisma.EffectUncheckedUpdateManyWithoutSourceNestedInput
+  effectsTarget?: Prisma.EffectUncheckedUpdateManyWithoutTargetNestedInput
+  premisesSource?: Prisma.PremiseUncheckedUpdateManyWithoutSourceNestedInput
+  premisesTarget?: Prisma.PremiseUncheckedUpdateManyWithoutTargetNestedInput
+  conclusionsSource?: Prisma.ConclusionUncheckedUpdateManyWithoutSourceNestedInput
+  conclusionsTarget?: Prisma.ConclusionUncheckedUpdateManyWithoutTargetNestedInput
   synsets?: Prisma.MeaningSynsetUncheckedUpdateManyWithoutMeaningNestedInput
 }
 
@@ -10232,6 +19814,10 @@ export type MeaningUncheckedUpdateManyWithoutLexemeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   meaning?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   examples?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  meaningVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  meaningMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examplesVeryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  examplesMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -10282,6 +19868,24 @@ export type MeaningCountOutputType = {
   synonymsTarget: number
   antonymsSource: number
   antonymsTarget: number
+  hypernymsSource: number
+  hypernymsTarget: number
+  hyponymsSource: number
+  hyponymsTarget: number
+  meronymsSource: number
+  meronymsTarget: number
+  holonymsSource: number
+  holonymsTarget: number
+  relatedWordsSource: number
+  relatedWordsTarget: number
+  causesSource: number
+  causesTarget: number
+  effectsSource: number
+  effectsTarget: number
+  premisesSource: number
+  premisesTarget: number
+  conclusionsSource: number
+  conclusionsTarget: number
   synsets: number
 }
 
@@ -10326,6 +19930,24 @@ export type MeaningCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   synonymsTarget?: boolean | MeaningCountOutputTypeCountSynonymsTargetArgs
   antonymsSource?: boolean | MeaningCountOutputTypeCountAntonymsSourceArgs
   antonymsTarget?: boolean | MeaningCountOutputTypeCountAntonymsTargetArgs
+  hypernymsSource?: boolean | MeaningCountOutputTypeCountHypernymsSourceArgs
+  hypernymsTarget?: boolean | MeaningCountOutputTypeCountHypernymsTargetArgs
+  hyponymsSource?: boolean | MeaningCountOutputTypeCountHyponymsSourceArgs
+  hyponymsTarget?: boolean | MeaningCountOutputTypeCountHyponymsTargetArgs
+  meronymsSource?: boolean | MeaningCountOutputTypeCountMeronymsSourceArgs
+  meronymsTarget?: boolean | MeaningCountOutputTypeCountMeronymsTargetArgs
+  holonymsSource?: boolean | MeaningCountOutputTypeCountHolonymsSourceArgs
+  holonymsTarget?: boolean | MeaningCountOutputTypeCountHolonymsTargetArgs
+  relatedWordsSource?: boolean | MeaningCountOutputTypeCountRelatedWordsSourceArgs
+  relatedWordsTarget?: boolean | MeaningCountOutputTypeCountRelatedWordsTargetArgs
+  causesSource?: boolean | MeaningCountOutputTypeCountCausesSourceArgs
+  causesTarget?: boolean | MeaningCountOutputTypeCountCausesTargetArgs
+  effectsSource?: boolean | MeaningCountOutputTypeCountEffectsSourceArgs
+  effectsTarget?: boolean | MeaningCountOutputTypeCountEffectsTargetArgs
+  premisesSource?: boolean | MeaningCountOutputTypeCountPremisesSourceArgs
+  premisesTarget?: boolean | MeaningCountOutputTypeCountPremisesTargetArgs
+  conclusionsSource?: boolean | MeaningCountOutputTypeCountConclusionsSourceArgs
+  conclusionsTarget?: boolean | MeaningCountOutputTypeCountConclusionsTargetArgs
   synsets?: boolean | MeaningCountOutputTypeCountSynsetsArgs
 }
 
@@ -10622,6 +20244,132 @@ export type MeaningCountOutputTypeCountAntonymsTargetArgs<ExtArgs extends runtim
 /**
  * MeaningCountOutputType without action
  */
+export type MeaningCountOutputTypeCountHypernymsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HypernymWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountHypernymsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HypernymWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountHyponymsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HyponymWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountHyponymsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HyponymWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountMeronymsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MeronymWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountMeronymsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MeronymWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountHolonymsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HolonymWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountHolonymsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HolonymWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountRelatedWordsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RelatedWordWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountRelatedWordsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RelatedWordWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountCausesSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CauseWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountCausesTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CauseWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountEffectsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EffectWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountEffectsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EffectWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountPremisesSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PremiseWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountPremisesTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PremiseWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountConclusionsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConclusionWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
+export type MeaningCountOutputTypeCountConclusionsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConclusionWhereInput
+}
+
+/**
+ * MeaningCountOutputType without action
+ */
 export type MeaningCountOutputTypeCountSynsetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MeaningSynsetWhereInput
 }
@@ -10632,6 +20380,10 @@ export type MeaningSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   lexemeId?: boolean
   meaning?: boolean
   examples?: boolean
+  meaningVeryfied?: boolean
+  meaningMessage?: boolean
+  examplesVeryfied?: boolean
+  examplesMessage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
@@ -10675,6 +20427,24 @@ export type MeaningSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   synonymsTarget?: boolean | Prisma.Meaning$synonymsTargetArgs<ExtArgs>
   antonymsSource?: boolean | Prisma.Meaning$antonymsSourceArgs<ExtArgs>
   antonymsTarget?: boolean | Prisma.Meaning$antonymsTargetArgs<ExtArgs>
+  hypernymsSource?: boolean | Prisma.Meaning$hypernymsSourceArgs<ExtArgs>
+  hypernymsTarget?: boolean | Prisma.Meaning$hypernymsTargetArgs<ExtArgs>
+  hyponymsSource?: boolean | Prisma.Meaning$hyponymsSourceArgs<ExtArgs>
+  hyponymsTarget?: boolean | Prisma.Meaning$hyponymsTargetArgs<ExtArgs>
+  meronymsSource?: boolean | Prisma.Meaning$meronymsSourceArgs<ExtArgs>
+  meronymsTarget?: boolean | Prisma.Meaning$meronymsTargetArgs<ExtArgs>
+  holonymsSource?: boolean | Prisma.Meaning$holonymsSourceArgs<ExtArgs>
+  holonymsTarget?: boolean | Prisma.Meaning$holonymsTargetArgs<ExtArgs>
+  relatedWordsSource?: boolean | Prisma.Meaning$relatedWordsSourceArgs<ExtArgs>
+  relatedWordsTarget?: boolean | Prisma.Meaning$relatedWordsTargetArgs<ExtArgs>
+  causesSource?: boolean | Prisma.Meaning$causesSourceArgs<ExtArgs>
+  causesTarget?: boolean | Prisma.Meaning$causesTargetArgs<ExtArgs>
+  effectsSource?: boolean | Prisma.Meaning$effectsSourceArgs<ExtArgs>
+  effectsTarget?: boolean | Prisma.Meaning$effectsTargetArgs<ExtArgs>
+  premisesSource?: boolean | Prisma.Meaning$premisesSourceArgs<ExtArgs>
+  premisesTarget?: boolean | Prisma.Meaning$premisesTargetArgs<ExtArgs>
+  conclusionsSource?: boolean | Prisma.Meaning$conclusionsSourceArgs<ExtArgs>
+  conclusionsTarget?: boolean | Prisma.Meaning$conclusionsTargetArgs<ExtArgs>
   synsets?: boolean | Prisma.Meaning$synsetsArgs<ExtArgs>
   _count?: boolean | Prisma.MeaningCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["meaning"]>
@@ -10684,6 +20454,10 @@ export type MeaningSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   lexemeId?: boolean
   meaning?: boolean
   examples?: boolean
+  meaningVeryfied?: boolean
+  meaningMessage?: boolean
+  examplesVeryfied?: boolean
+  examplesMessage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
@@ -10694,6 +20468,10 @@ export type MeaningSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   lexemeId?: boolean
   meaning?: boolean
   examples?: boolean
+  meaningVeryfied?: boolean
+  meaningMessage?: boolean
+  examplesVeryfied?: boolean
+  examplesMessage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
@@ -10704,11 +20482,15 @@ export type MeaningSelectScalar = {
   lexemeId?: boolean
   meaning?: boolean
   examples?: boolean
+  meaningVeryfied?: boolean
+  meaningMessage?: boolean
+  examplesVeryfied?: boolean
+  examplesMessage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MeaningOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "lexemeId" | "meaning" | "examples" | "createdAt" | "updatedAt", ExtArgs["result"]["meaning"]>
+export type MeaningOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "lexemeId" | "meaning" | "examples" | "meaningVeryfied" | "meaningMessage" | "examplesVeryfied" | "examplesMessage" | "createdAt" | "updatedAt", ExtArgs["result"]["meaning"]>
 export type MeaningInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lexeme?: boolean | Prisma.LexemeDefaultArgs<ExtArgs>
   en_word?: boolean | Prisma.Meaning$en_wordArgs<ExtArgs>
@@ -10751,6 +20533,24 @@ export type MeaningInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   synonymsTarget?: boolean | Prisma.Meaning$synonymsTargetArgs<ExtArgs>
   antonymsSource?: boolean | Prisma.Meaning$antonymsSourceArgs<ExtArgs>
   antonymsTarget?: boolean | Prisma.Meaning$antonymsTargetArgs<ExtArgs>
+  hypernymsSource?: boolean | Prisma.Meaning$hypernymsSourceArgs<ExtArgs>
+  hypernymsTarget?: boolean | Prisma.Meaning$hypernymsTargetArgs<ExtArgs>
+  hyponymsSource?: boolean | Prisma.Meaning$hyponymsSourceArgs<ExtArgs>
+  hyponymsTarget?: boolean | Prisma.Meaning$hyponymsTargetArgs<ExtArgs>
+  meronymsSource?: boolean | Prisma.Meaning$meronymsSourceArgs<ExtArgs>
+  meronymsTarget?: boolean | Prisma.Meaning$meronymsTargetArgs<ExtArgs>
+  holonymsSource?: boolean | Prisma.Meaning$holonymsSourceArgs<ExtArgs>
+  holonymsTarget?: boolean | Prisma.Meaning$holonymsTargetArgs<ExtArgs>
+  relatedWordsSource?: boolean | Prisma.Meaning$relatedWordsSourceArgs<ExtArgs>
+  relatedWordsTarget?: boolean | Prisma.Meaning$relatedWordsTargetArgs<ExtArgs>
+  causesSource?: boolean | Prisma.Meaning$causesSourceArgs<ExtArgs>
+  causesTarget?: boolean | Prisma.Meaning$causesTargetArgs<ExtArgs>
+  effectsSource?: boolean | Prisma.Meaning$effectsSourceArgs<ExtArgs>
+  effectsTarget?: boolean | Prisma.Meaning$effectsTargetArgs<ExtArgs>
+  premisesSource?: boolean | Prisma.Meaning$premisesSourceArgs<ExtArgs>
+  premisesTarget?: boolean | Prisma.Meaning$premisesTargetArgs<ExtArgs>
+  conclusionsSource?: boolean | Prisma.Meaning$conclusionsSourceArgs<ExtArgs>
+  conclusionsTarget?: boolean | Prisma.Meaning$conclusionsTargetArgs<ExtArgs>
   synsets?: boolean | Prisma.Meaning$synsetsArgs<ExtArgs>
   _count?: boolean | Prisma.MeaningCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -10805,6 +20605,24 @@ export type $MeaningPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     synonymsTarget: Prisma.$SynonymPayload<ExtArgs>[]
     antonymsSource: Prisma.$AntonymPayload<ExtArgs>[]
     antonymsTarget: Prisma.$AntonymPayload<ExtArgs>[]
+    hypernymsSource: Prisma.$HypernymPayload<ExtArgs>[]
+    hypernymsTarget: Prisma.$HypernymPayload<ExtArgs>[]
+    hyponymsSource: Prisma.$HyponymPayload<ExtArgs>[]
+    hyponymsTarget: Prisma.$HyponymPayload<ExtArgs>[]
+    meronymsSource: Prisma.$MeronymPayload<ExtArgs>[]
+    meronymsTarget: Prisma.$MeronymPayload<ExtArgs>[]
+    holonymsSource: Prisma.$HolonymPayload<ExtArgs>[]
+    holonymsTarget: Prisma.$HolonymPayload<ExtArgs>[]
+    relatedWordsSource: Prisma.$RelatedWordPayload<ExtArgs>[]
+    relatedWordsTarget: Prisma.$RelatedWordPayload<ExtArgs>[]
+    causesSource: Prisma.$CausePayload<ExtArgs>[]
+    causesTarget: Prisma.$CausePayload<ExtArgs>[]
+    effectsSource: Prisma.$EffectPayload<ExtArgs>[]
+    effectsTarget: Prisma.$EffectPayload<ExtArgs>[]
+    premisesSource: Prisma.$PremisePayload<ExtArgs>[]
+    premisesTarget: Prisma.$PremisePayload<ExtArgs>[]
+    conclusionsSource: Prisma.$ConclusionPayload<ExtArgs>[]
+    conclusionsTarget: Prisma.$ConclusionPayload<ExtArgs>[]
     synsets: Prisma.$MeaningSynsetPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -10812,6 +20630,10 @@ export type $MeaningPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     lexemeId: number
     meaning: string | null
     examples: string | null
+    meaningVeryfied: number | null
+    meaningMessage: string | null
+    examplesVeryfied: number | null
+    examplesMessage: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["meaning"]>
@@ -11249,6 +21071,24 @@ export interface Prisma__MeaningClient<T, Null = never, ExtArgs extends runtime.
   synonymsTarget<T extends Prisma.Meaning$synonymsTargetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$synonymsTargetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SynonymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   antonymsSource<T extends Prisma.Meaning$antonymsSourceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$antonymsSourceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AntonymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   antonymsTarget<T extends Prisma.Meaning$antonymsTargetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$antonymsTargetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AntonymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  hypernymsSource<T extends Prisma.Meaning$hypernymsSourceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$hypernymsSourceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HypernymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  hypernymsTarget<T extends Prisma.Meaning$hypernymsTargetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$hypernymsTargetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HypernymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  hyponymsSource<T extends Prisma.Meaning$hyponymsSourceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$hyponymsSourceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HyponymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  hyponymsTarget<T extends Prisma.Meaning$hyponymsTargetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$hyponymsTargetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HyponymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  meronymsSource<T extends Prisma.Meaning$meronymsSourceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$meronymsSourceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeronymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  meronymsTarget<T extends Prisma.Meaning$meronymsTargetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$meronymsTargetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeronymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  holonymsSource<T extends Prisma.Meaning$holonymsSourceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$holonymsSourceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HolonymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  holonymsTarget<T extends Prisma.Meaning$holonymsTargetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$holonymsTargetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HolonymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  relatedWordsSource<T extends Prisma.Meaning$relatedWordsSourceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$relatedWordsSourceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RelatedWordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  relatedWordsTarget<T extends Prisma.Meaning$relatedWordsTargetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$relatedWordsTargetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RelatedWordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  causesSource<T extends Prisma.Meaning$causesSourceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$causesSourceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CausePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  causesTarget<T extends Prisma.Meaning$causesTargetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$causesTargetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CausePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  effectsSource<T extends Prisma.Meaning$effectsSourceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$effectsSourceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EffectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  effectsTarget<T extends Prisma.Meaning$effectsTargetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$effectsTargetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EffectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  premisesSource<T extends Prisma.Meaning$premisesSourceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$premisesSourceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PremisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  premisesTarget<T extends Prisma.Meaning$premisesTargetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$premisesTargetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PremisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conclusionsSource<T extends Prisma.Meaning$conclusionsSourceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$conclusionsSourceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConclusionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conclusionsTarget<T extends Prisma.Meaning$conclusionsTargetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$conclusionsTargetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConclusionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   synsets<T extends Prisma.Meaning$synsetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Meaning$synsetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeaningSynsetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -11283,6 +21123,10 @@ export interface MeaningFieldRefs {
   readonly lexemeId: Prisma.FieldRef<"Meaning", 'Int'>
   readonly meaning: Prisma.FieldRef<"Meaning", 'String'>
   readonly examples: Prisma.FieldRef<"Meaning", 'String'>
+  readonly meaningVeryfied: Prisma.FieldRef<"Meaning", 'Int'>
+  readonly meaningMessage: Prisma.FieldRef<"Meaning", 'String'>
+  readonly examplesVeryfied: Prisma.FieldRef<"Meaning", 'Int'>
+  readonly examplesMessage: Prisma.FieldRef<"Meaning", 'String'>
   readonly createdAt: Prisma.FieldRef<"Meaning", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Meaning", 'DateTime'>
 }
@@ -12641,6 +22485,438 @@ export type Meaning$antonymsTargetArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.AntonymScalarFieldEnum | Prisma.AntonymScalarFieldEnum[]
+}
+
+/**
+ * Meaning.hypernymsSource
+ */
+export type Meaning$hypernymsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Hypernym
+   */
+  select?: Prisma.HypernymSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Hypernym
+   */
+  omit?: Prisma.HypernymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HypernymInclude<ExtArgs> | null
+  where?: Prisma.HypernymWhereInput
+  orderBy?: Prisma.HypernymOrderByWithRelationInput | Prisma.HypernymOrderByWithRelationInput[]
+  cursor?: Prisma.HypernymWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HypernymScalarFieldEnum | Prisma.HypernymScalarFieldEnum[]
+}
+
+/**
+ * Meaning.hypernymsTarget
+ */
+export type Meaning$hypernymsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Hypernym
+   */
+  select?: Prisma.HypernymSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Hypernym
+   */
+  omit?: Prisma.HypernymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HypernymInclude<ExtArgs> | null
+  where?: Prisma.HypernymWhereInput
+  orderBy?: Prisma.HypernymOrderByWithRelationInput | Prisma.HypernymOrderByWithRelationInput[]
+  cursor?: Prisma.HypernymWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HypernymScalarFieldEnum | Prisma.HypernymScalarFieldEnum[]
+}
+
+/**
+ * Meaning.hyponymsSource
+ */
+export type Meaning$hyponymsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Hyponym
+   */
+  select?: Prisma.HyponymSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Hyponym
+   */
+  omit?: Prisma.HyponymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HyponymInclude<ExtArgs> | null
+  where?: Prisma.HyponymWhereInput
+  orderBy?: Prisma.HyponymOrderByWithRelationInput | Prisma.HyponymOrderByWithRelationInput[]
+  cursor?: Prisma.HyponymWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HyponymScalarFieldEnum | Prisma.HyponymScalarFieldEnum[]
+}
+
+/**
+ * Meaning.hyponymsTarget
+ */
+export type Meaning$hyponymsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Hyponym
+   */
+  select?: Prisma.HyponymSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Hyponym
+   */
+  omit?: Prisma.HyponymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HyponymInclude<ExtArgs> | null
+  where?: Prisma.HyponymWhereInput
+  orderBy?: Prisma.HyponymOrderByWithRelationInput | Prisma.HyponymOrderByWithRelationInput[]
+  cursor?: Prisma.HyponymWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HyponymScalarFieldEnum | Prisma.HyponymScalarFieldEnum[]
+}
+
+/**
+ * Meaning.meronymsSource
+ */
+export type Meaning$meronymsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Meronym
+   */
+  select?: Prisma.MeronymSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Meronym
+   */
+  omit?: Prisma.MeronymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MeronymInclude<ExtArgs> | null
+  where?: Prisma.MeronymWhereInput
+  orderBy?: Prisma.MeronymOrderByWithRelationInput | Prisma.MeronymOrderByWithRelationInput[]
+  cursor?: Prisma.MeronymWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MeronymScalarFieldEnum | Prisma.MeronymScalarFieldEnum[]
+}
+
+/**
+ * Meaning.meronymsTarget
+ */
+export type Meaning$meronymsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Meronym
+   */
+  select?: Prisma.MeronymSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Meronym
+   */
+  omit?: Prisma.MeronymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MeronymInclude<ExtArgs> | null
+  where?: Prisma.MeronymWhereInput
+  orderBy?: Prisma.MeronymOrderByWithRelationInput | Prisma.MeronymOrderByWithRelationInput[]
+  cursor?: Prisma.MeronymWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MeronymScalarFieldEnum | Prisma.MeronymScalarFieldEnum[]
+}
+
+/**
+ * Meaning.holonymsSource
+ */
+export type Meaning$holonymsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Holonym
+   */
+  select?: Prisma.HolonymSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Holonym
+   */
+  omit?: Prisma.HolonymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HolonymInclude<ExtArgs> | null
+  where?: Prisma.HolonymWhereInput
+  orderBy?: Prisma.HolonymOrderByWithRelationInput | Prisma.HolonymOrderByWithRelationInput[]
+  cursor?: Prisma.HolonymWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HolonymScalarFieldEnum | Prisma.HolonymScalarFieldEnum[]
+}
+
+/**
+ * Meaning.holonymsTarget
+ */
+export type Meaning$holonymsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Holonym
+   */
+  select?: Prisma.HolonymSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Holonym
+   */
+  omit?: Prisma.HolonymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HolonymInclude<ExtArgs> | null
+  where?: Prisma.HolonymWhereInput
+  orderBy?: Prisma.HolonymOrderByWithRelationInput | Prisma.HolonymOrderByWithRelationInput[]
+  cursor?: Prisma.HolonymWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HolonymScalarFieldEnum | Prisma.HolonymScalarFieldEnum[]
+}
+
+/**
+ * Meaning.relatedWordsSource
+ */
+export type Meaning$relatedWordsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RelatedWord
+   */
+  select?: Prisma.RelatedWordSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RelatedWord
+   */
+  omit?: Prisma.RelatedWordOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RelatedWordInclude<ExtArgs> | null
+  where?: Prisma.RelatedWordWhereInput
+  orderBy?: Prisma.RelatedWordOrderByWithRelationInput | Prisma.RelatedWordOrderByWithRelationInput[]
+  cursor?: Prisma.RelatedWordWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RelatedWordScalarFieldEnum | Prisma.RelatedWordScalarFieldEnum[]
+}
+
+/**
+ * Meaning.relatedWordsTarget
+ */
+export type Meaning$relatedWordsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RelatedWord
+   */
+  select?: Prisma.RelatedWordSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RelatedWord
+   */
+  omit?: Prisma.RelatedWordOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RelatedWordInclude<ExtArgs> | null
+  where?: Prisma.RelatedWordWhereInput
+  orderBy?: Prisma.RelatedWordOrderByWithRelationInput | Prisma.RelatedWordOrderByWithRelationInput[]
+  cursor?: Prisma.RelatedWordWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RelatedWordScalarFieldEnum | Prisma.RelatedWordScalarFieldEnum[]
+}
+
+/**
+ * Meaning.causesSource
+ */
+export type Meaning$causesSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Cause
+   */
+  select?: Prisma.CauseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Cause
+   */
+  omit?: Prisma.CauseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CauseInclude<ExtArgs> | null
+  where?: Prisma.CauseWhereInput
+  orderBy?: Prisma.CauseOrderByWithRelationInput | Prisma.CauseOrderByWithRelationInput[]
+  cursor?: Prisma.CauseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CauseScalarFieldEnum | Prisma.CauseScalarFieldEnum[]
+}
+
+/**
+ * Meaning.causesTarget
+ */
+export type Meaning$causesTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Cause
+   */
+  select?: Prisma.CauseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Cause
+   */
+  omit?: Prisma.CauseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CauseInclude<ExtArgs> | null
+  where?: Prisma.CauseWhereInput
+  orderBy?: Prisma.CauseOrderByWithRelationInput | Prisma.CauseOrderByWithRelationInput[]
+  cursor?: Prisma.CauseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CauseScalarFieldEnum | Prisma.CauseScalarFieldEnum[]
+}
+
+/**
+ * Meaning.effectsSource
+ */
+export type Meaning$effectsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Effect
+   */
+  select?: Prisma.EffectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Effect
+   */
+  omit?: Prisma.EffectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EffectInclude<ExtArgs> | null
+  where?: Prisma.EffectWhereInput
+  orderBy?: Prisma.EffectOrderByWithRelationInput | Prisma.EffectOrderByWithRelationInput[]
+  cursor?: Prisma.EffectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EffectScalarFieldEnum | Prisma.EffectScalarFieldEnum[]
+}
+
+/**
+ * Meaning.effectsTarget
+ */
+export type Meaning$effectsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Effect
+   */
+  select?: Prisma.EffectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Effect
+   */
+  omit?: Prisma.EffectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EffectInclude<ExtArgs> | null
+  where?: Prisma.EffectWhereInput
+  orderBy?: Prisma.EffectOrderByWithRelationInput | Prisma.EffectOrderByWithRelationInput[]
+  cursor?: Prisma.EffectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EffectScalarFieldEnum | Prisma.EffectScalarFieldEnum[]
+}
+
+/**
+ * Meaning.premisesSource
+ */
+export type Meaning$premisesSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Premise
+   */
+  select?: Prisma.PremiseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Premise
+   */
+  omit?: Prisma.PremiseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PremiseInclude<ExtArgs> | null
+  where?: Prisma.PremiseWhereInput
+  orderBy?: Prisma.PremiseOrderByWithRelationInput | Prisma.PremiseOrderByWithRelationInput[]
+  cursor?: Prisma.PremiseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PremiseScalarFieldEnum | Prisma.PremiseScalarFieldEnum[]
+}
+
+/**
+ * Meaning.premisesTarget
+ */
+export type Meaning$premisesTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Premise
+   */
+  select?: Prisma.PremiseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Premise
+   */
+  omit?: Prisma.PremiseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PremiseInclude<ExtArgs> | null
+  where?: Prisma.PremiseWhereInput
+  orderBy?: Prisma.PremiseOrderByWithRelationInput | Prisma.PremiseOrderByWithRelationInput[]
+  cursor?: Prisma.PremiseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PremiseScalarFieldEnum | Prisma.PremiseScalarFieldEnum[]
+}
+
+/**
+ * Meaning.conclusionsSource
+ */
+export type Meaning$conclusionsSourceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conclusion
+   */
+  select?: Prisma.ConclusionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conclusion
+   */
+  omit?: Prisma.ConclusionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConclusionInclude<ExtArgs> | null
+  where?: Prisma.ConclusionWhereInput
+  orderBy?: Prisma.ConclusionOrderByWithRelationInput | Prisma.ConclusionOrderByWithRelationInput[]
+  cursor?: Prisma.ConclusionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConclusionScalarFieldEnum | Prisma.ConclusionScalarFieldEnum[]
+}
+
+/**
+ * Meaning.conclusionsTarget
+ */
+export type Meaning$conclusionsTargetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conclusion
+   */
+  select?: Prisma.ConclusionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conclusion
+   */
+  omit?: Prisma.ConclusionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConclusionInclude<ExtArgs> | null
+  where?: Prisma.ConclusionWhereInput
+  orderBy?: Prisma.ConclusionOrderByWithRelationInput | Prisma.ConclusionOrderByWithRelationInput[]
+  cursor?: Prisma.ConclusionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConclusionScalarFieldEnum | Prisma.ConclusionScalarFieldEnum[]
 }
 
 /**

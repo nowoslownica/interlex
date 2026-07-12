@@ -154,12 +154,17 @@ interface TranslationData {
   id: number
   value: string
   veryfied: number
+  message: string
 }
 
 interface MeaningData {
   id: number
   meaning: string
   examples: string
+  meaningVeryfied: number
+  meaningMessage: string
+  examplesVeryfied: number
+  examplesMessage: string
   translations: Record<string, TranslationData[]>
 }
 
@@ -339,8 +344,8 @@ export default function ArticleForm({
 
   const [meanings, setMeanings] = useState<MeaningData[]>(
     initialData?.meanings?.length
-      ? initialData.meanings
-      : [{ id: 0, meaning: "", examples: "", translations: emptyTranslations() }]
+      ? initialData.meanings as MeaningData[]
+      : [{ id: 0, meaning: "", examples: "", meaningVeryfied: 0, meaningMessage: "", examplesVeryfied: 0, examplesMessage: "", translations: emptyTranslations() }]
   )
   const [selectedMeaningIdx, setSelectedMeaningIdx] = useState(0)
   const [activeLang, setActiveLang] = useState("en")
@@ -352,6 +357,14 @@ export default function ArticleForm({
     initialData?.attachedRoots || []
   )
   const [newRoots, setNewRoots] = useState<string[]>([])
+
+  const [rejectDialog, setRejectDialog] = useState<{
+    meaningIdx: number
+    lang: string
+    tIdx: number
+    currentMessage: string
+  } | null>(null)
+  const [rejectText, setRejectText] = useState("")
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
@@ -490,14 +503,14 @@ export default function ArticleForm({
   function addMeaning() {
     setMeanings((prev) => [
       ...prev,
-      { id: 0, meaning: "", examples: "", translations: emptyTranslations() },
+      { id: 0, meaning: "", examples: "", meaningVeryfied: 0, meaningMessage: "", examplesVeryfied: 0, examplesMessage: "", translations: emptyTranslations() },
     ])
   }
 
   function removeMeaning(idx: number) {
     setMeanings((prev) => {
       const next = prev.filter((_, i) => i !== idx)
-      if (next.length === 0) next.push({ id: 0, meaning: "", examples: "", translations: emptyTranslations() })
+      if (next.length === 0) next.push({ id: 0, meaning: "", examples: "", meaningVeryfied: 0, meaningMessage: "", examplesVeryfied: 0, examplesMessage: "", translations: emptyTranslations() })
       return next
     })
     setSelectedMeaningIdx((prev) => Math.min(prev, meanings.length - 2))
@@ -508,12 +521,12 @@ export default function ArticleForm({
       prev.map((m, i) => {
         if (i !== selectedMeaningIdx) return m
         const current = m.translations[lang] || []
-        return { ...m, translations: { ...m.translations, [lang]: [...current, { id: 0, value: "", veryfied: 0 }] } }
+        return { ...m, translations: { ...m.translations, [lang]: [...current, { id: 0, value: "", veryfied: 0, message: "" }] } }
       })
     )
   }
 
-  function updateTranslation(lang: string, tIdx: number, field: "value" | "veryfied", val: string | number) {
+  function updateTranslation(lang: string, tIdx: number, field: "value" | "veryfied" | "message", val: string | number) {
     setMeanings((prev) =>
       prev.map((m, i) => {
         if (i !== selectedMeaningIdx) return m
@@ -574,6 +587,10 @@ export default function ArticleForm({
           id: m.id,
           meaning: m.meaning,
           examples: m.examples,
+          meaningVeryfied: m.meaningVeryfied,
+          meaningMessage: m.meaningMessage,
+          examplesVeryfied: m.examplesVeryfied,
+          examplesMessage: m.examplesMessage,
           translations: m.translations,
         })),
       })
@@ -1019,6 +1036,55 @@ export default function ArticleForm({
                     </div>
                   </div>
 
+                  <div className="flex flex-wrap items-center gap-3">
+                    <label className="flex items-center gap-1 text-xs text-muted-foreground cursor-pointer" title={activeMeaning.meaningVeryfied !== 1 && activeMeaning.meaningMessage ? activeMeaning.meaningMessage : undefined}>
+                      <input
+                        type="checkbox"
+                        checked={activeMeaning.meaningVeryfied === 1}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setMeanings((prev) => prev.map((m, i) => i === selectedMeaningIdx ? { ...m, meaningVeryfied: 1, meaningMessage: "" } : m))
+                          } else {
+                            const msg = prompt("Укажите причину отклонения значения:", activeMeaning.meaningMessage || "")
+                            if (msg !== null) {
+                              setMeanings((prev) => prev.map((m, i) => i === selectedMeaningIdx ? { ...m, meaningVeryfied: 0, meaningMessage: msg } : m))
+                            }
+                          }
+                        }}
+                        className="h-3.5 w-3.5 rounded border-gray-300 text-primary"
+                      />
+                      <span>Значение верифицировано</span>
+                    </label>
+                    {activeMeaning.meaningVeryfied !== 1 && activeMeaning.meaningMessage && (
+                      <span className="text-[10px] text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded truncate max-w-[200px]" title={activeMeaning.meaningMessage}>
+                        {activeMeaning.meaningMessage}
+                      </span>
+                    )}
+                    <label className="flex items-center gap-1 text-xs text-muted-foreground cursor-pointer" title={activeMeaning.examplesVeryfied !== 1 && activeMeaning.examplesMessage ? activeMeaning.examplesMessage : undefined}>
+                      <input
+                        type="checkbox"
+                        checked={activeMeaning.examplesVeryfied === 1}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setMeanings((prev) => prev.map((m, i) => i === selectedMeaningIdx ? { ...m, examplesVeryfied: 1, examplesMessage: "" } : m))
+                          } else {
+                            const msg = prompt("Укажите причину отклонения примеров:", activeMeaning.examplesMessage || "")
+                            if (msg !== null) {
+                              setMeanings((prev) => prev.map((m, i) => i === selectedMeaningIdx ? { ...m, examplesVeryfied: 0, examplesMessage: msg } : m))
+                            }
+                          }
+                        }}
+                        className="h-3.5 w-3.5 rounded border-gray-300 text-primary"
+                      />
+                      <span>Примеры верифицированы</span>
+                    </label>
+                    {activeMeaning.examplesVeryfied !== 1 && activeMeaning.examplesMessage && (
+                      <span className="text-[10px] text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded truncate max-w-[200px]" title={activeMeaning.examplesMessage}>
+                        {activeMeaning.examplesMessage}
+                      </span>
+                    )}
+                  </div>
+
                   {meanings.length > 1 && (
                     <button type="button" onClick={() => removeMeaning(selectedMeaningIdx)} className="text-xs text-destructive hover:text-destructive/80">Удалить это значение</button>
                   )}
@@ -1050,12 +1116,36 @@ export default function ArticleForm({
                       )}
                       {(activeMeaning.translations[activeLang] || []).map((t, tIdx) => (
                         <div key={tIdx} className="flex items-center gap-2">
-                          <input type="text" value={t.value} onChange={(e) => updateTranslation(activeLang, tIdx, "value", e.target.value)} className="flex-1 px-2 py-1.5 border rounded bg-background text-sm" placeholder="Перевод..." />
-                          <label className="flex items-center gap-1 text-[10px] text-muted-foreground cursor-pointer whitespace-nowrap">
-                            <input type="checkbox" checked={t.veryfied === 1} onChange={(e) => updateTranslation(activeLang, tIdx, "veryfied", e.target.checked ? 1 : 0)} className="h-3 w-3 rounded border-gray-300 text-primary" />
-                            Verified
+                          <input
+                            type="text"
+                            value={t.value}
+                            onChange={(e) => updateTranslation(activeLang, tIdx, "value", e.target.value)}
+                            className="flex-1 px-2 py-1.5 border rounded bg-background text-sm"
+                            placeholder="Перевод..."
+                            title={!t.veryfied && t.message ? t.message : undefined}
+                          />
+                          <label className="flex items-center gap-1 text-[10px] text-muted-foreground cursor-pointer whitespace-nowrap" title={!t.veryfied && t.message ? t.message : undefined}>
+                            <input
+                              type="checkbox"
+                              checked={t.veryfied === 1}
+                              onChange={(e) => {
+                                if (!e.target.checked) {
+                                  setRejectDialog({ meaningIdx: selectedMeaningIdx, lang: activeLang, tIdx, currentMessage: t.message })
+                                  setRejectText(t.message)
+                                } else {
+                                  updateTranslation(activeLang, tIdx, "veryfied", 1)
+                                  updateTranslation(activeLang, tIdx, "message", "")
+                                }
+                              }}
+                              className="h-3 w-3 rounded border-gray-300 text-primary"
+                            />
+                            {!t.veryfied && t.message ? (
+                              <span className="text-amber-600 truncate max-w-[100px]">{t.message}</span>
+                            ) : (
+                              "Verified"
+                            )}
                           </label>
-                          <button type="button" onClick={() => removeTranslation(activeLang, tIdx)} className="text-xs text-destructive hover:text-destructive/80 px-1">✕</button>
+                          <button type="button" onClick={() => removeTranslation(activeLang, tIdx)} className="text-xs text-destructive hover:text-destructive/80 px-1" title="Удалить перевод">✕</button>
                         </div>
                       ))}
                       <button type="button" onClick={() => addTranslation(activeLang)} className="w-full text-center py-1.5 border border-dashed rounded text-xs text-primary hover:bg-primary/5 transition-colors">+ Добавить перевод</button>
@@ -1073,6 +1163,49 @@ export default function ArticleForm({
           </button>
         </div>
       </form>
+
+      {/* Rejection dialog for translations */}
+      {rejectDialog && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/30"
+          onClick={() => setRejectDialog(null)}
+        >
+          <div
+            className="bg-white rounded-lg shadow-xl p-4 w-80"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-sm font-semibold mb-2">Комментарий к отклонению</h3>
+            <textarea
+              value={rejectText}
+              onChange={(e) => setRejectText(e.target.value)}
+              className="w-full border rounded px-2 py-1.5 text-sm resize-none h-20"
+              placeholder="Укажите причину отклонения..."
+              autoFocus
+            />
+            <div className="flex justify-end gap-2 mt-3">
+              <button
+                onClick={() => setRejectDialog(null)}
+                className="px-3 py-1.5 text-xs rounded border hover:bg-gray-100"
+              >
+                Отмена
+              </button>
+              <button
+                onClick={() => {
+                  if (rejectDialog) {
+                    updateTranslation(rejectDialog.lang, rejectDialog.tIdx, "veryfied", 0)
+                    updateTranslation(rejectDialog.lang, rejectDialog.tIdx, "message", rejectText)
+                    setRejectDialog(null)
+                    setRejectText("")
+                  }
+                }}
+                className="px-3 py-1.5 text-xs rounded bg-red-600 text-white hover:bg-red-700"
+              >
+                Отклонить
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

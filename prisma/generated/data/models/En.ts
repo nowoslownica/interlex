@@ -49,6 +49,7 @@ export type EnMinAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type EnMaxAggregateOutputType = {
@@ -60,6 +61,7 @@ export type EnMaxAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type EnCountAggregateOutputType = {
@@ -71,6 +73,7 @@ export type EnCountAggregateOutputType = {
   wordId: number
   meaningId: number
   actionHistory: number
+  message: number
   _all: number
 }
 
@@ -98,6 +101,7 @@ export type EnMinAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type EnMaxAggregateInputType = {
@@ -109,6 +113,7 @@ export type EnMaxAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type EnCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type EnCountAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
   _all?: true
 }
 
@@ -218,6 +224,7 @@ export type EnGroupByOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
   _count: EnCountAggregateOutputType | null
   _avg: EnAvgAggregateOutputType | null
   _sum: EnSumAggregateOutputType | null
@@ -252,6 +259,7 @@ export type EnWhereInput = {
   wordId?: Prisma.IntNullableFilter<"En"> | number | null
   meaningId?: Prisma.IntNullableFilter<"En"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"En"> | string | null
+  message?: Prisma.StringNullableFilter<"En"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }
@@ -265,6 +273,7 @@ export type EnOrderByWithRelationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   word?: Prisma.MeaningOrderByWithRelationInput
   meaning?: Prisma.MeaningOrderByWithRelationInput
 }
@@ -281,6 +290,7 @@ export type EnWhereUniqueInput = Prisma.AtLeast<{
   wordId?: Prisma.IntNullableFilter<"En"> | number | null
   meaningId?: Prisma.IntNullableFilter<"En"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"En"> | string | null
+  message?: Prisma.StringNullableFilter<"En"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }, "id">
@@ -294,6 +304,7 @@ export type EnOrderByWithAggregationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.EnCountOrderByAggregateInput
   _avg?: Prisma.EnAvgOrderByAggregateInput
   _max?: Prisma.EnMaxOrderByAggregateInput
@@ -313,6 +324,7 @@ export type EnScalarWhereWithAggregatesInput = {
   wordId?: Prisma.IntNullableWithAggregatesFilter<"En"> | number | null
   meaningId?: Prisma.IntNullableWithAggregatesFilter<"En"> | number | null
   actionHistory?: Prisma.StringNullableWithAggregatesFilter<"En"> | string | null
+  message?: Prisma.StringNullableWithAggregatesFilter<"En"> | string | null
 }
 
 export type EnCreateInput = {
@@ -321,6 +333,7 @@ export type EnCreateInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutEn_wordInput
   meaning?: Prisma.MeaningCreateNestedOneWithoutEn_meanInput
 }
@@ -334,6 +347,7 @@ export type EnUncheckedCreateInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EnUpdateInput = {
@@ -342,6 +356,7 @@ export type EnUpdateInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutEn_wordNestedInput
   meaning?: Prisma.MeaningUpdateOneWithoutEn_meanNestedInput
 }
@@ -355,6 +370,7 @@ export type EnUncheckedUpdateInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EnCreateManyInput = {
@@ -366,6 +382,7 @@ export type EnCreateManyInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EnUpdateManyMutationInput = {
@@ -374,6 +391,7 @@ export type EnUpdateManyMutationInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EnUncheckedUpdateManyInput = {
@@ -385,6 +403,7 @@ export type EnUncheckedUpdateManyInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EnListRelationFilter = {
@@ -406,6 +425,7 @@ export type EnCountOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type EnAvgOrderByAggregateInput = {
@@ -424,6 +444,7 @@ export type EnMaxOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type EnMinOrderByAggregateInput = {
@@ -435,6 +456,7 @@ export type EnMinOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type EnSumOrderByAggregateInput = {
@@ -534,6 +556,7 @@ export type EnCreateWithoutWordInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   meaning?: Prisma.MeaningCreateNestedOneWithoutEn_meanInput
 }
 
@@ -545,6 +568,7 @@ export type EnUncheckedCreateWithoutWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EnCreateOrConnectWithoutWordInput = {
@@ -562,6 +586,7 @@ export type EnCreateWithoutMeaningInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutEn_wordInput
 }
 
@@ -573,6 +598,7 @@ export type EnUncheckedCreateWithoutMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EnCreateOrConnectWithoutMeaningInput = {
@@ -612,6 +638,7 @@ export type EnScalarWhereInput = {
   wordId?: Prisma.IntNullableFilter<"En"> | number | null
   meaningId?: Prisma.IntNullableFilter<"En"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"En"> | string | null
+  message?: Prisma.StringNullableFilter<"En"> | string | null
 }
 
 export type EnUpsertWithWhereUniqueWithoutMeaningInput = {
@@ -638,6 +665,7 @@ export type EnCreateManyWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EnCreateManyMeaningInput = {
@@ -648,6 +676,7 @@ export type EnCreateManyMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EnUpdateWithoutWordInput = {
@@ -656,6 +685,7 @@ export type EnUpdateWithoutWordInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meaning?: Prisma.MeaningUpdateOneWithoutEn_meanNestedInput
 }
 
@@ -667,6 +697,7 @@ export type EnUncheckedUpdateWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EnUncheckedUpdateManyWithoutWordInput = {
@@ -677,6 +708,7 @@ export type EnUncheckedUpdateManyWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EnUpdateWithoutMeaningInput = {
@@ -685,6 +717,7 @@ export type EnUpdateWithoutMeaningInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutEn_wordNestedInput
 }
 
@@ -696,6 +729,7 @@ export type EnUncheckedUpdateWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EnUncheckedUpdateManyWithoutMeaningInput = {
@@ -706,6 +740,7 @@ export type EnUncheckedUpdateManyWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -719,6 +754,7 @@ export type EnSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.En$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.En$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["en"]>
@@ -732,6 +768,7 @@ export type EnSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.En$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.En$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["en"]>
@@ -745,6 +782,7 @@ export type EnSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.En$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.En$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["en"]>
@@ -758,9 +796,10 @@ export type EnSelectScalar = {
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
 }
 
-export type EnOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory", ExtArgs["result"]["en"]>
+export type EnOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory" | "message", ExtArgs["result"]["en"]>
 export type EnInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   word?: boolean | Prisma.En$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.En$meaningArgs<ExtArgs>
@@ -789,6 +828,7 @@ export type $EnPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     wordId: number | null
     meaningId: number | null
     actionHistory: string | null
+    message: string | null
   }, ExtArgs["result"]["en"]>
   composites: {}
 }
@@ -1222,6 +1262,7 @@ export interface EnFieldRefs {
   readonly wordId: Prisma.FieldRef<"En", 'Int'>
   readonly meaningId: Prisma.FieldRef<"En", 'Int'>
   readonly actionHistory: Prisma.FieldRef<"En", 'String'>
+  readonly message: Prisma.FieldRef<"En", 'String'>
 }
     
 

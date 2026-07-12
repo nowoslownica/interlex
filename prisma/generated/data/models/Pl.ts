@@ -49,6 +49,7 @@ export type PlMinAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type PlMaxAggregateOutputType = {
@@ -60,6 +61,7 @@ export type PlMaxAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type PlCountAggregateOutputType = {
@@ -71,6 +73,7 @@ export type PlCountAggregateOutputType = {
   wordId: number
   meaningId: number
   actionHistory: number
+  message: number
   _all: number
 }
 
@@ -98,6 +101,7 @@ export type PlMinAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type PlMaxAggregateInputType = {
@@ -109,6 +113,7 @@ export type PlMaxAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type PlCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type PlCountAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
   _all?: true
 }
 
@@ -218,6 +224,7 @@ export type PlGroupByOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
   _count: PlCountAggregateOutputType | null
   _avg: PlAvgAggregateOutputType | null
   _sum: PlSumAggregateOutputType | null
@@ -252,6 +259,7 @@ export type PlWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Pl"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Pl"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Pl"> | string | null
+  message?: Prisma.StringNullableFilter<"Pl"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }
@@ -265,6 +273,7 @@ export type PlOrderByWithRelationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   word?: Prisma.MeaningOrderByWithRelationInput
   meaning?: Prisma.MeaningOrderByWithRelationInput
 }
@@ -281,6 +290,7 @@ export type PlWhereUniqueInput = Prisma.AtLeast<{
   wordId?: Prisma.IntNullableFilter<"Pl"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Pl"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Pl"> | string | null
+  message?: Prisma.StringNullableFilter<"Pl"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }, "id">
@@ -294,6 +304,7 @@ export type PlOrderByWithAggregationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PlCountOrderByAggregateInput
   _avg?: Prisma.PlAvgOrderByAggregateInput
   _max?: Prisma.PlMaxOrderByAggregateInput
@@ -313,6 +324,7 @@ export type PlScalarWhereWithAggregatesInput = {
   wordId?: Prisma.IntNullableWithAggregatesFilter<"Pl"> | number | null
   meaningId?: Prisma.IntNullableWithAggregatesFilter<"Pl"> | number | null
   actionHistory?: Prisma.StringNullableWithAggregatesFilter<"Pl"> | string | null
+  message?: Prisma.StringNullableWithAggregatesFilter<"Pl"> | string | null
 }
 
 export type PlCreateInput = {
@@ -321,6 +333,7 @@ export type PlCreateInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutPl_wordInput
   meaning?: Prisma.MeaningCreateNestedOneWithoutPl_meanInput
 }
@@ -334,6 +347,7 @@ export type PlUncheckedCreateInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type PlUpdateInput = {
@@ -342,6 +356,7 @@ export type PlUpdateInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutPl_wordNestedInput
   meaning?: Prisma.MeaningUpdateOneWithoutPl_meanNestedInput
 }
@@ -355,6 +370,7 @@ export type PlUncheckedUpdateInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlCreateManyInput = {
@@ -366,6 +382,7 @@ export type PlCreateManyInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type PlUpdateManyMutationInput = {
@@ -374,6 +391,7 @@ export type PlUpdateManyMutationInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlUncheckedUpdateManyInput = {
@@ -385,6 +403,7 @@ export type PlUncheckedUpdateManyInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlListRelationFilter = {
@@ -406,6 +425,7 @@ export type PlCountOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type PlAvgOrderByAggregateInput = {
@@ -424,6 +444,7 @@ export type PlMaxOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type PlMinOrderByAggregateInput = {
@@ -435,6 +456,7 @@ export type PlMinOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type PlSumOrderByAggregateInput = {
@@ -534,6 +556,7 @@ export type PlCreateWithoutWordInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   meaning?: Prisma.MeaningCreateNestedOneWithoutPl_meanInput
 }
 
@@ -545,6 +568,7 @@ export type PlUncheckedCreateWithoutWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type PlCreateOrConnectWithoutWordInput = {
@@ -562,6 +586,7 @@ export type PlCreateWithoutMeaningInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutPl_wordInput
 }
 
@@ -573,6 +598,7 @@ export type PlUncheckedCreateWithoutMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type PlCreateOrConnectWithoutMeaningInput = {
@@ -612,6 +638,7 @@ export type PlScalarWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Pl"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Pl"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Pl"> | string | null
+  message?: Prisma.StringNullableFilter<"Pl"> | string | null
 }
 
 export type PlUpsertWithWhereUniqueWithoutMeaningInput = {
@@ -638,6 +665,7 @@ export type PlCreateManyWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type PlCreateManyMeaningInput = {
@@ -648,6 +676,7 @@ export type PlCreateManyMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type PlUpdateWithoutWordInput = {
@@ -656,6 +685,7 @@ export type PlUpdateWithoutWordInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meaning?: Prisma.MeaningUpdateOneWithoutPl_meanNestedInput
 }
 
@@ -667,6 +697,7 @@ export type PlUncheckedUpdateWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlUncheckedUpdateManyWithoutWordInput = {
@@ -677,6 +708,7 @@ export type PlUncheckedUpdateManyWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlUpdateWithoutMeaningInput = {
@@ -685,6 +717,7 @@ export type PlUpdateWithoutMeaningInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutPl_wordNestedInput
 }
 
@@ -696,6 +729,7 @@ export type PlUncheckedUpdateWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlUncheckedUpdateManyWithoutMeaningInput = {
@@ -706,6 +740,7 @@ export type PlUncheckedUpdateManyWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -719,6 +754,7 @@ export type PlSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Pl$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Pl$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["pl"]>
@@ -732,6 +768,7 @@ export type PlSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Pl$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Pl$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["pl"]>
@@ -745,6 +782,7 @@ export type PlSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Pl$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Pl$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["pl"]>
@@ -758,9 +796,10 @@ export type PlSelectScalar = {
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
 }
 
-export type PlOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory", ExtArgs["result"]["pl"]>
+export type PlOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory" | "message", ExtArgs["result"]["pl"]>
 export type PlInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   word?: boolean | Prisma.Pl$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Pl$meaningArgs<ExtArgs>
@@ -789,6 +828,7 @@ export type $PlPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     wordId: number | null
     meaningId: number | null
     actionHistory: string | null
+    message: string | null
   }, ExtArgs["result"]["pl"]>
   composites: {}
 }
@@ -1222,6 +1262,7 @@ export interface PlFieldRefs {
   readonly wordId: Prisma.FieldRef<"Pl", 'Int'>
   readonly meaningId: Prisma.FieldRef<"Pl", 'Int'>
   readonly actionHistory: Prisma.FieldRef<"Pl", 'String'>
+  readonly message: Prisma.FieldRef<"Pl", 'String'>
 }
     
 

@@ -1,12 +1,70 @@
 import { useState, useEffect, ChangeEvent } from 'react';
+import { createPortal } from 'react-dom';
 import { CellContext } from '@tanstack/react-table';
 
 interface LangObject {
     id: number;
     value: string | null;
     veryfied: number | null;
+    message: string | null;
     wordId: number | null;
     meaningId: number | null;
+}
+
+function RejectDialog({
+    open,
+    onClose,
+    onConfirm,
+    initialMessage,
+}: {
+    open: boolean;
+    onClose: () => void;
+    onConfirm: (message: string) => void;
+    initialMessage: string;
+}) {
+    const [text, setText] = useState(initialMessage);
+
+    useEffect(() => {
+        if (open) setText(initialMessage);
+    }, [open, initialMessage]);
+
+    if (!open) return null;
+
+    return createPortal(
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/30"
+            onClick={onClose}
+        >
+            <div
+                className="bg-white rounded-lg shadow-xl p-4 w-80"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <h3 className="text-sm font-semibold mb-2">Комментарий к отклонению</h3>
+                <textarea
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                    className="w-full border rounded px-2 py-1.5 text-sm resize-none h-20"
+                    placeholder="Укажите причину отклонения..."
+                    autoFocus
+                />
+                <div className="flex justify-end gap-2 mt-3">
+                    <button
+                        onClick={onClose}
+                        className="px-3 py-1.5 text-xs rounded border hover:bg-gray-100"
+                    >
+                        Отмена
+                    </button>
+                    <button
+                        onClick={() => onConfirm(text)}
+                        className="px-3 py-1.5 text-xs rounded bg-red-600 text-white hover:bg-red-700"
+                    >
+                        Отклонить
+                    </button>
+                </div>
+            </div>
+        </div>,
+        document.body
+    );
 }
 
 export function EditableLanguageCell<TData>({ cell, row, column, table, getValue }: CellContext<any, LangObject[]>) {
@@ -18,11 +76,14 @@ export function EditableLanguageCell<TData>({ cell, row, column, table, getValue
     const [isEditing, setIsEditing] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [localVeryfied, setLocalVeryfied] = useState(primary?.veryfied ?? 0);
+    const [localMessage, setLocalMessage] = useState(primary?.message || '');
+    const [showRejectDialog, setShowRejectDialog] = useState(false);
 
     useEffect(() => {
         setValue(primary?.value || '');
         setLocalVeryfied(primary?.veryfied ?? 0);
-    }, [primary?.value, primary?.veryfied]);
+        setLocalMessage(primary?.message || '');
+    }, [primary?.value, primary?.veryfied, primary?.message]);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
@@ -63,34 +124,47 @@ export function EditableLanguageCell<TData>({ cell, row, column, table, getValue
         setIsEditing(false);
     };
 
-    const updateVerification = async (newVeryfied: number) => {
+    const updateVerification = async (newVeryfied: number, rejectMessage?: string) => {
         if (!primary?.wordId && !primary?.meaningId) return;
 
         try {
+            const body: Record<string, unknown> = {
+                field: column.id,
+                veryfied: newVeryfied,
+                translationId: primary.id,
+            };
+            if (rejectMessage !== undefined) {
+                body.message = rejectMessage;
+            }
+
             const response = await fetch(`/api/lexicon/${primary.wordId ?? primary.meaningId}/updateField`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    field: column.id,
-                    veryfied: newVeryfied,
-                    translationId: primary.id,
-                }),
+                body: JSON.stringify(body),
             });
 
             if (!response.ok) throw new Error('Verification failed');
 
-            setLocalVeryfied(newVeryfied);
+            const updated = await response.json();
+
+            setLocalVeryfied(updated.veryfied ?? newVeryfied);
+            setLocalMessage(updated.message || '');
 
             const tableMeta = table.options.meta as any;
             if (tableMeta?.updateCellData) {
                 const updatedArray = langDataArray.map((item, idx) =>
-                    idx === 0 ? { ...item, veryfied: newVeryfied } : item
+                    idx === 0 ? { ...item, veryfied: updated.veryfied ?? newVeryfied, message: updated.message || '' } : item
                 );
                 tableMeta.updateCellData(row.index, column.id, updatedArray);
             }
         } catch (error) {
             console.error(error);
         }
+    };
+
+    const handleReject = (rejectMessage: string) => {
+        setShowRejectDialog(false);
+        updateVerification(0, rejectMessage);
     };
 
     if (isEditing) {
@@ -116,44 +190,66 @@ export function EditableLanguageCell<TData>({ cell, row, column, table, getValue
     const borderClass = hasMultiple ? 'border-2 border-red-400' : 'border border-transparent';
 
     return (
-        <div
-            className={`flex items-center gap-1 px-2 py-1 relative cursor-text rounded ${borderClass}`}
-            onClick={() => setIsEditing(true)}
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
-        >
-            <span className={`shrink-0 text-xs ${isVerified ? 'text-green-500' : 'text-gray-400'}`}>
-                ●
-            </span>
-            <span
-                className={`truncate flex-1 min-w-0 ${isVerified ? 'text-foreground' : 'text-gray-400 italic'}`}
-                title={displayText}
+        <>
+            <div
+                className={`flex items-center gap-1 px-2 py-1 relative cursor-text rounded ${borderClass}`}
+                onClick={() => setIsEditing(true)}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
             >
-                {displayText || <span className="text-gray-300">—</span>}
-            </span>
-            {hasMultiple && (
-                <span className="shrink-0 text-[10px] font-bold text-red-500 bg-red-50 px-1 rounded">
-                    ×{langDataArray.length}
+                <span
+                    className={`shrink-0 text-xs ${isVerified ? 'text-green-500' : localMessage ? 'text-amber-500' : 'text-gray-400'}`}
+                    title={!isVerified && localMessage ? localMessage : undefined}
+                >
+                    ●
                 </span>
-            )}
-            {isHovering && primary && (
-                <span className="flex gap-0.5 shrink-0" onClick={(e) => e.stopPropagation()}>
-                    <button
-                        onClick={() => updateVerification(isVerified ? 0 : 1)}
-                        className="text-xs w-4 h-4 flex items-center justify-center rounded hover:bg-green-100 hover:text-green-700"
-                        title={isVerified ? 'Снять верификацию' : 'Верифицировать'}
-                    >
-                        ✓
-                    </button>
-                    <button
-                        onClick={() => updateVerification(0)}
-                        className="text-xs w-4 h-4 flex items-center justify-center rounded hover:bg-red-100 hover:text-red-700"
-                        title="Снять верификацию"
-                    >
-                        ✕
-                    </button>
+                <span
+                    className={`truncate flex-1 min-w-0 ${isVerified ? 'text-foreground' : 'text-gray-400 italic'}`}
+                    title={!isVerified && localMessage ? localMessage : displayText || undefined}
+                >
+                    {displayText || <span className="text-gray-300">—</span>}
                 </span>
-            )}
-        </div>
+                {hasMultiple && (
+                    <span className="shrink-0 text-[10px] font-bold text-red-500 bg-red-50 px-1 rounded">
+                        ×{langDataArray.length}
+                    </span>
+                )}
+                {isHovering && primary && (
+                    <span className="flex gap-0.5 shrink-0" onClick={(e) => e.stopPropagation()}>
+                        <button
+                            onClick={() => updateVerification(isVerified ? 0 : 1)}
+                            className="text-xs w-4 h-4 flex items-center justify-center rounded hover:bg-green-100 hover:text-green-700"
+                            title={isVerified ? 'Снять верификацию' : 'Верифицировать'}
+                        >
+                            ✓
+                        </button>
+                        <button
+                            onClick={() => {
+                                if (isVerified) {
+                                    updateVerification(0);
+                                } else {
+                                    setShowRejectDialog(true);
+                                }
+                            }}
+                            className="text-xs w-4 h-4 flex items-center justify-center rounded hover:bg-red-100 hover:text-red-700"
+                            title="Снять верификацию"
+                        >
+                            ✕
+                        </button>
+                    </span>
+                )}
+                {!isVerified && localMessage && !isHovering && (
+                    <span className="shrink-0 text-[9px] text-amber-600 bg-amber-50 px-1 rounded truncate max-w-[80px]" title={localMessage}>
+                        {localMessage}
+                    </span>
+                )}
+            </div>
+            <RejectDialog
+                open={showRejectDialog}
+                onClose={() => setShowRejectDialog(false)}
+                onConfirm={handleReject}
+                initialMessage={localMessage}
+            />
+        </>
     );
 }

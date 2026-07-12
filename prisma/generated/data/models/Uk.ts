@@ -49,6 +49,7 @@ export type UkMinAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type UkMaxAggregateOutputType = {
@@ -60,6 +61,7 @@ export type UkMaxAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type UkCountAggregateOutputType = {
@@ -71,6 +73,7 @@ export type UkCountAggregateOutputType = {
   wordId: number
   meaningId: number
   actionHistory: number
+  message: number
   _all: number
 }
 
@@ -98,6 +101,7 @@ export type UkMinAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type UkMaxAggregateInputType = {
@@ -109,6 +113,7 @@ export type UkMaxAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type UkCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type UkCountAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
   _all?: true
 }
 
@@ -218,6 +224,7 @@ export type UkGroupByOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
   _count: UkCountAggregateOutputType | null
   _avg: UkAvgAggregateOutputType | null
   _sum: UkSumAggregateOutputType | null
@@ -252,6 +259,7 @@ export type UkWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Uk"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Uk"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Uk"> | string | null
+  message?: Prisma.StringNullableFilter<"Uk"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }
@@ -265,6 +273,7 @@ export type UkOrderByWithRelationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   word?: Prisma.MeaningOrderByWithRelationInput
   meaning?: Prisma.MeaningOrderByWithRelationInput
 }
@@ -281,6 +290,7 @@ export type UkWhereUniqueInput = Prisma.AtLeast<{
   wordId?: Prisma.IntNullableFilter<"Uk"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Uk"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Uk"> | string | null
+  message?: Prisma.StringNullableFilter<"Uk"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }, "id">
@@ -294,6 +304,7 @@ export type UkOrderByWithAggregationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UkCountOrderByAggregateInput
   _avg?: Prisma.UkAvgOrderByAggregateInput
   _max?: Prisma.UkMaxOrderByAggregateInput
@@ -313,6 +324,7 @@ export type UkScalarWhereWithAggregatesInput = {
   wordId?: Prisma.IntNullableWithAggregatesFilter<"Uk"> | number | null
   meaningId?: Prisma.IntNullableWithAggregatesFilter<"Uk"> | number | null
   actionHistory?: Prisma.StringNullableWithAggregatesFilter<"Uk"> | string | null
+  message?: Prisma.StringNullableWithAggregatesFilter<"Uk"> | string | null
 }
 
 export type UkCreateInput = {
@@ -321,6 +333,7 @@ export type UkCreateInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutUk_wordInput
   meaning?: Prisma.MeaningCreateNestedOneWithoutUk_meanInput
 }
@@ -334,6 +347,7 @@ export type UkUncheckedCreateInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type UkUpdateInput = {
@@ -342,6 +356,7 @@ export type UkUpdateInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutUk_wordNestedInput
   meaning?: Prisma.MeaningUpdateOneWithoutUk_meanNestedInput
 }
@@ -355,6 +370,7 @@ export type UkUncheckedUpdateInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UkCreateManyInput = {
@@ -366,6 +382,7 @@ export type UkCreateManyInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type UkUpdateManyMutationInput = {
@@ -374,6 +391,7 @@ export type UkUpdateManyMutationInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UkUncheckedUpdateManyInput = {
@@ -385,6 +403,7 @@ export type UkUncheckedUpdateManyInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UkListRelationFilter = {
@@ -406,6 +425,7 @@ export type UkCountOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type UkAvgOrderByAggregateInput = {
@@ -424,6 +444,7 @@ export type UkMaxOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type UkMinOrderByAggregateInput = {
@@ -435,6 +456,7 @@ export type UkMinOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type UkSumOrderByAggregateInput = {
@@ -534,6 +556,7 @@ export type UkCreateWithoutWordInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   meaning?: Prisma.MeaningCreateNestedOneWithoutUk_meanInput
 }
 
@@ -545,6 +568,7 @@ export type UkUncheckedCreateWithoutWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type UkCreateOrConnectWithoutWordInput = {
@@ -562,6 +586,7 @@ export type UkCreateWithoutMeaningInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutUk_wordInput
 }
 
@@ -573,6 +598,7 @@ export type UkUncheckedCreateWithoutMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type UkCreateOrConnectWithoutMeaningInput = {
@@ -612,6 +638,7 @@ export type UkScalarWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Uk"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Uk"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Uk"> | string | null
+  message?: Prisma.StringNullableFilter<"Uk"> | string | null
 }
 
 export type UkUpsertWithWhereUniqueWithoutMeaningInput = {
@@ -638,6 +665,7 @@ export type UkCreateManyWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type UkCreateManyMeaningInput = {
@@ -648,6 +676,7 @@ export type UkCreateManyMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type UkUpdateWithoutWordInput = {
@@ -656,6 +685,7 @@ export type UkUpdateWithoutWordInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meaning?: Prisma.MeaningUpdateOneWithoutUk_meanNestedInput
 }
 
@@ -667,6 +697,7 @@ export type UkUncheckedUpdateWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UkUncheckedUpdateManyWithoutWordInput = {
@@ -677,6 +708,7 @@ export type UkUncheckedUpdateManyWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UkUpdateWithoutMeaningInput = {
@@ -685,6 +717,7 @@ export type UkUpdateWithoutMeaningInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutUk_wordNestedInput
 }
 
@@ -696,6 +729,7 @@ export type UkUncheckedUpdateWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UkUncheckedUpdateManyWithoutMeaningInput = {
@@ -706,6 +740,7 @@ export type UkUncheckedUpdateManyWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -719,6 +754,7 @@ export type UkSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Uk$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Uk$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["uk"]>
@@ -732,6 +768,7 @@ export type UkSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Uk$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Uk$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["uk"]>
@@ -745,6 +782,7 @@ export type UkSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Uk$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Uk$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["uk"]>
@@ -758,9 +796,10 @@ export type UkSelectScalar = {
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
 }
 
-export type UkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory", ExtArgs["result"]["uk"]>
+export type UkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory" | "message", ExtArgs["result"]["uk"]>
 export type UkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   word?: boolean | Prisma.Uk$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Uk$meaningArgs<ExtArgs>
@@ -789,6 +828,7 @@ export type $UkPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     wordId: number | null
     meaningId: number | null
     actionHistory: string | null
+    message: string | null
   }, ExtArgs["result"]["uk"]>
   composites: {}
 }
@@ -1222,6 +1262,7 @@ export interface UkFieldRefs {
   readonly wordId: Prisma.FieldRef<"Uk", 'Int'>
   readonly meaningId: Prisma.FieldRef<"Uk", 'Int'>
   readonly actionHistory: Prisma.FieldRef<"Uk", 'String'>
+  readonly message: Prisma.FieldRef<"Uk", 'String'>
 }
     
 

@@ -64,7 +64,7 @@ async function syncBaseHomonym(wordId: number, newBase: string | null, oldBase: 
     }
 }
 
-export const updateField = async (wordId: string, field: string, newValue: string, veryfied?: number, translationId?: number) => {
+export const updateField = async (wordId: string, field: string, newValue: string, veryfied?: number, translationId?: number, message?: string) => {
     console.log(wordId, field, newValue, veryfied);
     const session = await auth()
     const author = session?.user?.email || "unknown"
@@ -165,14 +165,25 @@ export const updateField = async (wordId: string, field: string, newValue: strin
 
         const updateData: Record<string, unknown> = {};
 
+        const changes: Record<string, { old: unknown; new: unknown }> = {};
+
         if (veryfied !== undefined) {
             updateData.veryfied = veryfied;
+            if ((entityOne?.veryfied ?? 0) !== veryfied) {
+                changes.veryfied = { old: entityOne?.veryfied ?? 0, new: veryfied };
+            }
         }
         if (newValue !== undefined) {
             updateData.value = newValue;
-            updateData.actionHistory = append(entityOne?.actionHistory, buildEntry(author, {
-                value: { old: entityOne?.value ?? null, new: newValue },
-            }));
+            changes.value = { old: entityOne?.value ?? null, new: newValue };
+        }
+        if (message !== undefined) {
+            updateData.message = message;
+            changes.message = { old: entityOne?.message ?? null, new: message };
+        }
+
+        if (Object.keys(changes).length > 0) {
+            updateData.actionHistory = append(entityOne?.actionHistory, buildEntry(author, changes));
         }
 
         const updated = await langModel.update({

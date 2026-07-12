@@ -75,26 +75,26 @@ function getLangModel(lang: string) {
 }
 
 function extractTranslations(meaning: {
-  en_word: { id: number; value: string | null; veryfied: number | null }[]
-  ru_word: { id: number; value: string | null; veryfied: number | null }[]
-  mk_word: { id: number; value: string | null; veryfied: number | null }[]
-  sr_word: { id: number; value: string | null; veryfied: number | null }[]
-  bg_word: { id: number; value: string | null; veryfied: number | null }[]
-  pl_word: { id: number; value: string | null; veryfied: number | null }[]
-  cs_word: { id: number; value: string | null; veryfied: number | null }[]
-  sl_word: { id: number; value: string | null; veryfied: number | null }[]
-  de_word: { id: number; value: string | null; veryfied: number | null }[]
-  uk_word: { id: number; value: string | null; veryfied: number | null }[]
-  be_word: { id: number; value: string | null; veryfied: number | null }[]
-  sk_word: { id: number; value: string | null; veryfied: number | null }[]
-  hr_word: { id: number; value: string | null; veryfied: number | null }[]
-  hsb_word: { id: number; value: string | null; veryfied: number | null }[]
-  dsb_word: { id: number; value: string | null; veryfied: number | null }[]
-  cu_word: { id: number; value: string | null; veryfied: number | null }[]
-  nl_word: { id: number; value: string | null; veryfied: number | null }[]
-  eo_word: { id: number; value: string | null; veryfied: number | null }[]
-}): Record<string, { id: number; value: string; veryfied: number }[]> {
-  const result: Record<string, { id: number; value: string; veryfied: number }[]> = {}
+  en_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  ru_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  mk_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  sr_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  bg_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  pl_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  cs_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  sl_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  de_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  uk_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  be_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  sk_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  hr_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  hsb_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  dsb_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  cu_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  nl_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+  eo_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
+}): Record<string, { id: number; value: string; veryfied: number; message: string }[]> {
+  const result: Record<string, { id: number; value: string; veryfied: number; message: string }[]> = {}
   const langKeys: { key: string; field: keyof typeof meaning }[] = [
     { key: "en", field: "en_word" },
     { key: "ru", field: "ru_word" },
@@ -116,9 +116,9 @@ function extractTranslations(meaning: {
     { key: "eo", field: "eo_word" },
   ]
   for (const { key, field } of langKeys) {
-    result[key] = (meaning[field] as { id: number; value: string | null; veryfied: number | null }[])
+    result[key] = (meaning[field] as { id: number; value: string | null; veryfied: number | null; message: string | null }[])
       .filter((t) => t.value?.trim())
-      .map((t) => ({ id: t.id, value: t.value ?? "", veryfied: t.veryfied ?? 0 }))
+      .map((t) => ({ id: t.id, value: t.value ?? "", veryfied: t.veryfied ?? 0, message: t.message ?? "" }))
   }
   return result
 }
@@ -205,13 +205,17 @@ const attachedRoots = (wordData.lexemes_morphemes || [])
     id: m.id,
     meaning: m.meaning ?? "",
     examples: m.examples ?? "",
-    translations: extractTranslations(m),
+    meaningVeryfied: m.meaningVeryfied ?? 0,
+    meaningMessage: m.meaningMessage ?? "",
+    examplesVeryfied: m.examplesVeryfied ?? 0,
+    examplesMessage: m.examplesMessage ?? "",
+    translations: extractTranslations(m as any),
   }))
 
   async function ensureTranslation(
     lang: string,
     meaningId: number,
-    translation: { id: number; value: string; veryfied: number },
+    translation: { id: number; value: string; veryfied: number; message: string },
     author: string
   ) {
     const model = getLangModel(lang) as any
@@ -226,12 +230,16 @@ const attachedRoots = (wordData.lexemes_morphemes || [])
       if ((existing.veryfied ?? 0) !== translation.veryfied) {
         changes.veryfied = { old: existing.veryfied ?? 0, new: translation.veryfied }
       }
+      if ((existing.message ?? "") !== translation.message) {
+        changes.message = { old: existing.message ?? null, new: translation.message }
+      }
       if (Object.keys(changes).length > 0) {
         await model.update({
           where: { id: translation.id },
           data: {
             value: translation.value || null,
             veryfied: translation.veryfied,
+            message: translation.message || null,
             actionHistory: append(existing.actionHistory, buildEntry(author, changes)),
           },
         })
@@ -242,9 +250,11 @@ const attachedRoots = (wordData.lexemes_morphemes || [])
           meaningId,
           value: translation.value,
           veryfied: translation.veryfied,
+          message: translation.message || null,
           actionHistory: append(null, buildEntry(author, {
             value: { old: null, new: translation.value },
             veryfied: { old: null, new: translation.veryfied },
+            ...(translation.message ? { message: { old: null, new: translation.message } } : {}),
           })),
         },
       })
@@ -254,7 +264,7 @@ const attachedRoots = (wordData.lexemes_morphemes || [])
   async function syncTranslations(
     lang: string,
     meaningId: number,
-    translations: { id: number; value: string; veryfied: number }[],
+    translations: { id: number; value: string; veryfied: number; message: string }[],
     author: string
   ) {
     const model = getLangModel(lang) as any
@@ -461,7 +471,7 @@ const attachedRoots = (wordData.lexemes_morphemes || [])
       if (m.id > 0) {
         await db.meaning.update({
           where: { id: m.id },
-          data: { meaning: m.meaning || null, examples: m.examples || null },
+          data: { meaning: m.meaning || null, examples: m.examples || null, meaningVeryfied: m.meaningVeryfied ?? null, meaningMessage: m.meaningMessage || null, examplesVeryfied: m.examplesVeryfied ?? null, examplesMessage: m.examplesMessage || null },
         })
       } else {
         const created = await db.meaning.create({
@@ -469,6 +479,10 @@ const attachedRoots = (wordData.lexemes_morphemes || [])
             lexemeId: wordId,
             meaning: m.meaning || null,
             examples: m.examples || null,
+            meaningVeryfied: m.meaningVeryfied ?? null,
+            meaningMessage: m.meaningMessage || null,
+            examplesVeryfied: m.examplesVeryfied ?? null,
+            examplesMessage: m.examplesMessage || null,
           },
         })
         meaningId = created.id

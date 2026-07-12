@@ -17,6 +17,17 @@ export enum SystemFeature {
     SynonymsEdit = "synonyms_edit",
     AntonymsEdit = "antonyms_edit",
 
+    // Семантические отношения из RuWordNet
+    HypernymsEdit = "hypernyms_edit",
+    HyponymsEdit = "hyponyms_edit",
+    MeronymsEdit = "meronyms_edit",
+    HolonymsEdit = "holonyms_edit",
+    RelatedWordsEdit = "related_words_edit",
+    CausesEdit = "causes_edit",
+    EffectsEdit = "effects_edit",
+    PremisesEdit = "premises_edit",
+    ConclusionsEdit = "conclusions_edit",
+
     // Корни (морфемы)
     RootsCreate = "roots_create",
     RootsEdit = "roots_edit",
@@ -142,6 +153,69 @@ export const FEATURE_METADATA: Record<string, { label: string; description: stri
     [SystemFeature.AntonymsEdit]: {
         label: "Управление антонимами",
         description: "Добавление и удаление связей антонимов между значениями",
+        category: "Семантика",
+    },
+
+    // Гиперонимы
+    [SystemFeature.HypernymsEdit]: {
+        label: "Управление гиперонимами",
+        description: "Родовые понятия (IS-A): добавление и удаление связей",
+        category: "Семантика",
+    },
+
+    // Гипонимы
+    [SystemFeature.HyponymsEdit]: {
+        label: "Управление гипонимами",
+        description: "Видовые понятия (IS-A child): добавление и удаление связей",
+        category: "Семантика",
+    },
+
+    // Меронимы
+    [SystemFeature.MeronymsEdit]: {
+        label: "Управление меронимами",
+        description: "Часть целого (part-of): добавление и удаление связей",
+        category: "Семантика",
+    },
+
+    // Холонимы
+    [SystemFeature.HolonymsEdit]: {
+        label: "Управление холонимами",
+        description: "Содержит как часть (has-part): добавление и удаление связей",
+        category: "Семантика",
+    },
+
+    // Связанные слова
+    [SystemFeature.RelatedWordsEdit]: {
+        label: "Управление связанными словами",
+        description: "Связанные понятия: добавление и удаление связей",
+        category: "Семантика",
+    },
+
+    // Причины
+    [SystemFeature.CausesEdit]: {
+        label: "Управление причинами",
+        description: "Глагольные причины: добавление и удаление связей",
+        category: "Семантика",
+    },
+
+    // Следствия
+    [SystemFeature.EffectsEdit]: {
+        label: "Управление следствиями",
+        description: "Глагольные следствия: добавление и удаление связей",
+        category: "Семантика",
+    },
+
+    // Предпосылки
+    [SystemFeature.PremisesEdit]: {
+        label: "Управление предпосылками",
+        description: "Глагольные предпосылки: добавление и удаление связей",
+        category: "Семантика",
+    },
+
+    // Заключения
+    [SystemFeature.ConclusionsEdit]: {
+        label: "Управление заключениями",
+        description: "Глагольные заключения: добавление и удаление связей",
         category: "Семантика",
     },
 

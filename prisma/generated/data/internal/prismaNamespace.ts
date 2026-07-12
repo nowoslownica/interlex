@@ -395,6 +395,15 @@ export const ModelName = {
   EndingAllophone: 'EndingAllophone',
   Synonym: 'Synonym',
   Antonym: 'Antonym',
+  Hypernym: 'Hypernym',
+  Hyponym: 'Hyponym',
+  Meronym: 'Meronym',
+  Holonym: 'Holonym',
+  RelatedWord: 'RelatedWord',
+  Cause: 'Cause',
+  Effect: 'Effect',
+  Premise: 'Premise',
+  Conclusion: 'Conclusion',
   En: 'En',
   Ru: 'Ru',
   Mk: 'Mk',
@@ -433,7 +442,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "lexeme" | "candidate" | "meaning" | "morpheme" | "lexemeMorpheme" | "allophoneFlavor" | "lexemeAllophone" | "morphemeAllophone" | "endingAllophone" | "synonym" | "antonym" | "en" | "ru" | "mk" | "sr" | "uk" | "bg" | "pl" | "be" | "cs" | "sk" | "sl" | "hr" | "cu" | "de" | "nl" | "eo" | "hsb" | "dsb" | "baseHomonym" | "inflectionAnomaly" | "protoSlavicWord" | "synset" | "meaningSynset"
+    modelProps: "lexeme" | "candidate" | "meaning" | "morpheme" | "lexemeMorpheme" | "allophoneFlavor" | "lexemeAllophone" | "morphemeAllophone" | "endingAllophone" | "synonym" | "antonym" | "hypernym" | "hyponym" | "meronym" | "holonym" | "relatedWord" | "cause" | "effect" | "premise" | "conclusion" | "en" | "ru" | "mk" | "sr" | "uk" | "bg" | "pl" | "be" | "cs" | "sk" | "sl" | "hr" | "cu" | "de" | "nl" | "eo" | "hsb" | "dsb" | "baseHomonym" | "inflectionAnomaly" | "protoSlavicWord" | "synset" | "meaningSynset"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1248,6 +1257,672 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AntonymCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AntonymCountAggregateOutputType> | number
+        }
+      }
+    }
+    Hypernym: {
+      payload: Prisma.$HypernymPayload<ExtArgs>
+      fields: Prisma.HypernymFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HypernymFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HypernymPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HypernymFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HypernymPayload>
+        }
+        findFirst: {
+          args: Prisma.HypernymFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HypernymPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HypernymFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HypernymPayload>
+        }
+        findMany: {
+          args: Prisma.HypernymFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HypernymPayload>[]
+        }
+        create: {
+          args: Prisma.HypernymCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HypernymPayload>
+        }
+        createMany: {
+          args: Prisma.HypernymCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.HypernymCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HypernymPayload>[]
+        }
+        delete: {
+          args: Prisma.HypernymDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HypernymPayload>
+        }
+        update: {
+          args: Prisma.HypernymUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HypernymPayload>
+        }
+        deleteMany: {
+          args: Prisma.HypernymDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HypernymUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.HypernymUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HypernymPayload>[]
+        }
+        upsert: {
+          args: Prisma.HypernymUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HypernymPayload>
+        }
+        aggregate: {
+          args: Prisma.HypernymAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHypernym>
+        }
+        groupBy: {
+          args: Prisma.HypernymGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HypernymGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.HypernymCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HypernymCountAggregateOutputType> | number
+        }
+      }
+    }
+    Hyponym: {
+      payload: Prisma.$HyponymPayload<ExtArgs>
+      fields: Prisma.HyponymFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HyponymFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HyponymPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HyponymFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HyponymPayload>
+        }
+        findFirst: {
+          args: Prisma.HyponymFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HyponymPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HyponymFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HyponymPayload>
+        }
+        findMany: {
+          args: Prisma.HyponymFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HyponymPayload>[]
+        }
+        create: {
+          args: Prisma.HyponymCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HyponymPayload>
+        }
+        createMany: {
+          args: Prisma.HyponymCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.HyponymCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HyponymPayload>[]
+        }
+        delete: {
+          args: Prisma.HyponymDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HyponymPayload>
+        }
+        update: {
+          args: Prisma.HyponymUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HyponymPayload>
+        }
+        deleteMany: {
+          args: Prisma.HyponymDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HyponymUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.HyponymUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HyponymPayload>[]
+        }
+        upsert: {
+          args: Prisma.HyponymUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HyponymPayload>
+        }
+        aggregate: {
+          args: Prisma.HyponymAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHyponym>
+        }
+        groupBy: {
+          args: Prisma.HyponymGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HyponymGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.HyponymCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HyponymCountAggregateOutputType> | number
+        }
+      }
+    }
+    Meronym: {
+      payload: Prisma.$MeronymPayload<ExtArgs>
+      fields: Prisma.MeronymFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MeronymFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeronymPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MeronymFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeronymPayload>
+        }
+        findFirst: {
+          args: Prisma.MeronymFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeronymPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MeronymFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeronymPayload>
+        }
+        findMany: {
+          args: Prisma.MeronymFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeronymPayload>[]
+        }
+        create: {
+          args: Prisma.MeronymCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeronymPayload>
+        }
+        createMany: {
+          args: Prisma.MeronymCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MeronymCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeronymPayload>[]
+        }
+        delete: {
+          args: Prisma.MeronymDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeronymPayload>
+        }
+        update: {
+          args: Prisma.MeronymUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeronymPayload>
+        }
+        deleteMany: {
+          args: Prisma.MeronymDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MeronymUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MeronymUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeronymPayload>[]
+        }
+        upsert: {
+          args: Prisma.MeronymUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeronymPayload>
+        }
+        aggregate: {
+          args: Prisma.MeronymAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMeronym>
+        }
+        groupBy: {
+          args: Prisma.MeronymGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MeronymGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MeronymCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MeronymCountAggregateOutputType> | number
+        }
+      }
+    }
+    Holonym: {
+      payload: Prisma.$HolonymPayload<ExtArgs>
+      fields: Prisma.HolonymFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HolonymFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HolonymPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HolonymFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HolonymPayload>
+        }
+        findFirst: {
+          args: Prisma.HolonymFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HolonymPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HolonymFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HolonymPayload>
+        }
+        findMany: {
+          args: Prisma.HolonymFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HolonymPayload>[]
+        }
+        create: {
+          args: Prisma.HolonymCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HolonymPayload>
+        }
+        createMany: {
+          args: Prisma.HolonymCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.HolonymCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HolonymPayload>[]
+        }
+        delete: {
+          args: Prisma.HolonymDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HolonymPayload>
+        }
+        update: {
+          args: Prisma.HolonymUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HolonymPayload>
+        }
+        deleteMany: {
+          args: Prisma.HolonymDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HolonymUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.HolonymUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HolonymPayload>[]
+        }
+        upsert: {
+          args: Prisma.HolonymUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HolonymPayload>
+        }
+        aggregate: {
+          args: Prisma.HolonymAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHolonym>
+        }
+        groupBy: {
+          args: Prisma.HolonymGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HolonymGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.HolonymCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HolonymCountAggregateOutputType> | number
+        }
+      }
+    }
+    RelatedWord: {
+      payload: Prisma.$RelatedWordPayload<ExtArgs>
+      fields: Prisma.RelatedWordFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RelatedWordFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelatedWordPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RelatedWordFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelatedWordPayload>
+        }
+        findFirst: {
+          args: Prisma.RelatedWordFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelatedWordPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RelatedWordFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelatedWordPayload>
+        }
+        findMany: {
+          args: Prisma.RelatedWordFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelatedWordPayload>[]
+        }
+        create: {
+          args: Prisma.RelatedWordCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelatedWordPayload>
+        }
+        createMany: {
+          args: Prisma.RelatedWordCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RelatedWordCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelatedWordPayload>[]
+        }
+        delete: {
+          args: Prisma.RelatedWordDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelatedWordPayload>
+        }
+        update: {
+          args: Prisma.RelatedWordUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelatedWordPayload>
+        }
+        deleteMany: {
+          args: Prisma.RelatedWordDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RelatedWordUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RelatedWordUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelatedWordPayload>[]
+        }
+        upsert: {
+          args: Prisma.RelatedWordUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RelatedWordPayload>
+        }
+        aggregate: {
+          args: Prisma.RelatedWordAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRelatedWord>
+        }
+        groupBy: {
+          args: Prisma.RelatedWordGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RelatedWordGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RelatedWordCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RelatedWordCountAggregateOutputType> | number
+        }
+      }
+    }
+    Cause: {
+      payload: Prisma.$CausePayload<ExtArgs>
+      fields: Prisma.CauseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CauseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CausePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CauseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CausePayload>
+        }
+        findFirst: {
+          args: Prisma.CauseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CausePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CauseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CausePayload>
+        }
+        findMany: {
+          args: Prisma.CauseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CausePayload>[]
+        }
+        create: {
+          args: Prisma.CauseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CausePayload>
+        }
+        createMany: {
+          args: Prisma.CauseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CauseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CausePayload>[]
+        }
+        delete: {
+          args: Prisma.CauseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CausePayload>
+        }
+        update: {
+          args: Prisma.CauseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CausePayload>
+        }
+        deleteMany: {
+          args: Prisma.CauseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CauseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CauseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CausePayload>[]
+        }
+        upsert: {
+          args: Prisma.CauseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CausePayload>
+        }
+        aggregate: {
+          args: Prisma.CauseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCause>
+        }
+        groupBy: {
+          args: Prisma.CauseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CauseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CauseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CauseCountAggregateOutputType> | number
+        }
+      }
+    }
+    Effect: {
+      payload: Prisma.$EffectPayload<ExtArgs>
+      fields: Prisma.EffectFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EffectFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EffectPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EffectFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EffectPayload>
+        }
+        findFirst: {
+          args: Prisma.EffectFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EffectPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EffectFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EffectPayload>
+        }
+        findMany: {
+          args: Prisma.EffectFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EffectPayload>[]
+        }
+        create: {
+          args: Prisma.EffectCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EffectPayload>
+        }
+        createMany: {
+          args: Prisma.EffectCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EffectCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EffectPayload>[]
+        }
+        delete: {
+          args: Prisma.EffectDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EffectPayload>
+        }
+        update: {
+          args: Prisma.EffectUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EffectPayload>
+        }
+        deleteMany: {
+          args: Prisma.EffectDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EffectUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EffectUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EffectPayload>[]
+        }
+        upsert: {
+          args: Prisma.EffectUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EffectPayload>
+        }
+        aggregate: {
+          args: Prisma.EffectAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEffect>
+        }
+        groupBy: {
+          args: Prisma.EffectGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EffectGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EffectCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EffectCountAggregateOutputType> | number
+        }
+      }
+    }
+    Premise: {
+      payload: Prisma.$PremisePayload<ExtArgs>
+      fields: Prisma.PremiseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PremiseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PremisePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PremiseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PremisePayload>
+        }
+        findFirst: {
+          args: Prisma.PremiseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PremisePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PremiseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PremisePayload>
+        }
+        findMany: {
+          args: Prisma.PremiseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PremisePayload>[]
+        }
+        create: {
+          args: Prisma.PremiseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PremisePayload>
+        }
+        createMany: {
+          args: Prisma.PremiseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PremiseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PremisePayload>[]
+        }
+        delete: {
+          args: Prisma.PremiseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PremisePayload>
+        }
+        update: {
+          args: Prisma.PremiseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PremisePayload>
+        }
+        deleteMany: {
+          args: Prisma.PremiseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PremiseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PremiseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PremisePayload>[]
+        }
+        upsert: {
+          args: Prisma.PremiseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PremisePayload>
+        }
+        aggregate: {
+          args: Prisma.PremiseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePremise>
+        }
+        groupBy: {
+          args: Prisma.PremiseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PremiseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PremiseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PremiseCountAggregateOutputType> | number
+        }
+      }
+    }
+    Conclusion: {
+      payload: Prisma.$ConclusionPayload<ExtArgs>
+      fields: Prisma.ConclusionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ConclusionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConclusionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ConclusionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConclusionPayload>
+        }
+        findFirst: {
+          args: Prisma.ConclusionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConclusionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ConclusionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConclusionPayload>
+        }
+        findMany: {
+          args: Prisma.ConclusionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConclusionPayload>[]
+        }
+        create: {
+          args: Prisma.ConclusionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConclusionPayload>
+        }
+        createMany: {
+          args: Prisma.ConclusionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ConclusionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConclusionPayload>[]
+        }
+        delete: {
+          args: Prisma.ConclusionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConclusionPayload>
+        }
+        update: {
+          args: Prisma.ConclusionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConclusionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ConclusionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ConclusionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ConclusionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConclusionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ConclusionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConclusionPayload>
+        }
+        aggregate: {
+          args: Prisma.ConclusionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConclusion>
+        }
+        groupBy: {
+          args: Prisma.ConclusionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConclusionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ConclusionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConclusionCountAggregateOutputType> | number
         }
       }
     }
@@ -3080,6 +3755,10 @@ export const MeaningScalarFieldEnum = {
   lexemeId: 'lexemeId',
   meaning: 'meaning',
   examples: 'examples',
+  meaningVeryfied: 'meaningVeryfied',
+  meaningMessage: 'meaningMessage',
+  examplesVeryfied: 'examplesVeryfied',
+  examplesMessage: 'examplesMessage',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -3170,6 +3849,96 @@ export const AntonymScalarFieldEnum = {
 export type AntonymScalarFieldEnum = (typeof AntonymScalarFieldEnum)[keyof typeof AntonymScalarFieldEnum]
 
 
+export const HypernymScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  targetId: 'targetId',
+  proximity: 'proximity'
+} as const
+
+export type HypernymScalarFieldEnum = (typeof HypernymScalarFieldEnum)[keyof typeof HypernymScalarFieldEnum]
+
+
+export const HyponymScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  targetId: 'targetId',
+  proximity: 'proximity'
+} as const
+
+export type HyponymScalarFieldEnum = (typeof HyponymScalarFieldEnum)[keyof typeof HyponymScalarFieldEnum]
+
+
+export const MeronymScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  targetId: 'targetId',
+  proximity: 'proximity'
+} as const
+
+export type MeronymScalarFieldEnum = (typeof MeronymScalarFieldEnum)[keyof typeof MeronymScalarFieldEnum]
+
+
+export const HolonymScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  targetId: 'targetId',
+  proximity: 'proximity'
+} as const
+
+export type HolonymScalarFieldEnum = (typeof HolonymScalarFieldEnum)[keyof typeof HolonymScalarFieldEnum]
+
+
+export const RelatedWordScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  targetId: 'targetId',
+  proximity: 'proximity'
+} as const
+
+export type RelatedWordScalarFieldEnum = (typeof RelatedWordScalarFieldEnum)[keyof typeof RelatedWordScalarFieldEnum]
+
+
+export const CauseScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  targetId: 'targetId',
+  proximity: 'proximity'
+} as const
+
+export type CauseScalarFieldEnum = (typeof CauseScalarFieldEnum)[keyof typeof CauseScalarFieldEnum]
+
+
+export const EffectScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  targetId: 'targetId',
+  proximity: 'proximity'
+} as const
+
+export type EffectScalarFieldEnum = (typeof EffectScalarFieldEnum)[keyof typeof EffectScalarFieldEnum]
+
+
+export const PremiseScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  targetId: 'targetId',
+  proximity: 'proximity'
+} as const
+
+export type PremiseScalarFieldEnum = (typeof PremiseScalarFieldEnum)[keyof typeof PremiseScalarFieldEnum]
+
+
+export const ConclusionScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  targetId: 'targetId',
+  proximity: 'proximity'
+} as const
+
+export type ConclusionScalarFieldEnum = (typeof ConclusionScalarFieldEnum)[keyof typeof ConclusionScalarFieldEnum]
+
+
 export const EnScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -3178,7 +3947,8 @@ export const EnScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type EnScalarFieldEnum = (typeof EnScalarFieldEnum)[keyof typeof EnScalarFieldEnum]
@@ -3192,7 +3962,8 @@ export const RuScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type RuScalarFieldEnum = (typeof RuScalarFieldEnum)[keyof typeof RuScalarFieldEnum]
@@ -3206,7 +3977,8 @@ export const MkScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type MkScalarFieldEnum = (typeof MkScalarFieldEnum)[keyof typeof MkScalarFieldEnum]
@@ -3220,7 +3992,8 @@ export const SrScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type SrScalarFieldEnum = (typeof SrScalarFieldEnum)[keyof typeof SrScalarFieldEnum]
@@ -3234,7 +4007,8 @@ export const UkScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type UkScalarFieldEnum = (typeof UkScalarFieldEnum)[keyof typeof UkScalarFieldEnum]
@@ -3248,7 +4022,8 @@ export const BgScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type BgScalarFieldEnum = (typeof BgScalarFieldEnum)[keyof typeof BgScalarFieldEnum]
@@ -3262,7 +4037,8 @@ export const PlScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type PlScalarFieldEnum = (typeof PlScalarFieldEnum)[keyof typeof PlScalarFieldEnum]
@@ -3276,7 +4052,8 @@ export const BeScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type BeScalarFieldEnum = (typeof BeScalarFieldEnum)[keyof typeof BeScalarFieldEnum]
@@ -3290,7 +4067,8 @@ export const CsScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type CsScalarFieldEnum = (typeof CsScalarFieldEnum)[keyof typeof CsScalarFieldEnum]
@@ -3304,7 +4082,8 @@ export const SkScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type SkScalarFieldEnum = (typeof SkScalarFieldEnum)[keyof typeof SkScalarFieldEnum]
@@ -3318,7 +4097,8 @@ export const SlScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type SlScalarFieldEnum = (typeof SlScalarFieldEnum)[keyof typeof SlScalarFieldEnum]
@@ -3332,7 +4112,8 @@ export const HrScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type HrScalarFieldEnum = (typeof HrScalarFieldEnum)[keyof typeof HrScalarFieldEnum]
@@ -3346,7 +4127,8 @@ export const CuScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type CuScalarFieldEnum = (typeof CuScalarFieldEnum)[keyof typeof CuScalarFieldEnum]
@@ -3360,7 +4142,8 @@ export const DeScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type DeScalarFieldEnum = (typeof DeScalarFieldEnum)[keyof typeof DeScalarFieldEnum]
@@ -3374,7 +4157,8 @@ export const NlScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type NlScalarFieldEnum = (typeof NlScalarFieldEnum)[keyof typeof NlScalarFieldEnum]
@@ -3388,7 +4172,8 @@ export const EoScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type EoScalarFieldEnum = (typeof EoScalarFieldEnum)[keyof typeof EoScalarFieldEnum]
@@ -3402,7 +4187,8 @@ export const HsbScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type HsbScalarFieldEnum = (typeof HsbScalarFieldEnum)[keyof typeof HsbScalarFieldEnum]
@@ -3416,7 +4202,8 @@ export const DsbScalarFieldEnum = {
   veryfied: 'veryfied',
   wordId: 'wordId',
   meaningId: 'meaningId',
-  actionHistory: 'actionHistory'
+  actionHistory: 'actionHistory',
+  message: 'message'
 } as const
 
 export type DsbScalarFieldEnum = (typeof DsbScalarFieldEnum)[keyof typeof DsbScalarFieldEnum]
@@ -3650,6 +4437,15 @@ export type GlobalOmitConfig = {
   endingAllophone?: Prisma.EndingAllophoneOmit
   synonym?: Prisma.SynonymOmit
   antonym?: Prisma.AntonymOmit
+  hypernym?: Prisma.HypernymOmit
+  hyponym?: Prisma.HyponymOmit
+  meronym?: Prisma.MeronymOmit
+  holonym?: Prisma.HolonymOmit
+  relatedWord?: Prisma.RelatedWordOmit
+  cause?: Prisma.CauseOmit
+  effect?: Prisma.EffectOmit
+  premise?: Prisma.PremiseOmit
+  conclusion?: Prisma.ConclusionOmit
   en?: Prisma.EnOmit
   ru?: Prisma.RuOmit
   mk?: Prisma.MkOmit

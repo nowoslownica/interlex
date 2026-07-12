@@ -49,6 +49,7 @@ export type RuMinAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type RuMaxAggregateOutputType = {
@@ -60,6 +61,7 @@ export type RuMaxAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type RuCountAggregateOutputType = {
@@ -71,6 +73,7 @@ export type RuCountAggregateOutputType = {
   wordId: number
   meaningId: number
   actionHistory: number
+  message: number
   _all: number
 }
 
@@ -98,6 +101,7 @@ export type RuMinAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type RuMaxAggregateInputType = {
@@ -109,6 +113,7 @@ export type RuMaxAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type RuCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type RuCountAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
   _all?: true
 }
 
@@ -218,6 +224,7 @@ export type RuGroupByOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
   _count: RuCountAggregateOutputType | null
   _avg: RuAvgAggregateOutputType | null
   _sum: RuSumAggregateOutputType | null
@@ -252,6 +259,7 @@ export type RuWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Ru"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Ru"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Ru"> | string | null
+  message?: Prisma.StringNullableFilter<"Ru"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }
@@ -265,6 +273,7 @@ export type RuOrderByWithRelationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   word?: Prisma.MeaningOrderByWithRelationInput
   meaning?: Prisma.MeaningOrderByWithRelationInput
 }
@@ -281,6 +290,7 @@ export type RuWhereUniqueInput = Prisma.AtLeast<{
   wordId?: Prisma.IntNullableFilter<"Ru"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Ru"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Ru"> | string | null
+  message?: Prisma.StringNullableFilter<"Ru"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }, "id">
@@ -294,6 +304,7 @@ export type RuOrderByWithAggregationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.RuCountOrderByAggregateInput
   _avg?: Prisma.RuAvgOrderByAggregateInput
   _max?: Prisma.RuMaxOrderByAggregateInput
@@ -313,6 +324,7 @@ export type RuScalarWhereWithAggregatesInput = {
   wordId?: Prisma.IntNullableWithAggregatesFilter<"Ru"> | number | null
   meaningId?: Prisma.IntNullableWithAggregatesFilter<"Ru"> | number | null
   actionHistory?: Prisma.StringNullableWithAggregatesFilter<"Ru"> | string | null
+  message?: Prisma.StringNullableWithAggregatesFilter<"Ru"> | string | null
 }
 
 export type RuCreateInput = {
@@ -321,6 +333,7 @@ export type RuCreateInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutRu_wordInput
   meaning?: Prisma.MeaningCreateNestedOneWithoutRu_meanInput
 }
@@ -334,6 +347,7 @@ export type RuUncheckedCreateInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type RuUpdateInput = {
@@ -342,6 +356,7 @@ export type RuUpdateInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutRu_wordNestedInput
   meaning?: Prisma.MeaningUpdateOneWithoutRu_meanNestedInput
 }
@@ -355,6 +370,7 @@ export type RuUncheckedUpdateInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RuCreateManyInput = {
@@ -366,6 +382,7 @@ export type RuCreateManyInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type RuUpdateManyMutationInput = {
@@ -374,6 +391,7 @@ export type RuUpdateManyMutationInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RuUncheckedUpdateManyInput = {
@@ -385,6 +403,7 @@ export type RuUncheckedUpdateManyInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RuListRelationFilter = {
@@ -406,6 +425,7 @@ export type RuCountOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type RuAvgOrderByAggregateInput = {
@@ -424,6 +444,7 @@ export type RuMaxOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type RuMinOrderByAggregateInput = {
@@ -435,6 +456,7 @@ export type RuMinOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type RuSumOrderByAggregateInput = {
@@ -534,6 +556,7 @@ export type RuCreateWithoutWordInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   meaning?: Prisma.MeaningCreateNestedOneWithoutRu_meanInput
 }
 
@@ -545,6 +568,7 @@ export type RuUncheckedCreateWithoutWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type RuCreateOrConnectWithoutWordInput = {
@@ -562,6 +586,7 @@ export type RuCreateWithoutMeaningInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutRu_wordInput
 }
 
@@ -573,6 +598,7 @@ export type RuUncheckedCreateWithoutMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type RuCreateOrConnectWithoutMeaningInput = {
@@ -612,6 +638,7 @@ export type RuScalarWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Ru"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Ru"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Ru"> | string | null
+  message?: Prisma.StringNullableFilter<"Ru"> | string | null
 }
 
 export type RuUpsertWithWhereUniqueWithoutMeaningInput = {
@@ -638,6 +665,7 @@ export type RuCreateManyWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type RuCreateManyMeaningInput = {
@@ -648,6 +676,7 @@ export type RuCreateManyMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type RuUpdateWithoutWordInput = {
@@ -656,6 +685,7 @@ export type RuUpdateWithoutWordInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meaning?: Prisma.MeaningUpdateOneWithoutRu_meanNestedInput
 }
 
@@ -667,6 +697,7 @@ export type RuUncheckedUpdateWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RuUncheckedUpdateManyWithoutWordInput = {
@@ -677,6 +708,7 @@ export type RuUncheckedUpdateManyWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RuUpdateWithoutMeaningInput = {
@@ -685,6 +717,7 @@ export type RuUpdateWithoutMeaningInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutRu_wordNestedInput
 }
 
@@ -696,6 +729,7 @@ export type RuUncheckedUpdateWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RuUncheckedUpdateManyWithoutMeaningInput = {
@@ -706,6 +740,7 @@ export type RuUncheckedUpdateManyWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -719,6 +754,7 @@ export type RuSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Ru$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Ru$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["ru"]>
@@ -732,6 +768,7 @@ export type RuSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Ru$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Ru$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["ru"]>
@@ -745,6 +782,7 @@ export type RuSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Ru$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Ru$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["ru"]>
@@ -758,9 +796,10 @@ export type RuSelectScalar = {
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
 }
 
-export type RuOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory", ExtArgs["result"]["ru"]>
+export type RuOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory" | "message", ExtArgs["result"]["ru"]>
 export type RuInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   word?: boolean | Prisma.Ru$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Ru$meaningArgs<ExtArgs>
@@ -789,6 +828,7 @@ export type $RuPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     wordId: number | null
     meaningId: number | null
     actionHistory: string | null
+    message: string | null
   }, ExtArgs["result"]["ru"]>
   composites: {}
 }
@@ -1222,6 +1262,7 @@ export interface RuFieldRefs {
   readonly wordId: Prisma.FieldRef<"Ru", 'Int'>
   readonly meaningId: Prisma.FieldRef<"Ru", 'Int'>
   readonly actionHistory: Prisma.FieldRef<"Ru", 'String'>
+  readonly message: Prisma.FieldRef<"Ru", 'String'>
 }
     
 

@@ -35,17 +35,18 @@ def get_related_words(synset_list, current_word):
 def get_synonyms_and_antonyms(word: str):
     """Ищет синонимы и антонимы для слова в RuWordNet."""
     if not word or not isinstance(word, str):
-        return [], [], []
+        return [], [], [], {}
 
     word_clean = word.strip().lower()
 
     try:
         senses = wn[word_clean]
     except KeyError:
-        return [], [], []
+        return [], [], [], {}
 
     synonyms = set()
     antonyms = set()
+    synset_data = {}
 
     for sense in senses:
         synset = sense.synset
@@ -73,7 +74,7 @@ def get_synonyms_and_antonyms(word: str):
 
         # Если у вас есть вытащенные домены (как в вашем примере)
         if hasattr(synset, 'domains') and synset.domains:
-            synset_data["domains"] = ", ".join([d.name for d in synset.domains])
+            synset_data["domains"] = ", ".join([d.title for d in synset.domains])
 
         for syn_sense in synset.senses:
             syn_name = syn_sense.name.lower()
@@ -141,6 +142,7 @@ def main():
 
     for index, item in enumerate(data, 1):
         word_value = item.get("translation", "")
+        print(word_value)
 
         synonyms, antonyms, senses, synset_data = get_synonyms_and_antonyms(word_value)
 

@@ -1,0 +1,165 @@
+import { auth } from "@/auth"
+import { redirect } from "next/navigation"
+import { prismaAuth as dbAuth, prismaData as db } from "@/lib/prisma"
+import { Feature } from "@/config/features"
+import { requirePermission } from "@/lib/permissions"
+import { RelationClient } from "./_components/relation-client"
+import AdminNav from "@/components/AdminNav"
+import type { Metadata } from "next"
+import { buildEntry, append } from "@/lib/action-history"
+import { RELATION_CONFIG, isValidRelationType, type RelationType } from "../relation-config"
+import { init } from "@/lib/sqlite"
+
+export async function generateMetadata({ params }: { params: Promise<{ type: string }> }): Promise<Metadata> {
+  const { type } = await params
+  if (!isValidRelationType(type)) return { title: "Неизвестный тип" }
+  const cfg = RELATION_CONFIG[type]
+  return {
+    title: cfg.label,
+    description: cfg.description,
+  }
+}
+
+export interface WordItem {
+  id: number
+  value: string | null
+  meanings: {
+    id: number
+    meaning: string | null
+    relations: {
+      id: number
+      proximity: number | null
+      target: {
+        id: number
+        meaning: string | null
+        lexeme: { id: number; value: string | null }
+      }
+    }[]
+  }[]
+}
+
+export default async function AdminRelationsPage({ params }: { params: Promise<{ type: string }> }) {
+  const { type } = await params
+  if (!isValidRelationType(type)) redirect("/admin")
+
+  const cfg = RELATION_CONFIG[type]
+  const featureKey = cfg.featureKey as keyof typeof Feature
+
+  const session = await auth()
+  if (!session) redirect("/unauthorized")
+
+  await requirePermission(session, (Feature as any)[featureKey])
+
+  const userPermissions = session.user.role === "MODERATOR"
+    ? (await dbAuth.featurePermission.findMany({
+        where: { userId: session.user.id },
+        select: { featureKey: true },
+      })).map(p => p.featureKey)
+    : []
+
+  const dbSimple = await init()
+  const rows = dbSimple.prepare(`
+    SELECT l.id AS wordId, l.value AS wordValue,
+           m.id AS meaningId, m.meaning AS meaningText,
+           r.id AS relationId, r.targetId AS targetMeaningId, r.proximity,
+           t.meaning AS targetMeaning, tl.value AS targetWord, tl.id AS targetWordId
+    FROM lexemes l
+    JOIN meanings m ON m.lexemeId = l.id
+    LEFT JOIN ${cfg.tableName} r ON r.sourceId = m.id
+    LEFT JOIN meanings t ON t.id = r.targetId
+    LEFT JOIN lexemes tl ON tl.id = t.lexemeId
+    ORDER BY l.value ASC
+    LIMIT 30
+  `).all() as any[]
+
+  const wordMap = new Map<number, WordItem>()
+  for (const row of rows) {
+    if (!wordMap.has(row.wordId)) {
+      wordMap.set(row.wordId, {
+        id: row.wordId,
+        value: row.wordValue,
+        meanings: [],
+      })
+    }
+    const word = wordMap.get(row.wordId)!
+    let meaning = word.meanings.find((m: any) => m.id === row.meaningId)
+    if (!meaning) {
+      meaning = { id: row.meaningId, meaning: row.meaningText, relations: [] }
+      word.meanings.push(meaning)
+    }
+    if (row.relationId) {
+      meaning.relations.push({
+        id: row.relationId,
+        proximity: row.proximity,
+        target: {
+          id: row.targetMeaningId,
+          meaning: row.targetMeaning,
+          lexeme: { id: row.targetWordId, value: row.targetWord },
+        },
+      })
+    }
+  }
+  const initialWords = Array.from(wordMap.values())
+
+  async function updateRelations(sourceMeaningId: number, targetMeaningIds: number[]) {
+    "use server"
+
+    const author = session?.user?.email || "unknown"
+
+    dbSimple.prepare(`DELETE FROM ${cfg.tableName} WHERE sourceId = ?`).run(sourceMeaningId)
+
+    if (targetMeaningIds.length > 0) {
+      const insert = dbSimple.prepare(`INSERT INTO ${cfg.tableName} (sourceId, targetId, proximity) VALUES (?, ?, ?)`)
+      const insertMany = dbSimple.transaction((ids: number[]) => {
+        for (const tId of ids) {
+          insert.run(sourceMeaningId, tId, 1.0)
+        }
+      })
+      insertMany(targetMeaningIds)
+    }
+
+    const meaning = await db.meaning.findUnique({
+      where: { id: sourceMeaningId },
+      select: {
+        lexeme: {
+          select: { id: true, actionHistory: true }
+        }
+      }
+    })
+    if (meaning?.lexeme) {
+      await db.lexeme.update({
+        where: { id: meaning.lexeme.id },
+        data: {
+          actionHistory: append(
+            meaning.lexeme.actionHistory,
+            buildEntry(author, {
+              [`${type}_sourceMeaningId`]: { old: null, new: sourceMeaningId },
+              [`${type}_targetMeaningIds`]: { old: null, new: targetMeaningIds },
+            })
+          )
+        }
+      })
+    }
+  }
+
+  return (
+    <div className="h-full flex flex-col bg-background text-foreground transition-colors duration-300">
+      <div className="flex flex-col h-full overflow-hidden">
+        <AdminNav userRole={session.user.role || ""} userPermissions={userPermissions} />
+        <div className="px-4 md:px-6 pb-2 shrink-0">
+          <h1 className="text-2xl font-bold">Управление {cfg.label.toLowerCase()}</h1>
+          <p className="text-muted-foreground text-sm">
+            Выберите слово, затем его значение, чтобы {cfg.description}.
+          </p>
+        </div>
+        <div className="flex-1 min-h-0 px-4 md:px-6 overflow-hidden">
+          <RelationClient
+            type={type}
+            initialWords={initialWords}
+            onUpdateRelations={updateRelations}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}

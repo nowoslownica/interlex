@@ -49,6 +49,7 @@ export type BgMinAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type BgMaxAggregateOutputType = {
@@ -60,6 +61,7 @@ export type BgMaxAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type BgCountAggregateOutputType = {
@@ -71,6 +73,7 @@ export type BgCountAggregateOutputType = {
   wordId: number
   meaningId: number
   actionHistory: number
+  message: number
   _all: number
 }
 
@@ -98,6 +101,7 @@ export type BgMinAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type BgMaxAggregateInputType = {
@@ -109,6 +113,7 @@ export type BgMaxAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type BgCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type BgCountAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
   _all?: true
 }
 
@@ -218,6 +224,7 @@ export type BgGroupByOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
   _count: BgCountAggregateOutputType | null
   _avg: BgAvgAggregateOutputType | null
   _sum: BgSumAggregateOutputType | null
@@ -252,6 +259,7 @@ export type BgWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Bg"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Bg"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Bg"> | string | null
+  message?: Prisma.StringNullableFilter<"Bg"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }
@@ -265,6 +273,7 @@ export type BgOrderByWithRelationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   word?: Prisma.MeaningOrderByWithRelationInput
   meaning?: Prisma.MeaningOrderByWithRelationInput
 }
@@ -281,6 +290,7 @@ export type BgWhereUniqueInput = Prisma.AtLeast<{
   wordId?: Prisma.IntNullableFilter<"Bg"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Bg"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Bg"> | string | null
+  message?: Prisma.StringNullableFilter<"Bg"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }, "id">
@@ -294,6 +304,7 @@ export type BgOrderByWithAggregationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.BgCountOrderByAggregateInput
   _avg?: Prisma.BgAvgOrderByAggregateInput
   _max?: Prisma.BgMaxOrderByAggregateInput
@@ -313,6 +324,7 @@ export type BgScalarWhereWithAggregatesInput = {
   wordId?: Prisma.IntNullableWithAggregatesFilter<"Bg"> | number | null
   meaningId?: Prisma.IntNullableWithAggregatesFilter<"Bg"> | number | null
   actionHistory?: Prisma.StringNullableWithAggregatesFilter<"Bg"> | string | null
+  message?: Prisma.StringNullableWithAggregatesFilter<"Bg"> | string | null
 }
 
 export type BgCreateInput = {
@@ -321,6 +333,7 @@ export type BgCreateInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutBg_wordInput
   meaning?: Prisma.MeaningCreateNestedOneWithoutBg_meanInput
 }
@@ -334,6 +347,7 @@ export type BgUncheckedCreateInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type BgUpdateInput = {
@@ -342,6 +356,7 @@ export type BgUpdateInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutBg_wordNestedInput
   meaning?: Prisma.MeaningUpdateOneWithoutBg_meanNestedInput
 }
@@ -355,6 +370,7 @@ export type BgUncheckedUpdateInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BgCreateManyInput = {
@@ -366,6 +382,7 @@ export type BgCreateManyInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type BgUpdateManyMutationInput = {
@@ -374,6 +391,7 @@ export type BgUpdateManyMutationInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BgUncheckedUpdateManyInput = {
@@ -385,6 +403,7 @@ export type BgUncheckedUpdateManyInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BgListRelationFilter = {
@@ -406,6 +425,7 @@ export type BgCountOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type BgAvgOrderByAggregateInput = {
@@ -424,6 +444,7 @@ export type BgMaxOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type BgMinOrderByAggregateInput = {
@@ -435,6 +456,7 @@ export type BgMinOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type BgSumOrderByAggregateInput = {
@@ -534,6 +556,7 @@ export type BgCreateWithoutWordInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   meaning?: Prisma.MeaningCreateNestedOneWithoutBg_meanInput
 }
 
@@ -545,6 +568,7 @@ export type BgUncheckedCreateWithoutWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type BgCreateOrConnectWithoutWordInput = {
@@ -562,6 +586,7 @@ export type BgCreateWithoutMeaningInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutBg_wordInput
 }
 
@@ -573,6 +598,7 @@ export type BgUncheckedCreateWithoutMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type BgCreateOrConnectWithoutMeaningInput = {
@@ -612,6 +638,7 @@ export type BgScalarWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Bg"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Bg"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Bg"> | string | null
+  message?: Prisma.StringNullableFilter<"Bg"> | string | null
 }
 
 export type BgUpsertWithWhereUniqueWithoutMeaningInput = {
@@ -638,6 +665,7 @@ export type BgCreateManyWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type BgCreateManyMeaningInput = {
@@ -648,6 +676,7 @@ export type BgCreateManyMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type BgUpdateWithoutWordInput = {
@@ -656,6 +685,7 @@ export type BgUpdateWithoutWordInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meaning?: Prisma.MeaningUpdateOneWithoutBg_meanNestedInput
 }
 
@@ -667,6 +697,7 @@ export type BgUncheckedUpdateWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BgUncheckedUpdateManyWithoutWordInput = {
@@ -677,6 +708,7 @@ export type BgUncheckedUpdateManyWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BgUpdateWithoutMeaningInput = {
@@ -685,6 +717,7 @@ export type BgUpdateWithoutMeaningInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutBg_wordNestedInput
 }
 
@@ -696,6 +729,7 @@ export type BgUncheckedUpdateWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BgUncheckedUpdateManyWithoutMeaningInput = {
@@ -706,6 +740,7 @@ export type BgUncheckedUpdateManyWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -719,6 +754,7 @@ export type BgSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Bg$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Bg$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["bg"]>
@@ -732,6 +768,7 @@ export type BgSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Bg$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Bg$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["bg"]>
@@ -745,6 +782,7 @@ export type BgSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Bg$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Bg$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["bg"]>
@@ -758,9 +796,10 @@ export type BgSelectScalar = {
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
 }
 
-export type BgOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory", ExtArgs["result"]["bg"]>
+export type BgOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory" | "message", ExtArgs["result"]["bg"]>
 export type BgInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   word?: boolean | Prisma.Bg$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Bg$meaningArgs<ExtArgs>
@@ -789,6 +828,7 @@ export type $BgPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     wordId: number | null
     meaningId: number | null
     actionHistory: string | null
+    message: string | null
   }, ExtArgs["result"]["bg"]>
   composites: {}
 }
@@ -1222,6 +1262,7 @@ export interface BgFieldRefs {
   readonly wordId: Prisma.FieldRef<"Bg", 'Int'>
   readonly meaningId: Prisma.FieldRef<"Bg", 'Int'>
   readonly actionHistory: Prisma.FieldRef<"Bg", 'String'>
+  readonly message: Prisma.FieldRef<"Bg", 'String'>
 }
     
 

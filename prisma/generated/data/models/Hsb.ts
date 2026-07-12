@@ -49,6 +49,7 @@ export type HsbMinAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type HsbMaxAggregateOutputType = {
@@ -60,6 +61,7 @@ export type HsbMaxAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type HsbCountAggregateOutputType = {
@@ -71,6 +73,7 @@ export type HsbCountAggregateOutputType = {
   wordId: number
   meaningId: number
   actionHistory: number
+  message: number
   _all: number
 }
 
@@ -98,6 +101,7 @@ export type HsbMinAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type HsbMaxAggregateInputType = {
@@ -109,6 +113,7 @@ export type HsbMaxAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type HsbCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type HsbCountAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
   _all?: true
 }
 
@@ -218,6 +224,7 @@ export type HsbGroupByOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
   _count: HsbCountAggregateOutputType | null
   _avg: HsbAvgAggregateOutputType | null
   _sum: HsbSumAggregateOutputType | null
@@ -252,6 +259,7 @@ export type HsbWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Hsb"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Hsb"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Hsb"> | string | null
+  message?: Prisma.StringNullableFilter<"Hsb"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }
@@ -265,6 +273,7 @@ export type HsbOrderByWithRelationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   word?: Prisma.MeaningOrderByWithRelationInput
   meaning?: Prisma.MeaningOrderByWithRelationInput
 }
@@ -281,6 +290,7 @@ export type HsbWhereUniqueInput = Prisma.AtLeast<{
   wordId?: Prisma.IntNullableFilter<"Hsb"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Hsb"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Hsb"> | string | null
+  message?: Prisma.StringNullableFilter<"Hsb"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }, "id">
@@ -294,6 +304,7 @@ export type HsbOrderByWithAggregationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.HsbCountOrderByAggregateInput
   _avg?: Prisma.HsbAvgOrderByAggregateInput
   _max?: Prisma.HsbMaxOrderByAggregateInput
@@ -313,6 +324,7 @@ export type HsbScalarWhereWithAggregatesInput = {
   wordId?: Prisma.IntNullableWithAggregatesFilter<"Hsb"> | number | null
   meaningId?: Prisma.IntNullableWithAggregatesFilter<"Hsb"> | number | null
   actionHistory?: Prisma.StringNullableWithAggregatesFilter<"Hsb"> | string | null
+  message?: Prisma.StringNullableWithAggregatesFilter<"Hsb"> | string | null
 }
 
 export type HsbCreateInput = {
@@ -321,6 +333,7 @@ export type HsbCreateInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutHsb_wordInput
   meaning?: Prisma.MeaningCreateNestedOneWithoutHsb_meanInput
 }
@@ -334,6 +347,7 @@ export type HsbUncheckedCreateInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type HsbUpdateInput = {
@@ -342,6 +356,7 @@ export type HsbUpdateInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutHsb_wordNestedInput
   meaning?: Prisma.MeaningUpdateOneWithoutHsb_meanNestedInput
 }
@@ -355,6 +370,7 @@ export type HsbUncheckedUpdateInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HsbCreateManyInput = {
@@ -366,6 +382,7 @@ export type HsbCreateManyInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type HsbUpdateManyMutationInput = {
@@ -374,6 +391,7 @@ export type HsbUpdateManyMutationInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HsbUncheckedUpdateManyInput = {
@@ -385,6 +403,7 @@ export type HsbUncheckedUpdateManyInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HsbListRelationFilter = {
@@ -406,6 +425,7 @@ export type HsbCountOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type HsbAvgOrderByAggregateInput = {
@@ -424,6 +444,7 @@ export type HsbMaxOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type HsbMinOrderByAggregateInput = {
@@ -435,6 +456,7 @@ export type HsbMinOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type HsbSumOrderByAggregateInput = {
@@ -534,6 +556,7 @@ export type HsbCreateWithoutWordInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   meaning?: Prisma.MeaningCreateNestedOneWithoutHsb_meanInput
 }
 
@@ -545,6 +568,7 @@ export type HsbUncheckedCreateWithoutWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type HsbCreateOrConnectWithoutWordInput = {
@@ -562,6 +586,7 @@ export type HsbCreateWithoutMeaningInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutHsb_wordInput
 }
 
@@ -573,6 +598,7 @@ export type HsbUncheckedCreateWithoutMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type HsbCreateOrConnectWithoutMeaningInput = {
@@ -612,6 +638,7 @@ export type HsbScalarWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Hsb"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Hsb"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Hsb"> | string | null
+  message?: Prisma.StringNullableFilter<"Hsb"> | string | null
 }
 
 export type HsbUpsertWithWhereUniqueWithoutMeaningInput = {
@@ -638,6 +665,7 @@ export type HsbCreateManyWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type HsbCreateManyMeaningInput = {
@@ -648,6 +676,7 @@ export type HsbCreateManyMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type HsbUpdateWithoutWordInput = {
@@ -656,6 +685,7 @@ export type HsbUpdateWithoutWordInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meaning?: Prisma.MeaningUpdateOneWithoutHsb_meanNestedInput
 }
 
@@ -667,6 +697,7 @@ export type HsbUncheckedUpdateWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HsbUncheckedUpdateManyWithoutWordInput = {
@@ -677,6 +708,7 @@ export type HsbUncheckedUpdateManyWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HsbUpdateWithoutMeaningInput = {
@@ -685,6 +717,7 @@ export type HsbUpdateWithoutMeaningInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutHsb_wordNestedInput
 }
 
@@ -696,6 +729,7 @@ export type HsbUncheckedUpdateWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type HsbUncheckedUpdateManyWithoutMeaningInput = {
@@ -706,6 +740,7 @@ export type HsbUncheckedUpdateManyWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -719,6 +754,7 @@ export type HsbSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Hsb$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Hsb$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["hsb"]>
@@ -732,6 +768,7 @@ export type HsbSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Hsb$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Hsb$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["hsb"]>
@@ -745,6 +782,7 @@ export type HsbSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Hsb$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Hsb$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["hsb"]>
@@ -758,9 +796,10 @@ export type HsbSelectScalar = {
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
 }
 
-export type HsbOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory", ExtArgs["result"]["hsb"]>
+export type HsbOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory" | "message", ExtArgs["result"]["hsb"]>
 export type HsbInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   word?: boolean | Prisma.Hsb$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Hsb$meaningArgs<ExtArgs>
@@ -789,6 +828,7 @@ export type $HsbPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     wordId: number | null
     meaningId: number | null
     actionHistory: string | null
+    message: string | null
   }, ExtArgs["result"]["hsb"]>
   composites: {}
 }
@@ -1222,6 +1262,7 @@ export interface HsbFieldRefs {
   readonly wordId: Prisma.FieldRef<"Hsb", 'Int'>
   readonly meaningId: Prisma.FieldRef<"Hsb", 'Int'>
   readonly actionHistory: Prisma.FieldRef<"Hsb", 'String'>
+  readonly message: Prisma.FieldRef<"Hsb", 'String'>
 }
     
 

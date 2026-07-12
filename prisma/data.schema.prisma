@@ -112,6 +112,10 @@ model Meaning {
   lexemeId   Int
   meaning  String?
   examples String?
+  meaningVeryfied Int?
+  meaningMessage  String?
+  examplesVeryfied Int?
+  examplesMessage  String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
@@ -161,6 +165,26 @@ model Meaning {
   synonymsTarget  Synonym[]  @relation("SynonymTarget")
   antonymsSource  Antonym[]  @relation("AntonymSource")
   antonymsTarget  Antonym[]  @relation("AntonymTarget")
+
+  // Семантические отношения из RuWordNet
+  hypernymsSource    Hypernym[]     @relation("HypernymSource")
+  hypernymsTarget    Hypernym[]     @relation("HypernymTarget")
+  hyponymsSource     Hyponym[]      @relation("HyponymSource")
+  hyponymsTarget     Hyponym[]      @relation("HyponymTarget")
+  meronymsSource     Meronym[]      @relation("MeronymSource")
+  meronymsTarget     Meronym[]      @relation("MeronymTarget")
+  holonymsSource     Holonym[]      @relation("HolonymSource")
+  holonymsTarget     Holonym[]      @relation("HolonymTarget")
+  relatedWordsSource RelatedWord[]   @relation("RelatedWordSource")
+  relatedWordsTarget RelatedWord[]   @relation("RelatedWordTarget")
+  causesSource       Cause[]        @relation("CauseSource")
+  causesTarget       Cause[]        @relation("CauseTarget")
+  effectsSource      Effect[]       @relation("EffectSource")
+  effectsTarget      Effect[]       @relation("EffectTarget")
+  premisesSource     Premise[]      @relation("PremiseSource")
+  premisesTarget     Premise[]      @relation("PremiseTarget")
+  conclusionsSource  Conclusion[]   @relation("ConclusionSource")
+  conclusionsTarget  Conclusion[]   @relation("ConclusionTarget")
 
   // Связь с синсетами RuWordNet
   synsets  MeaningSynset[]
@@ -267,6 +291,116 @@ model Antonym {
   @@map("antonyms")
 }
 
+// Семантические отношения из RuWordNet (гиперонимы, гипонимы, меронимы, холонимы, связанные, причинно-следственные)
+
+model Hypernym {
+  id        Int      @id @default(autoincrement())
+  sourceId  Int?
+  targetId  Int?
+  proximity Float?
+
+  source    Meaning? @relation("HypernymSource", fields: [sourceId], references: [id], onDelete: Cascade)
+  target    Meaning? @relation("HypernymTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@map("hypernyms")
+}
+
+model Hyponym {
+  id        Int      @id @default(autoincrement())
+  sourceId  Int?
+  targetId  Int?
+  proximity Float?
+
+  source    Meaning? @relation("HyponymSource", fields: [sourceId], references: [id], onDelete: Cascade)
+  target    Meaning? @relation("HyponymTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@map("hyponyms")
+}
+
+model Meronym {
+  id        Int      @id @default(autoincrement())
+  sourceId  Int?
+  targetId  Int?
+  proximity Float?
+
+  source    Meaning? @relation("MeronymSource", fields: [sourceId], references: [id], onDelete: Cascade)
+  target    Meaning? @relation("MeronymTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@map("meronyms")
+}
+
+model Holonym {
+  id        Int      @id @default(autoincrement())
+  sourceId  Int?
+  targetId  Int?
+  proximity Float?
+
+  source    Meaning? @relation("HolonymSource", fields: [sourceId], references: [id], onDelete: Cascade)
+  target    Meaning? @relation("HolonymTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@map("holonyms")
+}
+
+model RelatedWord {
+  id        Int      @id @default(autoincrement())
+  sourceId  Int?
+  targetId  Int?
+  proximity Float?
+
+  source    Meaning? @relation("RelatedWordSource", fields: [sourceId], references: [id], onDelete: Cascade)
+  target    Meaning? @relation("RelatedWordTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@map("related_words")
+}
+
+model Cause {
+  id        Int      @id @default(autoincrement())
+  sourceId  Int?
+  targetId  Int?
+  proximity Float?
+
+  source    Meaning? @relation("CauseSource", fields: [sourceId], references: [id], onDelete: Cascade)
+  target    Meaning? @relation("CauseTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@map("causes")
+}
+
+model Effect {
+  id        Int      @id @default(autoincrement())
+  sourceId  Int?
+  targetId  Int?
+  proximity Float?
+
+  source    Meaning? @relation("EffectSource", fields: [sourceId], references: [id], onDelete: Cascade)
+  target    Meaning? @relation("EffectTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@map("effects")
+}
+
+model Premise {
+  id        Int      @id @default(autoincrement())
+  sourceId  Int?
+  targetId  Int?
+  proximity Float?
+
+  source    Meaning? @relation("PremiseSource", fields: [sourceId], references: [id], onDelete: Cascade)
+  target    Meaning? @relation("PremiseTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@map("premises")
+}
+
+model Conclusion {
+  id        Int      @id @default(autoincrement())
+  sourceId  Int?
+  targetId  Int?
+  proximity Float?
+
+  source    Meaning? @relation("ConclusionSource", fields: [sourceId], references: [id], onDelete: Cascade)
+  target    Meaning? @relation("ConclusionTarget", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@map("conclusions")
+}
+
 // Динамические таблицы языков, преобразованные в схемы Prisma
 model En {
   id        Int      @id @default(autoincrement())
@@ -281,6 +415,7 @@ model En {
   meaning   Meaning? @relation("EnMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("en")
 }
@@ -298,6 +433,7 @@ model Ru {
   meaning   Meaning? @relation("RuMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("ru")
 }
@@ -314,6 +450,7 @@ model Mk {
   meaning   Meaning? @relation("MkMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("mk")
 }
@@ -330,6 +467,7 @@ model Sr {
   meaning   Meaning? @relation("SrMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("sr")
 }
@@ -346,6 +484,7 @@ model Uk {
   meaning   Meaning? @relation("UkMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("uk")
 }
@@ -362,6 +501,7 @@ model Bg {
   meaning   Meaning? @relation("BgMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("bg")
 }
@@ -378,6 +518,7 @@ model Pl {
   meaning   Meaning? @relation("PlMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("pl")
 }
@@ -394,6 +535,7 @@ model Be {
   meaning   Meaning? @relation("BeMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("be")
 }
@@ -410,6 +552,7 @@ model Cs {
   meaning   Meaning? @relation("CsMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("cs")
 }
@@ -426,6 +569,7 @@ model Sk {
   meaning   Meaning? @relation("SkMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("sk")
 }
@@ -442,6 +586,7 @@ model Sl {
   meaning   Meaning? @relation("SlMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("sl")
 }
@@ -458,6 +603,7 @@ model Hr {
   meaning   Meaning? @relation("HrMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("hr")
 }
@@ -474,6 +620,7 @@ model Cu {
   meaning   Meaning? @relation("CuMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("cu")
 }
@@ -490,6 +637,7 @@ model De {
   meaning   Meaning? @relation("DeMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("de")
 }
@@ -506,6 +654,7 @@ model Nl {
   meaning   Meaning? @relation("NlMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("nl")
 }
@@ -522,6 +671,7 @@ model Eo {
   meaning   Meaning? @relation("EoMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("eo")
 }
@@ -538,6 +688,7 @@ model Hsb {
   meaning   Meaning? @relation("HsbMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("hsb")
 }
@@ -554,6 +705,7 @@ model Dsb {
   meaning   Meaning? @relation("DsbMeaning", fields: [meaningId], references: [id], onDelete: Cascade)
 
   actionHistory String?
+  message       String?
 
   @@map("dsb")
 }

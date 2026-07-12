@@ -49,6 +49,7 @@ export type EoMinAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type EoMaxAggregateOutputType = {
@@ -60,6 +61,7 @@ export type EoMaxAggregateOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
 }
 
 export type EoCountAggregateOutputType = {
@@ -71,6 +73,7 @@ export type EoCountAggregateOutputType = {
   wordId: number
   meaningId: number
   actionHistory: number
+  message: number
   _all: number
 }
 
@@ -98,6 +101,7 @@ export type EoMinAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type EoMaxAggregateInputType = {
@@ -109,6 +113,7 @@ export type EoMaxAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
 }
 
 export type EoCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type EoCountAggregateInputType = {
   wordId?: true
   meaningId?: true
   actionHistory?: true
+  message?: true
   _all?: true
 }
 
@@ -218,6 +224,7 @@ export type EoGroupByOutputType = {
   wordId: number | null
   meaningId: number | null
   actionHistory: string | null
+  message: string | null
   _count: EoCountAggregateOutputType | null
   _avg: EoAvgAggregateOutputType | null
   _sum: EoSumAggregateOutputType | null
@@ -252,6 +259,7 @@ export type EoWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Eo"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Eo"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Eo"> | string | null
+  message?: Prisma.StringNullableFilter<"Eo"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }
@@ -265,6 +273,7 @@ export type EoOrderByWithRelationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   word?: Prisma.MeaningOrderByWithRelationInput
   meaning?: Prisma.MeaningOrderByWithRelationInput
 }
@@ -281,6 +290,7 @@ export type EoWhereUniqueInput = Prisma.AtLeast<{
   wordId?: Prisma.IntNullableFilter<"Eo"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Eo"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Eo"> | string | null
+  message?: Prisma.StringNullableFilter<"Eo"> | string | null
   word?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
   meaning?: Prisma.XOR<Prisma.MeaningNullableScalarRelationFilter, Prisma.MeaningWhereInput> | null
 }, "id">
@@ -294,6 +304,7 @@ export type EoOrderByWithAggregationInput = {
   wordId?: Prisma.SortOrderInput | Prisma.SortOrder
   meaningId?: Prisma.SortOrderInput | Prisma.SortOrder
   actionHistory?: Prisma.SortOrderInput | Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.EoCountOrderByAggregateInput
   _avg?: Prisma.EoAvgOrderByAggregateInput
   _max?: Prisma.EoMaxOrderByAggregateInput
@@ -313,6 +324,7 @@ export type EoScalarWhereWithAggregatesInput = {
   wordId?: Prisma.IntNullableWithAggregatesFilter<"Eo"> | number | null
   meaningId?: Prisma.IntNullableWithAggregatesFilter<"Eo"> | number | null
   actionHistory?: Prisma.StringNullableWithAggregatesFilter<"Eo"> | string | null
+  message?: Prisma.StringNullableWithAggregatesFilter<"Eo"> | string | null
 }
 
 export type EoCreateInput = {
@@ -321,6 +333,7 @@ export type EoCreateInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutEo_wordInput
   meaning?: Prisma.MeaningCreateNestedOneWithoutEo_meanInput
 }
@@ -334,6 +347,7 @@ export type EoUncheckedCreateInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EoUpdateInput = {
@@ -342,6 +356,7 @@ export type EoUpdateInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutEo_wordNestedInput
   meaning?: Prisma.MeaningUpdateOneWithoutEo_meanNestedInput
 }
@@ -355,6 +370,7 @@ export type EoUncheckedUpdateInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EoCreateManyInput = {
@@ -366,6 +382,7 @@ export type EoCreateManyInput = {
   wordId?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EoUpdateManyMutationInput = {
@@ -374,6 +391,7 @@ export type EoUpdateManyMutationInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EoUncheckedUpdateManyInput = {
@@ -385,6 +403,7 @@ export type EoUncheckedUpdateManyInput = {
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EoListRelationFilter = {
@@ -406,6 +425,7 @@ export type EoCountOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type EoAvgOrderByAggregateInput = {
@@ -424,6 +444,7 @@ export type EoMaxOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type EoMinOrderByAggregateInput = {
@@ -435,6 +456,7 @@ export type EoMinOrderByAggregateInput = {
   wordId?: Prisma.SortOrder
   meaningId?: Prisma.SortOrder
   actionHistory?: Prisma.SortOrder
+  message?: Prisma.SortOrder
 }
 
 export type EoSumOrderByAggregateInput = {
@@ -534,6 +556,7 @@ export type EoCreateWithoutWordInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   meaning?: Prisma.MeaningCreateNestedOneWithoutEo_meanInput
 }
 
@@ -545,6 +568,7 @@ export type EoUncheckedCreateWithoutWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EoCreateOrConnectWithoutWordInput = {
@@ -562,6 +586,7 @@ export type EoCreateWithoutMeaningInput = {
   value?: string | null
   veryfied?: number | null
   actionHistory?: string | null
+  message?: string | null
   word?: Prisma.MeaningCreateNestedOneWithoutEo_wordInput
 }
 
@@ -573,6 +598,7 @@ export type EoUncheckedCreateWithoutMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EoCreateOrConnectWithoutMeaningInput = {
@@ -612,6 +638,7 @@ export type EoScalarWhereInput = {
   wordId?: Prisma.IntNullableFilter<"Eo"> | number | null
   meaningId?: Prisma.IntNullableFilter<"Eo"> | number | null
   actionHistory?: Prisma.StringNullableFilter<"Eo"> | string | null
+  message?: Prisma.StringNullableFilter<"Eo"> | string | null
 }
 
 export type EoUpsertWithWhereUniqueWithoutMeaningInput = {
@@ -638,6 +665,7 @@ export type EoCreateManyWordInput = {
   veryfied?: number | null
   meaningId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EoCreateManyMeaningInput = {
@@ -648,6 +676,7 @@ export type EoCreateManyMeaningInput = {
   veryfied?: number | null
   wordId?: number | null
   actionHistory?: string | null
+  message?: string | null
 }
 
 export type EoUpdateWithoutWordInput = {
@@ -656,6 +685,7 @@ export type EoUpdateWithoutWordInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   meaning?: Prisma.MeaningUpdateOneWithoutEo_meanNestedInput
 }
 
@@ -667,6 +697,7 @@ export type EoUncheckedUpdateWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EoUncheckedUpdateManyWithoutWordInput = {
@@ -677,6 +708,7 @@ export type EoUncheckedUpdateManyWithoutWordInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   meaningId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EoUpdateWithoutMeaningInput = {
@@ -685,6 +717,7 @@ export type EoUpdateWithoutMeaningInput = {
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   word?: Prisma.MeaningUpdateOneWithoutEo_wordNestedInput
 }
 
@@ -696,6 +729,7 @@ export type EoUncheckedUpdateWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EoUncheckedUpdateManyWithoutMeaningInput = {
@@ -706,6 +740,7 @@ export type EoUncheckedUpdateManyWithoutMeaningInput = {
   veryfied?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   wordId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   actionHistory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -719,6 +754,7 @@ export type EoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Eo$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Eo$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["eo"]>
@@ -732,6 +768,7 @@ export type EoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Eo$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Eo$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["eo"]>
@@ -745,6 +782,7 @@ export type EoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
   word?: boolean | Prisma.Eo$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Eo$meaningArgs<ExtArgs>
 }, ExtArgs["result"]["eo"]>
@@ -758,9 +796,10 @@ export type EoSelectScalar = {
   wordId?: boolean
   meaningId?: boolean
   actionHistory?: boolean
+  message?: boolean
 }
 
-export type EoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory", ExtArgs["result"]["eo"]>
+export type EoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "value" | "veryfied" | "wordId" | "meaningId" | "actionHistory" | "message", ExtArgs["result"]["eo"]>
 export type EoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   word?: boolean | Prisma.Eo$wordArgs<ExtArgs>
   meaning?: boolean | Prisma.Eo$meaningArgs<ExtArgs>
@@ -789,6 +828,7 @@ export type $EoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     wordId: number | null
     meaningId: number | null
     actionHistory: string | null
+    message: string | null
   }, ExtArgs["result"]["eo"]>
   composites: {}
 }
@@ -1222,6 +1262,7 @@ export interface EoFieldRefs {
   readonly wordId: Prisma.FieldRef<"Eo", 'Int'>
   readonly meaningId: Prisma.FieldRef<"Eo", 'Int'>
   readonly actionHistory: Prisma.FieldRef<"Eo", 'String'>
+  readonly message: Prisma.FieldRef<"Eo", 'String'>
 }
     
 
