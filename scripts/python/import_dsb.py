@@ -13,7 +13,7 @@ def import_hsb():
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
-    existing = cur.execute("SELECT COUNT(*) FROM hsb").fetchone()[0]
+    existing = cur.execute("SELECT COUNT(*) FROM dsb").fetchone()[0]
     if existing > 0:
         answer = input(f"hsb table already has {existing} rows. Delete and reimport? (y/N): ")
         if answer.lower() == 'y':

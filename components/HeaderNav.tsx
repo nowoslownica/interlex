@@ -32,6 +32,7 @@ export default function HeaderNav({ session }: HeaderNavProps) {
 
                 <li><Link href="/lexicon" className="nav-link" onClick={() => setIsOpen(false)}>Лексикон</Link></li>
                 <li><Link href="/translate" className="nav-link" onClick={() => setIsOpen(false)}>Перевод</Link></li>
+                <li><Link href="/library" className="nav-link" onClick={() => setIsOpen(false)}>Библиотека</Link></li>
                 <li style={{ position: "relative" }}>
                     <button
                         className="nav-link submenu-toggle"

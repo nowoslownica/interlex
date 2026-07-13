@@ -86,8 +86,10 @@ CREATE TABLE "meanings" (
     "lexemeId" INTEGER NOT NULL,
     "meaning" TEXT,
     "examples" TEXT,
-    "veryfied" INTEGER,
-    "message" TEXT,
+    "meaningVeryfied" INTEGER,
+    "meaningMessage" TEXT,
+    "examplesVeryfied" INTEGER,
+    "examplesMessage" TEXT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
     CONSTRAINT "meanings_lexemeId_fkey" FOREIGN KEY ("lexemeId") REFERENCES "lexemes" ("id") ON DELETE CASCADE ON UPDATE CASCADE
@@ -169,6 +171,96 @@ CREATE TABLE "antonyms" (
     "proximity" REAL,
     CONSTRAINT "antonyms_sourceId_fkey" FOREIGN KEY ("sourceId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "antonyms_targetId_fkey" FOREIGN KEY ("targetId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "hypernyms" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "sourceId" INTEGER,
+    "targetId" INTEGER,
+    "proximity" REAL,
+    CONSTRAINT "hypernyms_sourceId_fkey" FOREIGN KEY ("sourceId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "hypernyms_targetId_fkey" FOREIGN KEY ("targetId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "hyponyms" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "sourceId" INTEGER,
+    "targetId" INTEGER,
+    "proximity" REAL,
+    CONSTRAINT "hyponyms_sourceId_fkey" FOREIGN KEY ("sourceId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "hyponyms_targetId_fkey" FOREIGN KEY ("targetId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "meronyms" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "sourceId" INTEGER,
+    "targetId" INTEGER,
+    "proximity" REAL,
+    CONSTRAINT "meronyms_sourceId_fkey" FOREIGN KEY ("sourceId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "meronyms_targetId_fkey" FOREIGN KEY ("targetId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "holonyms" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "sourceId" INTEGER,
+    "targetId" INTEGER,
+    "proximity" REAL,
+    CONSTRAINT "holonyms_sourceId_fkey" FOREIGN KEY ("sourceId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "holonyms_targetId_fkey" FOREIGN KEY ("targetId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "related_words" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "sourceId" INTEGER,
+    "targetId" INTEGER,
+    "proximity" REAL,
+    CONSTRAINT "related_words_sourceId_fkey" FOREIGN KEY ("sourceId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "related_words_targetId_fkey" FOREIGN KEY ("targetId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "causes" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "sourceId" INTEGER,
+    "targetId" INTEGER,
+    "proximity" REAL,
+    CONSTRAINT "causes_sourceId_fkey" FOREIGN KEY ("sourceId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "causes_targetId_fkey" FOREIGN KEY ("targetId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "effects" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "sourceId" INTEGER,
+    "targetId" INTEGER,
+    "proximity" REAL,
+    CONSTRAINT "effects_sourceId_fkey" FOREIGN KEY ("sourceId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "effects_targetId_fkey" FOREIGN KEY ("targetId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "premises" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "sourceId" INTEGER,
+    "targetId" INTEGER,
+    "proximity" REAL,
+    CONSTRAINT "premises_sourceId_fkey" FOREIGN KEY ("sourceId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "premises_targetId_fkey" FOREIGN KEY ("targetId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "conclusions" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "sourceId" INTEGER,
+    "targetId" INTEGER,
+    "proximity" REAL,
+    CONSTRAINT "conclusions_sourceId_fkey" FOREIGN KEY ("sourceId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "conclusions_targetId_fkey" FOREIGN KEY ("targetId") REFERENCES "meanings" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateTable

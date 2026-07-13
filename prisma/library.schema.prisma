@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/library"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model LibraryEntry {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique
+  title       String
+  author      String?
+  category    String
+  flavor      String   @default("CORE")
+
+  body        String?
+
+  source          String?
+  yearWritten     Int?
+  yearTranslated  Int?
+  translator      String?
+
+  addedById   String?
+  addedBy     String?
+
+  verified    Boolean  @default(false)
+  verifiedBy  String?
+
+  corpusSlug  String?
+
+  summary     String?
+  coverImage  String?
+  views       Int      @default(0)
+
+  actionHistory String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

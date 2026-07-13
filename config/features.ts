@@ -44,6 +44,9 @@ export enum SystemFeature {
 
     // Дедупликация
     DeduplicationManage = "deduplication_manage",
+
+    // Библиотека
+    LibraryManage = "library_manage",
 }
 
 // 2. Список кодов всех языков из вашей схемы Prisma
@@ -270,6 +273,13 @@ export const FEATURE_METADATA: Record<string, { label: string; description: stri
         label: "Дедупликация",
         description: "Слияние дублирующихся слов",
         category: "Слова",
+    },
+
+    // Библиотека
+    [SystemFeature.LibraryManage]: {
+        label: "Управление библиотекой",
+        description: "Добавление и редактирование текстов в библиотеке",
+        category: "Библиотека",
     },
 };
 

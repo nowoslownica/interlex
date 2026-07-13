@@ -53,6 +53,7 @@ const navItems: NavEntry[] = [
     { href: "/admin/roots", label: "Корни", roles: ["ADMIN", "MODERATOR"], feature: Feature.RootsEdit },
     { href: "/admin/endings", label: "Окончания", roles: ["ADMIN", "MODERATOR"], feature: Feature.EndingsEdit },
     { href: "/admin/deduplication", label: "Дедупликация", roles: ["ADMIN"], feature: Feature.DeduplicationManage },
+    { href: "/admin/library", label: "Библиотека", roles: ["ADMIN", "MODERATOR"], feature: Feature.LibraryManage },
     { href: "/admin/users", label: "Пользователи", roles: ["ADMIN"], feature: undefined },
 ]
 

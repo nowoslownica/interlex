@@ -28,8 +28,9 @@ rm root-candidates.json
 
 # Create synonyms/antonyms/synsets links from Russian translations
 # npx tsx ./scripts/make-json-for-python.ts
-# bash ./scripts/call-python-script.sh
+bash ./scripts/call-python-script.sh
 npx tsx ./scripts/db/upload-synonyms-antonyms.ts
 npx tsx ./scripts/db/upload-synsets.ts
+npx tsx ./scripts/db/upload-synset-relations.ts
 
-npx tsx ./scripts/db/update-generated-meanings.ts
+#npx tsx ./scripts/db/update-generated-meanings.ts

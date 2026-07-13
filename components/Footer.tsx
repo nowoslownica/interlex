@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { APP_VERSION } from "@/config/app"
 
 export default function Footer() {
     return (
@@ -10,7 +11,16 @@ export default function Footer() {
                     <Link href="/textbook/ru" className="text-sm text-[#cbd5e1] hover:text-white transition-colors">Учебник</Link>
                     <Link href="/about" className="text-sm text-[#cbd5e1] hover:text-white transition-colors">О программе</Link>
                 </nav>
-                <span className="text-sm text-[#94a3b8] whitespace-nowrap">© Interslavic Lexicon 2026</span>
+                <div className="flex items-center gap-3">
+                    <Link
+                        href="/changelog"
+                        className="text-xs text-[#94a3b8] hover:text-white font-mono transition-colors"
+                        title="Istorija versij / История версий"
+                    >
+                        v{APP_VERSION}
+                    </Link>
+                    <span className="text-sm text-[#94a3b8] whitespace-nowrap">© Interslavic Lexicon 2026</span>
+                </div>
             </div>
         </footer>
     )

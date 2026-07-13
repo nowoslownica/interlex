@@ -1,12 +1,14 @@
 // lib/prisma.ts
 import { PrismaClient as AuthClient } from "../prisma/generated/auth/client";
 import { PrismaClient as DataClient } from "../prisma/generated/data/client";
+import { PrismaClient as LibraryClient } from "../prisma/generated/library/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 
 // Глобальные типы для предотвращения создания лишних подключений при Hot Reload
 const globalForPrisma = globalThis as unknown as {
     prismaAuth: AuthClient | undefined;
     prismaData: DataClient | undefined;
+    prismaLibrary: LibraryClient | undefined;
 };
 
 // 1. Инициализируем базу данных авторизации (auth.db)
@@ -21,8 +23,15 @@ const dataAdapter = new PrismaBetterSqlite3({
 });
 export const prismaData = globalForPrisma.prismaData || new DataClient({ adapter: dataAdapter });
 
+// 3. Инициализируем базу данных библиотеки (library.db)
+const libraryAdapter = new PrismaBetterSqlite3({
+    url: process.env.LIBRARY_DATABASE_URL ?? "file:./prisma/library.db",
+});
+export const prismaLibrary = globalForPrisma.prismaLibrary || new LibraryClient({ adapter: libraryAdapter });
+
 // Сохраняем инстансы в глобальный объект в режиме разработки
 if (process.env.NODE_ENV !== "production") {
     globalForPrisma.prismaAuth = prismaAuth;
     globalForPrisma.prismaData = prismaData;
+    globalForPrisma.prismaLibrary = prismaLibrary;
 }
