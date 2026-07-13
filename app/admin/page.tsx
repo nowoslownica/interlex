@@ -35,7 +35,10 @@ const AdminPage = async () => {
         <div className="h-full flex flex-col bg-background text-foreground transition-colors duration-300">
             <div>
                 <AdminNav userRole={session.user.role || ""} userPermissions={userPermissions} />
-                <Table initialColumnVisibility={userSettings?.columnVisibility ?? null} onSaveColumnVisibility={saveColumnVisibilityPreference} />
+                <Table
+                    initialColumnVisibility={userSettings?.columnVisibility ?? null}
+                    onSaveColumnVisibility={saveColumnVisibilityPreference}
+                />
             </div>
         </div>
     );

@@ -15,7 +15,10 @@ export default function TablePage({ initialColumnVisibility, onSaveColumnVisibil
     return (
         <QueryClientProvider client={queryClient}>
             <main>
-                <InfiniteEditableTable initialColumnVisibility={initialColumnVisibility ?? null} onSaveColumnVisibility={onSaveColumnVisibility} />
+                <InfiniteEditableTable
+                    initialColumnVisibility={initialColumnVisibility ?? null}
+                    onSaveColumnVisibility={onSaveColumnVisibility}
+                />
             </main>
         </QueryClientProvider>
     );
