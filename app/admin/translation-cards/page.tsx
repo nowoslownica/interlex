@@ -34,7 +34,7 @@ const TranslationCardsPage = async () => {
 
     return (
         <div className="h-full flex flex-col bg-background text-foreground transition-colors duration-300">
-            <div>
+            <div className="flex flex-col h-full overflow-hidden">
                 <AdminNav userRole={session.user.role || ""} userPermissions={userPermissions} />
                 <TranslationCardsClient
                     currentLanguage={currentLanguage}

@@ -214,7 +214,7 @@ export default function TranslationCardsClient({
     }
 
     return (
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-4 py-6 overflow-y-auto">
             <div className="mb-6">
                 <label className="block text-sm font-medium text-muted-foreground mb-2">
                     Язык перевода
@@ -295,7 +295,7 @@ export default function TranslationCardsClient({
                             />
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex flex-wrap gap-3">
                             <button
                                 onClick={handleApprove}
                                 disabled={actionLoading}
