@@ -7,7 +7,7 @@ import datetime
 DB_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'interlex.db')
 CSV_PATH = os.path.join(os.path.dirname(__file__), 'hsb_translated.csv')
 BATCH_SIZE = 500
-NOW = datetime.datetime.now(datetime.UTC).isoformat()
+NOW = datetime.datetime.now(datetime.UTC).isoformat() # python 3.12+
 
 def import_hsb():
     conn = sqlite3.connect(DB_PATH)

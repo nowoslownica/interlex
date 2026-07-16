@@ -112,15 +112,18 @@ export const getDictItems = async (
     const lexemeIds = data.map(item => item.id).filter(Boolean);
     let allMeaningIds: number[] = [];
     const lexemeToMeanings: Record<number, number[]> = {};
+    const meaningMap: Record<number, { id: number; meaning: string | null; examples: string | null }> = {};
     if (lexemeIds.length > 0) {
         const idPlaceholders = lexemeIds.map(() => '?').join(',');
         const meaningRows = db.prepare(`
-            SELECT id, lexemeId FROM meanings WHERE lexemeId IN (${idPlaceholders})
-        `).all(...lexemeIds) as { id: number; lexemeId: number }[];
+            SELECT id, lexemeId, meaning, examples FROM meanings WHERE lexemeId IN (${idPlaceholders})
+        `).all(...lexemeIds) as { id: number; lexemeId: number; meaning: string | null; examples: string | null }[];
+
         for (const row of meaningRows) {
             allMeaningIds.push(row.id);
             if (!lexemeToMeanings[row.lexemeId]) lexemeToMeanings[row.lexemeId] = [];
             lexemeToMeanings[row.lexemeId].push(row.id);
+            meaningMap[row.id] = { id: row.id, meaning: row.meaning, examples: row.examples };
         }
     }
 
@@ -128,18 +131,23 @@ export const getDictItems = async (
         allLangData[lang] = getLangDataAll(db, lang, allMeaningIds);
     }
 
-    res = data.map(item => {
-        const result: any = { ...item };
-        for (const lang of langCodes) {
-            const langEntries: LangRecord[] = [];
-            const meaningIds = lexemeToMeanings[item.id] || [];
-            for (const mid of meaningIds) {
-                const entries = allLangData[lang][mid];
-                if (entries) langEntries.push(...entries);
+    res = data.flatMap(item => {
+        const meaningIds = lexemeToMeanings[item.id] || [];
+        if (meaningIds.length === 0) {
+            const result: any = { ...item, meaningId: null, meaningText: null, examples: null };
+            for (const lang of langCodes) {
+                result[lang] = [];
             }
-            result[lang] = langEntries;
+            return [result];
         }
-        return result;
+        return meaningIds.map(mid => {
+            const m = meaningMap[mid];
+            const result: any = { ...item, meaningId: m.id, meaningText: m.meaning, examples: m.examples };
+            for (const lang of langCodes) {
+                result[lang] = allLangData[lang][mid] || [];
+            }
+            return result;
+        });
     });
 
     if (filterLang && unverified && langCodes.includes(filterLang)) {

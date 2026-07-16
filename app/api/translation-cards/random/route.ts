@@ -22,14 +22,14 @@ export async function GET(request: NextRequest) {
     const db = await init();
 
     const row = db.prepare(`
-        SELECT m.id as meaningId, m.meaning, m.lexemeId
+        SELECT m.id as meaningId, m.meaning, m.examples, m.lexemeId
         FROM meanings m
         WHERE NOT EXISTS (
             SELECT 1 FROM "${lang}" t
             WHERE t.meaningId = m.id AND t.veryfied = 1
         )
         ORDER BY RANDOM() LIMIT 1
-    `).get() as { meaningId: number; meaning: string | null; lexemeId: number } | undefined;
+    `).get() as { meaningId: number; meaning: string | null; examples: string | null; lexemeId: number } | undefined;
 
     if (!row) {
         return NextResponse.json({ done: true });
@@ -44,33 +44,20 @@ export async function GET(request: NextRequest) {
         WHERE l.id = ?
     `).get(row.lexemeId) as { id: number; value: string | null; slug: string | null; isv: string | null };
 
-    const meanings = db.prepare(`
-        SELECT id, meaning, examples FROM meanings WHERE lexemeId = ?
-    `).all(row.lexemeId) as { id: number; meaning: string | null; examples: string | null }[];
+    const ruRow = db.prepare(`SELECT * FROM ru WHERE meaningId = ?`).all(row.meaningId) as any[];
 
-    const meaningIds = meanings.map(m => m.id);
-    const placeholders = meaningIds.map(() => '?').join(',');
+    const enRow = db.prepare(`SELECT * FROM en WHERE meaningId = ?`).all(row.meaningId) as any[];
 
-    const ruRows = db.prepare(`
-        SELECT * FROM ru WHERE meaningId IN (${placeholders})
-    `).all(...meaningIds) as any[];
-
-    const enRows = db.prepare(`
-        SELECT * FROM en WHERE meaningId IN (${placeholders})
-    `).all(...meaningIds) as any[];
-
-    const targetRows = db.prepare(`
-        SELECT * FROM "${lang}" WHERE meaningId = ?
-    `).all(row.meaningId) as any[];
+    const targetRows = db.prepare(`SELECT * FROM "${lang}" WHERE meaningId = ?`).all(row.meaningId) as any[];
 
     return NextResponse.json({
         done: false,
         lexeme,
-        meanings,
-        ru: ruRows,
-        en: enRows,
-        target: targetRows,
-        currentMeaningId: row.meaningId,
+        meaningId: row.meaningId,
         meaningText: row.meaning,
+        examples: row.examples,
+        ru: ruRow,
+        en: enRow,
+        target: targetRows,
     });
 }

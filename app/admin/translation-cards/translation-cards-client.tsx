@@ -20,21 +20,15 @@ interface LexemeData {
     isv: string | null
 }
 
-interface MeaningData {
-    id: number
-    meaning: string | null
-    examples: string | null
-}
-
 interface CardData {
     done: boolean
     lexeme?: LexemeData
-    meanings?: MeaningData[]
+    meaningId?: number
+    meaningText?: string | null
+    examples?: string | null
     ru?: LangObject[]
     en?: LangObject[]
     target?: LangObject[]
-    currentMeaningId?: number
-    meaningText?: string | null
 }
 
 function RejectDialog({
@@ -139,7 +133,7 @@ export default function TranslationCardsClient({
     }, [selectedLang, fetchRandom])
 
     const handleApprove = async () => {
-        if (!card || card.done || !card.currentMeaningId) return
+        if (!card || card.done || !card.meaningId) return
         setActionLoading(true)
         const targetEntry = card.target && card.target.length > 0 ? card.target[0] : null
 
@@ -147,7 +141,7 @@ export default function TranslationCardsClient({
             const body: Record<string, unknown> = {
                 field: selectedLang,
                 veryfied: 1,
-                meaningId: card.currentMeaningId,
+                meaningId: card.meaningId,
             }
             if (targetEntry) {
                 body.translationId = targetEntry.id
@@ -173,7 +167,7 @@ export default function TranslationCardsClient({
     }
 
     const handleReject = async (message: string) => {
-        if (!card || card.done || !card.currentMeaningId) return
+        if (!card || card.done || !card.meaningId) return
         setActionLoading(true)
         setShowRejectDialog(false)
         const targetEntry = card.target && card.target.length > 0 ? card.target[0] : null
@@ -183,7 +177,7 @@ export default function TranslationCardsClient({
                 field: selectedLang,
                 veryfied: 0,
                 message,
-                meaningId: card.currentMeaningId,
+                meaningId: card.meaningId,
             }
             if (targetEntry) {
                 body.translationId = targetEntry.id
@@ -214,7 +208,7 @@ export default function TranslationCardsClient({
     }
 
     return (
-        <div className="container mx-auto px-4 py-6 overflow-y-auto">
+        <div className="container mx-auto px-4 py-6">
             <div className="mb-6">
                 <label className="block text-sm font-medium text-muted-foreground mb-2">
                     Язык перевода
@@ -258,28 +252,20 @@ export default function TranslationCardsClient({
                             </div>
                         </div>
 
-                        <div className="space-y-3 mb-6 text-sm text-muted-foreground">
-                            {card.meanings?.map((m) => (
-                                <div key={m.id} className="border-l-2 border-muted pl-3">
-                                    {m.meaning && (
-                                        <div className="text-xs italic mb-1">{m.meaning}</div>
-                                    )}
-                                    <div className="flex gap-4 text-xs">
-                                        <span>
-                                            <span className="font-medium text-foreground">RU:</span>{" "}
-                                            {getTranslationValue(
-                                                card.ru?.filter((r) => r.meaningId === m.id)
-                                            ) || "—"}
-                                        </span>
-                                        <span>
-                                            <span className="font-medium text-foreground">EN:</span>{" "}
-                                            {getTranslationValue(
-                                                card.en?.filter((e) => e.meaningId === m.id)
-                                            ) || "—"}
-                                        </span>
-                                    </div>
-                                </div>
-                            ))}
+                        <div className="mb-6 text-sm text-muted-foreground border-l-2 border-muted pl-3">
+                            {card.meaningText && (
+                                <div className="text-xs italic mb-1">{card.meaningText}</div>
+                            )}
+                            <div className="flex gap-4 text-xs">
+                                <span>
+                                    <span className="font-medium text-foreground">RU:</span>{" "}
+                                    {getTranslationValue(card.ru) || "—"}
+                                </span>
+                                <span>
+                                    <span className="font-medium text-foreground">EN:</span>{" "}
+                                    {getTranslationValue(card.en) || "—"}
+                                </span>
+                            </div>
                         </div>
 
                         <div className="mb-4">

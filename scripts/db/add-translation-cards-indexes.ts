@@ -1,0 +1,42 @@
+import Database from "better-sqlite3"
+import path from "path"
+
+const DB_PATH = process.env.SQLITE_DB || path.resolve(process.cwd(), "interlex.db")
+
+console.log(`Applying indexes to ${DB_PATH}...`)
+const db = new Database(DB_PATH)
+
+const indexes = [
+    "CREATE INDEX IF NOT EXISTS idx_meanings_lexemeId ON meanings(lexemeId);",
+
+    "CREATE INDEX IF NOT EXISTS idx_en_meaningId_veryfied ON en(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_ru_meaningId_veryfied ON ru(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_mk_meaningId_veryfied ON mk(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_sr_meaningId_veryfied ON sr(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_uk_meaningId_veryfied ON uk(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_bg_meaningId_veryfied ON bg(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_pl_meaningId_veryfied ON pl(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_be_meaningId_veryfied ON be(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_cs_meaningId_veryfied ON cs(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_sk_meaningId_veryfied ON sk(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_sl_meaningId_veryfied ON sl(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_hr_meaningId_veryfied ON hr(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_hsb_meaningId_veryfied ON hsb(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_dsb_meaningId_veryfied ON dsb(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_cu_meaningId_veryfied ON cu(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_de_meaningId_veryfied ON de(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_nl_meaningId_veryfied ON nl(meaningId, veryfied);",
+    "CREATE INDEX IF NOT EXISTS idx_eo_meaningId_veryfied ON eo(meaningId, veryfied);",
+]
+
+const tx = db.transaction(() => {
+    for (const sql of indexes) {
+        db.exec(sql)
+    }
+})
+
+tx()
+
+const count = indexes.length
+console.log(`✓ ${count} indexes applied successfully.`)
+db.close()
