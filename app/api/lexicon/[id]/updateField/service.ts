@@ -156,8 +156,10 @@ export const updateField = async (wordId: string, field: string, newValue: strin
                 where: { id: translationId }
             });
         } else {
+            const findWhere: Record<string, unknown> = { wordId: parseInt(wordId) };
+            if (meaningId) findWhere.meaningId = meaningId;
             entityOne = await langModel.findFirst({
-                where: { wordId: parseInt(wordId) }
+                where: findWhere
             });
         }
         if (!entityOne) {

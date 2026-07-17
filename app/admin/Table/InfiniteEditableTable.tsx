@@ -133,13 +133,13 @@ const [langFilterExpanded, setLangFilterExpanded] = useState(true);
 
                 return {
                     data,
-                    nextOffset: pageParam + 30 < 30 ? pageParam + 30 : null,
+                    nextOffset: data.length > 0 && !debouncedSearch ? pageParam + 30 : null,
                 };
             },
             initialPageParam: 0,
-            getNextPageParam: (lastPage, allPages) => {
-                if (!lastPage || lastPage.data.length === 0) return undefined;
-                return allPages.length * 30;
+            getNextPageParam: (lastPage) => {
+                if (!lastPage || lastPage.data.length === 0 || lastPage.nextOffset == null) return undefined;
+                return lastPage.nextOffset;
             },
             gcTime: 0,
         });

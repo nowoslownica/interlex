@@ -152,11 +152,13 @@ export default function TranslationCardsClient({
                 body.newValue = inputValue
             }
 
-            await fetch(`/api/lexicon/${card.lexeme!.id}/updateField`, {
+            const res = await fetch(`/api/lexicon/${card.lexeme!.id}/updateField`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             })
+
+            if (!res.ok) throw new Error("Save failed")
 
             await fetchRandom(selectedLang)
         } catch {
@@ -178,16 +180,19 @@ export default function TranslationCardsClient({
                 veryfied: 0,
                 message,
                 meaningId: card.meaningId,
+                newValue: inputValue,
             }
             if (targetEntry) {
                 body.translationId = targetEntry.id
             }
 
-            await fetch(`/api/lexicon/${card.lexeme!.id}/updateField`, {
+            const res = await fetch(`/api/lexicon/${card.lexeme!.id}/updateField`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             })
+
+            if (!res.ok) throw new Error("Save failed")
 
             await fetchRandom(selectedLang)
         } catch {
