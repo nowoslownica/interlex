@@ -78,3 +78,40 @@ Each word detail page displays:
 - **Prevent UI Regressions:** Always double-check that mobile dropdown/hamburger updates do not break desktop alignments, and vice-versa.
 - **Maintain High Density:** Keep code scannable, structural styles semantic, and avoid redundant CSS overrides.
 - **Grammar Engine Awareness:** The project includes a sophisticated grammar engine (`lib/grammar/`) handling verb conjugation, noun/adjective/pronoun/numeral declension, adverb comparison, stem classification, morphonology, accent/tone generation, and enclitic processing. Changes to word display or admin editing must respect these grammatical structures.
+
+---
+
+## Corpus Tokenizer: Known Issue — Grammar Engine Produces Wrong Endings
+
+### Проблема
+Грамматический движок (`lib/grammar/morphology/`) генерирует этимологические/пра-славянские окончания, которые **не совпадают** с реальными интерславянскими словоформами в корпусных текстах. В результате `DbAnalyzer` (`lib/corpus/tokenizer/dbAnalyzer.ts`) не может распознать многие токены через `matchForms` (сравнение сгенерированных форм через `normalizeForm`).
+
+### Пример: `voda` (ā-stem, FEM, paradigm A, stem=`vod`)
+| Падеж | Ожидается | Генерируется движком |
+|-------|-----------|---------------------|
+| Nom sg | voda | vodaъ (✅ после `normalizeForm` = voda) |
+| **Acc sg** | **vodu** | **vodaъ** (❌) |
+| Gen sg | vody / vodě | vodaa (❌) |
+| Dat sg | vodě | vodau (❌) |
+| Ins sg | vodoj / vodoju | vodaomъ (❌) |
+
+Движок не знает современные интерславянские окончания — он генерирует по пра-славянским шаблонам (stem + thematic vowel + историческое окончание). Снятие ударений (`stripAccents: true`) уже применяется и работает корректно — проблема именно в наборе окончаний.
+
+### Фикс (уже применён): `matchByStemPrefix` в `DbAnalyzer`
+Добавлен fallback в `lib/corpus/tokenizer/dbAnalyzer.ts:126-165`: если `matchForms` не нашёл точного совпадения, проверяем, начинается ли surface form со стема (или base) слова. Среди всех кандидатов (не только `bestWords`) выбирается:
+1. Стем, который короче surface form (настоящее слово + окончание), а НЕ стем, который равен surface form (другое слово, напр. `bratati se` со стемом `brata` vs `brat` со стемом `brat` для surface `brata`)
+2. Если таких несколько — самый длинный стем
+
+Результат: `matchCount = 1`, `isPartialMatch: undefined` (без флага частичного совпадения), `feats: {}`. Токен считается распознанным, но morphology feats (падеж/число) не заполнены.
+
+### Коренная причина
+Грамматический движок (`lib/grammar/`) генерирует некорректные окончания для большинства частей речи. Реальное исправление требует переработки системы окончаний в endings registry, чтобы они соответствовали современному Interslavic (а не пра-славянским реконструкциям). Пока применяется workaround через стем-префиксное сравнение.
+
+### Связанные файлы
+- `lib/corpus/tokenizer/dbAnalyzer.ts` — основной файл токенизации (содержит `matchForms` и `matchByStemPrefix`)
+- `lib/corpus/tokenizer/morphology.ts` — fallback статический анализатор (работает если DbAnalyzer вернул null)
+- `lib/grammar/morphology/engine.ts` — `generateWordForms()`, `stripCombiningAccents()`
+- `lib/grammar/noun/index.ts` — генерация парадигм существительных (источник неправильных окончаний)
+- `lib/grammar/endingsRegistry.ts` — реестр окончаний (место для будущего исправления)
+- `app/api/corpus/analyze/route.ts` — API эндпоинт анализа текста
+- `app/api/corpus/save/route.ts` — API эндпоинт сохранения документа в корпус

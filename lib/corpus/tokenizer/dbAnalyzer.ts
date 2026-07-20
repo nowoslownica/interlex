@@ -55,6 +55,11 @@ export class DbAnalyzer {
             return result;
         }
 
+        const stemMatch = this.matchByStemPrefix(clean, words);
+        if (stemMatch) {
+            return stemMatch;
+        }
+
         return {
             lemma: bestWords[0].slug,
             pos: PosType.X,
@@ -74,10 +79,10 @@ export class DbAnalyzer {
     }
 
     private filterLongestStem(words: WordBaseRecord[]): WordBaseRecord[] {
-        const stems = words.map(w => w.stem).filter(Boolean) as string[];
-        if (stems.length === 0) return [];
-        const longestLen = Math.max(...stems.map(s => s.length));
-        return words.filter(w => w.stem && w.stem.length === longestLen);
+        if (words.length === 0) return []
+        const lengths = words.map(w => (w.stem || w.base || '').length)
+        const longestLen = Math.max(...lengths)
+        return words.filter(w => (w.stem || w.base || '').length === longestLen)
     }
 
     private normalizeForm(form: string): string {
@@ -116,6 +121,47 @@ export class DbAnalyzer {
             }
         }
         return matches;
+    }
+
+    private matchByStemPrefix(
+        clean: string,
+        words: WordBaseRecord[]
+    ): MorphoAnalysis | null {
+        let best: { word: WordBaseRecord; stemLen: number } | null = null;
+
+        for (const word of words) {
+            if (!word.isv || !word.pos) continue;
+            const stem = (word.stem || word.base || '').toLowerCase();
+            if (!stem || stem.length < MIN_STEM_LEN) continue;
+            if (!clean.startsWith(stem)) continue;
+
+            if (!best) {
+                best = { word, stemLen: stem.length };
+                continue;
+            }
+
+            const isExact = stem.length === clean.length;
+            const bestIsExact = best.stemLen === clean.length;
+
+            if (isExact && !bestIsExact) continue;
+            if (!isExact && bestIsExact) { best = { word, stemLen: stem.length }; continue; }
+
+            if (stem.length > best.stemLen) {
+                best = { word, stemLen: stem.length };
+            }
+        }
+
+        if (!best) return null;
+
+        const bestPos = best.word.pos!;
+        const posTag = bestPos.toUpperCase();
+        return {
+            lemma: best.word.slug,
+            pos: isValidPos(posTag) ? posTag : PosType.X,
+            wordSlug: best.word.slug,
+            feats: {},
+            matchCount: 1,
+        };
     }
 
     private toAnalysis(word: WordBaseRecord, form: GeneratedForm): MorphoAnalysis {

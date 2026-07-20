@@ -230,7 +230,6 @@ function EditEndingModal({
   const [saving, setSaving] = useState(false)
 
   const handleSave = async () => {
-    if (!value.trim()) return
     setSaving(true)
     try {
       const res = await fetch(`/api/endings/${item.id}`, {
@@ -276,7 +275,7 @@ function EditEndingModal({
           </button>
           <button
             onClick={handleSave}
-            disabled={saving || !value.trim()}
+            disabled={saving}
             className="px-4 py-2 bg-blue-600 text-white font-semibold text-xs rounded-md hover:bg-blue-700 disabled:opacity-50"
           >
             {saving ? "Сохранение..." : "Сохранить"}

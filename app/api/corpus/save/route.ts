@@ -12,12 +12,18 @@ const analyzer = new DbAnalyzer(async (bases): Promise<WordBaseRecord[]> => {
     const homonyms = await prismaData.baseHomonym.findMany({
         where: { base: { in: bases } },
     })
-    const ids = [...new Set(homonyms.flatMap(h => {
-        const parsed = JSON.parse(h.wordIds)
-        return Array.isArray(parsed) && typeof parsed[0] === 'number'
-            ? parsed as number[]
-            : (parsed as Array<{ id: number }>).map(item => item.id)
-    }))]
+
+    const idToBase = new Map<number, string>()
+    for (const h of homonyms) {
+        const ids: number[] = JSON.parse(h.wordIds)
+        for (const id of ids) {
+            if (!idToBase.has(id)) {
+                idToBase.set(id, h.base)
+            }
+        }
+    }
+
+    const ids = [...idToBase.keys()]
     if (ids.length === 0) return []
 
     const rows = await prismaData.lexeme.findMany({
@@ -44,7 +50,7 @@ const analyzer = new DbAnalyzer(async (bases): Promise<WordBaseRecord[]> => {
         paradigm: r.paradigm,
         stem: r.stem,
         gender: r.gender,
-        base: null,
+        base: idToBase.get(r.id) ?? null,
         alternationType: null,
         fleetingVowelAt: null,
     }))
