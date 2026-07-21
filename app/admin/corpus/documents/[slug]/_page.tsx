@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { useSession } from "next-auth/react"
 
 interface DocumentData {
   id: string
@@ -45,6 +46,11 @@ export default function CorpusDocumentEditPage({
     text: string
   } | null>(null)
 
+  const [reanalyzing, setReanalyzing] = useState(false)
+  const [reanalysisResult, setReanalysisResult] = useState<string | null>(null)
+  const { data: session } = useSession()
+  const isAdmin = session?.user?.role === "ADMIN"
+
   const handleSave = useCallback(async () => {
     setSaving(true)
     setMessage(null)
@@ -68,6 +74,26 @@ export default function CorpusDocumentEditPage({
     }
   }, [title, author, document.slug, router])
 
+  const handleReanalyze = useCallback(async () => {
+    setReanalyzing(true)
+    setReanalysisResult(null)
+    setMessage(null)
+    try {
+      const res = await fetch(`/api/admin/corpus/documents/${document.slug}/reanalyze`, { method: "POST" })
+      const data = await res.json()
+      if (data.ok) {
+        setReanalysisResult(`Проанализировано: ${data.analyzed}, не найдено: ${data.failed}, всего токенов: ${data.total}`)
+        router.refresh()
+      } else {
+        setReanalysisResult(`Ошибка: ${data.error}`)
+      }
+    } catch (e) {
+      setReanalysisResult(`Ошибка запроса: ${e instanceof Error ? e.message : "Unknown"}`)
+    } finally {
+      setReanalyzing(false)
+    }
+  }, [document.slug, router])
+
   const tokenChecksumOk = metrics.nonPunctTokens === metrics.whitespaceWords
 
   return (
@@ -83,26 +109,43 @@ export default function CorpusDocumentEditPage({
             </a>
             <h1 className="text-2xl font-bold mt-1">Редактирование документа</h1>
           </div>
-          <button
-            onClick={handleSave}
-            disabled={saving || !title.trim()}
-            className="px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
-          >
-            {saving ? "Сохранение..." : "Сохранить"}
-          </button>
+          <div className="flex gap-2">
+            {isAdmin && document._count.tokens > 0 && (
+              <button
+                onClick={handleReanalyze}
+                disabled={reanalyzing}
+                className="px-4 py-2 text-sm font-medium rounded-lg bg-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+              >
+                {reanalyzing ? "Анализ..." : "Пересчитать POS-tagging"}
+              </button>
+            )}
+            <button
+              onClick={handleSave}
+              disabled={saving || !title.trim()}
+              className="px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+            >
+              {saving ? "Сохранение..." : "Сохранить"}
+            </button>
+          </div>
         </div>
 
-        {message && (
-          <div
-            className={`mb-4 p-3 rounded-lg text-sm ${
-              message.type === "success"
-                ? "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300"
-                : "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300"
-            }`}
-          >
-            {message.text}
-          </div>
-        )}
+{message && (
+            <div
+              className={`mb-4 p-3 rounded-lg text-sm ${
+                message.type === "success"
+                  ? "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300"
+                  : "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300"
+              }`}
+            >
+              {message.text}
+            </div>
+          )}
+
+          {reanalysisResult && (
+            <div className="mb-4 p-3 rounded-lg text-sm bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
+              {reanalysisResult}
+            </div>
+          )}
 
         <div className="rounded-lg border overflow-hidden mb-6">
           <div className="p-6 space-y-5">

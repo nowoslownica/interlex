@@ -1,5 +1,7 @@
 import { AccentParadigm, GrammaticalGender } from '@/lib/grammar/common';
 import { Case, NumberType, FourSlavicTones } from '../noun';
+import { getEndingByGrammeme } from '@/lib/grammar/endingLoader';
+import { buildGrammeme } from '@/lib/grammar/grammemes';
 
 export type CollectiveClass = 'oje_type' | 'ero_type'; // dvoje vs četvero
 
@@ -10,14 +12,11 @@ export interface CollectiveDbItem {
     collClass: CollectiveClass;
 }
 
-// Реестр флексий собирательных числительных (склоняются по падежам во множественном числе)
-const COLLECTIVE_ENDINGS: Record<CollectiveClass, Record<Case, string>> = {
+const COLLECTIVE_FALLBACK: Record<CollectiveClass, Record<Case, string>> = {
     oje_type: {
-        // dvoje -> dvojih, dvojim...
         [Case.NOMINATIVE]: 'e', [Case.ACCUSATIVE]: 'e', [Case.GENITIVE]: 'ih', [Case.DATIVE]: 'im', [Case.INSTRUMENTAL]: 'imi', [Case.LOCATIVE]: 'ih', [Case.VOCATIVE]: 'e'
     },
     ero_type: {
-        // četvero -> četveryh, četverym...
         [Case.NOMINATIVE]: 'o', [Case.ACCUSATIVE]: 'o', [Case.GENITIVE]: 'yh', [Case.DATIVE]: 'ym', [Case.INSTRUMENTAL]: 'ymi', [Case.LOCATIVE]: 'yh', [Case.VOCATIVE]: 'o'
     }
 };
@@ -30,9 +29,11 @@ export function declineCollectiveNumeral(request: {
     const lemma = dbItem.interslavic.toLowerCase().trim();
     const { collClass, paradigm } = dbItem;
 
-    // Отрезаем родовое окончание праславянского номинатива (-je / -o), чтобы получить суффиксальную основу (dvoj-, četver-)
     const cleanBase = collClass === 'oje_type' ? lemma.slice(0, -2) + 'j' : lemma.slice(0, -1);
-    const ending = COLLECTIVE_ENDINGS[collClass][targetCase];
+    const stemType = collClass === 'oje_type' ? 'collective_oje' : 'collective_ero';
+    const grammeme = buildGrammeme(targetCase, NumberType.PLURAL);
+    const dbEnding = getEndingByGrammeme(stemType, grammeme);
+    const ending = dbEnding ?? COLLECTIVE_FALLBACK[collClass][targetCase];
     const fullForm = cleanBase + ending;
 
     // Хелперы Юникода (импортируем из базового тонового процессора)

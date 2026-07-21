@@ -1,7 +1,8 @@
-import { Case, NumberType, StemType, SLAVIC_ENDINGS_REGISTRY } from './endingsRegistry';
+import { Case, NumberType } from './endingsRegistry';
+import { SLAVIC_ENDINGS_REGISTRY, StemType } from './endingsRegistry';
 import { buildGrammeme } from './grammemes';
 
-type EndingCacheKey = `${StemType}:${string}:${string}`;
+type EndingCacheKey = `${string}:${string}:${string}`;
 
 const endingCache = new Map<EndingCacheKey, string>();
 let loadAttempted = false;
@@ -30,39 +31,50 @@ function tryLoadFromDb(): void {
     db.close();
     loadEndingOverridesSync(rows);
   } catch {
-    // DB unavailable — fallback to hardcoded registry
+    // DB unavailable — fallback to hardcoded registries
   }
 }
 
+export function getEndingByGrammeme(
+  stemType: string,
+  grammeme: string,
+  flavor: string = 'CORE',
+): string | undefined {
+  tryLoadFromDb();
+  const key = `${stemType}:${grammeme}:${flavor}` as EndingCacheKey;
+  return endingCache.get(key);
+}
+
 export function getEnding(
-  stemType: StemType,
+  stemType: string,
   number: NumberType,
   c: Case,
   flavor: string = 'CORE',
   gender?: string,
   animacy?: string,
 ): string {
-  tryLoadFromDb();
-
-  const tryGrammeme = (g: string): string | undefined =>
-    endingCache.get(`${stemType}:${g}:${flavor}` as EndingCacheKey);
-
   const fullGrammeme = buildGrammeme(c, number, gender, animacy);
-  const dbValue = tryGrammeme(fullGrammeme);
+  const dbValue = getEndingByGrammeme(stemType, fullGrammeme, flavor);
 
   if (dbValue !== undefined) return dbValue;
 
   if (gender || animacy) {
     const genderGrammeme = buildGrammeme(c, number, gender);
-    const dbGender = tryGrammeme(genderGrammeme);
+    const dbGender = getEndingByGrammeme(stemType, genderGrammeme, flavor);
     if (dbGender !== undefined) return dbGender;
   }
 
   const baseGrammeme = buildGrammeme(c, number);
-  const dbBase = tryGrammeme(baseGrammeme);
+  const dbBase = getEndingByGrammeme(stemType, baseGrammeme, flavor);
   if (dbBase !== undefined) return dbBase;
 
-  return SLAVIC_ENDINGS_REGISTRY[stemType][number][c];
+  const stemTypeEnum = stemType as StemType;
+  const registry = SLAVIC_ENDINGS_REGISTRY[stemTypeEnum];
+  if (registry?.[number]?.[c] !== undefined) {
+    return registry[number][c];
+  }
+
+  return '';
 }
 
 export function resetEndingCache(): void {

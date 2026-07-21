@@ -56,7 +56,7 @@ function formatFeats(feats: Record<string, string>): string {
     return parts.join(" ")
 }
 
-export function TokenBlock({ token }: { token: TokenResult }) {
+export function TokenBlock({ token, onClick }: { token: TokenResult; onClick?: (token: TokenResult) => void }) {
     let bgColor = ""
     if (token.isPunctuation) {
         bgColor = "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
@@ -70,9 +70,14 @@ export function TokenBlock({ token }: { token: TokenResult }) {
 
     const featsStr = token.isRecognized ? formatFeats(token.feats) : ""
     const hasHomonymy = token.matchCount > 1
+    const isClickable = !!onClick
 
     return (
-        <span className="inline-flex flex-col items-stretch mx-0.5 my-0.5">
+        <button
+            type="button"
+            onClick={() => onClick?.(token)}
+            className={`inline-flex flex-col items-stretch mx-0.5 my-0.5 ${isClickable ? "cursor-pointer" : ""}`}
+        >
             <span className="text-[10px] leading-tight text-center px-1 text-muted-foreground relative min-h-[14px]">
                 {featsStr || (
                     <span className="text-[10px] text-muted-foreground/40">&mdash;</span>
@@ -84,7 +89,7 @@ export function TokenBlock({ token }: { token: TokenResult }) {
                 )}
             </span>
             <span
-                className={`inline-block px-2 py-0.5 rounded-md text-sm font-mono leading-tight whitespace-nowrap ${bgColor}`}
+                className={`inline-block px-2 py-0.5 rounded-md text-sm font-mono leading-tight whitespace-nowrap ${bgColor} ${isClickable ? "hover:ring-2 hover:ring-primary/50 transition-all" : ""}`}
                 title={
                     token.isRecognized
                         ? `${token.lemma} (${token.pos}) [${token.wordSlug}]`
@@ -97,11 +102,11 @@ export function TokenBlock({ token }: { token: TokenResult }) {
             >
                 {token.surfaceForm}
             </span>
-        </span>
+        </button>
     )
 }
 
-export function SegmentView({ segments, emptyLabel }: { segments: SegmentResult[]; emptyLabel?: string }) {
+export function SegmentView({ segments, emptyLabel, onTokenClick }: { segments: SegmentResult[]; emptyLabel?: string; onTokenClick?: (token: TokenResult) => void }) {
     if (segments.length === 0) {
         return <p className="text-muted-foreground italic">{emptyLabel ?? "Нет данных"}</p>
     }
@@ -114,7 +119,7 @@ export function SegmentView({ segments, emptyLabel }: { segments: SegmentResult[
                     {seg.sentences.map((s) => (
                         <div key={s.position} className="mb-3 flex flex-wrap items-baseline">
                             {s.tokens.map((t, i) => (
-                                <TokenBlock key={i} token={t} />
+                                <TokenBlock key={i} token={t} onClick={onTokenClick} />
                             ))}
                         </div>
                     ))}

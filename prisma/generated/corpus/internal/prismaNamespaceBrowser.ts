@@ -80,6 +80,7 @@ export const CorpusDocumentScalarFieldEnum = {
   rawText: 'rawText',
   language: 'language',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   candidatesProcessed: 'candidatesProcessed'
 } as const
 
@@ -117,7 +118,8 @@ export const CorpusTokenScalarFieldEnum = {
   lemma: 'lemma',
   pos: 'pos',
   feats: 'feats',
-  wordSlug: 'wordSlug'
+  wordSlug: 'wordSlug',
+  matchCount: 'matchCount'
 } as const
 
 export type CorpusTokenScalarFieldEnum = (typeof CorpusTokenScalarFieldEnum)[keyof typeof CorpusTokenScalarFieldEnum]

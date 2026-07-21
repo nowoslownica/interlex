@@ -81,37 +81,61 @@ Each word detail page displays:
 
 ---
 
-## Corpus Tokenizer: Known Issue — Grammar Engine Produces Wrong Endings
+## Corpus Tokenizer: DbAnalyzer Architecture
 
-### Проблема
-Грамматический движок (`lib/grammar/morphology/`) генерирует этимологические/пра-славянские окончания, которые **не совпадают** с реальными интерславянскими словоформами в корпусных текстах. В результате `DbAnalyzer` (`lib/corpus/tokenizer/dbAnalyzer.ts`) не может распознать многие токены через `matchForms` (сравнение сгенерированных форм через `normalizeForm`).
+### Overview
+`DbAnalyzer` (`lib/corpus/tokenizer/dbAnalyzer.ts`) is the primary POS tagger for corpus tokens. It takes a surface form and returns a `MorphoAnalysis` with three possible outcomes depending on recognition confidence.
 
-### Пример: `voda` (ā-stem, FEM, paradigm A, stem=`vod`)
-| Падеж | Ожидается | Генерируется движком |
-|-------|-----------|---------------------|
-| Nom sg | voda | vodaъ (✅ после `normalizeForm` = voda) |
-| **Acc sg** | **vodu** | **vodaъ** (❌) |
-| Gen sg | vody / vodě | vodaa (❌) |
-| Dat sg | vodě | vodau (❌) |
-| Ins sg | vodoj / vodoju | vodaomъ (❌) |
+### Constructor
+```typescript
+new DbAnalyzer(queryWordsByBase: WordQueryFn, validEndings: Set<string>)
+```
+- `queryWordsByBase`: callback that fetches `WordBaseRecord[]` from DB by hypothetical stem bases
+- `validEndings`: set of known ending strings from the `ending_allophones` database table (seeded by `scripts/db/seed-endings.ts`)
 
-Движок не знает современные интерславянские окончания — он генерирует по пра-славянским шаблонам (stem + thematic vowel + историческое окончание). Снятие ударений (`stripAccents: true`) уже применяется и работает корректно — проблема именно в наборе окончаний.
+### Three Outcomes (Traffic Light)
 
-### Фикс (уже применён): `matchByStemPrefix` в `DbAnalyzer`
-Добавлен fallback в `lib/corpus/tokenizer/dbAnalyzer.ts:126-165`: если `matchForms` не нашёл точного совпадения, проверяем, начинается ли surface form со стема (или base) слова. Среди всех кандидатов (не только `bestWords`) выбирается:
-1. Стем, который короче surface form (настоящее слово + окончание), а НЕ стем, который равен surface form (другое слово, напр. `bratati se` со стемом `brata` vs `brat` со стемом `brat` для surface `brata`)
-2. Если таких несколько — самый длинный стем
+| Color | Condition | `isPartialMatch` | `matchCount` | `feats` |
+|-------|-----------|-------------------|--------------|---------|
+| **Green** | `exactMatches.length > 0` (grammar engine generated a matching form) | `false` | `N` | Filled by grammar engine |
+| **Yellow** | No exact match, but stem prefix matches | `true` | `1` | `{}` (empty) |
+| **Red** | No match at all | `null` (analyzeWord returns `null`) | 0 | `{}` |
 
-Результат: `matchCount = 1`, `isPartialMatch: undefined` (без флага частичного совпадения), `feats: {}`. Токен считается распознанным, но morphology feats (падеж/число) не заполнены.
+### Core Algorithm
 
-### Коренная причина
-Грамматический движок (`lib/grammar/`) генерирует некорректные окончания для большинства частей речи. Реальное исправление требует переработки системы окончаний в endings registry, чтобы они соответствовали современному Interslavic (а не пра-славянским реконструкциям). Пока применяется workaround через стем-префиксное сравнение.
+1. **`generateHypotheticalBases(clean)`**: Iterates ending lengths `0..MAX_END_LEN` (4), filtering candidates where the ending is in `validEndings` (or endLen=0). Stem must be ≥1 char (with exception for 0-ending: prepositions like "k", "v", "s" pass through).
 
-### Связанные файлы
-- `lib/corpus/tokenizer/dbAnalyzer.ts` — основной файл токенизации (содержит `matchForms` и `matchByStemPrefix`)
-- `lib/corpus/tokenizer/morphology.ts` — fallback статический анализатор (работает если DbAnalyzer вернул null)
+2. **`matchForms(clean, words)`**: Calls `generateWordForms()` from the grammar engine for each candidate word, passing `flavor: word.flavor || 'CORE'` into `EngineWordInput`. Compares normalized surface forms. Returns all exact matches.
+
+3. **`matchByStemPrefix(clean, words)`**: Fallback when grammar engine generates wrong endings (see Known Issue). Checks if surface form starts with `word.stem` (or `word.base`). Among candidates, prefers stems shorter than surface form (real word + ending) over stems equal to surface form. Selects longest matching stem.
+
+### Flavor System (Regional Variants)
+Words linked to multiple lexemes via `base_homonyms` table (JSON `wordIds` field) can specify regional flavor:
+- `wordIds` stored as JSON array: `[123, 456]` (all CORE) or `[{id: 123, flavor: "CORE"}, {id: 456, flavor: "EAST"}]`
+- `WordBaseRecord.flavor` passed through to `MorphoAnalysis.flavor` and to `EngineWordInput.flavor` in `matchForms`
+- Currently verb/adj processors skip flavor (only CORE)
+
+### validEndings Set
+Populated from `ending_allophones` table (seeded by `scripts/db/seed-endings.ts`):
+- Entries stored with `stemType`, `grammeme`, `value`, `flavorId`
+- Current seed: 413 CORE endings covering noun stem types (o_hard, o_soft, a_hard, a_soft, u_basis, i_basis, consonant_n, consonant_s), adjective (adj_hard, adj_soft), and verb forms (present, aorist, imperfect, imperative, l-participle, active/passive participles)
+
+### Known Issue: Grammar Engine Produces Wrong Endings
+
+**Problem**: The grammar engine (`lib/grammar/morphology/`) generates etymological Proto-Slavic endings that don't match modern Interslavic forms. For example, `voda` (ā-stem, FEM, paradigm A) should have Acc sg `vodu` but the engine generates `vodaъ`.
+
+**Workaround**: `matchByStemPrefix` fallback. When `matchForms` finds no exact match, stem-prefix comparison is used. The token is recognized (`matchCount=1`) but `feats: {}` (no morphology).
+
+**Root Cause**: The endings registry (`endingsRegistry.ts`, adjective engine, verb processors) produces Proto-Slavic reconstructions rather than modern Interslavic. A full fix requires rewriting the endings in all registries.
+
+### Key Files
+- `lib/corpus/tokenizer/dbAnalyzer.ts` — Core DbAnalyzer class
+- `lib/corpus/tokenizer/types.ts` — `MorphoAnalysis` with `flavor` field
+- `lib/corpus/tokenizer/morphology.ts` — Static fallback analyzer (used when DbAnalyzer returns null)
+- `lib/corpus/tokenizer/index.ts` — Exports (does NOT export `createBaseQuery`)
+- `app/api/corpus/analyze/route.ts` — API endpoint with lazy `getAnalyzer()` singleton
+- `app/api/corpus/save/route.ts` — Save endpoint with lazy `analyzerPromise`
+- `scripts/db/seed-endings.ts` — Seed script for `ending_allophones` table
 - `lib/grammar/morphology/engine.ts` — `generateWordForms()`, `stripCombiningAccents()`
-- `lib/grammar/noun/index.ts` — генерация парадигм существительных (источник неправильных окончаний)
-- `lib/grammar/endingsRegistry.ts` — реестр окончаний (место для будущего исправления)
-- `app/api/corpus/analyze/route.ts` — API эндпоинт анализа текста
-- `app/api/corpus/save/route.ts` — API эндпоинт сохранения документа в корпус
+- `lib/grammar/endingsRegistry.ts` — Proto-Slavic noun endings registry
+- `lib/grammar/adjective/index.ts` — Adjective endings registry

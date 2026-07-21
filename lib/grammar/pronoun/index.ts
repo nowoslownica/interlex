@@ -3,6 +3,8 @@ import {
     GrammaticalGender
 } from '@/lib/grammar/common'; // Системные Enum из таблицы Word
 import { Case, NumberType, FourSlavicTones, stripAccents } from '../noun';
+import { getEnding } from '@/lib/grammar/endingLoader';
+import { ADJECTIVE_ENDINGS_REGISTRY } from '@/lib/grammar/adjective';
 
 // =========================================================================
 // 1. СТРОГИЕ ИНТЕРФЕЙСЫ И ТИПЫ ДАННЫХ
@@ -164,11 +166,9 @@ export function generatePronounForm(request: PronounFormRequest): string {
             else if (targetGender === GrammaticalGender.NEUT) rawForm = 'ono';
             else rawForm = 'on';
         } else {
-            // Подтягиваем окончания мягкого адъективного типа (adj_soft) из adjectiveEngine
-            const { ADJECTIVE_ENDINGS_REGISTRY } = require('../adjective');
-            const ending = ADJECTIVE_ENDINGS_REGISTRY['adj_soft'][targetNumber][targetGender][targetCase];
+            const dbEnding = getEnding('adj_soft', targetNumber, targetCase, 'CORE', targetGender === GrammaticalGender.FEM ? 'Fem' : targetGender === GrammaticalGender.NEUT ? 'Neut' : 'Masc');
+            const ending = dbEnding || ADJECTIVE_ENDINGS_REGISTRY['adj_soft'][targetNumber][targetGender][targetCase];
 
-            // Основа анафорического местоимения в косвенных падежах — праславянский йот (*j-)
             rawForm = 'j' + ending;
         }
     }

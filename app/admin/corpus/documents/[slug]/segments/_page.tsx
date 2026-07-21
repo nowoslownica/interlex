@@ -3,7 +3,8 @@
 import { useState, useCallback, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { SegmentView, ColorLegend, type SegmentResult } from "@/components/CorpusTokenDisplay"
+import { SegmentView, ColorLegend, type SegmentResult, type TokenResult } from "@/components/CorpusTokenDisplay"
+import TokenSidebar from "@/components/TokenSidebar"
 
 interface SegmentItem {
   id: string
@@ -31,6 +32,7 @@ export default function CorpusSegmentsPage({
   const [loading, setLoading] = useState(false)
   const [searchText, setSearchText] = useState(query)
   const [jumpPage, setJumpPage] = useState("")
+  const [sidebarToken, setSidebarToken] = useState<TokenResult | null>(null)
 
   const fetchSegment = useCallback(async (position: number) => {
     setLoading(true)
@@ -233,7 +235,7 @@ export default function CorpusSegmentsPage({
                 </h2>
                 <ColorLegend />
               </div>
-              <SegmentView segments={[segmentData]} />
+              <SegmentView segments={[segmentData]} onTokenClick={setSidebarToken} />
             </div>
           ) : (
             <div className="flex items-center justify-center h-full text-red-500 text-sm">
@@ -242,6 +244,8 @@ export default function CorpusSegmentsPage({
           )}
         </div>
       </div>
+
+      <TokenSidebar token={sidebarToken} onClose={() => setSidebarToken(null)} />
     </div>
   )
 }

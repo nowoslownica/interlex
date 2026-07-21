@@ -7,6 +7,7 @@ export interface MorphoAnalysis {
     feats: MorphoGrammarFeats;
     matchCount?: number;
     isPartialMatch?: boolean;
+    flavor?: string;
 }
 
 export interface TokenPayload {
@@ -45,5 +46,6 @@ export interface CorpusTokenInput {
     lemma: string;
     pos: string;
     wordSlug: string | null;
+    matchCount: number;
     feats: MorphoGrammarFeats;
 }

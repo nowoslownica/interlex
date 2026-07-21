@@ -110,6 +110,12 @@ prismaData.lexeme.updateMany({
     })
   }
 
+  await prismaCorpus.corpusConfig.upsert({
+    where: { key: "freq_last_recalculated" },
+    create: { key: "freq_last_recalculated", value: new Date().toISOString() },
+    update: { value: new Date().toISOString() },
+  })
+
   return {
     updated: updates.length,
     totalTokens,

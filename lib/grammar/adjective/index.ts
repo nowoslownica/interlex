@@ -4,6 +4,7 @@ import {
     GrammaticalGender
 } from '@/lib/grammar/common'; // Системные Enum из таблицы Word
 import { Case, NumberType, FourSlavicTones, stripAccents } from '../noun';
+import { getEnding } from '@/lib/grammar/endingLoader';
 
 // =========================================================================
 // 1. СТРОГИЕ ИНТЕРФЕЙСЫ И ТИПЫ ДАННЫХ
@@ -174,7 +175,8 @@ export function generateAdjectiveForm(request: AdjFormRequest): string {
     const { dbItem, targetCase, targetNumber, targetGender } = request;
 
     const stemType = identifyAdjStemType(dbItem);
-    const ending = ADJECTIVE_ENDINGS_REGISTRY[stemType][targetNumber][targetGender][targetCase];
+    const dbEnding = getEnding(stemType, targetNumber, targetCase, 'CORE', targetGender);
+    const ending = dbEnding ?? ADJECTIVE_ENDINGS_REGISTRY[stemType][targetNumber][targetGender][targetCase];
 
     // Отрезаем изначальное словарное окончание полных форм межславянского (y/i) для получения корня
     const cleanBase = dbItem.interslavic.slice(0, -1);

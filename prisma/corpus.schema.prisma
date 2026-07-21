@@ -15,6 +15,7 @@ model CorpusDocument {
   rawText       String         // Полный текст для быстрого чтения/отображения
   language      String         @default("is") // Межславянский диалект/версия
   createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   candidatesProcessed Boolean  @default(false) // Собраны ли слова-кандидаты
 
   // Связи
@@ -69,6 +70,7 @@ model CorpusToken {
   sentence      CorpusSentence @relation(fields: [sentenceId], references: [id], onDelete: Cascade)
 
   wordSlug      String?
+  matchCount    Int               @default(1) // Количество омонимов (0 — не найдено, 1 — один вариант, >1 — омонимия)
 
   // Индексы для мгновенного поиска (B-Tree)
   @@index([lemma])

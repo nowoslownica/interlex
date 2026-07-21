@@ -39,6 +39,7 @@ export async function GET(
           lemma: true,
           pos: true,
           wordSlug: true,
+          matchCount: true,
           feats: true,
           wordIndex: true,
         },
@@ -65,7 +66,7 @@ export async function GET(
           pos: t.pos,
           wordSlug: t.wordSlug,
           feats: (t.feats ?? {}) as Record<string, string>,
-          matchCount: 1,
+          matchCount: t.matchCount,
         } satisfies TokenResult
       }),
     })),

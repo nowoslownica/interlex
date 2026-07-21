@@ -1,6 +1,6 @@
 import { generateWordForms } from '@/lib/grammar/morphology/engine';
 import { EngineWordInput, GeneratedForm } from '@/lib/grammar/morphology';
-import { PosType, isValidPos, MorphoGrammarFeats } from '@/lib/grammar/common';
+import { PosType, isValidPos } from '@/lib/grammar/common';
 import { MorphoAnalysis } from './types';
 import { etymCyrToEtymLat } from '@/lib/transliteration';
 
@@ -17,14 +17,19 @@ export interface WordBaseRecord {
     gender: string | null;
     alternationType: string | null;
     fleetingVowelAt: number | null;
+    flavor?: string;
 }
 
 type WordQueryFn = (bases: string[]) => Promise<WordBaseRecord[]>;
 
+const MAX_END_LEN = 4;
 const MIN_STEM_LEN = 2;
 
 export class DbAnalyzer {
-    constructor(private queryWordsByBase: WordQueryFn) {}
+    constructor(
+        private queryWordsByBase: WordQueryFn,
+        private validEndings: Set<string>
+    ) {}
 
     async analyzeWord(surfaceForm: string): Promise<MorphoAnalysis | null> {
         let clean = surfaceForm.toLowerCase().trim();
@@ -34,24 +39,17 @@ export class DbAnalyzer {
             clean = etymCyrToEtymLat(clean);
         }
 
-        const hypotheticalBases = this.generateHypotheticalBases(clean);
-        const words = await this.queryWordsByBase(hypotheticalBases);
+        const candidateBases = this.generateHypotheticalBases(clean);
+        if (candidateBases.length === 0) return null;
+
+        const words = await this.queryWordsByBase(candidateBases);
         if (words.length === 0) return null;
 
-        const bestWords = this.filterLongestStem(words);
-        if (bestWords.length === 0) return null;
+        const exactMatches = this.matchForms(clean, words);
 
-        const matches = this.matchForms(clean, bestWords);
-
-        if (matches.length === 1) {
-            const result = this.toAnalysis(matches[0].word, matches[0].form);
-            result.matchCount = 1;
-            return result;
-        }
-
-        if (matches.length > 1) {
-            const result = this.toAnalysis(matches[0].word, matches[0].form);
-            result.matchCount = matches.length;
+        if (exactMatches.length > 0) {
+            const result = this.toAnalysis(exactMatches[0].word, exactMatches[0].form);
+            result.matchCount = exactMatches.length;
             return result;
         }
 
@@ -61,43 +59,60 @@ export class DbAnalyzer {
         }
 
         return {
-            lemma: bestWords[0].slug,
+            lemma: words[0].slug,
             pos: PosType.X,
-            wordSlug: bestWords[0].slug,
+            wordSlug: words[0].slug,
             feats: {},
             matchCount: 0,
             isPartialMatch: true,
+            flavor: words[0].flavor,
         };
     }
 
     private generateHypotheticalBases(clean: string): string[] {
         const bases = new Set<string>();
-        for (let len = clean.length; len >= MIN_STEM_LEN; len--) {
-            bases.add(clean.slice(0, len));
+        for (let endLen = 0; endLen <= MAX_END_LEN; endLen++) {
+            const stemLen = clean.length - endLen;
+            if (stemLen < 1) continue;
+            if (stemLen < MIN_STEM_LEN && endLen > 0) continue;
+
+            const ending = clean.slice(stemLen);
+            if (endLen === 0 || this.validEndings.has(ending)) {
+                bases.add(clean.slice(0, stemLen));
+            }
         }
         return Array.from(bases);
     }
 
-    private filterLongestStem(words: WordBaseRecord[]): WordBaseRecord[] {
-        if (words.length === 0) return []
-        const lengths = words.map(w => (w.stem || w.base || '').length)
-        const longestLen = Math.max(...lengths)
-        return words.filter(w => (w.stem || w.base || '').length === longestLen)
-    }
-
     private normalizeForm(form: string): string {
-        return form.replace(/[\u044A\u044C]/g, '');
+        return form
+            .replace(/[\u044A\u044C]/g, '')
+            .replace(/[čČ]/g, 'c')
+            .replace(/[šŠ]/g, 's')
+            .replace(/[žŽ]/g, 'z')
+            .replace(/[ěĚ]/g, 'e')
+            .replace(/[ńŃ]/g, 'n')
+            .replace(/[łŁ]/g, 'l')
+            .replace(/[óÓ]/g, 'o')
+            .replace(/[áÁ]/g, 'a')
+            .replace(/[éÉ]/g, 'e')
+            .replace(/[íÍ]/g, 'i')
+            .replace(/[úÚ]/g, 'u')
+            .replace(/[ýÝ]/g, 'y');
     }
 
     private matchForms(
         clean: string,
         words: WordBaseRecord[]
     ): Array<{ word: WordBaseRecord; form: GeneratedForm }> {
+        const normalizedClean = this.normalizeForm(clean);
         const matches: Array<{ word: WordBaseRecord; form: GeneratedForm }> = [];
         for (const word of words) {
             if (!word.isv || !word.pos) continue;
             const posTag = word.pos.toUpperCase();
             if (!isValidPos(posTag)) continue;
+
+            let matched = false;
 
             const engineInput: EngineWordInput = {
                 id: word.id,
@@ -111,13 +126,22 @@ export class DbAnalyzer {
                 gender: word.gender,
                 alternationType: word.alternationType,
                 fleetingVowelAt: word.fleetingVowelAt,
+                flavor: word.flavor || 'CORE',
             };
 
             const forms = generateWordForms(engineInput, true);
             for (const form of forms) {
-                if (this.normalizeForm(form.surfaceForm.toLowerCase()) === clean) {
+                if (this.normalizeForm(form.surfaceForm.toLowerCase()) === normalizedClean) {
                     matches.push({ word, form });
+                    matched = true;
                 }
+            }
+
+            if (!matched && this.normalizeForm(word.isv.toLowerCase()) === normalizedClean) {
+                matches.push({
+                    word,
+                    form: { surfaceForm: word.isv, feats: {} },
+                });
             }
         }
         return matches;
@@ -132,7 +156,7 @@ export class DbAnalyzer {
         for (const word of words) {
             if (!word.isv || !word.pos) continue;
             const stem = (word.stem || word.base || '').toLowerCase();
-            if (!stem || stem.length < MIN_STEM_LEN) continue;
+            if (!stem) continue;
             if (!clean.startsWith(stem)) continue;
 
             if (!best) {
@@ -161,6 +185,8 @@ export class DbAnalyzer {
             wordSlug: best.word.slug,
             feats: {},
             matchCount: 1,
+            isPartialMatch: true,
+            flavor: best.word.flavor,
         };
     }
 
@@ -171,42 +197,16 @@ export class DbAnalyzer {
             pos: isValidPos(pos) ? pos : PosType.X,
             wordSlug: word.slug,
             feats: form.feats,
+            flavor: word.flavor,
         };
     }
 }
 
-export function createBaseQuery(prismaData: {
-    word: {
-        findMany: (args: {
-            where: { base: { in: string[]; not: null } };
-            select: Record<string, boolean>;
-        }) => Promise<WordBaseRecord[]>;
-    };
-}): WordQueryFn {
-    return (bases: string[]) =>
-        prismaData.word.findMany({
-            where: { base: { in: bases, not: null } },
-            select: {
-                id: true,
-                slug: true,
-                isv: true,
-                pos: true,
-                protoStemClass: true,
-                stemExtension: true,
-                paradigm: true,
-                stem: true,
-                gender: true,
-                alternationType: true,
-                fleetingVowelAt: true,
-                base: true,
-            },
-        });
-}
-
 export async function analyzeWithDb(
     surfaceForm: string,
-    queryWordsByBase: WordQueryFn
+    queryWordsByBase: WordQueryFn,
+    validEndings: Set<string>
 ): Promise<MorphoAnalysis | null> {
-    const analyzer = new DbAnalyzer(queryWordsByBase);
+    const analyzer = new DbAnalyzer(queryWordsByBase, validEndings);
     return analyzer.analyzeWord(surfaceForm);
 }

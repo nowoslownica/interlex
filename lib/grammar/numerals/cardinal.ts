@@ -3,6 +3,10 @@ import {
     GrammaticalGender
 } from '@/lib/grammar/common'; // Системные Enum из таблицы Word
 import { Case, NumberType, FourSlavicTones, stripAccents } from '../noun';
+import { getEnding, getEndingByGrammeme } from '@/lib/grammar/endingLoader';
+import { buildGrammeme } from '@/lib/grammar/grammemes';
+import { ADJECTIVE_ENDINGS_REGISTRY } from '@/lib/grammar/adjective';
+import { SLAVIC_ENDINGS_REGISTRY } from '@/lib/grammar/endingsRegistry';
 
 // =========================================================================
 // 1. СТРОГИЕ ИНТЕРФЕЙСЫ И ТИПЫ ДАННЫХ
@@ -103,13 +107,10 @@ export function generateNumeralForm(request: NumFormRequest): string {
     // СТРАТЕГИЯ 1: "ОДИН" (edin) -> Полностью копирует местоименное прилагательное
     // -----------------------------------------------------------------------
     if (dbItem.numClass === 'one') {
-        // Подтягиваем реестр из adjectiveEngine динамически, отрезая основу "edin-"
         const cleanBase = lemma === 'edin' ? 'edin' : lemma;
-        // Импортируем типы флексий из смежного жесткого реестра hard_adjectives
-        const { ADJECTIVE_ENDINGS_REGISTRY } = require('../adjective');
-        const ending = ADJECTIVE_ENDINGS_REGISTRY['adj_hard'][targetNumber][targetGender][targetCase];
+        const dbEnding = getEnding('adj_hard', targetNumber, targetCase, 'CORE', targetGender === GrammaticalGender.FEM ? 'Fem' : targetGender === GrammaticalGender.NEUT ? 'Neut' : 'Masc');
+        const ending = dbEnding || ADJECTIVE_ENDINGS_REGISTRY['adj_hard'][targetNumber][targetGender][targetCase];
 
-        // В им.п. мужского рода окончание нулевое (уже сидит в лемме)
         fullForm = (targetCase === Case.NOMINATIVE && targetGender === GrammaticalGender.MASC)
             ? cleanBase
             : cleanBase.replace(/in$/, '') + ending;
@@ -121,8 +122,9 @@ export function generateNumeralForm(request: NumFormRequest): string {
     else if (dbItem.numClass === 'two_to_four') {
         if (lemma === 'dva') {
             const base = 'dv';
-            const ending = SMALL_NUMBERS_REGISTRY.two[targetCase];
-            // Если женский или средний род — праславянское *dvě
+            const grammeme = buildGrammeme(targetCase, NumberType.DUAL);
+            const dbEnding = getEndingByGrammeme('numeral_two', grammeme);
+            const ending = dbEnding ?? SMALL_NUMBERS_REGISTRY.two[targetCase];
             if (ending === 'a' && (targetGender === GrammaticalGender.FEM || targetGender === GrammaticalGender.NEUT)) {
                 fullForm = base + 'ě';
             } else {
@@ -130,8 +132,11 @@ export function generateNumeralForm(request: NumFormRequest): string {
             }
         } else {
             const numKey = lemma === 'tri' ? 'three' : 'four';
+            const stemType = lemma === 'tri' ? 'numeral_three' : 'numeral_four';
             const base = lemma === 'tri' ? 'tr' : 'četyr';
-            const ending = SMALL_NUMBERS_REGISTRY[numKey][targetCase];
+            const grammeme = buildGrammeme(targetCase, NumberType.PLURAL);
+            const dbEnding = getEndingByGrammeme(stemType, grammeme);
+            const ending = dbEnding ?? SMALL_NUMBERS_REGISTRY[numKey][targetCase];
             fullForm = base + ending;
         }
     }
@@ -140,11 +145,9 @@ export function generateNumeralForm(request: NumFormRequest): string {
         // СТРАТЕГИЯ 3: "ПЯТЬ - ДЕСЯТЬ" -> Склоняются строго как i-основы существительных (kostь)
     // -----------------------------------------------------------------------
     else if (dbItem.numClass === 'five_to_ten') {
-        const { SLAVIC_ENDINGS_REGISTRY } = require('../noun');
-        // Все числительные 5-10 женского рода, склоняются строго в Singular
-        const ending = SLAVIC_ENDINGS_REGISTRY['i_basis'][NumberType.SINGULAR][targetCase];
+        const dbEnding = getEnding('i_basis', NumberType.SINGULAR, targetCase, 'CORE');
+        const ending = dbEnding !== '' ? dbEnding : SLAVIC_ENDINGS_REGISTRY['i_basis'][NumberType.SINGULAR][targetCase];
 
-        // Отрезаем мягкий знак или исходный носовой элемент для чистой склейки
         const cleanBase = lemma.replace(/[ьъ]$/, '');
         fullForm = cleanBase + ending;
     }

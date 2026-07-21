@@ -69,7 +69,7 @@ function applyHeuristics(clean: string): MorphoAnalysis | null {
             return {
                 lemma,
                 pos,
-                wordSlug: `${lemma}-${pos.toLowerCase()}`,
+                wordSlug: null,
                 feats: h.getFeats(clean),
             };
         }

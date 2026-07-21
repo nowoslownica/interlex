@@ -7,7 +7,9 @@ import {
     ColorLegend,
     type SegmentResult,
     type Stats,
+    type TokenResult,
 } from "@/components/CorpusTokenDisplay"
+import TokenSidebar from "@/components/TokenSidebar"
 
 export default function CorpusBuilderClient() {
     const [text, setText] = useState("")
@@ -20,6 +22,7 @@ export default function CorpusBuilderClient() {
     const [saveSlug, setSaveSlug] = useState("")
     const [saveAuthor, setSaveAuthor] = useState("")
     const [saveMessage, setSaveMessage] = useState("")
+    const [sidebarToken, setSidebarToken] = useState<TokenResult | null>(null)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
 
     const analyze = useCallback(async (raw: string) => {
@@ -129,6 +132,7 @@ export default function CorpusBuilderClient() {
                         <SegmentView
                             segments={segments}
                             emptyLabel="Начните вводить текст слева..."
+                            onTokenClick={setSidebarToken}
                         />
                     </div>
                 </div>
@@ -212,6 +216,8 @@ export default function CorpusBuilderClient() {
                     </div>
                 </div>
             )}
+
+            <TokenSidebar token={sidebarToken} onClose={() => setSidebarToken(null)} />
         </div>
     )
 }

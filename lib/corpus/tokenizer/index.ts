@@ -1,6 +1,6 @@
 export { Tokenizer } from './tokenizer';
 export { analyzeWord } from './morphology';
-export { DbAnalyzer, createBaseQuery, analyzeWithDb } from './dbAnalyzer';
+export { DbAnalyzer, analyzeWithDb } from './dbAnalyzer';
 export type {
     MorphoAnalysis,
     TokenPayload,

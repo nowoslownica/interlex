@@ -106,6 +106,7 @@ export class Tokenizer {
                         lemma: t.analysis.lemma,
                         pos: t.analysis.pos,
                         wordSlug: t.analysis.wordSlug,
+                        matchCount: t.analysis.matchCount ?? 0,
                         feats: t.analysis.feats,
                     });
 

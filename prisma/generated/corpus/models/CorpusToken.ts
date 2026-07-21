@@ -30,12 +30,14 @@ export type CorpusTokenAvgAggregateOutputType = {
   id: number | null
   tokenIndex: number | null
   wordIndex: number | null
+  matchCount: number | null
 }
 
 export type CorpusTokenSumAggregateOutputType = {
   id: bigint | null
   tokenIndex: number | null
   wordIndex: number | null
+  matchCount: number | null
 }
 
 export type CorpusTokenMinAggregateOutputType = {
@@ -48,6 +50,7 @@ export type CorpusTokenMinAggregateOutputType = {
   lemma: string | null
   pos: string | null
   wordSlug: string | null
+  matchCount: number | null
 }
 
 export type CorpusTokenMaxAggregateOutputType = {
@@ -60,6 +63,7 @@ export type CorpusTokenMaxAggregateOutputType = {
   lemma: string | null
   pos: string | null
   wordSlug: string | null
+  matchCount: number | null
 }
 
 export type CorpusTokenCountAggregateOutputType = {
@@ -73,6 +77,7 @@ export type CorpusTokenCountAggregateOutputType = {
   pos: number
   feats: number
   wordSlug: number
+  matchCount: number
   _all: number
 }
 
@@ -81,12 +86,14 @@ export type CorpusTokenAvgAggregateInputType = {
   id?: true
   tokenIndex?: true
   wordIndex?: true
+  matchCount?: true
 }
 
 export type CorpusTokenSumAggregateInputType = {
   id?: true
   tokenIndex?: true
   wordIndex?: true
+  matchCount?: true
 }
 
 export type CorpusTokenMinAggregateInputType = {
@@ -99,6 +106,7 @@ export type CorpusTokenMinAggregateInputType = {
   lemma?: true
   pos?: true
   wordSlug?: true
+  matchCount?: true
 }
 
 export type CorpusTokenMaxAggregateInputType = {
@@ -111,6 +119,7 @@ export type CorpusTokenMaxAggregateInputType = {
   lemma?: true
   pos?: true
   wordSlug?: true
+  matchCount?: true
 }
 
 export type CorpusTokenCountAggregateInputType = {
@@ -124,6 +133,7 @@ export type CorpusTokenCountAggregateInputType = {
   pos?: true
   feats?: true
   wordSlug?: true
+  matchCount?: true
   _all?: true
 }
 
@@ -224,6 +234,7 @@ export type CorpusTokenGroupByOutputType = {
   pos: string
   feats: runtime.JsonValue | null
   wordSlug: string | null
+  matchCount: number
   _count: CorpusTokenCountAggregateOutputType | null
   _avg: CorpusTokenAvgAggregateOutputType | null
   _sum: CorpusTokenSumAggregateOutputType | null
@@ -260,6 +271,7 @@ export type CorpusTokenWhereInput = {
   pos?: Prisma.StringFilter<"CorpusToken"> | string
   feats?: Prisma.JsonNullableFilter<"CorpusToken">
   wordSlug?: Prisma.StringNullableFilter<"CorpusToken"> | string | null
+  matchCount?: Prisma.IntFilter<"CorpusToken"> | number
   document?: Prisma.XOR<Prisma.CorpusDocumentScalarRelationFilter, Prisma.CorpusDocumentWhereInput>
   sentence?: Prisma.XOR<Prisma.CorpusSentenceScalarRelationFilter, Prisma.CorpusSentenceWhereInput>
 }
@@ -275,6 +287,7 @@ export type CorpusTokenOrderByWithRelationInput = {
   pos?: Prisma.SortOrder
   feats?: Prisma.SortOrderInput | Prisma.SortOrder
   wordSlug?: Prisma.SortOrderInput | Prisma.SortOrder
+  matchCount?: Prisma.SortOrder
   document?: Prisma.CorpusDocumentOrderByWithRelationInput
   sentence?: Prisma.CorpusSentenceOrderByWithRelationInput
 }
@@ -293,6 +306,7 @@ export type CorpusTokenWhereUniqueInput = Prisma.AtLeast<{
   pos?: Prisma.StringFilter<"CorpusToken"> | string
   feats?: Prisma.JsonNullableFilter<"CorpusToken">
   wordSlug?: Prisma.StringNullableFilter<"CorpusToken"> | string | null
+  matchCount?: Prisma.IntFilter<"CorpusToken"> | number
   document?: Prisma.XOR<Prisma.CorpusDocumentScalarRelationFilter, Prisma.CorpusDocumentWhereInput>
   sentence?: Prisma.XOR<Prisma.CorpusSentenceScalarRelationFilter, Prisma.CorpusSentenceWhereInput>
 }, "id">
@@ -308,6 +322,7 @@ export type CorpusTokenOrderByWithAggregationInput = {
   pos?: Prisma.SortOrder
   feats?: Prisma.SortOrderInput | Prisma.SortOrder
   wordSlug?: Prisma.SortOrderInput | Prisma.SortOrder
+  matchCount?: Prisma.SortOrder
   _count?: Prisma.CorpusTokenCountOrderByAggregateInput
   _avg?: Prisma.CorpusTokenAvgOrderByAggregateInput
   _max?: Prisma.CorpusTokenMaxOrderByAggregateInput
@@ -329,6 +344,7 @@ export type CorpusTokenScalarWhereWithAggregatesInput = {
   pos?: Prisma.StringWithAggregatesFilter<"CorpusToken"> | string
   feats?: Prisma.JsonNullableWithAggregatesFilter<"CorpusToken">
   wordSlug?: Prisma.StringNullableWithAggregatesFilter<"CorpusToken"> | string | null
+  matchCount?: Prisma.IntWithAggregatesFilter<"CorpusToken"> | number
 }
 
 export type CorpusTokenCreateInput = {
@@ -340,6 +356,7 @@ export type CorpusTokenCreateInput = {
   pos: string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: string | null
+  matchCount?: number
   document: Prisma.CorpusDocumentCreateNestedOneWithoutTokensInput
   sentence: Prisma.CorpusSentenceCreateNestedOneWithoutTokensInput
 }
@@ -355,6 +372,7 @@ export type CorpusTokenUncheckedCreateInput = {
   pos: string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: string | null
+  matchCount?: number
 }
 
 export type CorpusTokenUpdateInput = {
@@ -366,6 +384,7 @@ export type CorpusTokenUpdateInput = {
   pos?: Prisma.StringFieldUpdateOperationsInput | string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  matchCount?: Prisma.IntFieldUpdateOperationsInput | number
   document?: Prisma.CorpusDocumentUpdateOneRequiredWithoutTokensNestedInput
   sentence?: Prisma.CorpusSentenceUpdateOneRequiredWithoutTokensNestedInput
 }
@@ -381,6 +400,7 @@ export type CorpusTokenUncheckedUpdateInput = {
   pos?: Prisma.StringFieldUpdateOperationsInput | string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  matchCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CorpusTokenCreateManyInput = {
@@ -394,6 +414,7 @@ export type CorpusTokenCreateManyInput = {
   pos: string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: string | null
+  matchCount?: number
 }
 
 export type CorpusTokenUpdateManyMutationInput = {
@@ -405,6 +426,7 @@ export type CorpusTokenUpdateManyMutationInput = {
   pos?: Prisma.StringFieldUpdateOperationsInput | string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  matchCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CorpusTokenUncheckedUpdateManyInput = {
@@ -418,6 +440,7 @@ export type CorpusTokenUncheckedUpdateManyInput = {
   pos?: Prisma.StringFieldUpdateOperationsInput | string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  matchCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CorpusTokenListRelationFilter = {
@@ -441,12 +464,14 @@ export type CorpusTokenCountOrderByAggregateInput = {
   pos?: Prisma.SortOrder
   feats?: Prisma.SortOrder
   wordSlug?: Prisma.SortOrder
+  matchCount?: Prisma.SortOrder
 }
 
 export type CorpusTokenAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tokenIndex?: Prisma.SortOrder
   wordIndex?: Prisma.SortOrder
+  matchCount?: Prisma.SortOrder
 }
 
 export type CorpusTokenMaxOrderByAggregateInput = {
@@ -459,6 +484,7 @@ export type CorpusTokenMaxOrderByAggregateInput = {
   lemma?: Prisma.SortOrder
   pos?: Prisma.SortOrder
   wordSlug?: Prisma.SortOrder
+  matchCount?: Prisma.SortOrder
 }
 
 export type CorpusTokenMinOrderByAggregateInput = {
@@ -471,12 +497,14 @@ export type CorpusTokenMinOrderByAggregateInput = {
   lemma?: Prisma.SortOrder
   pos?: Prisma.SortOrder
   wordSlug?: Prisma.SortOrder
+  matchCount?: Prisma.SortOrder
 }
 
 export type CorpusTokenSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tokenIndex?: Prisma.SortOrder
   wordIndex?: Prisma.SortOrder
+  matchCount?: Prisma.SortOrder
 }
 
 export type CorpusTokenCreateNestedManyWithoutDocumentInput = {
@@ -580,6 +608,7 @@ export type CorpusTokenCreateWithoutDocumentInput = {
   pos: string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: string | null
+  matchCount?: number
   sentence: Prisma.CorpusSentenceCreateNestedOneWithoutTokensInput
 }
 
@@ -593,6 +622,7 @@ export type CorpusTokenUncheckedCreateWithoutDocumentInput = {
   pos: string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: string | null
+  matchCount?: number
 }
 
 export type CorpusTokenCreateOrConnectWithoutDocumentInput = {
@@ -634,6 +664,7 @@ export type CorpusTokenScalarWhereInput = {
   pos?: Prisma.StringFilter<"CorpusToken"> | string
   feats?: Prisma.JsonNullableFilter<"CorpusToken">
   wordSlug?: Prisma.StringNullableFilter<"CorpusToken"> | string | null
+  matchCount?: Prisma.IntFilter<"CorpusToken"> | number
 }
 
 export type CorpusTokenCreateWithoutSentenceInput = {
@@ -645,6 +676,7 @@ export type CorpusTokenCreateWithoutSentenceInput = {
   pos: string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: string | null
+  matchCount?: number
   document: Prisma.CorpusDocumentCreateNestedOneWithoutTokensInput
 }
 
@@ -658,6 +690,7 @@ export type CorpusTokenUncheckedCreateWithoutSentenceInput = {
   pos: string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: string | null
+  matchCount?: number
 }
 
 export type CorpusTokenCreateOrConnectWithoutSentenceInput = {
@@ -695,6 +728,7 @@ export type CorpusTokenCreateManyDocumentInput = {
   pos: string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: string | null
+  matchCount?: number
 }
 
 export type CorpusTokenUpdateWithoutDocumentInput = {
@@ -706,6 +740,7 @@ export type CorpusTokenUpdateWithoutDocumentInput = {
   pos?: Prisma.StringFieldUpdateOperationsInput | string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  matchCount?: Prisma.IntFieldUpdateOperationsInput | number
   sentence?: Prisma.CorpusSentenceUpdateOneRequiredWithoutTokensNestedInput
 }
 
@@ -719,6 +754,7 @@ export type CorpusTokenUncheckedUpdateWithoutDocumentInput = {
   pos?: Prisma.StringFieldUpdateOperationsInput | string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  matchCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CorpusTokenUncheckedUpdateManyWithoutDocumentInput = {
@@ -731,6 +767,7 @@ export type CorpusTokenUncheckedUpdateManyWithoutDocumentInput = {
   pos?: Prisma.StringFieldUpdateOperationsInput | string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  matchCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CorpusTokenCreateManySentenceInput = {
@@ -743,6 +780,7 @@ export type CorpusTokenCreateManySentenceInput = {
   pos: string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: string | null
+  matchCount?: number
 }
 
 export type CorpusTokenUpdateWithoutSentenceInput = {
@@ -754,6 +792,7 @@ export type CorpusTokenUpdateWithoutSentenceInput = {
   pos?: Prisma.StringFieldUpdateOperationsInput | string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  matchCount?: Prisma.IntFieldUpdateOperationsInput | number
   document?: Prisma.CorpusDocumentUpdateOneRequiredWithoutTokensNestedInput
 }
 
@@ -767,6 +806,7 @@ export type CorpusTokenUncheckedUpdateWithoutSentenceInput = {
   pos?: Prisma.StringFieldUpdateOperationsInput | string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  matchCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CorpusTokenUncheckedUpdateManyWithoutSentenceInput = {
@@ -779,6 +819,7 @@ export type CorpusTokenUncheckedUpdateManyWithoutSentenceInput = {
   pos?: Prisma.StringFieldUpdateOperationsInput | string
   feats?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   wordSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  matchCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -794,6 +835,7 @@ export type CorpusTokenSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   pos?: boolean
   feats?: boolean
   wordSlug?: boolean
+  matchCount?: boolean
   document?: boolean | Prisma.CorpusDocumentDefaultArgs<ExtArgs>
   sentence?: boolean | Prisma.CorpusSentenceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["corpusToken"]>
@@ -809,6 +851,7 @@ export type CorpusTokenSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   pos?: boolean
   feats?: boolean
   wordSlug?: boolean
+  matchCount?: boolean
   document?: boolean | Prisma.CorpusDocumentDefaultArgs<ExtArgs>
   sentence?: boolean | Prisma.CorpusSentenceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["corpusToken"]>
@@ -824,6 +867,7 @@ export type CorpusTokenSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   pos?: boolean
   feats?: boolean
   wordSlug?: boolean
+  matchCount?: boolean
   document?: boolean | Prisma.CorpusDocumentDefaultArgs<ExtArgs>
   sentence?: boolean | Prisma.CorpusSentenceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["corpusToken"]>
@@ -839,9 +883,10 @@ export type CorpusTokenSelectScalar = {
   pos?: boolean
   feats?: boolean
   wordSlug?: boolean
+  matchCount?: boolean
 }
 
-export type CorpusTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "documentSlug" | "sentenceId" | "tokenIndex" | "wordIndex" | "surfaceForm" | "lemma" | "pos" | "feats" | "wordSlug", ExtArgs["result"]["corpusToken"]>
+export type CorpusTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "documentSlug" | "sentenceId" | "tokenIndex" | "wordIndex" | "surfaceForm" | "lemma" | "pos" | "feats" | "wordSlug" | "matchCount", ExtArgs["result"]["corpusToken"]>
 export type CorpusTokenInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   document?: boolean | Prisma.CorpusDocumentDefaultArgs<ExtArgs>
   sentence?: boolean | Prisma.CorpusSentenceDefaultArgs<ExtArgs>
@@ -872,6 +917,7 @@ export type $CorpusTokenPayload<ExtArgs extends runtime.Types.Extensions.Interna
     pos: string
     feats: runtime.JsonValue | null
     wordSlug: string | null
+    matchCount: number
   }, ExtArgs["result"]["corpusToken"]>
   composites: {}
 }
@@ -1307,6 +1353,7 @@ export interface CorpusTokenFieldRefs {
   readonly pos: Prisma.FieldRef<"CorpusToken", 'String'>
   readonly feats: Prisma.FieldRef<"CorpusToken", 'Json'>
   readonly wordSlug: Prisma.FieldRef<"CorpusToken", 'String'>
+  readonly matchCount: Prisma.FieldRef<"CorpusToken", 'Int'>
 }
     
 

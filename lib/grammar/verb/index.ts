@@ -4,6 +4,36 @@ import {
 import {
     VerbalAspect
 } from "@/lib/grammar/common/aspect";
+import { getEndingByGrammeme } from '@/lib/grammar/endingLoader';
+
+const PRES_GRAMMEME = 'Tense=Pres|VerbForm=Fin';
+const AOR_GRAMMEME = 'Tense=Aor|VerbForm=Fin';
+const IMPF_GRAMMEME = 'Tense=Impf|VerbForm=Fin';
+const IMP_GRAMMEME = 'Mood=Imp|VerbForm=Fin';
+const LPART_GRAMMEME = 'Tense=Past|VerbForm=Part';
+
+function verbGrammeme(person: string, number: string, extra: string): string {
+  const num = number === 'sg' ? 'Sing' : number === 'du' ? 'Dual' : 'Plur';
+  return `Person=${person}|Number=${num}|${extra}`;
+}
+
+function getVE(stemType: string, key: string, extra: string, fallback: string): string {
+  const person = key.charAt(0);
+  const numMarker = key.substring(1);
+  return getEndingByGrammeme(stemType, verbGrammeme(person, numMarker, extra)) ?? fallback;
+}
+
+function getLPartEnding(gender: string, number: string, fallback: string): string {
+  const gn = number === 'sg' ? 'Sing' : number === 'du' ? 'Dual' : 'Plur';
+  const g = `Gender=${gender}|Number=${gn}|${LPART_GRAMMEME}`;
+  return getEndingByGrammeme('verb_lpart', g) ?? fallback;
+}
+
+function getPartEnding(stemType: string, gender: string, number: string, extra: string, fallback: string): string {
+  const gn = number === 'sg' ? 'Sing' : number === 'du' ? 'Dual' : 'Plur';
+  const g = `Gender=${gender}|Number=${gn}|${extra}`;
+  return getEndingByGrammeme(stemType, g) ?? fallback;
+}
 
 // =========================================================================
 // 1. СТРОГИЕ ИНТЕРФЕЙСЫ И ТИПЫ ДАННЫХ
@@ -237,21 +267,27 @@ export function generateParticiples(verb: VerbModel): Participles {
     const hasThematicE = presentStem.endsWith('e');
     const baseForVowels = hasThematicE ? presentStem.slice(0, -1) : presentStem;
 
+    const PRES_ACT_EXTRA = 'VerbForm=Part|Tense=Pres|Voice=Act';
+    const PRES_PASS_EXTRA = 'VerbForm=Part|Tense=Pres|Voice=Pass';
+    const PAST_PASS_EXTRA = 'VerbForm=Part|Tense=Past|Voice=Pass';
+
     let paMasc: string;
     let paFem: string;
     let paNeut: string;
     let paPl: string;
     if (verbClass === 'IV') {
         const iotated = applyIotation(presentStem.slice(0, -1));
-        paMasc = iotated + 'ęťi';
-        paFem = iotated + 'ęťa';
-        paNeut = iotated + 'ęťe';
-        paPl = iotated + 'ęťi';
+        const st = 'verb_part_act_pres_i';
+        paMasc = iotated + getPartEnding(st, 'Masc', 'sg', PRES_ACT_EXTRA, 'ęťi');
+        paFem = iotated + getPartEnding(st, 'Fem', 'sg', PRES_ACT_EXTRA, 'ęťa');
+        paNeut = iotated + getPartEnding(st, 'Neut', 'sg', PRES_ACT_EXTRA, 'ęťe');
+        paPl = iotated + getPartEnding(st, 'Masc', 'pl', PRES_ACT_EXTRA, 'ęťi');
     } else {
-        paMasc = baseForVowels + 'ǫšti';
-        paFem = baseForVowels + 'ǫťa';
-        paNeut = baseForVowels + 'ǫťe';
-        paPl = baseForVowels + 'ǫťi';
+        const st = 'verb_part_act_pres_th';
+        paMasc = baseForVowels + getPartEnding(st, 'Masc', 'sg', PRES_ACT_EXTRA, 'ǫšti');
+        paFem = baseForVowels + getPartEnding(st, 'Fem', 'sg', PRES_ACT_EXTRA, 'ǫťa');
+        paNeut = baseForVowels + getPartEnding(st, 'Neut', 'sg', PRES_ACT_EXTRA, 'ǫťe');
+        paPl = baseForVowels + getPartEnding(st, 'Masc', 'pl', PRES_ACT_EXTRA, 'ǫťi');
     }
 
     let ppm: string;
@@ -260,32 +296,50 @@ export function generateParticiples(verb: VerbModel): Participles {
     let pppl: string;
     if (verbClass === 'IV') {
         const root = presentStem.slice(0, -1);
-        ppm = root + 'imyj';
-        ppf = root + 'ima';
-        ppn = root + 'imo';
-        pppl = root + 'ime';
+        const st = 'verb_part_pass_pres_i';
+        ppm = root + getPartEnding(st, 'Masc', 'sg', PRES_PASS_EXTRA, 'imyj');
+        ppf = root + getPartEnding(st, 'Fem', 'sg', PRES_PASS_EXTRA, 'ima');
+        ppn = root + getPartEnding(st, 'Neut', 'sg', PRES_PASS_EXTRA, 'imo');
+        pppl = root + getPartEnding(st, 'Masc', 'pl', PRES_PASS_EXTRA, 'ime');
     } else {
-        const suffix = baseForVowels.endsWith('j') ? 'emyj' : 'omyj';
-        ppm = baseForVowels + suffix;
-        ppf = baseForVowels + suffix.replace('yj', 'a');
-        ppn = baseForVowels + suffix.replace('yj', 'o');
-        pppl = baseForVowels + suffix.replace('yj', 'e');
+        const isJStem = baseForVowels.endsWith('j');
+        const st = isJStem ? 'verb_part_pass_pres_e' : 'verb_part_pass_pres_th';
+        const fallbackMasc = isJStem ? 'emyj' : 'omyj';
+        const fallbackFem = isJStem ? 'ema' : 'oma';
+        const fallbackNeut = isJStem ? 'emo' : 'omo';
+        const fallbackPl = isJStem ? 'eme' : 'ome';
+        ppm = baseForVowels + getPartEnding(st, 'Masc', 'sg', PRES_PASS_EXTRA, fallbackMasc);
+        ppf = baseForVowels + getPartEnding(st, 'Fem', 'sg', PRES_PASS_EXTRA, fallbackFem);
+        ppn = baseForVowels + getPartEnding(st, 'Neut', 'sg', PRES_PASS_EXTRA, fallbackNeut);
+        pppl = baseForVowels + getPartEnding(st, 'Masc', 'pl', PRES_PASS_EXTRA, fallbackPl);
     }
 
     let ppaMasc: string;
+    let ppaStemType: string;
+    let ppaFallback: string;
     if (verbClass === 'IV') {
         const root = infStem.slice(0, -1);
         ppaMasc = applyFirstPalatalization(root) + 'enyj';
+        ppaStemType = 'verb_part_pass_past_en';
+        ppaFallback = 'enyj';
     } else if (verbClass === 'III') {
         ppaMasc = infStem + 'nyj';
+        ppaStemType = 'verb_part_pass_past_n';
+        ppaFallback = 'nyj';
     } else if (verbClass === 'II') {
         ppaMasc = infStem.slice(0, -1) + 'enyj';
+        ppaStemType = 'verb_part_pass_past_en';
+        ppaFallback = 'enyj';
     } else {
         const lastChar = infStem.slice(-1);
         if ('aeiouyěęǫ'.includes(lastChar)) {
             ppaMasc = infStem + 'tyj';
+            ppaStemType = 'verb_part_pass_past_t';
+            ppaFallback = 'tyj';
         } else {
             ppaMasc = applyFirstPalatalization(infStem) + 'enyj';
+            ppaStemType = 'verb_part_pass_past_en';
+            ppaFallback = 'enyj';
         }
     }
     const ppaFem = ppaMasc.replace('yj', 'a');
@@ -310,17 +364,19 @@ export function conjugateFullVerb(verb: VerbModel): ConjugationResult {
     const hasThematicE = presentStem.endsWith('e');
     const baseForVowels = hasThematicE ? presentStem.slice(0, -1) : presentStem;
 
+    const presentStemType = verbClass === 'IV' ? 'verb_present_athematic_i' : 'verb_present_thematic_e';
+
     let p1sg = '';
     if (verbClass === 'IV') {
         const root = presentStem.slice(0, -1);
-        p1sg = `${applyIotation(root)}ų`;
+        p1sg = `${applyIotation(root)}${getVE(presentStemType, '1sg', PRES_GRAMMEME, 'ų')}`;
     } else {
-        p1sg = `${baseForVowels}ų`;
+        p1sg = `${baseForVowels}${getVE(presentStemType, '1sg', PRES_GRAMMEME, 'ų')}`;
     }
 
     const p3pl = verbClass === 'IV'
-        ? `${presentStem.slice(0, -1)}ęt`
-        : `${baseForVowels}ųt`;
+        ? `${presentStem.slice(0, -1)}${getVE(presentStemType, '3pl', PRES_GRAMMEME, 'ęt')}`
+        : `${baseForVowels}${getVE(presentStemType, '3pl', PRES_GRAMMEME, 'ųt')}`;
 
     const accentPresentForm = (form: string, person: string): string => {
         if (paradigm === AccentParadigm.A) {
@@ -339,13 +395,13 @@ export function conjugateFullVerb(verb: VerbModel): ConjugationResult {
 
     const directParadigm: FullParadigm = {
         '1sg': accentPresentForm(p1sg, '1sg'),
-        '2sg': accentPresentForm(`${presentStem}š`, '2sg'),
-        '3sg': accentPresentForm(`${presentStem}`, '3sg'),
-        '1du': accentPresentForm(`${presentStem}vě`, '1du'),
-        '2du': accentPresentForm(`${presentStem}ta`, '2du'),
-        '3du': accentPresentForm(`${presentStem}ta`, '3du'),
-        '1pl': accentPresentForm(`${presentStem}mo`, '1pl'),
-        '2pl': accentPresentForm(`${presentStem}te`, '2pl'),
+        '2sg': accentPresentForm(`${presentStem}${getVE(presentStemType, '2sg', PRES_GRAMMEME, 'š')}`, '2sg'),
+        '3sg': accentPresentForm(`${presentStem}${getVE(presentStemType, '3sg', PRES_GRAMMEME, '')}`, '3sg'),
+        '1du': accentPresentForm(`${presentStem}${getVE(presentStemType, '1du', PRES_GRAMMEME, 'vě')}`, '1du'),
+        '2du': accentPresentForm(`${presentStem}${getVE(presentStemType, '2du', PRES_GRAMMEME, 'ta')}`, '2du'),
+        '3du': accentPresentForm(`${presentStem}${getVE(presentStemType, '3du', PRES_GRAMMEME, 'ta')}`, '3du'),
+        '1pl': accentPresentForm(`${presentStem}${getVE(presentStemType, '1pl', PRES_GRAMMEME, 'mo')}`, '1pl'),
+        '2pl': accentPresentForm(`${presentStem}${getVE(presentStemType, '2pl', PRES_GRAMMEME, 'te')}`, '2pl'),
         '3pl': accentPresentForm(p3pl, '3pl'),
     };
 
@@ -359,16 +415,18 @@ export function conjugateFullVerb(verb: VerbModel): ConjugationResult {
         return accentSyllable(form, 'first', paradigm === AccentParadigm.A ? 'acute' : 'short');
     };
 
+    const aoristStemType = isVowelStem ? 'verb_aorist_sigmatic' : 'verb_aorist_asigmatic';
+
     const aorist: FullParadigm = {
-        '1sg': accentAoristForm(`${aoristStem}h`, '1sg'),
-        '2sg': accentAoristForm(isVowelStem ? `${aoristStem}` : `${aoristStem}e`, '2sg'),
-        '3sg': accentAoristForm(isVowelStem ? `${aoristStem}` : `${aoristStem}e`, '3sg'),
-        '1du': accentAoristForm(`${aoristStem}hvě`, '1du'),
-        '2du': accentAoristForm(`${aoristStem}sta`, '2du'),
-        '3du': accentAoristForm(`${aoristStem}sta`, '3du'),
-        '1pl': accentAoristForm(`${aoristStem}hmo`, '1pl'),
-        '2pl': accentAoristForm(`${aoristStem}ste`, '2pl'),
-        '3pl': accentAoristForm(`${aoristStem}šę`, '3pl'),
+        '1sg': accentAoristForm(`${aoristStem}${getVE(aoristStemType, '1sg', AOR_GRAMMEME, 'h')}`, '1sg'),
+        '2sg': accentAoristForm(`${aoristStem}${getVE(aoristStemType, '2sg', AOR_GRAMMEME, isVowelStem ? '' : 'e')}`, '2sg'),
+        '3sg': accentAoristForm(`${aoristStem}${getVE(aoristStemType, '3sg', AOR_GRAMMEME, isVowelStem ? '' : 'e')}`, '3sg'),
+        '1du': accentAoristForm(`${aoristStem}${getVE(aoristStemType, '1du', AOR_GRAMMEME, 'hvě')}`, '1du'),
+        '2du': accentAoristForm(`${aoristStem}${getVE(aoristStemType, '2du', AOR_GRAMMEME, 'sta')}`, '2du'),
+        '3du': accentAoristForm(`${aoristStem}${getVE(aoristStemType, '3du', AOR_GRAMMEME, 'sta')}`, '3du'),
+        '1pl': accentAoristForm(`${aoristStem}${getVE(aoristStemType, '1pl', AOR_GRAMMEME, 'hmo')}`, '1pl'),
+        '2pl': accentAoristForm(`${aoristStem}${getVE(aoristStemType, '2pl', AOR_GRAMMEME, 'ste')}`, '2pl'),
+        '3pl': accentAoristForm(`${aoristStem}${getVE(aoristStemType, '3pl', AOR_GRAMMEME, 'šę')}`, '3pl'),
     };
 
     // --- В. ИМПЕРФЕКТ ---
@@ -376,9 +434,15 @@ export function conjugateFullVerb(verb: VerbModel): ConjugationResult {
     const accentImperfectForm = (form: string) => accentSyllable(form, 1, 'circumflex'); // Безусловное ударение на суффикс *-а-
 
     const imperfect: FullParadigm = {
-        '1sg': accentImperfectForm(`${impBase}ah`),     '2sg': accentImperfectForm(`${impBase}aše`),    '3sg': accentImperfectForm(`${impBase}aše`),
-        '1du': accentImperfectForm(`${impBase}ahvě`),   '2du': accentImperfectForm(`${impBase}ašeta`),  '3du': accentImperfectForm(`${impBase}ašeta`),
-        '1pl': accentImperfectForm(`${impBase}ahmo`),   '2pl': accentImperfectForm(`${impBase}ašete`),  '3pl': accentImperfectForm(`${impBase}ahu`),
+        '1sg': accentImperfectForm(`${impBase}${getVE('verb_imperfect', '1sg', IMPF_GRAMMEME, 'ah')}`),
+        '2sg': accentImperfectForm(`${impBase}${getVE('verb_imperfect', '2sg', IMPF_GRAMMEME, 'aše')}`),
+        '3sg': accentImperfectForm(`${impBase}${getVE('verb_imperfect', '3sg', IMPF_GRAMMEME, 'aše')}`),
+        '1du': accentImperfectForm(`${impBase}${getVE('verb_imperfect', '1du', IMPF_GRAMMEME, 'ahvě')}`),
+        '2du': accentImperfectForm(`${impBase}${getVE('verb_imperfect', '2du', IMPF_GRAMMEME, 'ašeta')}`),
+        '3du': accentImperfectForm(`${impBase}${getVE('verb_imperfect', '3du', IMPF_GRAMMEME, 'ašeta')}`),
+        '1pl': accentImperfectForm(`${impBase}${getVE('verb_imperfect', '1pl', IMPF_GRAMMEME, 'ahmo')}`),
+        '2pl': accentImperfectForm(`${impBase}${getVE('verb_imperfect', '2pl', IMPF_GRAMMEME, 'ašete')}`),
+        '3pl': accentImperfectForm(`${impBase}${getVE('verb_imperfect', '3pl', IMPF_GRAMMEME, 'ahu')}`),
     };
 
     // --- Г. L-ПРИЧАСТИЕ (ОСНОВА ДЛЯ ПЕРФЕКТА/КОНДИЦИОНАЛА) ---
@@ -391,13 +455,13 @@ export function conjugateFullVerb(verb: VerbModel): ConjugationResult {
 
     const lStem = tertiaryStem || infStem;
     const lParticiple: LParticiple = {
-        masculine: accentLPart(`${lStem}l`, 'm'),
-        feminine: accentLPart(`${lStem}la`, 'f'),
-        neuter: accentLPart(`${lStem}lo`, 'n'),
-        dual_masculine: accentLPart(`${lStem}la`, 'pl'),
-        dual_feminine_neuter: accentLPart(`${lStem}lě`, 'pl'),
-        plural_masculine: accentLPart(`${lStem}li`, 'pl'),
-        plural_feminine_neuter: accentLPart(`${lStem}le`, 'pl'),
+        masculine: accentLPart(`${lStem}${getLPartEnding('Masc', 'sg', 'l')}`, 'm'),
+        feminine: accentLPart(`${lStem}${getLPartEnding('Fem', 'sg', 'la')}`, 'f'),
+        neuter: accentLPart(`${lStem}${getLPartEnding('Neut', 'sg', 'lo')}`, 'n'),
+        dual_masculine: accentLPart(`${lStem}${getLPartEnding('Masc', 'du', 'la')}`, 'pl'),
+        dual_feminine_neuter: accentLPart(`${lStem}${getLPartEnding('Fem', 'du', 'lě')}`, 'pl'),
+        plural_masculine: accentLPart(`${lStem}${getLPartEnding('Masc', 'pl', 'li')}`, 'pl'),
+        plural_feminine_neuter: accentLPart(`${lStem}${getLPartEnding('Fem', 'pl', 'le')}`, 'pl'),
     };
 
     // --- Д. СБОРКА АНАЛИТИЧЕСКИХ СВЯЗОК ---
@@ -453,10 +517,10 @@ export function conjugateFullVerb(verb: VerbModel): ConjugationResult {
 
     const imperative: ImperativeParadigm = {
         '2sg': accentImperative(impBaseForm),
-        '1du': accentImperative(`${impBaseForm}vě`),
-        '2du': accentImperative(`${impBaseForm}ta`),
-        '1pl': accentImperative(`${impBaseForm}mo`),
-        '2pl': accentImperative(`${impBaseForm}te`),
+        '1du': accentImperative(`${impBaseForm}${getVE('verb_imperative', '1du', IMP_GRAMMEME, 'vě')}`),
+        '2du': accentImperative(`${impBaseForm}${getVE('verb_imperative', '2du', IMP_GRAMMEME, 'ta')}`),
+        '1pl': accentImperative(`${impBaseForm}${getVE('verb_imperative', '1pl', IMP_GRAMMEME, 'mo')}`),
+        '2pl': accentImperative(`${impBaseForm}${getVE('verb_imperative', '2pl', IMP_GRAMMEME, 'te')}`),
     };
 
     const conditional = {

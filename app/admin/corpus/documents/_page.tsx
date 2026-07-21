@@ -10,14 +10,28 @@ interface Document {
   slug: string
   author: string | null
   createdAt: Date
+  updatedAt: Date
   candidatesProcessed: boolean
 }
 
-export default function CorpusDocumentsPage({ documents }: { documents: Document[] }) {
+export default function CorpusDocumentsPage({
+  documents,
+  freqLastRecalculated,
+  latestDocUpdatedAt,
+}: {
+  documents: Document[]
+  freqLastRecalculated: string | null
+  latestDocUpdatedAt: string | null
+}) {
   const { data: session } = useSession()
   const isAdmin = session?.user?.role === "ADMIN"
   const [computing, setComputing] = useState(false)
   const [result, setResult] = useState<string | null>(null)
+
+  const freqIsOutdated =
+    freqLastRecalculated &&
+    latestDocUpdatedAt &&
+    new Date(latestDocUpdatedAt) > new Date(freqLastRecalculated)
 
   async function handleRecompute() {
     setComputing(true)
@@ -56,6 +70,18 @@ export default function CorpusDocumentsPage({ documents }: { documents: Document
 
       {result && (
         <div className="mb-4 p-3 rounded-lg bg-muted text-sm text-muted-foreground">{result}</div>
+      )}
+
+      {freqIsOutdated && (
+        <div className="mb-4 p-3 rounded-lg text-sm bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 flex items-center gap-2">
+          <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>
+            Частотность устарела. После последнего пересчёта частотности документы были изменены.
+            Нажмите «Пересчитать частотность», чтобы обновить данные.
+          </span>
+        </div>
       )}
 
       <div className="rounded-lg border overflow-hidden">

@@ -13,6 +13,7 @@ interface TokenResult {
     wordSlug: string | null
     feats: Record<string, string>
     matchCount: number
+    flavor?: string
 }
 
 interface SentenceResult {
@@ -35,56 +36,75 @@ interface Stats {
     punctuationCount: number
 }
 
-const analyzer = new DbAnalyzer(async (bases): Promise<WordBaseRecord[]> => {
-    const homonyms = await prismaData.baseHomonym.findMany({
-        where: { base: { in: bases } },
+async function buildValidEndings(): Promise<Set<string>> {
+    const rows = await prismaData.endingAllophone.findMany({
+        select: { value: true },
     })
+    const endings = new Set<string>(rows.map(r => r.value))
+    endings.add('')
+    return endings
+}
 
-    const idToBase = new Map<number, string>()
-    for (const h of homonyms) {
-        const ids = JSON.parse(h.wordIds)
-        const idArr = Array.isArray(ids) && typeof ids[0] === 'number'
-            ? ids as number[]
-            : (ids as Array<{ id: number }>).map(item => item.id)
-        for (const id of idArr) {
-            if (!idToBase.has(id)) {
-                idToBase.set(id, h.base)
+let analyzer: DbAnalyzer | null = null
+async function getAnalyzer(): Promise<DbAnalyzer> {
+    if (analyzer) return analyzer
+    const validEndings = await buildValidEndings()
+    analyzer = new DbAnalyzer(async (bases): Promise<WordBaseRecord[]> => {
+        const homonyms = await prismaData.baseHomonym.findMany({
+            where: { base: { in: bases } },
+        })
+
+        const lexemeFlavors = new Map<number, string>()
+        for (const h of homonyms) {
+            const parsed = JSON.parse(h.wordIds)
+            if (Array.isArray(parsed)) {
+                if (parsed.length > 0 && typeof parsed[0] === 'number') {
+                    for (const id of parsed as number[]) {
+                        lexemeFlavors.set(id, 'CORE')
+                    }
+                } else {
+                    for (const item of parsed as Array<{ id: number; flavor?: string }>) {
+                        lexemeFlavors.set(item.id, item.flavor || 'CORE')
+                    }
+                }
             }
         }
-    }
 
-    const ids = [...idToBase.keys()]
-    if (ids.length === 0) return []
+        const ids = [...lexemeFlavors.keys()]
+        if (ids.length === 0) return []
 
-    const rows = await prismaData.lexeme.findMany({
-        where: { id: { in: ids } },
-        select: {
-            id: true,
-            slug: true,
-            value: true,
-            pos: true,
-            protoStemClass: true,
-            stemExtension: true,
-            paradigm: true,
-            stem: true,
-            gender: true,
-        },
-    })
-    return rows.map((r) => ({
-        id: r.id,
-        slug: r.slug,
-        isv: r.value,
-        pos: r.pos,
-        protoStemClass: r.protoStemClass,
-        stemExtension: r.stemExtension,
-        paradigm: r.paradigm,
-        stem: r.stem,
-        gender: r.gender,
-        base: idToBase.get(r.id) ?? null,
-        alternationType: null,
-        fleetingVowelAt: null,
-    }))
-})
+        const rows = await prismaData.lexeme.findMany({
+            where: { id: { in: ids } },
+            select: {
+                id: true,
+                slug: true,
+                value: true,
+                pos: true,
+                protoStemClass: true,
+                stemExtension: true,
+                paradigm: true,
+                stem: true,
+                gender: true,
+            },
+        })
+        return rows.map((r) => ({
+            id: r.id,
+            slug: r.slug,
+            isv: r.value,
+            pos: r.pos,
+            protoStemClass: r.protoStemClass,
+            stemExtension: r.stemExtension,
+            paradigm: r.paradigm,
+            stem: r.stem,
+            gender: r.gender,
+            base: null,
+            alternationType: null,
+            fleetingVowelAt: null,
+            flavor: lexemeFlavors.get(r.id) ?? 'CORE',
+        }))
+    }, validEndings)
+    return analyzer
+}
 
 export async function POST(request: NextRequest) {
     const { text } = await request.json()
@@ -92,6 +112,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: "Text is required" }, { status: 400 })
     }
 
+    const theAnalyzer = await getAnalyzer()
     const rawSegments = Tokenizer.splitIntoSegments(text)
     const segments: SegmentResult[] = []
     const stats: Stats = { totalTokens: 0, recognizedWords: 0, unrecognizedWords: 0, punctuationCount: 0 }
@@ -101,21 +122,22 @@ export async function POST(request: NextRequest) {
         const sentences: SentenceResult[] = []
 
         for (let pos = 0; pos < rawSentences.length; pos++) {
-            const tokens = await Tokenizer.tokenizeSentence(rawSentences[pos], analyzer)
+            const tokens = await Tokenizer.tokenizeSentence(rawSentences[pos], theAnalyzer)
 
             const tokenResults: TokenResult[] = tokens.map((t) => {
-                const isRecognized = !t.isPunctuation && t.analysis.wordSlug !== null && !t.analysis.isPartialMatch
-                const isPartialMatch = !t.isPunctuation && t.analysis.wordSlug !== null && !!t.analysis.isPartialMatch
+                const a = t.analysis
+                const isRecognized = !t.isPunctuation && a.wordSlug !== null && !a.isPartialMatch
+                const isPartialMatch = !t.isPunctuation && a.wordSlug !== null && !!a.isPartialMatch
                 return {
                     surfaceForm: t.surfaceForm,
                     isPunctuation: t.isPunctuation,
                     isRecognized,
                     isPartialMatch,
-                    lemma: t.analysis.lemma,
-                    pos: t.analysis.pos,
-                    wordSlug: t.analysis.wordSlug,
-                    feats: t.analysis.feats as Record<string, string>,
-                    matchCount: t.analysis.matchCount ?? 0,
+                    lemma: a.lemma,
+                    pos: a.pos,
+                    wordSlug: a.wordSlug,
+                    feats: a.feats as Record<string, string>,
+                    matchCount: a.matchCount ?? 0,
                 }
             })
 

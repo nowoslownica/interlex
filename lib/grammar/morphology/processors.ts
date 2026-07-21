@@ -620,30 +620,23 @@ export function processAdverb(word: EngineWordInput): GeneratedForm[] {
     const results: GeneratedForm[] = [];
     const { applyFourTonesMark, getAcuteToneType } = require('../numerals/cardinal');
 
-    // Шаг A: Положительная степень (Базовая форма: medlenno, dobro)
-    // Наречия на -o/-e получают регулярный акут/гравис на корне основы
     const posForm = applyFourTonesMark(lemma, 1, getAcuteToneType(lemma, 1));
     results.push({ surfaceForm: posForm, feats: { degree: 'pos' } });
 
-    // Проверяем, является ли наречие качественным (может ли в компаратив).
-    // Наречия места/времени (н-р: "tam", "včera") степени сравнения игнорируют.
     const isQualitative = lemma.endsWith('o') || lemma.endsWith('ě') || lemma.endsWith('e');
 
     if (isQualitative && lemma.length > 2) {
-        // Шаг Б: Сравнительная степень (Компаратив)
-        // Праславянский суффикс *-ěje* (в межславянском: -ěje / -je).
-        // Корень очищается от финального наречного гласного
         const cleanBase = lemma.slice(0, -1);
 
-        // Исторически суффикс компаратива *-ě́je* всегда удерживает на себе долгий акут
-        const compFormRaw = cleanBase + 'ěje';
-        const compForm = applyFourTonesMark(compFormRaw, 1, 'long_acute'); // Всегда ударение на "ě" (medlenně́je)
+        const { getEndingByGrammeme } = require('@/lib/grammar/endingLoader');
+        const compSuffix = getEndingByGrammeme('adverb_comp', 'Degree=Cmp') ?? 'ěje';
+        const supPrefix = getEndingByGrammeme('adverb_sup', 'Degree=Sup') ?? 'naj';
 
+        const compFormRaw = cleanBase + compSuffix;
+        const compForm = applyFourTonesMark(compFormRaw, 1, 'long_acute');
         results.push({ surfaceForm: compForm, feats: { degree: 'comp' } });
 
-        // Шаг В: Превосходная степень (Суперлатив)
-        // Образуется путем добавления безударного праславянского префикса *naj-* к форме компаратива
-        const supForm = 'naj' + compForm; // "najmedlenně́je" - акцент сохраняется на суффиксе
+        const supForm = supPrefix + compForm;
         results.push({ surfaceForm: supForm, feats: { degree: 'sup' } });
     }
 
