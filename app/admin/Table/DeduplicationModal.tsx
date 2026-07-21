@@ -97,7 +97,7 @@ export default function DeduplicationModal({ isOpen, onClose, currentWord, dupli
         setMergedUsageType(target.usageType || source.usageType);
         const sourcesCombined = Array.from(new Set([target.addition, source.addition].filter(Boolean)));
         setMergedAddition(sourcesCombined.join(', '));
-        setMergedExternalId(target.external_id != null ? String(target.external_id) : (source.external_id != null ? String(source.external_id) : ''));
+        setMergedExternalId(target.external_id ? String(target.external_id) : (source.external_id ? String(source.external_id) : ''));
     };
 
     const handleSelectDuplicate = (id: number) => {
