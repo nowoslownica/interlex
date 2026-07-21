@@ -64,7 +64,7 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Monomakh&family=Noto+Sans+Glagolitic&display=swap" rel="stylesheet" />
       </head>
-          <body className="h-screen overflow-hidden flex flex-col">
+          <body className="h-dvh overflow-hidden flex flex-col">
               <ThemeProvider>
                   <SessionProviderWrapper>
                   <NextIntlClientProvider messages={messages}>
