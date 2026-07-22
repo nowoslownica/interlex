@@ -7,6 +7,7 @@ import { getEnding, getEndingByGrammeme } from '@/lib/grammar/endingLoader';
 import { buildGrammeme } from '@/lib/grammar/grammemes';
 import { ADJECTIVE_ENDINGS_REGISTRY } from '@/lib/grammar/adjective';
 import { SLAVIC_ENDINGS_REGISTRY } from '@/lib/grammar/endingsRegistry';
+import { normalizeSoftConsonants, collapseDoubleJ } from '@/lib/isv';
 
 // =========================================================================
 // 1. СТРОГИЕ ИНТЕРФЕЙСЫ И ТИПЫ ДАННЫХ
@@ -39,10 +40,10 @@ const SMALL_NUMBERS_REGISTRY: Record<'two' | 'three' | 'four', Record<Case, stri
         [Case.NOMINATIVE]: 'a', [Case.ACCUSATIVE]: 'a', [Case.GENITIVE]: 'oju', [Case.DATIVE]: 'yma', [Case.INSTRUMENTAL]: 'yma', [Case.LOCATIVE]: 'oju', [Case.VOCATIVE]: 'a'
     },
     three: {
-        [Case.NOMINATIVE]: 'e', [Case.ACCUSATIVE]: 'i', [Case.GENITIVE]: 'ьjъ', [Case.DATIVE]: 'ьmъ', [Case.INSTRUMENTAL]: 'ьmi', [Case.LOCATIVE]: 'ьxъ', [Case.VOCATIVE]: 'e'
+        [Case.NOMINATIVE]: 'e', [Case.ACCUSATIVE]: 'i', [Case.GENITIVE]: 'ej', [Case.DATIVE]: 'em', [Case.INSTRUMENTAL]: 'emi', [Case.LOCATIVE]: 'eh', [Case.VOCATIVE]: 'e'
     },
     four: {
-        [Case.NOMINATIVE]: 'e', [Case.ACCUSATIVE]: 'i', [Case.GENITIVE]: 'ьjъ', [Case.DATIVE]: 'ьmъ', [Case.INSTRUMENTAL]: 'ьmi', [Case.LOCATIVE]: 'ьxъ', [Case.VOCATIVE]: 'e'
+        [Case.NOMINATIVE]: 'e', [Case.ACCUSATIVE]: 'i', [Case.GENITIVE]: 'ej', [Case.DATIVE]: 'em', [Case.INSTRUMENTAL]: 'emi', [Case.LOCATIVE]: 'eh', [Case.VOCATIVE]: 'e'
     }
 };
 
@@ -102,6 +103,9 @@ export function generateNumeralForm(request: NumFormRequest): string {
     const lemma = dbItem.interslavic.toLowerCase().trim();
 
     let fullForm = lemma;
+    // Окончание, реально использованное ниже — проверяем его напрямую для тоновой
+    // сетки Парадигмы B, а не конец fullForm (см. комментарий там же).
+    let usedEnding = '';
 
     // -----------------------------------------------------------------------
     // СТРАТЕГИЯ 1: "ОДИН" (edin) -> Полностью копирует местоименное прилагательное
@@ -110,6 +114,7 @@ export function generateNumeralForm(request: NumFormRequest): string {
         const cleanBase = lemma === 'edin' ? 'edin' : lemma;
         const dbEnding = getEnding('adj_hard', targetNumber, targetCase, 'CORE', targetGender === GrammaticalGender.FEM ? 'Fem' : targetGender === GrammaticalGender.NEUT ? 'Neut' : 'Masc');
         const ending = dbEnding || ADJECTIVE_ENDINGS_REGISTRY['adj_hard'][targetNumber][targetGender][targetCase];
+        usedEnding = ending;
 
         fullForm = (targetCase === Case.NOMINATIVE && targetGender === GrammaticalGender.MASC)
             ? cleanBase
@@ -125,6 +130,7 @@ export function generateNumeralForm(request: NumFormRequest): string {
             const grammeme = buildGrammeme(targetCase, NumberType.DUAL);
             const dbEnding = getEndingByGrammeme('numeral_two', grammeme);
             const ending = dbEnding ?? SMALL_NUMBERS_REGISTRY.two[targetCase];
+            usedEnding = ending;
             if (ending === 'a' && (targetGender === GrammaticalGender.FEM || targetGender === GrammaticalGender.NEUT)) {
                 fullForm = base + 'ě';
             } else {
@@ -137,20 +143,30 @@ export function generateNumeralForm(request: NumFormRequest): string {
             const grammeme = buildGrammeme(targetCase, NumberType.PLURAL);
             const dbEnding = getEndingByGrammeme(stemType, grammeme);
             const ending = dbEnding ?? SMALL_NUMBERS_REGISTRY[numKey][targetCase];
+            usedEnding = ending;
             fullForm = base + ending;
         }
     }
 
         // -----------------------------------------------------------------------
-        // СТРАТЕГИЯ 3: "ПЯТЬ - ДЕСЯТЬ" -> Склоняются строго как i-основы существительных (kostь)
+        // СТРАТЕГИЯ 3: "ПЯТЬ - ДЕСЯТЬ" -> Склоняются строго как i-основы существительных (kostь).
+        // Ном./Вин. ед.ч. у i-основ реализуются самой финальной мягкой согласной
+        // леммы (pęť, noć) — окончание 'j' для них избыточно и убирается ниже тем
+        // же правилом, что и для существительных (lib/isv.ts normalizeSoftConsonants).
+        // Перед остальными (гласными) окончаниями финальная мягкая согласная,
+        // наоборот, переходит в обычный вид — гласная сама несёт палатализацию.
     // -----------------------------------------------------------------------
     else if (dbItem.numClass === 'five_to_ten') {
         const dbEnding = getEnding('i_basis', NumberType.SINGULAR, targetCase, 'CORE');
         const ending = dbEnding !== '' ? dbEnding : SLAVIC_ENDINGS_REGISTRY['i_basis'][NumberType.SINGULAR][targetCase];
+        usedEnding = ending;
 
         const cleanBase = lemma.replace(/[ьъ]$/, '');
         fullForm = cleanBase + ending;
     }
+
+    // Убираем задвоенную мягкость перед тоновой разметкой (pęťj -> pęť, noći -> noči)
+    fullForm = collapseDoubleJ(normalizeSoftConsonants(fullForm));
 
     // =========================================================================
     // ТОНОВАЯ СЕТКА ЗАЛИЗНЯКА ДЛЯ ЧИСЛИТЕЛЬНЫХ
@@ -167,8 +183,10 @@ export function generateNumeralForm(request: NumFormRequest): string {
         if (totalVowels <= 1) {
             return applyFourTonesMark(fullForm, 0, 'short_acute');
         }
-        // Если окончание пустое/ер (ъ/ь) — ретракция на корень
-        if (fullForm.endsWith('ъ') || fullForm.endsWith('ь') || fullForm.endsWith('')) {
+        // Если окончание пустое/ер (ъ/ь) — ретракция на корень. Проверяем именно
+        // значение выбранного окончания, а не конец fullForm: endsWith('') всегда
+        // true в JS, так что прежняя проверка была фактически тавтологией.
+        if (usedEnding === '' || usedEnding === 'ъ' || usedEnding === 'ь') {
             return applyFourTonesMark(fullForm, 1, getAcuteToneType(fullForm, 1));
         }
         return applyFourTonesMark(fullForm, 0, getAcuteToneType(fullForm, 0)); // На флексию (pętí)

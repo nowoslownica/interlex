@@ -9,6 +9,10 @@ export function normalizeSoftConsonants(text: string): string {
     .replace(/[Źź](?=[ieęě])/g, (m) => m === 'Ź' ? 'Z' : 'z')
     .replace(/[Ćć](?=[ieęě])/g, (m) => m === 'Ć' ? 'Č' : 'č')
     .replace(/[Đđ](?=[ieęě])/g, (m) => m === 'Đ' ? 'D' : 'd')
+    // Уже мягкая согласная сама по себе несёт палатализацию — если следом идёт
+    // ещё и явное 'j' (напр. типовое i-основное окончание Nom/Acc sg), это
+    // задвоение, и его нужно убрать: pęť + j -> pęť, noć + j -> noć.
+    .replace(/([ĽľŤťĎďŇňŚśŹźĆćĐđ])[jJ]/g, (_m, c) => c)
 }
 
 export function collapseDoubleJ(text: string): string {

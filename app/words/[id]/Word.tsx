@@ -3,15 +3,14 @@ import {isvToCyr, isvToGlagolitic, isvToTranscription, standardToSimple, standar
 import React, {useEffect, useMemo, useState} from "react";
 import Link from "next/link";
 import {useTranslations} from "next-intl";
-import {extractProtoStems} from "@/lib/grammar/morphonology";
-import {conjugateFullVerb} from "@/lib/grammar/verb/conjugator2";
+import {extractProtoStems, conjugateFullVerb} from "@/lib/grammar/verb";
 import {VerbConjugationTables} from "@/app/words/[id]/VerbConjugationTables";
 import {NounDeclensionTables} from "@/app/words/[id]/NounDeclensionTables";
 import {AdjectiveDeclensionTables} from "@/app/words/[id]/AdjectiveDeclensionTables";
 import {NumeralDeclensionTables} from "@/app/words/[id]/NumeralDeclensionTables";
 import {PronounDeclensionTables} from "@/app/words/[id]/PronounDeclensionTables";
 import {AdverbComparisonTables} from "@/app/words/[id]/AdverbComparisonTables";
-import {PosType} from "@/lib/grammar/common";
+import {PosType, AccentParadigm, VerbalAspect} from "@/lib/grammar/common";
 import ReactMarkdown from "react-markdown";
 import CognateRadarChart from "@/app/words/[id]/CognateRadarChart";
 import MorphemeAnalysis from "@/app/words/[id]/MorphemeAnalysis";
@@ -68,8 +67,10 @@ const Word = ({ item, currentScript, nounParadigm }: { item: any; currentScript:
                 infStem: stems.infStem,
                 presentStem: stems.presentStem,
                 aoristStem: stems.aoristStem,
+                tertiaryStem: item.tertiaryStem || undefined,
                 verbClass: stems.verbClass,
-                aspect: meta.aspect || 'imperfective'
+                aspect: (meta.aspect as VerbalAspect) || VerbalAspect.IPF,
+                paradigm: (item.paradigm as AccentParadigm) || AccentParadigm.A,
             });
         } catch (e) {
             console.error("Error generating verb paradigm:", e);
@@ -368,7 +369,7 @@ const Word = ({ item, currentScript, nounParadigm }: { item: any; currentScript:
                                 />
                             ) : isNum ? (
                                 <NumeralDeclensionTables
-                                    isv={item.value}
+                                    isv={item.stem || item.value}
                                     paradigm={item.paradigm || 'A'}
                                     properNoun={meta.properNoun}
                                 />

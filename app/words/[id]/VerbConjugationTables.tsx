@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { ConjugationResult, FullParadigm, ParticipleSet } from '@/lib/grammar/verb/types/conjugator';
+import { ConjugationResult, FullParadigm, ParticipleSet } from '@/lib/grammar/verb';
 import {ScriptMode, writeOrTranslate, capitalize} from "@/lib/script-mode";
 
 interface TablesProps {

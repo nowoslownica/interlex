@@ -5,6 +5,7 @@ import {applyPrepositionEnclitic, applyPrepositionEncliticWithFourTones} from '.
 import { generateBaseNounFormWithFourTones } from './fourTonesGenerator';
 import {EnhancedDbItem, identifyStemTypeByDb} from "@/lib/grammar/stemClassifier";
 import {computeStressFromMorphemes, countSyllables} from "@/lib/grammar/stress";
+import {normalizeSoftConsonants, collapseDoubleJ} from "@/lib/isv";
 
 export interface ExtendedWordFormRequest {
     interslavicWord: string;
@@ -292,15 +293,20 @@ export function declineWordAutomatically(request: FinalUserRequest): string {
         dbItem.animacy,
     );
 
-    // 4. Если предлога нет — возвращаем форму
+    // 4. Убираем задвоенную мягкость (напр. noć + j -> noć, noć + i -> noči) —
+    // то же самое пост-обработочное правило, что движок разметки корпуса уже
+    // применяет в lib/grammar/morphology/engine.ts
+    const normalizedNoun = collapseDoubleJ(normalizeSoftConsonants(baseAccentedNoun));
+
+    // 5. Если предлога нет — возвращаем форму
     if (!preposition) {
-        return baseAccentedNoun;
+        return normalizedNoun;
     }
 
-    // 5. Если предлог есть — прогоняем через тоновый движок клитик
+    // 6. Если предлог есть — прогоняем через тоновый движок клитик
     return applyPrepositionEncliticWithFourTones({
         preposition,
-        accentedNounForm: baseAccentedNoun,
+        accentedNounForm: normalizedNoun,
         paradigm: dbItem.paradigm,
         targetCase,
         targetNumber
