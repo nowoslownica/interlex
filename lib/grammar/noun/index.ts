@@ -73,59 +73,6 @@ export interface EncliticFourTonesRequest {
 }
 
 // =========================================================================
-// 2. ГЛОБАЛЬНЫЙ РЕЕСТР ПРАСЛАВЯНСКИХ ОКОНЧАНИЙ
-// =========================================================================
-
-export const SLAVIC_ENDINGS_REGISTRY: Record<StemType, Record<NumberType, Record<Case, string>>> = {
-    o_hard: {
-        [NumberType.SINGULAR]: {
-            [Case.NOMINATIVE]: 'ъ', [Case.ACCUSATIVE]: 'ъ', [Case.GENITIVE]: 'a', [Case.DATIVE]: 'u', [Case.INSTRUMENTAL]: 'omъ', [Case.LOCATIVE]: 'ě', [Case.VOCATIVE]: 'e'
-        },
-        [NumberType.PLURAL]: {
-            [Case.NOMINATIVE]: 'i', [Case.ACCUSATIVE]: 'y', [Case.GENITIVE]: 'ъ', [Case.DATIVE]: 'omъ', [Case.INSTRUMENTAL]: 'y', [Case.LOCATIVE]: 'ěxъ', [Case.VOCATIVE]: 'i'
-        },
-        [NumberType.DUAL]: {
-            [Case.NOMINATIVE]: 'a', [Case.ACCUSATIVE]: 'a', [Case.GENITIVE]: 'u', [Case.DATIVE]: 'oma', [Case.INSTRUMENTAL]: 'oma', [Case.LOCATIVE]: 'u', [Case.VOCATIVE]: 'a'
-        }
-    },
-    o_soft: {
-        [NumberType.SINGULAR]: { [Case.NOMINATIVE]: 'ь', [Case.ACCUSATIVE]: 'ь', [Case.GENITIVE]: 'a', [Case.DATIVE]: 'u', [Case.INSTRUMENTAL]: 'emъ', [Case.LOCATIVE]: 'i', [Case.VOCATIVE]: 'u' },
-        [NumberType.PLURAL]: { [Case.NOMINATIVE]: 'i', [Case.ACCUSATIVE]: 'ę', [Case.GENITIVE]: 'ь', [Case.DATIVE]: 'emъ', [Case.INSTRUMENTAL]: 'i', [Case.LOCATIVE]: 'ixъ', [Case.VOCATIVE]: 'i' },
-        [NumberType.DUAL]: { [Case.NOMINATIVE]: 'a', [Case.ACCUSATIVE]: 'a', [Case.GENITIVE]: 'u', [Case.DATIVE]: 'ema', [Case.INSTRUMENTAL]: 'ema', [Case.LOCATIVE]: 'u', [Case.VOCATIVE]: 'a' }
-    },
-    a_hard: {
-        [NumberType.SINGULAR]: { [Case.NOMINATIVE]: 'a', [Case.ACCUSATIVE]: 'ǫ', [Case.GENITIVE]: 'y', [Case.DATIVE]: 'ě', [Case.INSTRUMENTAL]: 'ojǫ', [Case.LOCATIVE]: 'ě', [Case.VOCATIVE]: 'o' },
-        [NumberType.PLURAL]: { [Case.NOMINATIVE]: 'y', [Case.ACCUSATIVE]: 'y', [Case.GENITIVE]: 'ъ', [Case.DATIVE]: 'amъ', [Case.INSTRUMENTAL]: 'ami', [Case.LOCATIVE]: 'axъ', [Case.VOCATIVE]: 'y' },
-        [NumberType.DUAL]: { [Case.NOMINATIVE]: 'ě', [Case.ACCUSATIVE]: 'ě', [Case.GENITIVE]: 'u', [Case.DATIVE]: 'ama', [Case.INSTRUMENTAL]: 'ama', [Case.LOCATIVE]: 'u', [Case.VOCATIVE]: 'ě' }
-    },
-    a_soft: {
-        [NumberType.SINGULAR]: { [Case.NOMINATIVE]: 'a', [Case.ACCUSATIVE]: 'ǫ', [Case.GENITIVE]: 'ę', [Case.DATIVE]: 'i', [Case.INSTRUMENTAL]: 'ejǫ', [Case.LOCATIVE]: 'i', [Case.VOCATIVE]: 'e' },
-        [NumberType.PLURAL]: { [Case.NOMINATIVE]: 'ę', [Case.ACCUSATIVE]: 'ę', [Case.GENITIVE]: 'ь', [Case.DATIVE]: 'amъ', [Case.INSTRUMENTAL]: 'ami', [Case.LOCATIVE]: 'axъ', [Case.VOCATIVE]: 'ę' },
-        [NumberType.DUAL]: { [Case.NOMINATIVE]: 'i', [Case.ACCUSATIVE]: 'i', [Case.GENITIVE]: 'u', [Case.DATIVE]: 'ama', [Case.INSTRUMENTAL]: 'ama', [Case.LOCATIVE]: 'u', [Case.VOCATIVE]: 'i' }
-    },
-    u_basis: {
-        [NumberType.SINGULAR]: { [Case.NOMINATIVE]: 'ъ', [Case.ACCUSATIVE]: 'ъ', [Case.GENITIVE]: 'u', [Case.DATIVE]: 'ovi', [Case.INSTRUMENTAL]: 'ъmъ', [Case.LOCATIVE]: 'u', [Case.VOCATIVE]: 'u' },
-        [NumberType.PLURAL]: { [Case.NOMINATIVE]: 'ove', [Case.ACCUSATIVE]: 'y', [Case.GENITIVE]: 'ovъ', [Case.DATIVE]: 'ъmъ', [Case.INSTRUMENTAL]: 'ъmi', [Case.LOCATIVE]: 'ъxъ', [Case.VOCATIVE]: 'ove' },
-        [NumberType.DUAL]: { [Case.NOMINATIVE]: 'y', [Case.ACCUSATIVE]: 'y', [Case.GENITIVE]: 'ovu', [Case.DATIVE]: 'ъma', [Case.INSTRUMENTAL]: 'ъma', [Case.LOCATIVE]: 'ovu', [Case.VOCATIVE]: 'y' }
-    },
-    i_basis: {
-        [NumberType.SINGULAR]: { [Case.NOMINATIVE]: 'ь', [Case.ACCUSATIVE]: 'ь', [Case.GENITIVE]: 'i', [Case.DATIVE]: 'i', [Case.INSTRUMENTAL]: 'ьjǫ', [Case.LOCATIVE]: 'i', [Case.VOCATIVE]: 'i' },
-        [NumberType.PLURAL]: { [Case.NOMINATIVE]: 'i', [Case.ACCUSATIVE]: 'i', [Case.GENITIVE]: 'ьjъ', [Case.DATIVE]: 'ьmъ', [Case.INSTRUMENTAL]: 'ьmi', [Case.LOCATIVE]: 'ьxъ', [Case.VOCATIVE]: 'i' },
-        [NumberType.DUAL]: { [Case.NOMINATIVE]: 'i', [Case.ACCUSATIVE]: 'i', [Case.GENITIVE]: 'ьju', [Case.DATIVE]: 'ьma', [Case.INSTRUMENTAL]: 'ьma', [Case.LOCATIVE]: 'ьju', [Case.VOCATIVE]: 'i' }
-    },
-    consonant_n: {
-        [NumberType.SINGULAR]: { [Case.NOMINATIVE]: 'e', [Case.ACCUSATIVE]: 'e', [Case.GENITIVE]: 'ene', [Case.DATIVE]: 'eni', [Case.INSTRUMENTAL]: 'enьmъ', [Case.LOCATIVE]: 'eni', [Case.VOCATIVE]: 'e' },
-        [NumberType.PLURAL]: { [Case.NOMINATIVE]: 'ena', [Case.ACCUSATIVE]: 'ena', [Case.GENITIVE]: 'enъ', [Case.DATIVE]: 'enъmъ', [Case.INSTRUMENTAL]: 'enъmi', [Case.LOCATIVE]: 'enъxъ', [Case.VOCATIVE]: 'ena' },
-        [NumberType.DUAL]: { [Case.NOMINATIVE]: 'eně', [Case.ACCUSATIVE]: 'eně', [Case.GENITIVE]: 'enu', [Case.DATIVE]: 'enьma', [Case.INSTRUMENTAL]: 'enьma', [Case.LOCATIVE]: 'enu', [Case.VOCATIVE]: 'eně' }
-    },
-    consonant_s: {
-        [NumberType.SINGULAR]: { [Case.NOMINATIVE]: 'o', [Case.ACCUSATIVE]: 'o', [Case.GENITIVE]: 'ese', [Case.DATIVE]: 'esi', [Case.INSTRUMENTAL]: 'esьmъ', [Case.LOCATIVE]: 'esi', [Case.VOCATIVE]: 'o' },
-        [NumberType.PLURAL]: { [Case.NOMINATIVE]: 'esa', [Case.ACCUSATIVE]: 'esa', [Case.GENITIVE]: 'esъ', [Case.DATIVE]: 'esъmъ', [Case.INSTRUMENTAL]: 'esъmi', [Case.LOCATIVE]: 'esъxъ', [Case.VOCATIVE]: 'esa' },
-        [NumberType.DUAL]: { [Case.NOMINATIVE]: 'esě', [Case.ACCUSATIVE]: 'esě', [Case.GENITIVE]: 'esu', [Case.DATIVE]: 'esьma', [Case.INSTRUMENTAL]: 'esьma', [Case.LOCATIVE]: 'esu', [Case.VOCATIVE]: 'esě' }
-    }
-};
-
-// =========================================================================
 // 3. НИЗКОУРОВНЕВЫЕ УТИЛИТЫ ДИАКРИТИКИ И ЮНИКОДА
 // =========================================================================
 

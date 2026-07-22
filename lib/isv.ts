@@ -211,7 +211,7 @@ export const isvToTranscription = (etymologicalWord: string) => {
 
     // 3. Контекстная обработка 'j' (Смягчение согласных vs Звук [j])
     let ipaChars = [];
-    const vowels = ['a', 'e', 'ě', 'i', 'y', 'o', 'u', 'ę', 'ǫ'];
+    const vowels = ['a', 'e', 'ě', 'i', 'y', 'o', 'u', 'ę', 'ǫ', 'ų'];
 
     for (let i = 0; i < str.length; i++) {
         let char = str[i];
@@ -244,8 +244,8 @@ export const isvToTranscription = (etymologicalWord: string) => {
                 ipaChars.push('i'); // в праславянском/межславянском ы и и близки к [i]
             } else if (char === 'ę') {
                 ipaChars.push('ɛ̃'); // Носовой малый юс
-            } else if (char === 'ǫ') {
-                ipaChars.push('ɔ̃'); // Носовой большой юс
+            } else if (char === 'ǫ' || char === 'ų') {
+                ipaChars.push('ɔ̃'); // Носовой большой юс (совр. орфография: ų)
             } else {
                 ipaChars.push(char);
             }
@@ -273,7 +273,8 @@ export const standardToSimple = (text: string) => {
     const fixedRules = {
         'Ě': 'E', 'ě': 'e', // Ять -> E
         'Ę': 'E', 'ę': 'e', // Малый юс -> E
-        'Ǫ': 'U', 'ǫ': 'u', // Большой юс -> U
+        'Ǫ': 'U', 'ǫ': 'u', // Большой юс (устар. написание o+огонек) -> U
+        'Ų': 'U', 'ų': 'u', // Большой юс (совр. написание u+огонек) -> U
     };
 
     let step2 = processed.split('').map(char => fixedRules.hasOwnProperty(char) ? fixedRules[char] : char).join('');
@@ -333,7 +334,7 @@ export const isvToGlagolitic = (text: string): string => {
     'k': 'ⰽ', 'l': 'ⰾ', 'm': 'ⰿ', 'n': 'ⱀ', 'o': 'ⱁ',
     'p': 'ⱂ', 'r': 'ⱃ', 's': 'ⱄ', 't': 'ⱅ', 'u': 'ⱆ',
     'f': 'ⱇ', 'h': 'ⱈ', 'c': 'ⱌ', 'y': 'ⱏⰹ',
-    'ě': 'ⱑ', 'ę': 'ⱗ', 'ǫ': 'ⱘ',
+    'ě': 'ⱑ', 'ę': 'ⱗ', 'ǫ': 'ⱘ', 'ų': 'ⱘ',
   };
 
   const glagoliticUpper: Record<string, string> = {
@@ -342,7 +343,7 @@ export const isvToGlagolitic = (text: string): string => {
     'K': 'Ⰽ', 'L': 'Ⰾ', 'M': 'Ⰿ', 'N': 'Ⱀ', 'O': 'Ⱁ',
     'P': 'Ⱂ', 'R': 'Ⱃ', 'S': 'Ⱄ', 'T': 'Ⱅ', 'U': 'Ⱆ',
     'F': 'Ⱇ', 'H': 'Ⱈ', 'C': 'Ⱌ', 'Y': 'ⰟⰉ',
-    'Ě': 'Ⱑ', 'Ę': 'Ⱗ', 'Ǫ': 'Ⱘ',
+    'Ě': 'Ⱑ', 'Ę': 'Ⱗ', 'Ǫ': 'Ⱘ', 'Ų': 'Ⱘ',
   };
 
   let result = "";
@@ -434,7 +435,8 @@ export const standardToSimpleCyr = (text: string) => {
         // --- Упрощение исторических графем ---
         'Ě': 'Е', 'ě': 'e', // Ять упрощается до Е/е
         'Ę': 'Е', 'ę': 'e', // Малый юс упрощается до Е/е
-        'Ǫ': 'У', 'ǫ': 'у', // Большой юс упрощается до У/у
+        'Ǫ': 'У', 'ǫ': 'у', // Большой юс (устар. написание o+огонек) упрощается до У/у
+        'Ų': 'У', 'ų': 'у', // Большой юс (совр. написание u+огонек) упрощается до У/у
     };
 
     let step3 = processed.split('').map(char => fixedRules.hasOwnProperty(char) ? fixedRules[char] : char).join('');

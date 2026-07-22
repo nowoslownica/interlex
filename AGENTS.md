@@ -121,15 +121,26 @@ Words linked to multiple lexemes via `base_homonyms` table (JSON `wordIds` field
 ### validEndings Set
 Populated from `ending_allophones` table (seeded by `scripts/db/seed-endings.ts`):
 - Entries stored with `stemType`, `grammeme`, `value`, `flavorId`
-- Current seed: 413 CORE endings covering noun stem types (o_hard, o_soft, a_hard, a_soft, u_basis, i_basis, consonant_n, consonant_s), adjective (adj_hard, adj_soft), and verb forms (present, aorist, imperfect, imperative, l-participle, active/passive participles)
+- Current seed: 450 CORE endings covering noun stem types (o_hard, o_soft, a_hard, a_soft, u_basis, i_basis, consonant_n, consonant_s), adjective (adj_hard, adj_soft), and verb forms (present, aorist, imperfect, imperative, l-participle, active/passive participles), plus numeral/collective/adverb endings
 
-### Known Issue: Grammar Engine Produces Wrong Endings
+### RESOLVED (2026-07-24): Grammar Engine Was Producing Wrong Endings
 
-**Problem**: The grammar engine (`lib/grammar/morphology/`) generates etymological Proto-Slavic endings that don't match modern Interslavic forms. For example, `voda` (ā-stem, FEM, paradigm A) should have Acc sg `vodu` but the engine generates `vodaъ`.
+**Original problem**: The grammar engine (`lib/grammar/morphology/`) generated etymological Proto-Slavic endings (jers `ъ`/`ь`, nasal `ǫ`) that didn't match modern Interslavic forms. For example, `voda` (ā-stem, FEM, paradigm A) generated Acc sg `vodaǫ` instead of `vodu`.
 
-**Workaround**: `matchByStemPrefix` fallback. When `matchForms` finds no exact match, stem-prefix comparison is used. The token is recognized (`matchCount=1`) but `feats: {}` (no morphology).
+**What we found**: The live `ending_allophones` DB table was NOT the "decoy" it first appeared to be — moderators had been manually correcting individual (stemType, grammeme) entries via `/admin/endings` for a while, and `getEnding()`/`getEndingByGrammeme()` in `endingLoader.ts` DO consult the DB before falling back to the hardcoded registries. So the *live* site was already serving mostly-correct noun endings; it was the **hardcoded registries** (used as the DB-unavailable fallback, and by `scripts/db/seed-endings.ts` to seed fresh databases) that still held the original Proto-Slavic values — a fresh install or a test run with no DB would still get the bug.
 
-**Root Cause**: The endings registry (`endingsRegistry.ts`, adjective engine, verb processors) produces Proto-Slavic reconstructions rather than modern Interslavic. A full fix requires rewriting the endings in all registries.
+**Fix applied**:
+- Extracted the corrected values straight from the live `ending_allophones` table and rewrote `SLAVIC_ENDINGS_REGISTRY` in `lib/grammar/endingsRegistry.ts` (all 8 noun stem types — fully corrected in DB, 100% coverage) and one entry in `ADJECTIVE_ENDINGS_REGISTRY` in `lib/grammar/adjective/index.ts` (FEM accusative singular).
+- Applied the same jer-stripping pattern by analogy to `numeral_three`/`numeral_four` (confirmed with the project maintainer) and to the present-active-participle `-ǫšti/-ǫťa/-ǫťe/-ǫťi` endings (same nasal-vowel fix as below).
+- **Separately discovered and fixed**: the nasal vowel has two orthographic representations in this codebase — `ǫ` (o+ogonek, Proto-Slavic-style) and `ų` (u+ogonek). Confirmed with the maintainer that **`ų` is the correct modern form**. Migrated `ǫ→ų` across every place that generates or displays modern ISV text: `lib/isv.ts` (`standardToSimple`, `isvToTranscription`, `isvToGlagolitic`, `standardToSimpleCyr`), `lib/flavors.ts` (`generateWestFlavor`), `lib/transliteration.ts` (`detectScript`, `etymCyrToEtymLat`, `etymLatToStdLat`). Left `lib/proto.ts` alone — it already correctly outputs `ų` on its Proto-Slavic→Interslavic conversion path, and its *input* side legitimately deals in real Proto-Slavic `ǫ`/`ǭ`. `lib/nsl.ts` and the various vowel-detection regexes in `stress.ts`/`accentUtils.ts`/`encliticEngine.ts`/`fourTonesGenerator.ts`/`numerals/*`/`pronoun/index.ts` already handled both characters — no change needed there.
+- **Found and removed dead duplicate code** while investigating: `lib/grammar/noun/index.ts` had its own unused `SLAVIC_ENDINGS_REGISTRY` export (same name as the real one, zero importers — deleted); `lib/grammar/adjective/adjective.ts` was an entire orphaned duplicate of `adjective/index.ts` (zero importers — deleted). **Not dead**, and fixed separately: `lib/grammar/verb/conjugator2.ts` is a second, independently-live verb conjugator used directly by `app/words/[id]/Word.tsx`, parallel to `lib/grammar/verb/index.ts` used by the corpus/tokenizer engine — both needed the same `ǫšti→ųšti` etc. fix.
+- Updated `scripts/db/seed-endings.ts` to seed the corrected values directly (including `FEMININE_OVERRIDES` for `a_hard`/`a_soft`), so re-running it is now safe/idempotent instead of reverting DB corrections back to Proto-Slavic.
+- Deleted 168 orphaned legacy rows in `ending_allophones` that used an old short-format grammeme key (`SgNom`, `PlAcc`) nothing reads anymore (confirmed dead — `buildGrammeme()` only ever produces the long `Case=Nom|Number=Sing` format).
+- Fixed the one directly-relevant assertion in `lib/grammar/morphology/morphology.test.ts` (bob nominative singular, was asserting the old `ъ`-suffixed form).
+
+**Still open / explicitly out of scope for this pass**:
+- `lib/grammar/morphology/morphology.test.ts` and `lib/grammar/__tests__/declineNoun.test.ts` are not wired to any test runner (no vitest/jest) — see "No working automated tests" below. `morphology.test.ts`'s other 9 failing assertions (verb/adjective/numeral/pronoun accent placement, adverb comparative, noun stem-extension) are a **separate, pre-existing bug in the four-tones accent engine**, confirmed unrelated to this endings fix (same failures reproduce against the pre-fix DB backup). `declineNoun.test.ts`'s fixtures still assert old Proto-Slavic forms and haven't been updated — low priority since nothing executes them yet.
+- Verb present/aorist/imperfect/imperative endings and `numeral_two`/`collective_oje`/`collective_ero` were checked against the DB and found to already match the hardcoded registry (i.e., apparently never needed correction — no jers found in their values) — not independently verified by a linguist, just "nothing to fix by this method."
 
 ### Key Files
 - `lib/corpus/tokenizer/dbAnalyzer.ts` — Core DbAnalyzer class
@@ -138,10 +149,11 @@ Populated from `ending_allophones` table (seeded by `scripts/db/seed-endings.ts`
 - `lib/corpus/tokenizer/index.ts` — Exports (does NOT export `createBaseQuery`)
 - `app/api/corpus/analyze/route.ts` — API endpoint with lazy `getAnalyzer()` singleton; now requires `Feature.CorpusBuilder` (fixed 2026-07-22, was unauthenticated)
 - `app/api/corpus/save/route.ts` — Save endpoint with lazy `analyzerPromise`; requires `Feature.CorpusBuilder`
-- `scripts/db/seed-endings.ts` — Seed script for `ending_allophones` table. **Note:** currently copies values straight out of the hardcoded registries below, so it seeds the same Proto-Slavic forms rather than corrected ones — the "override" layer in `endingLoader.ts` gives full matrix coverage but zero content correction
+- `scripts/db/seed-endings.ts` — Seed script for `ending_allophones` table. Now seeds the corrected modern-ISV values (fixed 2026-07-24) — safe to re-run
 - `lib/grammar/morphology/engine.ts` — `generateWordForms()`, `stripCombiningAccents()`
-- `lib/grammar/endingsRegistry.ts` — Proto-Slavic noun endings registry
+- `lib/grammar/endingsRegistry.ts` — Modern ISV noun endings registry (fixed 2026-07-24, was Proto-Slavic)
 - `lib/grammar/adjective/index.ts` — Adjective endings registry
+- `lib/grammar/verb/index.ts` and `lib/grammar/verb/conjugator2.ts` — two independently-live verb conjugators (engine path vs. word-detail-page path) — keep both in sync when touching verb endings
 
 ---
 

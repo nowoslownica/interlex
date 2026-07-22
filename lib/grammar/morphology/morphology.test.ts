@@ -53,8 +53,9 @@ export function runMorphologyEngineTests(): void {
     };
     const bobForms = processNoun(nounBob);
     assert('bob: Общее количество падежных форм должно быть 21', bobForms.length === 21);
-    // Краткий циркумфлекс \u0311 на корне в Nom.Sg
-    assert('bob: Именительный ед.ч. несет краткий циркумфлекс (bȏbъ)', findForm(bobForms, { case: 'nominative', number: 'sg' }) === 'bo\u0311bъ');
+    // Краткий циркумфлекс \u0311 на корне в Nom.Sg (2026-07-24: окончание -ъ убрано —
+    // совр. интерславянский, а не праслав. реконструкция, см. AGENTS.md)
+    assert('bob: Именительный ед.ч. несет краткий циркумфлекс (bȏb)', findForm(bobForms, { case: 'nominative', number: 'sg' }) === 'bo\u0311b');
     // Восходящий акут на окончании в Gen.Sg
     assert('bob: Родительный ед.ч. окситонируется на окончание (bobá)', findForm(bobForms, { case: 'genitive', number: 'sg' }) === 'boba\u0301');
 

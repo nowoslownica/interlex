@@ -21,62 +21,65 @@ export type StemType =
     | 'consonant_s'; // консонантные s-основы (nebo)
 
 /**
- * Глобальный реестр праславянских окончаний (Единственное, Множественное, Двойственное)
+ * Реестр окончаний современного интерславянского (не праславянских реконструкций).
+ * Значения извлечены 2026-07-24 из живой таблицы `ending_allophones` (флейвор CORE),
+ * куда они были внесены вручную через /admin/endings поверх изначального
+ * (ошибочно праславянского) сида — см. AGENTS.md, раздел про DbAnalyzer/грамматику.
  */
 export const SLAVIC_ENDINGS_REGISTRY: Record<StemType, Record<NumberType, Record<Case, string>>> = {
     // =========================================================================
-    // 1. МУЖСКОЙ РОД: ТВЕРДЫЕ o-ОСНОВЫ (Пример: *vьlkъ, *bobъ, *stolъ)
+    // 1. МУЖСКОЙ РОД: ТВЕРДЫЕ o-ОСНОВЫ (Пример: vlk, bob, stol)
     // =========================================================================
     o_hard: {
         singular: {
-            nominative: 'ъ',     // vьlkъ
-            accusative: 'ъ',     // vьlkъ (для неодушевленных/древних форм)
-            genitive: 'a',       // vьlka
-            dative: 'u',         // vьlku
-            instrumental: 'omъ', // vьlkomъ
-            locative: 'ě',        // vьlcě (первая палатализация k -> c)
-            vocative: 'e'        // vьlke (звательная форма)
+            nominative: '',     // vlk
+            accusative: '',     // vlk (для неодушевленных)
+            genitive: 'a',       // vlka
+            dative: 'u',         // vlku
+            instrumental: 'om', // vlkom
+            locative: 'ě',        // vlcě (первая палатализация k -> c)
+            vocative: 'e'        // vlke (звательная форма)
         },
         plural: {
-            nominative: 'i',     // vьlci
-            accusative: 'y',     // vьlky
-            genitive: 'ъ',       // vьlkъ
-            dative: 'omъ',       // vьlkomъ
-            instrumental: 'y',   // vьlky
-            locative: 'ěxъ',      // vьlcěxъ
-            vocative: 'i'        // vьlci (звательная форма во множественном числе)
+            nominative: 'i',     // vlci
+            accusative: 'y',     // vlky
+            genitive: '',       // vlk
+            dative: 'om',       // vlkom
+            instrumental: 'y',   // vlky
+            locative: 'ěh',      // vlcěh
+            vocative: 'i'        // vlci (звательная форма во множественном числе)
         },
         dual: {
-            nominative: 'a',     // vьlka (два волка)
-            accusative: 'a',     // vьlka
-            genitive: 'u',       // vьlku
-            dative: 'oma',       // vьlkoma
-            instrumental: 'oma', // vьlkoma
-            locative: 'u',        // vьlku
-            vocative: 'a'        // vьlka (звательная форма в двойственном числе)
+            nominative: 'a',     // vlka (два волка)
+            accusative: 'a',     // vlka
+            genitive: 'u',       // vlku
+            dative: 'oma',       // vlkoma
+            instrumental: 'oma', // vlkoma
+            locative: 'u',        // vlku
+            vocative: 'a'        // vlka (звательная форма в двойственном числе)
         }
     },
 
     // =========================================================================
-    // 2. МУЖСКОЙ РОД: МЯГКИЕ jo-ОСНОВЫ (Пример: *mǫžь, *końь)
+    // 2. МУЖСКОЙ РОД: МЯГКИЕ jo-ОСНОВЫ (Пример: mųž, koń)
     // =========================================================================
     o_soft: {
         singular: {
-            nominative: 'ь',     // końь
-            accusative: 'ь',     // końь
+            nominative: 'j',     // końj
+            accusative: 'j',     // końj
             genitive: 'a',       // końa
-            dative: 'ju',        // końu / końaju
-            instrumental: 'emъ', // końemъ (переход o -> e после мягкого)
+            dative: 'ju',        // końju
+            instrumental: 'em', // końem (переход o -> e после мягкого)
             locative: 'i',        // końi
             vocative: 'ju'       // końju (звательная форма)
         },
         plural: {
             nominative: 'i',     // końi
             accusative: 'ę',     // końę (вместо твердого y)
-            genitive: 'ь',       // końь
-            dative: 'emъ',       // końemъ
+            genitive: 'j',       // końj
+            dative: 'em',       // końem
             instrumental: 'i',   // końi
-            locative: 'ixъ',      // końixъ
+            locative: 'ih',      // końih
             vocative: 'i'        // końi (звательная форма во множественном числе)
         },
         dual: {
@@ -91,7 +94,7 @@ export const SLAVIC_ENDINGS_REGISTRY: Record<StemType, Record<NumberType, Record
     },
 
     // =========================================================================
-    // 3. СРЕДНИЙ РОД: ТВЕРДЫЕ o-ОСНОВЫ (Пример: *tělo, *sělo, *wino)
+    // 3. СРЕДНИЙ РОД: ТВЕРДЫЕ o-ОСНОВЫ (Пример: tělo, sělo, vino)
     // =========================================================================
     // Примечание: Средний род во многом совпадает с мужским, кроме Nom/Acc
     a_hard: { // Используем ключ для среднего твердого (исторически близко к o)
@@ -100,17 +103,17 @@ export const SLAVIC_ENDINGS_REGISTRY: Record<StemType, Record<NumberType, Record
             accusative: 'o',     // tělo (закон совпадения Nom/Acc для среднего рода)
             genitive: 'a',       // těla
             dative: 'u',         // tělu
-            instrumental: 'omъ', // tělomъ
+            instrumental: 'om', // tělom
             locative: 'ě',        // tělě
             vocative: 'o'        // tělo (звательная форма совпадает с номинативом)
         },
         plural: {
             nominative: 'a',     // těla (окна, тела)
             accusative: 'a',     // těla
-            genitive: 'ъ',       // tělъ
-            dative: 'omъ',       // tělomъ
+            genitive: '',       // těl
+            dative: 'om',       // tělom
             instrumental: 'y',   // těly
-            locative: 'ěxъ',      // tělěxъ
+            locative: 'ěh',      // tělěh
             vocative: 'a'        // těla (звательная форма во множественном числе)
         },
         dual: {
@@ -125,7 +128,7 @@ export const SLAVIC_ENDINGS_REGISTRY: Record<StemType, Record<NumberType, Record
     },
 
     // =========================================================================
-    // 4. СРЕДНИЙ РОД: МЯГКИЕ jo-ОСНОВЫ (Пример: *polje, *ajьce)
+    // 4. СРЕДНИЙ РОД: МЯГКИЕ jo-ОСНОВЫ (Пример: polje, jajьce)
     // =========================================================================
     a_soft: {
         singular: {
@@ -133,17 +136,17 @@ export const SLAVIC_ENDINGS_REGISTRY: Record<StemType, Record<NumberType, Record
             accusative: 'e',     // polje
             genitive: 'a',       // polja
             dative: 'ju',        // polju
-            instrumental: 'emъ', // poljemъ
+            instrumental: 'em', // poljem
             locative: 'i',        // polji
             vocative: 'e'        // polje (звательная форма совпадает с номинативом)
         },
         plural: {
             nominative: 'a',     // polja
             accusative: 'a',     // polja
-            genitive: 'ь',       // poljь
-            dative: 'emъ',       // poljemъ
+            genitive: 'j',       // polj
+            dative: 'em',       // poljem
             instrumental: 'i',   // polji
-            locative: 'ixъ',      // poljixъ
+            locative: 'ih',      // poljih
             vocative: 'a'        // polja (звательная форма во множественном числе)
         },
         dual: {
@@ -158,73 +161,73 @@ export const SLAVIC_ENDINGS_REGISTRY: Record<StemType, Record<NumberType, Record
     },
 
     // =========================================================================
-    // 5. МУЖСКОЙ РОД: u-ОСНОВЫ (Пример: *synъ, *domъ)
+    // 5. МУЖСКОЙ РОД: u-ОСНОВЫ (Пример: syn, dom)
     // =========================================================================
     u_basis: {
         singular: {
-            nominative: 'ъ',     // synъ
-            accusative: 'ъ',     // synъ
+            nominative: '',     // syn
+            accusative: '',     // syn
             genitive: 'u',       // synu (историческое окончание u-основы)
             dative: 'ovi',       // synovi
-            instrumental: 'ъmъ', // synъmъ
+            instrumental: 'om', // synom
             locative: 'u',        // synu
             vocative: 'u'        // synu (звательная форма)
         },
         plural: {
             nominative: 'ove',    // synove
             accusative: 'y',     // syny
-            genitive: 'ovъ',     // synovъ
-            dative: 'ъmъ',       // synъmъ
-            instrumental: 'ъmi', // synъmi
-            locative: 'ъxъ',      // synъxъ
+            genitive: 'ov',     // synov
+            dative: 'am',       // synam
+            instrumental: 'ami', // synami
+            locative: 'ěh',      // syněh
             vocative: 'ove'      // synove (звательная форма во множественном числе)
         },
         dual: {
             nominative: 'y',     // syny
             accusative: 'y',     // syny
-            genitive: 'ovu',     // synovju
-            dative: 'ъma',       // synъma
-            instrumental: 'ъma', // synъma
-            locative: 'ovu',      // synovju
+            genitive: 'ovu',     // synovu
+            dative: 'oma',       // synoma
+            instrumental: 'ama', // synama
+            locative: 'ovu',      // synovu
             vocative: 'y'        // syny (звательная форма в двойственном числе)
         }
     },
 
     // =========================================================================
-    // 6. ЖЕНСКИЙ/МУЖСКОЙ РОД: i-ОСНОВЫ (Пример: *kostь, *gostь)
+    // 6. ЖЕНСКИЙ/МУЖСКОЙ РОД: i-ОСНОВЫ (Пример: kostь, gostь)
     // =========================================================================
     i_basis: {
         singular: {
-            nominative: 'ь',     // kostь
-            accusative: 'ь',     // kostь
+            nominative: 'j',     // kostj
+            accusative: 'j',     // kostj
             genitive: 'i',       // kosti
             dative: 'i',         // kosti
-            instrumental: 'ьjǫ', // kostьjǫ (для ж.р.) или ьmъ (для м.р. gostьmъ)
+            instrumental: 'ejų', // kostejų (для ж.р.) или em (для м.р. gostem)
             locative: 'i',        // kosti
             vocative: 'i'        // kosti (звательная форма)
         },
         plural: {
             nominative: 'i',     // kosti
             accusative: 'i',     // kosti
-            genitive: 'ьjъ',     // kostьjъ
-            dative: 'ьmъ',       // kostьmъ
-            instrumental: 'ьmi', // kostьmi
-            locative: 'ьxъ',      // kostьxъ
+            genitive: 'ej',     // kostej
+            dative: 'em',       // kostem
+            instrumental: 'emi', // kostemi
+            locative: 'eh',      // kosteh
             vocative: 'i'        // kosti (звательная форма во множественном числе)
         },
         dual: {
             nominative: 'i',     // kosti
             accusative: 'i',     // kosti
-            genitive: 'ьju',     // kostьju
-            dative: 'ьma',       // kostьma
-            instrumental: 'ьma', // kostьma
-            locative: 'ьju',      // kostьju
+            genitive: 'eju',     // kosteju
+            dative: 'ema',       // kostema
+            instrumental: 'ema', // kostema
+            locative: 'eju',      // kosteju
             vocative: 'i'        // kosti (звательная форма в двойственном числе)
         }
     },
 
     // =========================================================================
-    // 7. СРЕДНИЙ РОД: КОНСОНАНТНЫЕ n-ОСНОВЫ (Пример: *imę, основа *imen-)
+    // 7. СРЕДНИЙ РОД: КОНСОНАНТНЫЕ n-ОСНОВЫ (Пример: imę, основа imen-)
     // =========================================================================
     // Важно: в коде интерславянское слово должно передаваться уже с суффиксом основы
     consonant_n: {
@@ -233,32 +236,32 @@ export const SLAVIC_ENDINGS_REGISTRY: Record<StemType, Record<NumberType, Record
             accusative: '',      // imę
             genitive: 'e',       // imene
             dative: 'i',         // imeni
-            instrumental: 'ьmъ', // imenьmъ
+            instrumental: 'em', // imenem
             locative: 'i',        // imeni
             vocative: ''         // imę (звательная форма совпадает с номинативом)
         },
         plural: {
             nominative: 'a',     // imena
             accusative: 'a',     // imena
-            genitive: 'ъ',       // imenъ
-            dative: 'ьmъ',       // imenьmъ
+            genitive: '',       // imen
+            dative: 'em',       // imenem
             instrumental: 'y',   // imeny
-            locative: 'ьxъ',      // imenьxъ
+            locative: 'eh',      // imeneh
             vocative: 'a'        // imena (звательная форма во множественном числе)
         },
         dual: {
             nominative: 'i',     // imeni
             accusative: 'i',     // imeni
             genitive: 'u',       // imenu
-            dative: 'ьma',       // imenьma
-            instrumental: 'ьma', // imenьma
+            dative: 'ema',       // imenema
+            instrumental: 'ema', // imenema
             locative: 'u',        // imenu
             vocative: 'i'        // imeni (звательная форма в двойственном числе)
         }
     },
 
     // =========================================================================
-    // 8. СРЕДНИЙ РОД: КОНСОНАНТНЫЕ s-ОСНОВЫ (Пример: *nebo, основа *nebes-)
+    // 8. СРЕДНИЙ РОД: КОНСОНАНТНЫЕ s-ОСНОВЫ (Пример: nebo, основа nebes-)
     // =========================================================================
     consonant_s: {
         singular: {
@@ -266,25 +269,25 @@ export const SLAVIC_ENDINGS_REGISTRY: Record<StemType, Record<NumberType, Record
             accusative: 'o',     // nebo
             genitive: 'e',       // nebese
             dative: 'i',         // nebesi
-            instrumental: 'ьmъ', // nebesьmъ
+            instrumental: 'em', // nebesem
             locative: 'i',        // nebesi
             vocative: 'o'        // nebo (звательная форма совпадает с номинативом)
         },
         plural: {
             nominative: 'a',     // nebesa
             accusative: 'a',     // nebesa
-            genitive: 'ъ',       // nebesъ
-            dative: 'ьmъ',       // nebesьmъ
+            genitive: '',       // nebes
+            dative: 'em',       // nebesem
             instrumental: 'y',   // nebesy
-            locative: 'ьxъ',      // nebesьxъ
+            locative: 'eh',      // nebeseh
             vocative: 'a'        // nebesa (звательная форма во множественном числе)
         },
         dual: {
             nominative: 'ě',     // nebesě
             accusative: 'ě',     // nebesě
             genitive: 'u',       // nebesu
-            dative: 'ьma',       // nebesьma
-            instrumental: 'ьma', // nebesьma
+            dative: 'ema',       // nebesema
+            instrumental: 'ema', // nebesema
             locative: 'u',        // nebesu
             vocative: 'ě'        // nebesě (звательная форма в двойственном числе)
         }

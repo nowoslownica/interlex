@@ -37,7 +37,7 @@ export const ADJECTIVE_ENDINGS_REGISTRY: Record<AdjStemType, Record<NumberType, 
                 [Case.NOMINATIVE]: 'y', [Case.ACCUSATIVE]: 'y', [Case.GENITIVE]: 'ogo', [Case.DATIVE]: 'omu', [Case.INSTRUMENTAL]: 'ym', [Case.LOCATIVE]: 'om', [Case.VOCATIVE]: 'y'
             },
             [GrammaticalGender.FEM]: {
-                [Case.NOMINATIVE]: 'a', [Case.ACCUSATIVE]: 'ǫ', [Case.GENITIVE]: 'oj', [Case.DATIVE]: 'oj', [Case.INSTRUMENTAL]: 'ojų', [Case.LOCATIVE]: 'oj', [Case.VOCATIVE]: 'a'
+                [Case.NOMINATIVE]: 'a', [Case.ACCUSATIVE]: 'ų', [Case.GENITIVE]: 'oj', [Case.DATIVE]: 'oj', [Case.INSTRUMENTAL]: 'ojų', [Case.LOCATIVE]: 'oj', [Case.VOCATIVE]: 'a'
             },
             [GrammaticalGender.NEUT]: {
                 [Case.NOMINATIVE]: 'o', [Case.ACCUSATIVE]: 'o', [Case.GENITIVE]: 'ogo', [Case.DATIVE]: 'omu', [Case.INSTRUMENTAL]: 'ym', [Case.LOCATIVE]: 'om', [Case.VOCATIVE]: 'o'
@@ -72,7 +72,7 @@ export const ADJECTIVE_ENDINGS_REGISTRY: Record<AdjStemType, Record<NumberType, 
                 [Case.NOMINATIVE]: 'i', [Case.ACCUSATIVE]: 'i', [Case.GENITIVE]: 'ego', [Case.DATIVE]: 'emu', [Case.INSTRUMENTAL]: 'im', [Case.LOCATIVE]: 'em', [Case.VOCATIVE]: 'i'
             },
             [GrammaticalGender.FEM]: {
-                [Case.NOMINATIVE]: 'a', [Case.ACCUSATIVE]: 'ǫ', [Case.GENITIVE]: 'ej', [Case.DATIVE]: 'ej', [Case.INSTRUMENTAL]: 'ejų', [Case.LOCATIVE]: 'ej', [Case.VOCATIVE]: 'a'
+                [Case.NOMINATIVE]: 'a', [Case.ACCUSATIVE]: 'ų', [Case.GENITIVE]: 'ej', [Case.DATIVE]: 'ej', [Case.INSTRUMENTAL]: 'ejų', [Case.LOCATIVE]: 'ej', [Case.VOCATIVE]: 'a'
             },
             [GrammaticalGender.NEUT]: {
                 [Case.NOMINATIVE]: 'e', [Case.ACCUSATIVE]: 'e', [Case.GENITIVE]: 'ego', [Case.DATIVE]: 'emu', [Case.INSTRUMENTAL]: 'im', [Case.LOCATIVE]: 'em', [Case.VOCATIVE]: 'e'

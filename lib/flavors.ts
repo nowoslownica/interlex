@@ -14,6 +14,7 @@ export function generateWestFlavor(core: string): string {
   return E(core)
     .replace(/Ę/g, "E").replace(/ę/g, "e")
     .replace(/Ǫ/g, "O").replace(/ǫ/g, "o")
+    .replace(/Ų/g, "O").replace(/ų/g, "o")
 }
 
 export function generateSouthFlavor(core: string): string {

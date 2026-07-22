@@ -17,32 +17,32 @@ const CASES: Case[] = ['nominative', 'accusative', 'genitive', 'dative', 'instru
 const FEMININE_OVERRIDES: Record<string, Record<string, string>> = {
   a_hard: {
     'Case=Nom|Number=Sing|Gender=Fem': 'a',
-    'Case=Acc|Number=Sing|Gender=Fem': 'ǫ',
+    'Case=Acc|Number=Sing|Gender=Fem': 'ų',
     'Case=Gen|Number=Sing|Gender=Fem': 'y',
     'Case=Dat|Number=Sing|Gender=Fem': 'ě',
-    'Case=Ins|Number=Sing|Gender=Fem': 'ojǫ',
+    'Case=Ins|Number=Sing|Gender=Fem': 'ojų',
     'Case=Nom|Number=Plur|Gender=Fem': 'y',
     'Case=Acc|Number=Plur|Gender=Fem': 'y',
-    'Case=Dat|Number=Plur|Gender=Fem': 'amъ',
+    'Case=Dat|Number=Plur|Gender=Fem': 'am',
     'Case=Ins|Number=Plur|Gender=Fem': 'ami',
-    'Case=Loc|Number=Plur|Gender=Fem': 'ahъ',
+    'Case=Loc|Number=Plur|Gender=Fem': 'ah',
     'Case=Voc|Number=Plur|Gender=Fem': 'y',
     'Case=Dat|Number=Dual|Gender=Fem': 'ama',
     'Case=Ins|Number=Dual|Gender=Fem': 'ama',
   },
   a_soft: {
     'Case=Nom|Number=Sing|Gender=Fem': 'a',
-    'Case=Acc|Number=Sing|Gender=Fem': 'ǫ',
+    'Case=Acc|Number=Sing|Gender=Fem': 'ų',
     'Case=Gen|Number=Sing|Gender=Fem': 'ę',
     'Case=Dat|Number=Sing|Gender=Fem': 'i',
-    'Case=Ins|Number=Sing|Gender=Fem': 'ejǫ',
+    'Case=Ins|Number=Sing|Gender=Fem': 'ejų',
     'Case=Loc|Number=Sing|Gender=Fem': 'i',
     'Case=Voc|Number=Sing|Gender=Fem': 'e',
     'Case=Nom|Number=Plur|Gender=Fem': 'ę',
     'Case=Acc|Number=Plur|Gender=Fem': 'ę',
-    'Case=Dat|Number=Plur|Gender=Fem': 'amъ',
+    'Case=Dat|Number=Plur|Gender=Fem': 'am',
     'Case=Ins|Number=Plur|Gender=Fem': 'ami',
-    'Case=Loc|Number=Plur|Gender=Fem': 'ahъ',
+    'Case=Loc|Number=Plur|Gender=Fem': 'ah',
     'Case=Voc|Number=Plur|Gender=Fem': 'ę',
     'Case=Dat|Number=Dual|Gender=Fem': 'ama',
     'Case=Ins|Number=Dual|Gender=Fem': 'ama',
@@ -216,10 +216,10 @@ async function seedEndings() {
     'Gender=Masc|Number=Plur|VerbForm=Part|Tense=Pres|Voice=Act': 'ęťi',
   };
   const PRES_ACT_PART_TH = {
-    'Gender=Masc|Number=Sing|VerbForm=Part|Tense=Pres|Voice=Act': 'ǫšti',
-    'Gender=Fem|Number=Sing|VerbForm=Part|Tense=Pres|Voice=Act': 'ǫťa',
-    'Gender=Neut|Number=Sing|VerbForm=Part|Tense=Pres|Voice=Act': 'ǫťe',
-    'Gender=Masc|Number=Plur|VerbForm=Part|Tense=Pres|Voice=Act': 'ǫťi',
+    'Gender=Masc|Number=Sing|VerbForm=Part|Tense=Pres|Voice=Act': 'ųšti',
+    'Gender=Fem|Number=Sing|VerbForm=Part|Tense=Pres|Voice=Act': 'ųťa',
+    'Gender=Neut|Number=Sing|VerbForm=Part|Tense=Pres|Voice=Act': 'ųťe',
+    'Gender=Masc|Number=Plur|VerbForm=Part|Tense=Pres|Voice=Act': 'ųťi',
   };
 
   for (const [grammeme, value] of Object.entries(PRES_ACT_PART)) {
@@ -313,13 +313,17 @@ async function seedEndings() {
   }
 
   // === 12. Numeral "tri" / "četyre" endings ===
+  // Gen/Dat/Ins/Loc plural historically share the i_basis noun ending (kostьjъ,
+  // kostьmъ, kostьmi, kostьxъ) — corrected here the same way i_basis was
+  // (2026-07-24, by analogy, confirmed with project maintainer): ьjъ->ej,
+  // ьmъ->em, ьmi->emi, ьxъ->eh.
   const NUMERAL_THREE_FOUR_ENDINGS: Record<string, string> = {
     'Case=Nom|Number=Plur': 'e',
     'Case=Acc|Number=Plur': 'i',
-    'Case=Gen|Number=Plur': 'ьjъ',
-    'Case=Dat|Number=Plur': 'ьmъ',
-    'Case=Ins|Number=Plur': 'ьmi',
-    'Case=Loc|Number=Plur': 'ьxъ',
+    'Case=Gen|Number=Plur': 'ej',
+    'Case=Dat|Number=Plur': 'em',
+    'Case=Ins|Number=Plur': 'emi',
+    'Case=Loc|Number=Plur': 'eh',
     'Case=Voc|Number=Plur': 'e',
   };
   for (const [g, v] of Object.entries(NUMERAL_THREE_FOUR_ENDINGS)) {

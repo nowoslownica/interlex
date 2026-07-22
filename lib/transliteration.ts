@@ -24,7 +24,7 @@ function isCyrillic(text: string): boolean {
 
 export function detectScript(text: string): Script | null {
   if (!text) return null
-  const hasHistorical = /[ěěęęǫǫ]/i.test(text) || /[ѢѣѦѧѪѫ]/.test(text)
+  const hasHistorical = /[ěęǫų]/i.test(text) || /[ѢѣѦѧѪѫ]/.test(text)
   const hasCyr = isCyrillic(text)
   const hasJBeforeVowel = /j[aeou]/i.test(text)
   const hasIBeforeVowel = /i[aeouаеоу]/i.test(text)
@@ -62,7 +62,7 @@ export function etymCyrToEtymLat(text: string): string {
     'І': 'J', 'і': 'j',
     'Ѣ': 'Ě', 'ѣ': 'ě',
     'Ѧ': 'Ę', 'ѧ': 'ę',
-    'Ѫ': 'Ǫ', 'ѫ': 'ǫ',
+    'Ѫ': 'Ų', 'ѫ': 'ų',
   }
 
   let result = ""
@@ -100,7 +100,7 @@ function etymLatToStdLat(text: string): string {
   if (!text) return ""
   return text
     .replace(/[ĚĘ]/g, 'E').replace(/[ěę]/g, 'e')
-    .replace(/[Ǫ]/g, 'U').replace(/[ǫ]/g, 'u')
+    .replace(/[ǪŲ]/g, 'U').replace(/[ǫų]/g, 'u')
 }
 
 function etymLatToStdCyr(text: string): string {

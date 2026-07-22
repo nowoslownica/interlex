@@ -284,10 +284,10 @@ export function generateParticiples(verb: VerbModel): Participles {
         paPl = iotated + getPartEnding(st, 'Masc', 'pl', PRES_ACT_EXTRA, 'ęťi');
     } else {
         const st = 'verb_part_act_pres_th';
-        paMasc = baseForVowels + getPartEnding(st, 'Masc', 'sg', PRES_ACT_EXTRA, 'ǫšti');
-        paFem = baseForVowels + getPartEnding(st, 'Fem', 'sg', PRES_ACT_EXTRA, 'ǫťa');
-        paNeut = baseForVowels + getPartEnding(st, 'Neut', 'sg', PRES_ACT_EXTRA, 'ǫťe');
-        paPl = baseForVowels + getPartEnding(st, 'Masc', 'pl', PRES_ACT_EXTRA, 'ǫťi');
+        paMasc = baseForVowels + getPartEnding(st, 'Masc', 'sg', PRES_ACT_EXTRA, 'ųšti');
+        paFem = baseForVowels + getPartEnding(st, 'Fem', 'sg', PRES_ACT_EXTRA, 'ųťa');
+        paNeut = baseForVowels + getPartEnding(st, 'Neut', 'sg', PRES_ACT_EXTRA, 'ųťe');
+        paPl = baseForVowels + getPartEnding(st, 'Masc', 'pl', PRES_ACT_EXTRA, 'ųťi');
     }
 
     let ppm: string;
