@@ -6,96 +6,8 @@ import { redirect } from "next/navigation"
 import { generateStemCandidates } from "@/lib/grammar/common/stem-candidates"
 import { generateUniqueSlug } from "@/lib/slug"
 import { logAudit, type FieldChange } from "@/lib/audit-log"
-
-const meaningLanguageInclude = {
-  en_word: true, ru_word: true, mk_word: true, sr_word: true,
-  bg_word: true, pl_word: true, cs_word: true, sl_word: true,
-  de_word: true, uk_word: true, be_word: true, sk_word: true,
-  hr_word: true, hsb_word: true, dsb_word: true, cu_word: true,
-  nl_word: true, eo_word: true,
-} as const
-
-function getLangModel(lang: string) {
-  const models: Record<string, unknown> = {
-    en: db.en, ru: db.ru, mk: db.mk, sr: db.sr, bg: db.bg,
-    pl: db.pl, cs: db.cs, sl: db.sl, de: db.de, uk: db.uk,
-    be: db.be, sk: db.sk, hr: db.hr, hsb: db.hsb, dsb: db.dsb,
-    cu: db.cu, nl: db.nl, eo: db.eo,
-  }
-  return models[lang]
-}
-
-async function ensureTranslation(
-  lang: string, wordId: number, meaningId: number,
-  translation: { id: number; value: string; veryfied: number; message: string },
-  user: { id?: string; email?: string | null } | null | undefined
-) {
-  const model = getLangModel(lang) as any
-  if (!model) return
-  if (translation.id > 0) {
-    const existing = await model.findUnique({ where: { id: translation.id } })
-    if (!existing) return
-    const changes: FieldChange[] = []
-    if ((existing.value ?? "") !== translation.value) {
-      changes.push({ field: `${lang}.value`, oldValue: existing.value ?? null, newValue: translation.value })
-    }
-    if ((existing.veryfied ?? 0) !== translation.veryfied) {
-      changes.push({ field: `${lang}.veryfied`, oldValue: existing.veryfied ?? 0, newValue: translation.veryfied })
-    }
-    if ((existing.message ?? "") !== translation.message) {
-      changes.push({ field: `${lang}.message`, oldValue: existing.message ?? null, newValue: translation.message })
-    }
-    if (changes.length > 0) {
-      await model.update({
-        where: { id: translation.id },
-        data: {
-          value: translation.value || null,
-          veryfied: translation.veryfied,
-          message: translation.message || null,
-        },
-      })
-      await logAudit(user, "Lexeme", wordId, changes)
-    }
-  } else if (translation.value.trim()) {
-    await model.create({
-      data: {
-        meaningId,
-        value: translation.value,
-        veryfied: translation.veryfied,
-        message: translation.message || null,
-      },
-    })
-    await logAudit(user, "Lexeme", wordId, [
-      { field: `${lang}.value`, oldValue: null, newValue: translation.value },
-      { field: `${lang}.veryfied`, oldValue: null, newValue: translation.veryfied },
-      ...(translation.message ? [{ field: `${lang}.message`, oldValue: null, newValue: translation.message }] : []),
-    ])
-  }
-}
-
-async function syncTranslations(
-  lang: string, wordId: number, meaningId: number,
-  translations: { id: number; value: string; veryfied: number; message: string }[],
-  user: { id?: string; email?: string | null } | null | undefined
-) {
-  const model = getLangModel(lang) as any
-  if (!model) return
-  const existingRows = await model.findMany({
-    where: { meaningId },
-    select: { id: true },
-  })
-  const existingIds = new Set<number>(existingRows.map((r: { id: number }) => r.id))
-  const formIds = new Set(translations.filter((t) => t.id > 0).map((t) => t.id))
-
-  const toDelete: number[] = [...existingIds].filter((id) => !formIds.has(id))
-  if (toDelete.length > 0) {
-    await model.deleteMany({ where: { id: { in: toDelete } } })
-  }
-
-  for (const t of translations) {
-    await ensureTranslation(lang, wordId, meaningId, t, user)
-  }
-}
+import { init } from "@/lib/sqlite"
+import { upsertTranslation, syncTranslationsForMeaning } from "@/lib/translations"
 
 export async function updateWord(formData: any) {
   const session = await auth()
@@ -322,9 +234,18 @@ export async function updateWord(formData: any) {
     }
 
     if (m.translations) {
+      const dbSimple = await init()
       for (const lang of Object.keys(m.translations)) {
-        await syncTranslations(lang as string, wordId, meaningId, m.translations[lang], session?.user)
+        const changes = syncTranslationsForMeaning(dbSimple, {
+          meaningId,
+          language: lang,
+          translations: m.translations[lang],
+        })
+        if (changes.length > 0) {
+          await logAudit(session?.user, "Lexeme", wordId, changes)
+        }
       }
+      dbSimple.close()
     }
   }
 
@@ -405,29 +326,27 @@ export async function createWord(formData: any) {
     data: { lexemeId: newWord.id, meaning: "Основное значение" },
   })
 
-  await db.en.create({
-    data: {
-      meaningId: newMeaning.id,
-      value: formData.translationEn,
-      veryfied: formData.isEnVerified ? 1 : 0,
-    },
+  const dbSimpleNew = await init()
+  const enResult = upsertTranslation(dbSimpleNew, {
+    meaningId: newMeaning.id,
+    language: "en",
+    value: formData.translationEn,
+    veryfied: formData.isEnVerified ? 1 : 0,
   })
-  await logAudit(session?.user, "Lexeme", newWord.id, [
-    { field: "en.value", oldValue: null, newValue: formData.translationEn },
-    { field: "en.veryfied", oldValue: null, newValue: formData.isEnVerified ? 1 : 0 },
-  ])
+  if (enResult.changes.length > 0) {
+    await logAudit(session?.user, "Lexeme", newWord.id, enResult.changes)
+  }
 
-  await db.ru.create({
-    data: {
-      meaningId: newMeaning.id,
-      value: formData.translationRu,
-      veryfied: formData.isRuVerified ? 1 : 0,
-    },
+  const ruResult = upsertTranslation(dbSimpleNew, {
+    meaningId: newMeaning.id,
+    language: "ru",
+    value: formData.translationRu,
+    veryfied: formData.isRuVerified ? 1 : 0,
   })
-  await logAudit(session?.user, "Lexeme", newWord.id, [
-    { field: "ru.value", oldValue: null, newValue: formData.translationRu },
-    { field: "ru.veryfied", oldValue: null, newValue: formData.isRuVerified ? 1 : 0 },
-  ])
+  if (ruResult.changes.length > 0) {
+    await logAudit(session?.user, "Lexeme", newWord.id, ruResult.changes)
+  }
+  dbSimpleNew.close()
 
   const createdRootIds: number[] = []
   if (formData.newRootValues && formData.newRootValues.length > 0) {

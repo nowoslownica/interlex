@@ -520,7 +520,9 @@
       "cs": "Czech",
       "de": "German",
       "nl": "Dutch",
-      "eo": "Esperanto"
+      "eo": "Esperanto",
+      "hsb": "Upper Sorbian",
+      "dsb": "Lower Sorbian"
     }
   },
   "admin": {

@@ -1,8 +1,11 @@
 import {init} from "@/lib/sqlite";
+import {fetchTranslationsForLexemeIds, type TranslationRow} from "@/lib/translations";
 
 export const getDictItems = async (search: string, from: string, to: string, mainCategory?: string, usageType?: string) => {
     const db = await init();
 
+    // `to` is now bound as a `language` parameter against the consolidated
+    // translations table, never spliced into SQL as a table name.
     const to_table = to;
 
     let from_table;
@@ -20,19 +23,20 @@ export const getDictItems = async (search: string, from: string, to: string, mai
     let res = [];
 
     if (from_table === "words") {
+        const searchPattern = `%${search}%`;
         const lexemeIds = db.prepare(`
             SELECT DISTINCT l.id FROM lexemes l
             WHERE (
-                l.id IN (SELECT ROWID FROM lexemes_text WHERE value LIKE '%${search}%')
+                l.id IN (SELECT ROWID FROM lexemes_text WHERE value LIKE ?)
                 OR EXISTS (
                     SELECT 1 FROM lexeme_allophones la
                     WHERE la.lexemeId = l.id
                     AND la.flavorId = (SELECT id FROM allophone_flavors WHERE code = 'CORE')
                     AND la.type = 'standard'
-                    AND la.id IN (SELECT ROWID FROM lexeme_allophones_text WHERE value LIKE '%${search}%')
+                    AND la.id IN (SELECT ROWID FROM lexeme_allophones_text WHERE value LIKE ?)
                 )
             )
-        `).all() as { id: number }[];
+        `).all(searchPattern, searchPattern) as { id: number }[];
 
         const foreignKeysArray = lexemeIds.map(r => r.id);
         if (foreignKeysArray.length === 0) return [];
@@ -54,22 +58,36 @@ export const getDictItems = async (search: string, from: string, to: string, mai
             SELECT l.* FROM lexemes l WHERE l.id IN (${placeholders})${filterClause}
         `).all(...foreignKeysArray, ...filterParams) as any[];
 
-        const translations = db.prepare(`
-            SELECT * FROM ${to_table} WHERE wordId IN (${placeholders})
-        `).all(...foreignKeysArray) as any[];
+        // Every translation, in the target language, belonging to any meaning
+        // of these lexemes — joined via meaningId -> Meaning.lexemeId (the
+        // old wordId-based lookup here was already wrong for a meaningful
+        // fraction of hsb/dsb and other rows, see AGENTS.md).
+        const translations = fetchTranslationsForLexemeIds(db, foreignKeysArray, to_table);
 
         res = translations.map(item => ({
             ...item,
-            target: lexemes.find(el => el.id === item.wordId),
+            target: lexemes.find(el => el.id === item.lexemeId),
         })).filter(item => item.target);
     } else {
+        const searchPattern = `%${search}%`;
         const data = db.prepare(`
-            SELECT *
-            FROM ${from_table}
-            WHERE ROWID IN (SELECT ROWID FROM ${from_table}_text WHERE value LIKE '%${search}%' ORDER BY rank)`)
-            .all() as any[];
+            SELECT * FROM translations WHERE language = ? AND value LIKE ?
+        `).all(from_table, searchPattern) as TranslationRow[];
 
-        const foreignKeysArray = data.map(item => item.wordId);
+        const meaningIds = [...new Set(data.map(item => item.meaningId).filter((id): id is number => id != null))];
+        const meaningToLexeme = new Map<number, number>();
+        if (meaningIds.length > 0) {
+            const mPlaceholders = meaningIds.map(() => '?').join(',');
+            const meaningRows = db.prepare(`
+                SELECT id, lexemeId FROM meanings WHERE id IN (${mPlaceholders})
+            `).all(...meaningIds) as { id: number; lexemeId: number }[];
+            for (const r of meaningRows) meaningToLexeme.set(r.id, r.lexemeId);
+        }
+
+        const foreignKeysArray = [...new Set(
+            data.map(item => item.meaningId != null ? meaningToLexeme.get(item.meaningId) : undefined)
+                .filter((id): id is number => id != null)
+        )];
         const placeholders = foreignKeysArray.map(() => '?').join(', ');
 
         let filterClause = '';
@@ -83,13 +101,15 @@ export const getDictItems = async (search: string, from: string, to: string, mai
             filterParams.push(usageType);
         }
 
-        const lexemeRows = db.prepare(`
-            SELECT * FROM lexemes WHERE id IN (${placeholders})${filterClause}
-        `).all(...foreignKeysArray, ...filterParams) as any[];
+        const lexemeRows = foreignKeysArray.length > 0
+            ? db.prepare(`
+                SELECT * FROM lexemes WHERE id IN (${placeholders})${filterClause}
+            `).all(...foreignKeysArray, ...filterParams) as any[]
+            : [];
 
         res = lexemeRows.map(item => ({
             ...item,
-            target: data.find(el => el.wordId === item.id),
+            target: data.find(el => el.meaningId != null && meaningToLexeme.get(el.meaningId) === item.id),
         }));
     }
 

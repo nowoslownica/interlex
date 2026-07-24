@@ -128,7 +128,7 @@ const Word = ({ item, currentScript, nounParadigm }: { item: any; currentScript:
     const getTranslationsForMeaning = (meaningId: number) => {
         const result: Record<string, string> = {};
         for (const [code] of Object.entries(item)) {
-            if (!['en', 'ru', 'uk', 'be', 'cu', 'bg', 'mk', 'sr', 'hr', 'sl', 'pl', 'sk', 'cs', 'de', 'nl', 'eo'].includes(code)) continue;
+            if (!['en', 'ru', 'uk', 'be', 'cu', 'bg', 'mk', 'sr', 'hr', 'sl', 'pl', 'sk', 'cs', 'de', 'nl', 'eo', 'hsb', 'dsb'].includes(code)) continue;
             const data = item[code];
             if (!Array.isArray(data)) continue;
             const match = data.find((t: any) => t.meaningId === meaningId);

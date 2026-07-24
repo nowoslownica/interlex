@@ -8,8 +8,6 @@ import { checkPermission } from '@/lib/permissions';
 import { Feature } from '@/config/features';
 import { mergeLexemes, getDataDbPath, type MergeUpdatedFields } from '@/lib/dedup/mergeLexemes';
 
-const LANGUAGE_KEYS = ['en', 'ru', 'mk', 'sr', 'uk', 'bg', 'pl', 'be', 'cs', 'sk', 'sl', 'hr', 'hsb', 'dsb', 'cu', 'de', 'nl', 'eo'] as const;
-
 function extractAllophone(allophones: { value: string; flavor: { code: string }; type: string }[], code: string): string {
     return allophones.find(a => a.flavor.code === code && a.type === 'standard')?.value ?? '';
 }
@@ -21,15 +19,10 @@ function transformLexemeResults(results: any[]) {
         const nsl = extractAllophone(word.lexemeAllophones, 'NSL');
 
         word.meanings.forEach((m: any) => {
-            LANGUAGE_KEYS.forEach((lang) => {
-                const relationField = `${lang}_word`;
-                if (m[relationField] && Array.isArray(m[relationField])) {
-                    m[relationField].forEach((t: any) => {
-                        if (t.value) {
-                            if (!translations[lang]) translations[lang] = [];
-                            if (!translations[lang].includes(t.value)) translations[lang].push(t.value);
-                        }
-                    });
+            (m.translations || []).forEach((t: any) => {
+                if (t.value) {
+                    if (!translations[t.language]) translations[t.language] = [];
+                    if (!translations[t.language].includes(t.value)) translations[t.language].push(t.value);
                 }
             });
         });
@@ -87,13 +80,7 @@ export async function searchDuplicateWords(query: string, showDuplicates?: boole
                         include: { flavor: true },
                     },
                     meanings: {
-                        include: {
-                            ru_word: true, en_word: true, pl_word: true, uk_word: true,
-                            be_word: true, cs_word: true, sk_word: true, bg_word: true,
-                            mk_word: true, sr_word: true, sl_word: true, hr_word: true,
-                            hsb_word: true, dsb_word: true,
-                            cu_word: true, de_word: true, nl_word: true, eo_word: true
-                        }
+                        include: { translations: true }
                     }
                 },
                 take: 100,
@@ -127,13 +114,7 @@ export async function searchDuplicateWords(query: string, showDuplicates?: boole
                     include: { flavor: true },
                 },
                 meanings: {
-                    include: {
-                        ru_word: true, en_word: true, pl_word: true, uk_word: true,
-                        be_word: true, cs_word: true, sk_word: true, bg_word: true,
-                        mk_word: true, sr_word: true, sl_word: true, hr_word: true,
-                        hsb_word: true, dsb_word: true,
-                        cu_word: true, de_word: true, nl_word: true, eo_word: true
-                    }
+                    include: { translations: true }
                 }
             },
             take: 30,

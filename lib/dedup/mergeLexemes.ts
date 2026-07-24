@@ -1,7 +1,6 @@
 import type Database from 'better-sqlite3';
 import { randomUUID } from 'crypto';
-
-export const LANGUAGE_KEYS = ['en', 'ru', 'mk', 'sr', 'uk', 'bg', 'pl', 'be', 'cs', 'sk', 'sl', 'hr', 'hsb', 'dsb', 'cu', 'de', 'nl', 'eo'] as const;
+import { rewireMeaningId } from '@/lib/translations';
 
 export function getDataDbPath(): string {
     return process.env.SQLITE_DB || (() => {
@@ -145,12 +144,8 @@ export function mergeLexemes(
 
     if (sourceMeaningIds.length > 0) {
         const placeholders = sourceMeaningIds.map(() => '?').join(',');
-        const updateLangStmt = (lang: string) =>
-            db.prepare(`UPDATE "${lang}" SET "meaningId" = ? WHERE "meaningId" IN (${placeholders})`).run(targetMeaningId, ...sourceMeaningIds);
 
-        for (const lang of LANGUAGE_KEYS) {
-            updateLangStmt(lang);
-        }
+        rewireMeaningId(db, { fromMeaningIds: sourceMeaningIds, toMeaningId: targetMeaningId });
 
         // Rewire semantic_relations edges from the merged-away meanings onto
         // targetMeaningId. UPDATE OR IGNORE skips a row if retargeting it would

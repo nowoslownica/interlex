@@ -1,14 +1,7 @@
 import { prismaData as dbData } from "@/lib/prisma"
-import Database from "better-sqlite3"
 import { NextRequest, NextResponse } from "next/server"
-
-interface LangRecord {
-    id: number
-    value: string | null
-    veryfied: number | null
-    wordId: number | null
-    meaningId: number | null
-}
+import { init } from "@/lib/sqlite"
+import { fetchTranslationsForMeaningIds } from "@/lib/translations"
 
 export async function GET(req: NextRequest) {
   const ids = req.nextUrl.searchParams.get("ids") || ""
@@ -29,18 +22,8 @@ export async function GET(req: NextRequest) {
   const meaningIds = words.flatMap(w => w.meanings.map(m => m.id)).filter(Boolean)
 
   if (meaningIds.length > 0) {
-    const db = new Database(process.env.SQLITE_DB!)
-    const placeholders = meaningIds.map(() => '?').join(", ")
-    const rows = db.prepare(
-      `SELECT * FROM ${lang} WHERE meaningId IN (${placeholders})`
-    ).all(...meaningIds) as LangRecord[]
-
-    const transByMeaning: Record<number, LangRecord[]> = {}
-    for (const row of rows) {
-      if (row.meaningId == null) continue
-      if (!transByMeaning[row.meaningId]) transByMeaning[row.meaningId] = []
-      transByMeaning[row.meaningId].push(row)
-    }
+    const db = await init()
+    const transByMeaning = fetchTranslationsForMeaningIds(db, meaningIds, [lang])[lang] ?? {}
 
     for (const word of words) {
       const wordTranslations: string[] = []

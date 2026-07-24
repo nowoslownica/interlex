@@ -1,29 +1,7 @@
 import {init} from "@/lib/sqlite";
+import {fetchTranslationsForMeaningIds, type TranslationRow} from "@/lib/translations";
 
-interface LangRecord {
-    id: number;
-    value: string | null;
-    veryfied: number | null;
-    wordId: number | null;
-    meaningId: number | null;
-}
-
-export const getLangDataAll = (db, lang: string, meaningIds: number[]): Record<number, LangRecord[]> => {
-    if (meaningIds.length === 0) return {};
-    const placeholders = meaningIds.map(() => '?').join(', ');
-    const rows = db.prepare(`
-        SELECT * FROM ${lang} WHERE meaningId IN (${placeholders})
-    `).all(...meaningIds) as LangRecord[];
-
-    const grouped: Record<number, LangRecord[]> = {};
-    for (const row of rows) {
-        const key = row.meaningId;
-        if (key == null) continue;
-        if (!grouped[key]) grouped[key] = [];
-        grouped[key].push(row);
-    }
-    return grouped;
-};
+type LangRecord = TranslationRow;
 
 export const getDictItems = async (
     search: string,
@@ -114,7 +92,6 @@ export const getDictItems = async (
 
     const langCodes = ["en", "ru", "mk", "sr", "bg", "pl", "cs", "sl", "de", "uk", "be", "sk", "hr", "hsb", "dsb", "cu", "nl", "eo"];
 
-    let allLangData: Record<string, Record<number, LangRecord[]>> = {};
     let res: any[];
 
     const lexemeIds = data.map(item => item.id).filter(Boolean);
@@ -135,9 +112,7 @@ export const getDictItems = async (
         }
     }
 
-    for (const lang of langCodes) {
-        allLangData[lang] = getLangDataAll(db, lang, allMeaningIds);
-    }
+    const allLangData = fetchTranslationsForMeaningIds(db, allMeaningIds, langCodes);
 
     res = data.flatMap(item => {
         const meaningIds = lexemeToMeanings[item.id] || [];
@@ -152,7 +127,7 @@ export const getDictItems = async (
             const m = meaningMap[mid];
             const result: any = { ...item, meaningId: m.id, meaningText: m.meaning, examples: m.examples };
             for (const lang of langCodes) {
-                result[lang] = allLangData[lang][mid] || [];
+                result[lang] = allLangData[lang]?.[mid] || [];
             }
             return result;
         });

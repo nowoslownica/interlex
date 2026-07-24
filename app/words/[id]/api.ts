@@ -1,13 +1,6 @@
 import {init} from "@/lib/sqlite";
 import {fetchSymmetricSemanticRelations} from "@/lib/relations";
-
-const getLang = async (lang: string, wordId: string) => {
-  const db = await init();
-
-  const data = db.prepare(`select * from ${lang} where wordId = ?`).all(wordId);
-
-  return data;
-}
+import {fetchTranslationsForLexeme} from "@/lib/translations";
 
 export const getItem = async (id: string) => {
   const db = await init();
@@ -66,24 +59,26 @@ export const getItem = async (id: string) => {
     antonyms: antonymsByMeaning[m.id] || [],
   }));
 
-  const ru = await getLang("ru", id);
-  const en = await getLang("en", id);
-  const uk = await getLang("uk", id);
-  const be = await getLang("be", id);
-  const bg = await getLang("bg", id);
-  const sr = await getLang("sr", id);
-  const mk = await getLang("mk", id);
-  const hr = await getLang("hr", id);
-  const sl = await getLang("sl", id);
-  const pl = await getLang("pl", id);
-  const cs = await getLang("cs", id);
-  const sk = await getLang("sk", id);
-  const de = await getLang("de", id);
-  const nl = await getLang("nl", id);
-  const eo = await getLang("eo", id);
-  const cu = await getLang("cu", id);
-  const hsb = await getLang("hsb", id);
-  const dsb = await getLang("dsb", id);
+  const byLang = fetchTranslationsForLexeme(db, parseInt(id, 10));
+  const emptyArr: never[] = [];
+  const ru = byLang.ru ?? emptyArr;
+  const en = byLang.en ?? emptyArr;
+  const uk = byLang.uk ?? emptyArr;
+  const be = byLang.be ?? emptyArr;
+  const bg = byLang.bg ?? emptyArr;
+  const sr = byLang.sr ?? emptyArr;
+  const mk = byLang.mk ?? emptyArr;
+  const hr = byLang.hr ?? emptyArr;
+  const sl = byLang.sl ?? emptyArr;
+  const pl = byLang.pl ?? emptyArr;
+  const cs = byLang.cs ?? emptyArr;
+  const sk = byLang.sk ?? emptyArr;
+  const de = byLang.de ?? emptyArr;
+  const nl = byLang.nl ?? emptyArr;
+  const eo = byLang.eo ?? emptyArr;
+  const cu = byLang.cu ?? emptyArr;
+  const hsb = byLang.hsb ?? emptyArr;
+  const dsb = byLang.dsb ?? emptyArr;
 
   return {
     ...data,

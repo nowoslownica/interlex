@@ -12,6 +12,7 @@ import AdminNav from "@/components/AdminNav"
 import { RelationsTab } from "./_components/relations-tab"
 import { updateWord } from "@/lib/actions/word-actions"
 import { fetchSymmetricSemanticRelations, fetchOutgoingSemanticRelations, fetchIncomingSemanticRelations } from "@/lib/relations"
+import { fetchTranslationsForMeaningIds } from "@/lib/translations"
 import { RELATION_CONFIG } from "../../../relations/relation-config"
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -49,80 +50,14 @@ interface EditPageProps {
   searchParams: Promise<{ tab?: string }>
 }
 
-const meaningLanguageInclude = {
-  en_word: true,
-  ru_word: true,
-  mk_word: true,
-  sr_word: true,
-  bg_word: true,
-  pl_word: true,
-  cs_word: true,
-  sl_word: true,
-  de_word: true,
-  uk_word: true,
-  be_word: true,
-  sk_word: true,
-  hr_word: true,
-  hsb_word: true,
-  dsb_word: true,
-  cu_word: true,
-  nl_word: true,
-  eo_word: true,
-} as const
-
-function getLangModel(lang: string) {
-  const models: Record<string, unknown> = {
-    en: db.en, ru: db.ru, mk: db.mk, sr: db.sr, bg: db.bg,
-    pl: db.pl, cs: db.cs, sl: db.sl, de: db.de, uk: db.uk,
-    be: db.be, sk: db.sk, hr: db.hr, hsb: db.hsb, dsb: db.dsb,
-    cu: db.cu, nl: db.nl, eo: db.eo,
-  }
-  return models[lang]
-}
-
-function extractTranslations(meaning: {
-  en_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  ru_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  mk_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  sr_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  bg_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  pl_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  cs_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  sl_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  de_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  uk_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  be_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  sk_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  hr_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  hsb_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  dsb_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  cu_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  nl_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-  eo_word: { id: number; value: string | null; veryfied: number | null; message: string | null }[]
-}): Record<string, { id: number; value: string; veryfied: number; message: string }[]> {
+function extractTranslations(
+  byLang: Record<string, Record<number, { id: number; value: string | null; veryfied: number | null; message: string | null }[]>>,
+  meaningId: number
+): Record<string, { id: number; value: string; veryfied: number; message: string }[]> {
   const result: Record<string, { id: number; value: string; veryfied: number; message: string }[]> = {}
-  const langKeys: { key: string; field: keyof typeof meaning }[] = [
-    { key: "en", field: "en_word" },
-    { key: "ru", field: "ru_word" },
-    { key: "mk", field: "mk_word" },
-    { key: "sr", field: "sr_word" },
-    { key: "bg", field: "bg_word" },
-    { key: "pl", field: "pl_word" },
-    { key: "cs", field: "cs_word" },
-    { key: "sl", field: "sl_word" },
-    { key: "de", field: "de_word" },
-    { key: "uk", field: "uk_word" },
-    { key: "be", field: "be_word" },
-    { key: "sk", field: "sk_word" },
-    { key: "hr", field: "hr_word" },
-    { key: "hsb", field: "hsb_word" },
-    { key: "dsb", field: "dsb_word" },
-    { key: "cu", field: "cu_word" },
-    { key: "nl", field: "nl_word" },
-    { key: "eo", field: "eo_word" },
-  ]
-  for (const { key, field } of langKeys) {
-    result[key] = (meaning[field] as { id: number; value: string | null; veryfied: number | null; message: string | null }[])
+  for (const lang of Object.keys(byLang)) {
+    const rows = byLang[lang][meaningId] ?? []
+    result[lang] = rows
       .filter((t) => t.value?.trim())
       .map((t) => ({ id: t.id, value: t.value ?? "", veryfied: t.veryfied ?? 0, message: t.message ?? "" }))
   }
@@ -145,9 +80,7 @@ export default async function EditArticlePage({ params, searchParams }: EditPage
     db.lexeme.findUnique({
       where: { id: wordId },
       include: {
-        meanings: {
-          include: meaningLanguageInclude,
-        },
+        meanings: true,
         lexemes_morphemes: {
           take: 1,
           select: {
@@ -171,6 +104,10 @@ export default async function EditArticlePage({ params, searchParams }: EditPage
   ])
 
   if (!wordData) notFound()
+
+  const dbSimple = await init()
+  const meaningIdsForTranslations = (wordData.meanings || []).map((m) => m.id)
+  const translationsByLang = fetchTranslationsForMeaningIds(dbSimple, meaningIdsForTranslations)
 
   const currentAnomalies = (wordData.anomalies || []).map((a) => ({
     inflection: a.inflection,
@@ -227,7 +164,7 @@ const attachedRoots = (wordData.lexemes_morphemes || [])
     meaningMessage: m.meaningMessage ?? "",
     examplesVeryfied: m.examplesVeryfied ?? 0,
     examplesMessage: m.examplesMessage ?? "",
-    translations: extractTranslations(m as any),
+    translations: extractTranslations(translationsByLang, m.id),
   }))
 
   async function handleUpdate(formData: any) {
@@ -242,7 +179,6 @@ const attachedRoots = (wordData.lexemes_morphemes || [])
       })).map(p => p.featureKey)
     : []
 
-  const dbSimple = await init()
   // Read-only summary tab — mirrors the semantic_relations relationType/direction
   // convention used by the dedicated admin pages (relation-config.ts) so this
   // tab never falls out of sync with what /admin/synonyms, /admin/antonyms and

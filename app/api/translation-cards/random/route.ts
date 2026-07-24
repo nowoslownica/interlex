@@ -3,8 +3,9 @@ import { auth } from "@/auth";
 import { checkPermission } from "@/lib/permissions";
 import { Feature } from "@/config/features";
 import { init } from "@/lib/sqlite";
+import { fetchTranslationsForMeaning, TRANSLATION_LANGUAGE_CODES } from "@/lib/translations";
 
-const LANG_CODES = ["en", "ru", "mk", "sr", "uk", "bg", "pl", "be", "cs", "sk", "sl", "hr", "hsb", "dsb", "cu", "de", "nl", "eo"];
+const LANG_CODES: readonly string[] = TRANSLATION_LANGUAGE_CODES;
 
 export async function GET(request: NextRequest) {
     const session = await auth();
@@ -25,11 +26,11 @@ export async function GET(request: NextRequest) {
         SELECT m.id as meaningId, m.meaning, m.examples, m.lexemeId
         FROM meanings m
         WHERE NOT EXISTS (
-            SELECT 1 FROM "${lang}" t
-            WHERE t.meaningId = m.id AND t.veryfied = 1
+            SELECT 1 FROM translations t
+            WHERE t.meaningId = m.id AND t.language = ? AND t.veryfied = 1
         )
         ORDER BY RANDOM() LIMIT 1
-    `).get() as { meaningId: number; meaning: string | null; examples: string | null; lexemeId: number } | undefined;
+    `).get(lang) as { meaningId: number; meaning: string | null; examples: string | null; lexemeId: number } | undefined;
 
     if (!row) {
         return NextResponse.json({ done: true });
@@ -44,11 +45,9 @@ export async function GET(request: NextRequest) {
         WHERE l.id = ?
     `).get(row.lexemeId) as { id: number; value: string | null; slug: string | null; isv: string | null };
 
-    const ruRow = db.prepare(`SELECT * FROM ru WHERE meaningId = ?`).all(row.meaningId) as any[];
-
-    const enRow = db.prepare(`SELECT * FROM en WHERE meaningId = ?`).all(row.meaningId) as any[];
-
-    const targetRows = db.prepare(`SELECT * FROM "${lang}" WHERE meaningId = ?`).all(row.meaningId) as any[];
+    const ruRow = fetchTranslationsForMeaning(db, row.meaningId, "ru");
+    const enRow = fetchTranslationsForMeaning(db, row.meaningId, "en");
+    const targetRows = fetchTranslationsForMeaning(db, row.meaningId, lang);
 
     return NextResponse.json({
         done: false,

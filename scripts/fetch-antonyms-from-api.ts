@@ -109,8 +109,8 @@ function buildMeaningLookup(db: Awaited<ReturnType<typeof import("@/lib/prisma")
 
         if (uncached.length === 0) return result
 
-        const records = await db.en.findMany({
-            where: {value: {in: uncached}},
+        const records = await db.translation.findMany({
+            where: {language: 'en', value: {in: uncached}},
             select: {
                 value: true,
                 meaningId: true,
@@ -152,7 +152,7 @@ async function main() {
         const batch = await db.lexeme.findMany({
             where: {
                 meanings: {
-                    some: {en_mean: {some: {}}},
+                    some: {translations: {some: {language: 'en'}}},
                 },
             },
             select: {
@@ -162,7 +162,8 @@ async function main() {
                 meanings: {
                     select: {
                         id: true,
-                        en_mean: {
+                        translations: {
+                            where: {language: 'en'},
                             select: {value: true},
                         },
                     },
@@ -176,7 +177,7 @@ async function main() {
 
         for (const word of batch) {
             for (const meaning of word.meanings) {
-                for (const en of meaning.en_mean) {
+                for (const en of meaning.translations) {
                     const val = en.value?.trim()
                     if (!val) continue
                     allTranslations.push({

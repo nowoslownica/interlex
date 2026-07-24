@@ -1,34 +1,8 @@
 import {prismaData as prisma} from "@/lib/prisma";
 import { auth } from "@/auth"
-import { logAudit, type FieldChange } from "@/lib/audit-log"
-
-const ALLOWED_LANG_FIELDS = ["value", "veryfied", "wordId", "meaningId"] as const;
-
-export type LanguageCode =
-
-    | "en" | "ru" | "mk" | "sr" | "uk" | "bg" | "pl" | "be"
-    | "cs" | "sk" | "sl" | "hr" | "hsb" | "dsb" | "cu" | "de" | "nl" | "eo";
-
-export const modelsMap: Record<LanguageCode | string, any> = {
-    en: prisma.en, En: prisma.en,
-    ru: prisma.ru, Ru: prisma.ru,
-    mk: prisma.mk, Mk: prisma.mk,
-    sr: prisma.sr, Sr: prisma.sr,
-    uk: prisma.uk, Uk: prisma.uk,
-    bg: prisma.bg, Bg: prisma.bg,
-    pl: prisma.pl, Pl: prisma.pl,
-    be: prisma.be, Be: prisma.be,
-    cs: prisma.cs, Cs: prisma.cs,
-    sk: prisma.sk, Sk: prisma.sk,
-    sl: prisma.sl, Sl: prisma.sl,
-    hr: prisma.hr, Hr: prisma.hr,
-    hsb: prisma.hsb, Hsb: prisma.hsb,
-    dsb: prisma.dsb, Dsb: prisma.dsb,
-    cu: prisma.cu, Cu: prisma.cu,
-    de: prisma.de, De: prisma.de,
-    nl: prisma.nl, Nl: prisma.nl,
-    eo: prisma.eo, Eo: prisma.eo,
-};
+import { logAudit } from "@/lib/audit-log"
+import { init } from "@/lib/sqlite"
+import { upsertTranslation, TRANSLATION_LANGUAGE_CODES } from "@/lib/translations"
 
 async function syncBaseHomonym(wordId: number, newBase: string | null, oldBase: string | null) {
     async function getFlavorsForLexeme(lexemeId: number): Promise<string[]> {
@@ -167,65 +141,30 @@ export const updateField = async (wordId: string, field: string, newValue: strin
         return;
     }
 
-    const langModel = modelsMap[field];
-    if (langModel) {
-        let entityOne;
+    const lang = field.toLowerCase();
+    if ((TRANSLATION_LANGUAGE_CODES as readonly string[]).includes(lang)) {
+        // Neither identifier available: previously this fell back to a
+        // wordId-based lookup, which per investigation was already wrong for
+        // 93% of hsb/dsb rows (and hundreds of others) — could silently
+        // update the wrong meaning's translation. That fallback no longer
+        // exists (translations are meaningId-scoped only); cleanly no-op
+        // instead, matching the safe half of the old behavior.
+        if (!translationId && !meaningId) return null;
 
-        if (translationId) {
-            entityOne = await langModel.findUnique({
-                where: { id: translationId }
-            });
-        } else {
-            const findWhere: Record<string, unknown> = { wordId: parseInt(wordId) };
-            if (meaningId) findWhere.meaningId = meaningId;
-            entityOne = await langModel.findFirst({
-                where: findWhere
-            });
-        }
-        if (!entityOne) {
-            if (meaningId) {
-                const createData: Record<string, unknown> = {
-                    wordId: parseInt(wordId),
-                    meaningId: meaningId,
-                };
-                if (veryfied !== undefined) createData.veryfied = veryfied;
-                if (newValue) createData.value = newValue;
-                if (message !== undefined) createData.message = message;
-                const created = await langModel.create({ data: createData });
-                if (newValue || veryfied !== undefined || message !== undefined) {
-                    await logAudit(session?.user, "Lexeme", parseInt(wordId), [
-                        { field: `${field}.created`, oldValue: null, newValue: "new translation" },
-                    ])
-                }
-                return created;
-            }
-            return null;
-        }
-
-        const updateData: Record<string, unknown> = {};
-        const changes: FieldChange[] = [];
-
-        if (veryfied !== undefined) {
-            updateData.veryfied = veryfied;
-            if ((entityOne?.veryfied ?? 0) !== veryfied) {
-                changes.push({ field: `${field}.veryfied`, oldValue: entityOne?.veryfied ?? 0, newValue: veryfied });
-            }
-        }
-        if (newValue !== undefined) {
-            updateData.value = newValue;
-            changes.push({ field: `${field}.value`, oldValue: entityOne?.value ?? null, newValue });
-        }
-        if (message !== undefined) {
-            updateData.message = message;
-            changes.push({ field: `${field}.message`, oldValue: entityOne?.message ?? null, newValue: message });
-        }
-
-        const updated = await langModel.update({
-            where: { id: entityOne.id },
-            data: updateData,
+        const db = await init();
+        const { row, changes } = upsertTranslation(db, {
+            id: translationId,
+            meaningId,
+            language: lang,
+            value: newValue,
+            veryfied,
+            message,
         });
-        await logAudit(session?.user, "Lexeme", parseInt(wordId), changes)
-        return updated;
+
+        if (changes.length > 0) {
+            await logAudit(session?.user, "Lexeme", parseInt(wordId), changes)
+        }
+        return row;
     }
     return null;
 };
